@@ -1,8 +1,7 @@
 @*
- * This template takes a single argument, a String containing a
- * message to display.
+ * This template takes two arguments.
  *@
-@(message: String)
+@(stream: Call, post: Call)(implicit req: RequestHeader)
 
 @*
  * Call the `main` template with two arguments. The first
@@ -10,11 +9,32 @@
  * argument is an `Html` object containing the body of the page.
  *@
 @main("Welcome to Play") {
+    <div class="log"></div>
+    <input type="text" name="message" placeholder="Your message"/>
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Scala")
+    <script>
+            var user = prompt("What should be your username?");
 
+            $("input").on("keyup", function (e) {
+                if (e.keyCode != 13)
+                    return;
+
+                var m = {message: this.value, user: user};
+                this.value = "";
+
+                $.ajax({
+                    url: "@post.toString()",
+                    data: JSON.stringify(m),
+                    method: "post",
+                    contentType: "application/json"
+                });
+            });
+
+
+            var feed = new EventSource("@stream.absoluteURL()");
+            feed.addEventListener("message", function (msg) {
+                var m = JSON.parse(msg.data);
+                $(".log").append("<div class='message'>" + m.user + ": " + m.message + "</div>");
+            });
+    </script>
 }
