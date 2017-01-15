@@ -4,6 +4,8 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
+routesGenerator := StaticRoutesGenerator
+
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
