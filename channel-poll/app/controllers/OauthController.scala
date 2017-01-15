@@ -1,9 +1,9 @@
 package controllers
 
 import javax.inject._
-import play.api._
 import play.api.mvc._
 import play.api.libs.oauth._
+import play.api.libs.json
 
 @Singleton
 class OauthController @Inject() extends Controller {
@@ -34,7 +34,7 @@ class OauthController @Inject() extends Controller {
       oauth.retrieveAccessToken(tokenPair, verifier) match {
         case Right(t) => {
           // We received the authorized tokens in the OAuth object - store it before we proceed
-          Redirect(routes.Application.index).withSession("token" -> t.token, "secret" -> t.secret)
+          Redirect(routes.HomeController.index).withSession("token" -> t.token, "secret" -> t.secret)
         }
         case Left(e) => throw e
       }
@@ -47,4 +47,5 @@ class OauthController @Inject() extends Controller {
         case Left(e) => throw e
       })
   }
+
 }

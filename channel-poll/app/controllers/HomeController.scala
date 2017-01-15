@@ -4,8 +4,6 @@ import play.api.libs.EventSource
 import javax.inject._
 import play.api._
 import play.api.mvc._
-import play.api.libs.iteratee.Concurrent
-import play.api.libs.json.JsValue
 
 /**
   * This controller creates an `Action` to handle HTTP requests to the
@@ -14,6 +12,8 @@ import play.api.libs.json.JsValue
 @Singleton
 class HomeController @Inject() extends Controller {
 
+  import play.api.libs.iteratee.Concurrent
+  import play.api.libs.json.JsValue
 
 
   var (chatOut, chatChannel) = Concurrent.broadcast[JsValue]
@@ -38,6 +38,5 @@ class HomeController @Inject() extends Controller {
   }
 
   def postMessage = Action(parse.json) { req => chatChannel.push(req.body); Ok }
-
 
 }
