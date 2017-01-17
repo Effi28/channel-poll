@@ -7,9 +7,13 @@ import main.server.serverCommunication.ClientControl
   */
 object Client {
   def main(args: Array[String]): Unit = {
+
+    //TODO START loginView here
+    //TODO START Controller here
+    val nick:String = "TODO"
     val address:String = "localhost"
     val port:Int = 8008
-    var clientControl:ClientControl = new ClientControl()
-    clientControl.setupClient(address, port)
+    var clientControl:ClientControl = new ClientControl(address, port, nick)
+    clientControl.setupClient()
   }
 }

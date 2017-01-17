@@ -1,10 +1,11 @@
-package client.model.clientCommunication
+package main.server
 
 import java.io.BufferedReader
+
 /**
-  * Created by Effi2 on 16.01.2017.
+  * Created by Effi2 on 17.01.2017.
   */
-class ClientMessageReceiver(in:BufferedReader) {
+class ServerMessageReceiver(in:BufferedReader) {
 
   def readMessage(): Unit ={
     var jsonText:String = null
@@ -14,4 +15,5 @@ class ClientMessageReceiver(in:BufferedReader) {
       }
     }
   }
+
 }
