@@ -26,6 +26,9 @@ class ClientControl() {
       }
     }
     val sender:ClientMessageSender = new ClientMessageSender()
-    sender.writeMessage(socket, nick)
+    while(true){
+      sender.writeMessage(socket, nick)
+      Thread.sleep(1000)
+    }
   }
 }
