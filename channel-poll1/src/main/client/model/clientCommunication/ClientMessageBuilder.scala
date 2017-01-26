@@ -3,15 +3,29 @@ package client.model.clientCommunication
 import org.json._
 import main.shared.enums.JsonType
 
-/**
-  * Created by Effi2 on 16.01.2017.
-  */
 object ClientMessageBuilder {
 
-  def LoginMessage(nick:String): JSONObject = {
+  def loginMessage(nick:String): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGIN)
     Jmsg.put("name", nick)
-    Jmsg
+  }
+
+  def writeLogoutMessage(): JSONObject ={
+    new JSONObject().put("type", JsonType.DISCONNECT)
+  }
+
+  def chatMessage(senderID:String, msg:String):JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.CHAT)
+    Jmsg.put("senderID", senderID)
+    Jmsg.put("stamp", System.currentTimeMillis());
+    Jmsg.put("message", msg)
+  }
+
+  def writeChatMessage(senderID:String, msg:String):JSONObject = { chatMessage(senderID, msg) }
+
+  def writeChatMessage(senderID:String, msg:String, receiverID:String): JSONObject ={
+    chatMessage(senderID, msg).put("receiverID", receiverID)
   }
 }
