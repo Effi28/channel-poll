@@ -25,6 +25,4 @@ class ClientControl(address:String, port:Int ) {
 
   def sendMessage(msg:String):Unit={ sender.writeChatMessage(msg)}
   def sendMessage(msg:String, recv:String):Unit = {sender.writeChatMessage(msg, recv)}
-
-
 }

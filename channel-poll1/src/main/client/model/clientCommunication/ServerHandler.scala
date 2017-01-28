@@ -18,5 +18,4 @@ class ServerHandler (socket:Socket) extends Thread{
       rec.readMessage()
     }
   }
-
 }
