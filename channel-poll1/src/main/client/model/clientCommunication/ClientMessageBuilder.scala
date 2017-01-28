@@ -26,6 +26,6 @@ object ClientMessageBuilder {
   def writeChatMessage(senderID:String, msg:String):JSONObject = { chatMessage(senderID, msg) }
 
   def writeChatMessage(senderID:String, msg:String, receiverID:String): JSONObject ={
-    chatMessage(senderID, msg).put("receiverID", receiverID)
+    chatMessage(senderID, msg).put("groupID", receiverID)
   }
 }

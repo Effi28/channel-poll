@@ -15,13 +15,13 @@ class ClientMessageSender(out:OutputStreamWriter, nick:String) {
     writeMessage(ClientMessageBuilder.writeChatMessage(nick, msg))
   }
 
-  def writeChatMessage(msg:String, recv:String): Unit={
-    writeMessage(ClientMessageBuilder.writeChatMessage(nick, msg, recv))
+  def writeChatMessage(msg:String, group:String): Unit={
+    writeMessage(ClientMessageBuilder.writeChatMessage(nick, msg, group))
   }
 
   def writeMessage(json:JSONObject): Unit ={
+    println("CLIENT SENT: " + json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()
-    print(json.toString + "\n")
   }
 }

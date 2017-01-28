@@ -13,7 +13,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     while (true) {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject:JSONObject = new JSONObject(jsonText)
-        print(JsonType.withName(jsonObject.optString("type")))
+        println("SERVER RECEIVED: " + jsonObject)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
     }
@@ -39,9 +39,15 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
 
   def handleChat(jSONObject: JSONObject): Unit ={
     val sender:String =jSONObject.optString("senderID")
-    val stamo:String =jSONObject.optString("stamp")
+    val stamp:String =jSONObject.optString("stamp")
     val msg:String =jSONObject.optString("message")
-    val rcv:String = jSONObject.optString("receiverID")
+    val rcv:String = jSONObject.optString("groupID")
+    if(rcv == null){
+      client.checkGlobalMessage(sender, stamp, msg)
+    }
+    else{
+      client.checkGroupMessage(sender, stamp, msg, rcv)
+    }
   }
 
 

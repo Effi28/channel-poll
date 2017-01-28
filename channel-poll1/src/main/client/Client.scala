@@ -13,7 +13,7 @@ object Client {
 
     //TODO START loginView here and get userName
     //val loginView:LoginView = new LoginView()
-    val nick:String = "TODO"
+    val nick:String = args(0)
     val clientControl:ClientControl = new ClientControl(address, port)
     //TODO initialize controller with gui
     val control:Controller = new Controller(clientControl)

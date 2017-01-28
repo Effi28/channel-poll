@@ -10,7 +10,7 @@ class ClientMessageReceiver(in:BufferedReader) {
     var jsonText:String = null
     while (true) {
       if ((jsonText = in.readLine()) != null) {
-        print(jsonText + "\n")
+        println("CLIENT RECEIVED: "+ jsonText + "\n")
       }
     }
   }

@@ -10,11 +10,11 @@ import client.model.clientCommunication.ClientMessageReceiver
   */
 class ServerHandler (socket:Socket) extends Thread{
   val rec: ClientMessageReceiver = new ClientMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")))
+
   def message = (Thread.currentThread.getName() + "\n").getBytes
 
   override def run(): Unit = {
     while (true) {
-      print("NEW CLIENT")
       rec.readMessage()
     }
   }
