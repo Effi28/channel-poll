@@ -33,7 +33,8 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleLogout(jSONObject: JSONObject): Unit ={
-
+    val nick:String = jSONObject.optString("name")
+    client.handleLogout(nick)
   }
 
 
@@ -54,5 +55,4 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   def handleInvalid(jSONObject: JSONObject): Unit ={
 
   }
-
 }

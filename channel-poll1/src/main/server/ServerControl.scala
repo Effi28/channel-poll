@@ -1,6 +1,6 @@
 package main.server
 
-import java.net.ServerSocket
+import java.net.{ServerSocket, SocketException}
 import java.util.concurrent.{ExecutorService, Executors}
 
 import scala.collection.mutable
@@ -16,11 +16,12 @@ class ServerControl(port: Int, poolSize: Int) extends Runnable {
   def run() {
     try {
       while (true) {
-        // This will block until a connection comes in.
-        val socket = serverSocket.accept()
-        pool.execute(new ClientHandler(socket, this))
+      // This will block until a connection comes in.
+      val socket = serverSocket.accept()
+      pool.execute(new ClientHandler(socket, this))
       }
-    } finally {
+    }
+    finally {
       pool.shutdown()
     }
   }
@@ -56,5 +57,27 @@ class ServerControl(port: Int, poolSize: Int) extends Runnable {
 
   def broadcastGroupMessage(sender:String, stamp:String, msg:String): Unit = {
 
+  }
+
+  def removeClient(clientHandler: ClientHandler): Unit ={
+    var user:String = null
+    for ((k, v) <- connectedHandler) {
+      if(v.equals(clientHandler)){
+        connectedHandler.remove(k)
+        user = k
+      }
+  }
+    for ((k, v) <- connectedHandler) {
+      if(v.equals(clientHandler)){
+        v.sender.writeDisconnect(user)
+      }
+    }
+  }
+
+  def removeClient(user:String): Unit ={
+    connectedHandler.remove(user)
+    for ((k, v) <- connectedHandler) {
+      v.sender.writeDisconnect(user)
+    }
   }
 }

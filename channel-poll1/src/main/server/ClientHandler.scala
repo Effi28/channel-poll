@@ -1,9 +1,7 @@
 package main.server
 
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
-import java.net.Socket
-
-import client.model.clientCommunication.ClientMessageSender
+import java.net.{Socket, SocketException}
 
 class ClientHandler(socket:Socket, server:ServerControl) extends Runnable{
   val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -12,8 +10,13 @@ class ClientHandler(socket:Socket, server:ServerControl) extends Runnable{
   def message = (Thread.currentThread.getName() + "\n").getBytes
 
   def run(): Unit = {
-    while (true) {
-      rec.readMessage()
+    try{
+      while (true) {
+        rec.readMessage()
+      }
+    }
+    catch{
+      case se:SocketException => server.removeClient(this)
     }
   }
 
@@ -27,5 +30,9 @@ class ClientHandler(socket:Socket, server:ServerControl) extends Runnable{
 
   def checkGroupMessage(sender:String, stamp:String, msg:String, rcv:String): Unit ={
     server.broadcastGroupMessage(sender, stamp, msg)
+  }
+
+  def handleLogout(nick:String): Unit ={
+    server.removeClient(nick)
   }
 }

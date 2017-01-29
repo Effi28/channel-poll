@@ -16,7 +16,7 @@ object ServerMessageBuilder {
 
   def newLogin(nick:String): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
-    Jmsg.put("type", JsonType.LOGINSUCCESS)
+    Jmsg.put("type", JsonType.LOGIN)
     Jmsg.put("name", nick)
   }
 
@@ -24,6 +24,12 @@ object ServerMessageBuilder {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGINFAILED.toString)
     Jmsg.put("reason", "nick already used")
+  }
+
+  def userDisconnect(nick:String):JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.DISCONNECT)
+    Jmsg.put("name", nick)
   }
 
   def writeChatMessage(sender:String, msg:String, stamp:String): JSONObject ={

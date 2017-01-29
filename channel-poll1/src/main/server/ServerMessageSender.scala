@@ -16,6 +16,10 @@ class ServerMessageSender(out:OutputStreamWriter) {
     writeMessage(ServerMessageBuilder.loginFailed(nick))
   }
 
+  def writeDisconnect(nick:String):Unit={
+    writeMessage(ServerMessageBuilder.userDisconnect(nick))
+  }
+
   def writeChatMessage(sender:String, msg:String, stamp:String): Unit={
     writeMessage(ServerMessageBuilder.writeChatMessage(sender, msg, stamp))
   }
