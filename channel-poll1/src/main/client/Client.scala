@@ -1,5 +1,6 @@
 package client
 
+import main.client.controller.Controller
 import main.server.serverCommunication.ClientControl
 
 /**
@@ -7,13 +8,15 @@ import main.server.serverCommunication.ClientControl
   */
 object Client {
   def main(args: Array[String]): Unit = {
-
-    //TODO START loginView here
-    //TODO START Controller here
-    val nick:String = "TODO"
     val address:String = "localhost"
     val port:Int = 8008
-    var clientControl:ClientControl = new ClientControl(address, port, nick)
-    clientControl.setupClient()
+
+    //TODO START loginView here and get userName
+    //val loginView:LoginView = new LoginView()
+    val nick:String = args(0)
+    val clientControl:ClientControl = new ClientControl(address, port)
+    //TODO initialize controller with gui
+    val control:Controller = new Controller(clientControl)
+    clientControl.setupClient(nick)
   }
 }

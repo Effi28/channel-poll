@@ -1,5 +1,7 @@
 package main.shared.enums
 
+import scala.collection.immutable.HashMap
+
 /**
   * Created by Effi2 on 17.01.2017.
   */
