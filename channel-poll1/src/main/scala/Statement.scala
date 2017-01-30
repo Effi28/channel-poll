@@ -1,6 +1,3 @@
-/**
-  * Created by Brenda on 28.01.17.
-  */
 class Statement(i: Int, t: String) {
   var id = i
   var text = t

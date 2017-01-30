@@ -1,13 +1,10 @@
-
-import scalafx.scene.control._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.collections.ObservableMap
 import scalafx.scene.Scene
-import scalafx.scene.layout._
-import scalafx.scene.paint.Color._
+import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
+import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
-
 
 object ChannelPollUI extends JFXApp {
 
@@ -23,7 +20,9 @@ object ChannelPollUI extends JFXApp {
 
   var polls = ObservableMap(1 -> List(), 2 -> List())
 
-   stage = new PrimaryStage {
+
+
+    stage = new PrimaryStage {
     title = "Channel Poll"
     height = 600
     width = 500

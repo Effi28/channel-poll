@@ -24,7 +24,16 @@
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/commons-io-1.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/gson-2.3.1.jar!/" />
           <root url="jar://$MODULE_DIR$/../../lib/java-json.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/javax.servlet-3.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/json-simple-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/lift-json_2.9.0-2.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/twitter4j-async-4.0.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/twitter4j-core-4.0.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/twitter4j-media-support-4.0.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/twitter4j-stream-4.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
