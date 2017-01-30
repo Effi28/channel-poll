@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "type": "statement",
+      "message": "example tweet",
+      "userid": "example_user",
+      "name": "example_username",
+      "screenname": "example_screenname",
+      "pictureurl": "",
+      "created_at": "",
+      "id": 1
+    }
+  ]
+}
