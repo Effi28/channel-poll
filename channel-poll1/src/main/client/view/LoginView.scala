@@ -28,14 +28,13 @@ object LoginView extends JFXApp {
 
       val loginButton = new Button("Login")
 
-      val twitterLogin = new TwitterLogin(AccToken = null, ReqToken = null, myTwitter = null)
+      val twitterLogin = new TwitterLogin()
 
       loginButton.onAction = e => {
 
 
         val loginURL = twitterLogin.startLogin()
         println(loginURL)
-
       }
 
       val loginCode = new TextField()
