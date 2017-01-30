@@ -1,3 +1,7 @@
+package main.client.view
+
+import main.client.model.{Poll, Statement}
+
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.collections.ObservableMap
@@ -6,7 +10,7 @@ import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 
-object ChannelPollUI extends JFXApp {
+object ClientView extends JFXApp {
 
   //Variablen sind provisorisch, die Sachen müssen eigentlich vom Server geholt werden, und neue Kommentare auch dort hin geschickt werden
   val statement1 = new Statement(1, "statement 1 statement 1 statement 1 statement 1 statement 1 statement 1 statement 1")

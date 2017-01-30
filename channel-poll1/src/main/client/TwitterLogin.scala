@@ -2,17 +2,22 @@ package main.client
 
 import java.net.URL
 import java.io.{BufferedReader, InputStreamReader}
+
 import twitter4j._
-import javax.servlet.http.{HttpServlet}
+import javax.servlet.http.HttpServlet
+
+import main.twitter.TwitterSettings
 import twitter4j.auth.{AccessToken, RequestToken}
 
 
 /**
   * Created by KathrinNetzer on 28.01.2017.
   */
-object TwitterLogin extends HttpServlet{
+class TwitterLogin() extends HttpServlet{
 
-  def main(args: Array[String]): Unit = {
+
+
+  def login(): Unit = {
     val TwitterSettings = new TwitterSettings
     val settings = TwitterSettings.settings
 
@@ -27,20 +32,10 @@ object TwitterLogin extends HttpServlet{
         val BffrdRdr: BufferedReader = new BufferedReader(new InputStreamReader(System.in))
         while (null == AccToken) {
           try{
-            println("Open the following URL and grant access to your account:")
             val authUrl = new URL(ReqToken.getAuthorizationURL())
-            println(authUrl)
-            println("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
 
-            val str = BffrdRdr.readLine()
-            println("********************************************************")
-            println(str)
+            return authUrl
 
-            if (str.length > 0) {
-              AccToken = myTwitter.getOAuthAccessToken(ReqToken, str)
-            }else {
-              AccToken = myTwitter.getOAuthAccessToken(ReqToken)
-            }
           } catch {
             case e: TwitterException => println(e)
           }
@@ -50,6 +45,16 @@ object TwitterLogin extends HttpServlet{
       }
       System.exit(0)
     }
+  }
+
+
+  def doLogin(loginCode: String): Unit = {
+    if (loginCode.length > 0) {
+      AccToken = myTwitter.getOAuthAccessToken(ReqToken, loginCode)
+    }else {
+      AccToken = myTwitter.getOAuthAccessToken(ReqToken)
+    }
+
   }
 
   /**

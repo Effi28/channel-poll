@@ -1,3 +1,5 @@
+package main.client.model
+
 class Statement(i: Int, t: String) {
   var id = i
   var text = t

@@ -1,9 +1,26 @@
-[0m[[0minfo[0m] [0mRunning ChannelPollUI [0m
+[0m[[0minfo[0m] [0mRunning main.scala.LoginView [0m
 [0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
 [0m[[0mdebug[0m] [0m  Classpath:[0m
 [0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/commons-io-1.4.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/gson-2.3.1.jar[0m
 [0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/java-json.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/javax.servlet-3.0.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/json-simple-1.1.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/lift-json_2.9.0-2.4.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-async-4.0.4.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-core-4.0.4.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-media-support-4.0.4.jar[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-stream-4.0.4.jar[0m
 [0m[[0mdebug[0m] [0m	/Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	/Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar[0m
 [0m[[0mdebug[0m] [0m	/Users/Brenda/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.1.jar[0m
 [0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
+[0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
+[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
+[0m[[0mdebug[0m] [0mInterrupting thread Glass/Prism Shutdown Hook[0m
+[0m[[0mdebug[0m] [0m	Interrupted Glass/Prism Shutdown Hook[0m
+[0m[[0mdebug[0m] [0mInterrupting thread Thread-3[0m
+[0m[[0mdebug[0m] [0m	Interrupted Thread-3[0m
+[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
+[0m[[0mdebug[0m] [0mExited with code 0[0m

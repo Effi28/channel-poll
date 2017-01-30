@@ -1,43 +1,47 @@
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Initial source changes: [0m
 [0m[[0mdebug[0m] [0m[naha] 	removed:Set()[0m
-[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] 	modified: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidated products: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] External API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Modified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Sources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m[naha] 	product: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
-[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
-[0m[[0mdebug[0m] [0m[naha] Recompiling all 3 sources: invalidated sources (3) exceeded 50.0% of all sources[0m
-[0m[[0minfo[0m] [0mCompiling 3 Scala sources to /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes...[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala, /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Recompiling all 4 sources: invalidated sources (4) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 4 Scala sources to /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes...[0m
 [0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.13:component from component compiler for Scala 2.12.1[0m
 [0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.13:component from component compiler for Scala 2.12.1[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 6216793b, interfacing (CompilerInterface) with Scala compiler version 2.12.1[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler af22d86, interfacing (CompilerInterface) with Scala compiler version 2.12.1[0m
 [0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
 [0m[[0mdebug[0m] [0m	-bootclasspath[0m
 [0m[[0mdebug[0m] [0m	/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/classes:/Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	-classpath[0m
-[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/java-json.jar:/Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar:/Users/Brenda/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.1.jar[0m
-[0m[[33mwarn[0m] [0m/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala:47: a pure expression does nothing in statement position; multiline expressions may require enclosing parentheses[0m
-[0m[[33mwarn[0m] [0m      vbox[0m
-[0m[[33mwarn[0m] [0m      ^[0m
-[0m[[33mwarn[0m] [0m/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala:107: a pure expression does nothing in statement position; multiline expressions might require enclosing parentheses[0m
+[0m[[0mdebug[0m] [0m	/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/commons-io-1.4.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/gson-2.3.1.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/java-json.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/javax.servlet-3.0.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/json-simple-1.1.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/lift-json_2.9.0-2.4.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-async-4.0.4.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-core-4.0.4.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-media-support-4.0.4.jar:/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/lib/twitter4j-stream-4.0.4.jar:/Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar:/Users/Brenda/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.1.jar[0m
+[0m[[33mwarn[0m] [0m/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala:110: a pure expression does nothing in statement position; multiline expressions might require enclosing parentheses[0m
 [0m[[33mwarn[0m] [0m      pollList[0m
 [0m[[33mwarn[0m] [0m      ^[0m
-[0m[[33mwarn[0m] [0mtwo warnings found[0m
-[0m[[0mdebug[0m] [0mScala compilation took 5.88374979 s[0m
+[0m[[33mwarn[0m] [0mone warning found[0m
+[0m[[0mdebug[0m] [0mScala compilation took 6.348895438 s[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala...[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala...[0m
 [0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] The /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m[naha] 	notify, stage, wait, $asInstanceOf, statement1, equals, asInstanceOf, synchronized, $isInstanceOf, main, notifyAll, ChannelPollUI, isInstanceOf, hostServices, statement2, ==, clone, polls, $init$, toString, !=, getClass, statements, ne, init, parameters, eq, stopApp, delayedInit, ##, finalize, hashCode, comments.[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, stage, wait, $asInstanceOf, statement1, equals, asInstanceOf, synchronized, $isInstanceOf, main, notifyAll, ChannelPollUI, isInstanceOf, likes, hostServices, statement2, ==, clone, polls, $init$, toString, !=, getClass, statements, ne, init, parameters, eq, stopApp, delayedInit, ##, finalize, hashCode, comments.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/LoginView.scala source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, stage, wait, $asInstanceOf, equals, asInstanceOf, synchronized, LoginView, $isInstanceOf, main, notifyAll, isInstanceOf, hostServices, ==, clone, $init$, toString, !=, getClass, ne, init, parameters, eq, stopApp, delayedInit, ##, finalize, hashCode.[0m
 [0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala...[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala...[0m
@@ -46,7 +50,7 @@
 [0m[[0mdebug[0m] [0m[naha] The /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala source file has the following regular definitions changed:[0m
 [0m[[0mdebug[0m] [0m[naha] 	notify, question, wait, $asInstanceOf, equals, asInstanceOf, Poll, synchronized, $isInstanceOf, notifyAll, isInstanceOf, options, <init>, id, ==, clone, toString, !=, getClass, statementId, ne, eq, ##, finalize, hashCode.[0m
 [0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0m[naha] The following modified names cause invalidation of /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala: Set(question, equals, asInstanceOf, Poll, isInstanceOf, <init>, id, ==, statementId)[0m
+[0m[[0mdebug[0m] [0m[naha] The following modified names cause invalidation of /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala: Set(question, equals, asInstanceOf, Poll, isInstanceOf, <init>, id, ==, toString, statementId)[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala...[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala...[0m
 [0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala)[0m
@@ -54,7 +58,7 @@
 [0m[[0mdebug[0m] [0m[naha] The /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala source file has the following regular definitions changed:[0m
 [0m[[0mdebug[0m] [0m[naha] 	notify, wait, $asInstanceOf, equals, asInstanceOf, synchronized, $isInstanceOf, text, setPolls, notifyAll, isInstanceOf, likes, <init>, id, Statement, ==, clone, polls, setLikes, setComments, toString, !=, getClass, ne, eq, ##, finalize, hashCode, comments.[0m
 [0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0m[naha] The following modified names cause invalidation of /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala: Set(equals, asInstanceOf, text, isInstanceOf, <init>, id, Statement, ==, polls, comments)[0m
+[0m[[0mdebug[0m] [0m[naha] The following modified names cause invalidation of /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala: Set(equals, asInstanceOf, text, isInstanceOf, likes, <init>, id, Statement, ==, polls, toString, comments)[0m
 [0m[[0mdebug[0m] [0m[naha] New invalidations:[0m
 [0m[[0mdebug[0m] [0m[naha] 	Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set()[0m

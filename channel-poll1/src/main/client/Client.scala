@@ -1,4 +1,4 @@
-package client
+package main.client
 
 import main.client.controller.Controller
 import main.server.serverCommunication.ClientControl
