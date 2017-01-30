@@ -19,18 +19,25 @@ name hashing:
 1 items
 0 -> true
 products:
-5 items
+8 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1$$anon$2.class
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1$$anon$3.class
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1.class
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$.class
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$delayedInit$body.class
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI.class
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/Poll.class
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/Statement.class
 binary dependencies:
-4 items
+8 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jfxrt.jar
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> /Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> /Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar
 direct source dependencies:
 0 items
 direct external dependencies:
@@ -40,7 +47,9 @@ public inherited source dependencies:
 public inherited external dependencies:
 0 items
 member reference internal dependencies:
-0 items
+2 items
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala
 member reference external dependencies:
 0 items
 inheritance internal dependencies:
@@ -48,56 +57,209 @@ inheritance internal dependencies:
 inheritance external dependencies:
 0 items
 class names:
-5 items
+8 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI$
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI$$anon$1
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI$$anon$1$$anon$2
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI$$anon$1$$anon$3
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI$delayedInit$body
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Poll
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Statement
 used names:
-32 items
+177 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> $anon
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> +
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> +=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ->
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ::
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> <byname>
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> <init>
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> <repeated>
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ==
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> A
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ActionEvent
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Any
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ArrowAssoc
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> B
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Boolean
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> BorderPane
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Button
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> CanBuildFrom
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ChannelPollUI
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Coll
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Color
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Double
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> EventHandler
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Function1
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> HBox
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Int
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> JFXApp
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> KeyCode
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> KeyEvent
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Label
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> List
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> MatchError
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Nil
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Node
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> None
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Nothing
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Object
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ObservableList
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> ObservableMap
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Option
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Parent
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Poll
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Predef
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> PrimaryStage
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Scene
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Some
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Statement
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> String
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Subscription
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> T0
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Text
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> TextField
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> TextFlow
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> TextInputDialog
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> That
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Tuple2
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> U
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Unit
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> VBox
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> Window
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> _$9
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> add
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> application
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> apply
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> asInstanceOf
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> border
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> bottom_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> box
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> canBuildFrom
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> center_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> children
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> clear
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> collection
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> collections
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> comment
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> commentBox
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> commentButton
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> commentList
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> comments
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> contentText_=
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> control
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> createStatementBox
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> dialog
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> e
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> equals
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> existingCommentList
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> existingComments
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> foreach
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> getCode
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> getCommentsFromServer
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> getName
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> getPollsFromServer
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> getText
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> headerText_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> height_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> id
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> immutable
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> initOwner
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> isInstanceOf
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> layout
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> left_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> likeButton
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> map
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> newComment
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> onAction_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> onChange
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> onKeyPressed_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> package
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> paint
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> right_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> pollButton
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> pollList
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> polls
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> println
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> promptText_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> question
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> result
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> root_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> s
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> scala
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> scalafx
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> scene
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> scene_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> sendCommentToServer
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> sfxText2jfx
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> sfxTextField2jfx
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> sfxVBox2jfx
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> showAndWait
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> stage
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> stage_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statement
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statement1
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statement2
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statementBoxes
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statementId
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statementTextFlow
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> statements
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> text
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> title_=
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> top_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> updatedCommentList
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> value
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> vbox
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> width_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> <init>
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> AnyRef
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Int
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Null
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Object
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Poll
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> Predef
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> String
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> i
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> id
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> options
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> q
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> question
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> sId
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> scala
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> statementId
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> <init>
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> AnyRef
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Int
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Object
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Predef
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Statement
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> String
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> Unit
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> comments
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> comments_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> i
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> id
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> likes
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> likes_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> polls
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> polls_=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> scala
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> t
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> text
 product stamps:
-5 items
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1$$anon$2.class -> lastModified(1485009280000)
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1.class -> lastModified(1485009280000)
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$.class -> lastModified(1485009280000)
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$delayedInit$body.class -> lastModified(1485009280000)
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI.class -> lastModified(1485009280000)
+8 items
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1$$anon$2.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1$$anon$3.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$$anon$1.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI$delayedInit$body.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/ChannelPollUI.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/Poll.class -> lastModified(1485773174000)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/target/scala-2.12/classes/Statement.class -> lastModified(1485773174000)
 source stamps:
-1 items
-/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> hash(269863505ace4821b0744cb78f0b066aa644f0db)
+3 items
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> hash(395be7870b586f78339b02894fbb0f0c9e3ec32b)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> hash(be7834e3580c0e9b2752e3cc90a654dc211e18b9)
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> hash(61bd0f5e5b2a0327fdc90414de009fa764ebcf49)
 binary stamps:
 4 items
 /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jfxrt.jar -> lastModified(1474572528000)
@@ -106,24 +268,28 @@ binary stamps:
 /Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar -> lastModified(1478127538000)
 class names:
 4 items
-/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jfxrt.jar -> javafx.scene.layout.BorderPane
+/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jfxrt.jar -> javafx.scene.Node
 /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar -> java.lang.Object
-/Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar -> scala.Double
-/Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar -> scalafx.scene.Scene
+/Users/Brenda/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar -> scala.Int
+/Users/Brenda/.ivy2/cache/org.scalafx/scalafx_2.12/jars/scalafx_2.12-8.0.102-R11.jar -> scalafx.application.JFXApp
 internal apis:
-1 items
+3 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> 
-rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwk/i27QAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAcc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwZwQO3nQABm5vdGlmeXNxAH4ADCO2qpd0AAVzdGFnZXNxAH4ADBvp/CN0AAR3YWl0c3EAfgAMMUa293QADSRhc0luc3RhbmNlT2ZzcQB+AAzzCqDUdAAGZXF1YWxzc3EAfgAMgC+uBHQADGFzSW5zdGFuY2VPZnNxAH4ADIVrlh90AAxzeW5jaHJvbml6ZWRzcQB+AAx66WdzdAANJGlzSW5zdGFuY2VPZnNxAH4ADI9Fs1R0AARtYWluc3EAfgAMDnj5PXQACW5vdGlmeUFsbHNxAH4ADArvRlp0AA1DaGFubmVsUG9sbFVJc3EAfgAMO98pT3QADGlzSW5zdGFuY2VPZnNxAH4ADNODymB0AAxob3N0U2VydmljZXNzcQB+AAxkQwSzdAACPT1zcQB+AAwMU3zGdAAFY2xvbmVzcQB+AAyePFEedAAGJGluaXQkc3EAfgAM984qQHQACHRvU3RyaW5nc3EAfgAMOdHoU3QAAiE9c3EAfgAMhCmgs3QACGdldENsYXNzc3EAfgAMPM/7k3QAAm5lc3EAfgAM79YsCnQABGluaXRzcQB+AAxnw7J/dAAKcGFyYW1ldGVyc3NxAH4ADMrSUH10AAJlcXNxAH4ADM67LVl0AAdzdG9wQXBwc3EAfgAMiiZmpXQAC2RlbGF5ZWRJbml0c3EAfgAMN7v7bXQAAiMjc3EAfgAM5vK2EHQACGZpbmFsaXplc3EAfgAMVv7UjHQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AT3hyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzl+dh3BMme7MCAAFCAAVmbGFnc3hwAHEAfgAjdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyACF4c2J0aS5hcGkuQWJzdHJhY3RMYXp5JFN0cmljdExhenkNZhxrKRYquAIAAUwABXZhbHVldAASTGphdmEvbGFuZy9PYmplY3Q7eHBzcgATeHNidGkuYXBpLkVtcHR5VHlwZbz9nkZJO4kkAgAAeHIAFHhzYnRpLmFwaS5TaW1wbGVUeXBlcnhiiCEjv0ACAAB4cgAOeHNidGkuYXBpLlR5cGU/atkhFkmqygIAAHhwc3EAfgBmc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AE9MAAlpbmhlcml0ZWRxAH4AT0wAB3BhcmVudHNxAH4AT3hxAH4Aa3NxAH4AZnVxAH4ASgAAAABzcQB+AGZ1cQB+AEoAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AFBxAH4AWXVxAH4AWgAAAABzcQB+AFwAcQB+AB91cQB+AF4AAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AanQABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AGpzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AIh1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgB1eHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBhdAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgB8WwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgBqc3EAfgB7dAAFQXJyYXlxAH4AgXVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgB7dAAGU3RyaW5nc3EAfgB/c3EAfgCCdXEAfgCFAAAAA3NxAH4Ah3QABGphdmFzcQB+AId0AARsYW5ncQB+AIxzcQB+AGZ1cQB+AKAAAAAEc3EAfgB7dAAGSkZYQXBwc3EAfgB/c3EAfgCCdXEAfgCFAAAAA3NxAH4Ah3QAB3NjYWxhZnhzcQB+AId0AAthcHBsaWNhdGlvbnEAfgCMc3EAfgB7dAALRGVsYXllZEluaXRxAH4AgXNxAH4Ae3QABk9iamVjdHEAfgCkc3EAfgB7dAADQW55cQB+AIF1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAHNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWcFzTQR1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+AA1MAA9zb3VyY2VEaXJlY3RvcnlxAH4ADXhwdABPL1VzZXJzL0JyZW5kYS9EZXNrdG9wL2NoYW5uZWwtcG9sbC1yZXBvL2NoYW5uZWwtcG9sbDEvdGFyZ2V0L3NjYWxhLTIuMTIvY2xhc3Nlc3QAAS91cgACW0Ks8xf4BghU4AIAAHhwAAAAFCaYY1BazkghsHRMt48LBmqmRPDb
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhw1kyhIwAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAhc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwZwQO3nQABm5vdGlmeXNxAH4ADCO2qpd0AAVzdGFnZXNxAH4ADBvp/CN0AAR3YWl0c3EAfgAMMUa293QADSRhc0luc3RhbmNlT2ZzcQB+AAxIU8xodAAKc3RhdGVtZW50MXNxAH4ADPMKoNR0AAZlcXVhbHNzcQB+AAyAL64EdAAMYXNJbnN0YW5jZU9mc3EAfgAMhWuWH3QADHN5bmNocm9uaXplZHNxAH4ADHrpZ3N0AA0kaXNJbnN0YW5jZU9mc3EAfgAMj0WzVHQABG1haW5zcQB+AAwOePk9dAAJbm90aWZ5QWxsc3EAfgAMCu9GWnQADUNoYW5uZWxQb2xsVUlzcQB+AAw73ylPdAAMaXNJbnN0YW5jZU9mc3EAfgAM04PKYHQADGhvc3RTZXJ2aWNlc3NxAH4ADLPkfKN0AApzdGF0ZW1lbnQyc3EAfgAMZEMEs3QAAj09c3EAfgAMDFN8xnQABWNsb25lc3EAfgAMTWe2J3QABXBvbGxzc3EAfgAMnjxRHnQABiRpbml0JHNxAH4ADPfOKkB0AAh0b1N0cmluZ3NxAH4ADDnR6FN0AAIhPXNxAH4ADIQpoLN0AAhnZXRDbGFzc3NxAH4ADMHSXH10AApzdGF0ZW1lbnRzc3EAfgAMPM/7k3QAAm5lc3EAfgAM79YsCnQABGluaXRzcQB+AAxnw7J/dAAKcGFyYW1ldGVyc3NxAH4ADMrSUH10AAJlcXNxAH4ADM67LVl0AAdzdG9wQXBwc3EAfgAMiiZmpXQAC2RlbGF5ZWRJbml0c3EAfgAMN7v7bXQAAiMjc3EAfgAM5vK2EHQACGZpbmFsaXplc3EAfgAMVv7UjHQACGhhc2hDb2Rlc3EAfgAMwcKhz3QACGNvbW1lbnRzc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AWXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzl+dh3BMme7MCAAFCAAVmbGFnc3hwAHEAfgAldXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyACF4c2J0aS5hcGkuQWJzdHJhY3RMYXp5JFN0cmljdExhenkNZhxrKRYquAIAAUwABXZhbHVldAASTGphdmEvbGFuZy9PYmplY3Q7eHBzcgATeHNidGkuYXBpLkVtcHR5VHlwZbz9nkZJO4kkAgAAeHIAFHhzYnRpLmFwaS5TaW1wbGVUeXBlcnhiiCEjv0ACAAB4cgAOeHNidGkuYXBpLlR5cGU/atkhFkmqygIAAHhwc3EAfgBwc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AFlMAAlpbmhlcml0ZWRxAH4AWUwAB3BhcmVudHNxAH4AWXhxAH4AdXNxAH4AcHVxAH4AVAAAAABzcQB+AHB1cQB+AFQAAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AFpxAH4AY3VxAH4AZAAAAABzcQB+AGYAcQB+ACF1cQB+AGgAAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AdHQABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AHRzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AJJ1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgB/eHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBrdAAFUGxhaW50AARhcmdzc3IAF3hzYnRpLmFwaS5QYXJhbWV0ZXJpemVkFmzuaQPJu38CAAJMAAhiYXNlVHlwZXEAfgCGWwANdHlwZUFyZ3VtZW50c3QAEVtMeHNidGkvYXBpL1R5cGU7eHEAfgB0c3EAfgCFdAAFQXJyYXlxAH4Ai3VyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAABc3EAfgCFdAAGU3RyaW5nc3EAfgCJc3EAfgCMdXEAfgCPAAAAA3NxAH4AkXQABGphdmFzcQB+AJF0AARsYW5ncQB+AJZzcQB+AHB1cQB+AKoAAAAEc3EAfgCFdAAGSkZYQXBwc3EAfgCJc3EAfgCMdXEAfgCPAAAAA3NxAH4AkXQAB3NjYWxhZnhzcQB+AJF0AAthcHBsaWNhdGlvbnEAfgCWc3EAfgCFdAALRGVsYXllZEluaXRxAH4Ai3NxAH4AhXQABk9iamVjdHEAfgCuc3EAfgCFdAADQW55cQB+AIt1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAHNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWe77X+d1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+AA1MAA9zb3VyY2VEaXJlY3RvcnlxAH4ADXhwdABPL1VzZXJzL0JyZW5kYS9EZXNrdG9wL2NoYW5uZWwtcG9sbC1yZXBvL2NoYW5uZWwtcG9sbDEvdGFyZ2V0L3NjYWxhLTIuMTIvY2xhc3Nlc3QAAS91cgACW0Ks8xf4BghU4AIAAHhwAAAAFDlb54cLWG94M5sCiU+7DwyePsMr
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwuoaTugAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAZc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwfRoED3QABm5vdGlmeXNxAH4ADDTmrRR0AAhxdWVzdGlvbnNxAH4ADOA5Xwl0AAR3YWl0c3EAfgAMz6o5SXQADSRhc0luc3RhbmNlT2ZzcQB+AAxKH3JMdAAGZXF1YWxzc3EAfgAMfNC79nQADGFzSW5zdGFuY2VPZnNxAH4ADDDPzhl0AARQb2xsc3EAfgAM5QrUAHQADHN5bmNocm9uaXplZHNxAH4ADFt+ngl0AA0kaXNJbnN0YW5jZU9mc3EAfgAMTbt6HXQACW5vdGlmeUFsbHNxAH4ADDATGvF0AAxpc0luc3RhbmNlT2ZzcQB+AAwHK7YddAAHb3B0aW9uc3NxAH4ADKR37210AAY8aW5pdD5zcQB+AAwkLg90dAACaWRzcQB+AAwC0avZdAACPT1zcQB+AAxjY6D5dAAFY2xvbmVzcQB+AAzoobgHdAAIdG9TdHJpbmdzcQB+AAwtTDyLdAACIT1zcQB+AAyIqKZ6dAAIZ2V0Q2xhc3NzcQB+AAzLT8kSdAALc3RhdGVtZW50SWRzcQB+AAyWT6C3dAACbmVzcQB+AAxF6GwkdAACZXFzcQB+AAx33E+IdAACIyNzcQB+AAyEeFHQdAAIZmluYWxpemVzcQB+AAwf4DysdAAIaGFzaENvZGVzcgATeHNidGkuYXBpLlNvdXJjZUFQSblep/kpIzikAgACWwALZGVmaW5pdGlvbnN0ABdbTHhzYnRpL2FwaS9EZWZpbml0aW9uO1sACHBhY2thZ2VzdAAUW0x4c2J0aS9hcGkvUGFja2FnZTt4cHVyABdbTHhzYnRpLmFwaS5EZWZpbml0aW9uO4jJXOe0414OAgAAeHAAAAABc3IAE3hzYnRpLmFwaS5DbGFzc0xpa2WDNByh37CXbAIABEwADmRlZmluaXRpb25UeXBldAAaTHhzYnRpL2FwaS9EZWZpbml0aW9uVHlwZTtbABBzYXZlZEFubm90YXRpb25zdAATW0xqYXZhL2xhbmcvU3RyaW5nO0wACHNlbGZUeXBldAAQTHhzYnRpL2FwaS9MYXp5O0wACXN0cnVjdHVyZXEAfgBJeHIAIXhzYnRpLmFwaS5QYXJhbWV0ZXJpemVkRGVmaW5pdGlvbvkRbrHVUDziAgABWwAOdHlwZVBhcmFtZXRlcnN0ABpbTHhzYnRpL2FwaS9UeXBlUGFyYW1ldGVyO3hyABR4c2J0aS5hcGkuRGVmaW5pdGlvbocqG+hxQuNGAgAETAAGYWNjZXNzdAASTHhzYnRpL2FwaS9BY2Nlc3M7WwALYW5ub3RhdGlvbnN0ABdbTHhzYnRpL2FwaS9Bbm5vdGF0aW9uO0wACW1vZGlmaWVyc3QAFUx4c2J0aS9hcGkvTW9kaWZpZXJzO0wABG5hbWVxAH4ADXhwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnOX52HcEyZ7swIAAUIABWZsYWdzeHAAcQB+ABt1cgAaW0x4c2J0aS5hcGkuVHlwZVBhcmFtZXRlcjvZbSYPKJ3ytgIAAHhwAAAAAH5yABh4c2J0aS5hcGkuRGVmaW5pdGlvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAhDbGFzc0RlZnVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AYHNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBJTAAJaW5oZXJpdGVkcQB+AElMAAdwYXJlbnRzcQB+AEl4cQB+AGVzcQB+AGB1cQB+AEQAAAAAc3EAfgBgdXEAfgBEAAAAAHNxAH4AYHVyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAACc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AZHQABk9iamVjdHNyABN4c2J0aS5hcGkuU2luZ2xldG9u/Kdf+M9W5EYCAAFMAARwYXRodAAQTHhzYnRpL2FwaS9QYXRoO3hxAH4AZHNyAA54c2J0aS5hcGkuUGF0aJs9XAjOpSeEAgABWwAKY29tcG9uZW50c3QAGltMeHNidGkvYXBpL1BhdGhDb21wb25lbnQ7eHB1cgAaW0x4c2J0aS5hcGkuUGF0aENvbXBvbmVudDtD2gl0LWcWdAIAAHhwAAAAA3NyAAx4c2J0aS5hcGkuSWSYMmyLN1PEQAIAAUwAAmlkcQB+AA14cgAXeHNidGkuYXBpLlBhdGhDb21wb25lbnRfmiJbLoafvAIAAHhwdAAEamF2YXNxAH4AfXQABGxhbmdzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4AfnNxAH4AcXQAA0FueXNxAH4AdXNxAH4AeHVxAH4AewAAAAJzcQB+AH10AAVzY2FsYXEAfgCEdXIAFFtMeHNidGkuYXBpLlBhY2thZ2U7WxMZN3CnJ6ECAAB4cAAAAABzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAVnu+1/ndXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAFzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgANTAAPc291cmNlRGlyZWN0b3J5cQB+AA14cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEvdXIAAltCrPMX+AYIVOACAAB4cAAAABS+eDTjWAwOmydS48yQplTcIR4YuQ==
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwK3fXUQAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAdc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hw1RVwoHQABm5vdGlmeXNxAH4ADKcjf6d0AAR3YWl0c3EAfgAMNtjpxHQADSRhc0luc3RhbmNlT2ZzcQB+AAySOGHmdAAGZXF1YWxzc3EAfgAMaE26i3QADGFzSW5zdGFuY2VPZnNxAH4ADNymV4R0AAxzeW5jaHJvbml6ZWRzcQB+AAyXxa70dAANJGlzSW5zdGFuY2VPZnNxAH4ADBMW7DN0AAR0ZXh0c3EAfgAMCHV603QACHNldFBvbGxzc3EAfgAMKige0nQACW5vdGlmeUFsbHNxAH4ADMU5s6l0AAxpc0luc3RhbmNlT2ZzcQB+AAw9QdBOdAAFbGlrZXNzcQB+AAw2Ir97dAAGPGluaXQ+c3EAfgAMufM6ynQAAmlkc3EAfgAMQn/PCHQACVN0YXRlbWVudHNxAH4ADBkYlit0AAI9PXNxAH4ADE1MA7R0AAVjbG9uZXNxAH4ADPB4WM50AAVwb2xsc3NxAH4ADOK+vSd0AAhzZXRMaWtlc3NxAH4ADJVgksp0AAtzZXRDb21tZW50c3NxAH4ADF6jMax0AAh0b1N0cmluZ3NxAH4ADJudnKB0AAIhPXNxAH4ADK04i5l0AAhnZXRDbGFzc3NxAH4ADA0lIJp0AAJuZXNxAH4ADKv0YSt0AAJlcXNxAH4ADMqJGod0AAIjI3NxAH4ADEo0ZYZ0AAhmaW5hbGl6ZXNxAH4ADDWMNvd0AAhoYXNoQ29kZXNxAH4ADJwXjW90AAhjb21tZW50c3NyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+AFF4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXEAfgANeHBzcgAQeHNidGkuYXBpLlB1YmxpY7pYPa5sLWBCAgAAeHIAEHhzYnRpLmFwaS5BY2Nlc3PdYpr4HWMxSAIAAHhwdXIAF1tMeHNidGkuYXBpLkFubm90YXRpb24765frGRD2jUgCAAB4cAAAAABzcgATeHNidGkuYXBpLk1vZGlmaWVyc5fnYdwTJnuzAgABQgAFZmxhZ3N4cABxAH4AK3VyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQACENsYXNzRGVmdXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyACF4c2J0aS5hcGkuQWJzdHJhY3RMYXp5JFN0cmljdExhenkNZhxrKRYquAIAAUwABXZhbHVldAASTGphdmEvbGFuZy9PYmplY3Q7eHBzcgATeHNidGkuYXBpLkVtcHR5VHlwZbz9nkZJO4kkAgAAeHIAFHhzYnRpLmFwaS5TaW1wbGVUeXBlcnhiiCEjv0ACAAB4cgAOeHNidGkuYXBpLlR5cGU/atkhFkmqygIAAHhwc3EAfgBoc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AFFMAAlpbmhlcml0ZWRxAH4AUUwAB3BhcmVudHNxAH4AUXhxAH4AbXNxAH4AaHVxAH4ATAAAAABzcQB+AGh1cQB+AEwAAAAAc3EAfgBodXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAJzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+AA1MAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgBsdAAGT2JqZWN0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgBsc3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAADc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4ADXhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AARqYXZhc3EAfgCFdAAEbGFuZ3NyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgCGc3EAfgB5dAADQW55c3EAfgB9c3EAfgCAdXEAfgCDAAAAAnNxAH4AhXQABXNjYWxhcQB+AIx1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAHNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWe77X+d1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+AA1MAA9zb3VyY2VEaXJlY3RvcnlxAH4ADXhwdABPL1VzZXJzL0JyZW5kYS9EZXNrdG9wL2NoYW5uZWwtcG9sbC1yZXBvL2NoYW5uZWwtcG9sbDEvdGFyZ2V0L3NjYWxhLTIuMTIvY2xhc3Nlc3QAAS91cgACW0Ks8xf4BghU4AIAAHhwAAAAFGG9D15bKgMn/ckEFN4An6dk689J
 external apis:
 0 items
 source infos:
-1 items
+3 items
 /Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/ChannelPollUI.scala -> 
+AAAAAgAAAQAAAC8ACiAgICAgIHZib3gBAAAFZgEAAAAGAQAGICAgICAgAQBYL1VzZXJzL0JyZW5kYS9EZXNrdG9wL2NoYW5uZWwtcG9sbC1yZXBvL2NoYW5uZWwtcG9sbDEvc3JjL21haW4vc2NhbGEvQ2hhbm5lbFBvbGxVSS5zY2FsYQEAWC9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3NyYy9tYWluL3NjYWxhL0NoYW5uZWxQb2xsVUkuc2NhbGEAbWEgcHVyZSBleHByZXNzaW9uIGRvZXMgbm90aGluZyBpbiBzdGF0ZW1lbnQgcG9zaXRpb247IG11bHRpbGluZSBleHByZXNzaW9ucyBtYXkgcmVxdWlyZSBlbmNsb3NpbmcgcGFyZW50aGVzZXMBAAABAAAAawAOICAgICAgcG9sbExpc3QBAAAKgQEAAAAGAQAGICAgICAgAQBYL1VzZXJzL0JyZW5kYS9EZXNrdG9wL2NoYW5uZWwtcG9sbC1yZXBvL2NoYW5uZWwtcG9sbDEvc3JjL21haW4vc2NhbGEvQ2hhbm5lbFBvbGxVSS5zY2FsYQEAWC9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3NyYy9tYWluL3NjYWxhL0NoYW5uZWxQb2xsVUkuc2NhbGEAb2EgcHVyZSBleHByZXNzaW9uIGRvZXMgbm90aGluZyBpbiBzdGF0ZW1lbnQgcG9zaXRpb247IG11bHRpbGluZSBleHByZXNzaW9ucyBtaWdodCByZXF1aXJlIGVuY2xvc2luZyBwYXJlbnRoZXNlcwEAAAAA
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Poll.scala -> 
+AAAAAAAAAAA=
+/Users/Brenda/Desktop/channel-poll-repo/channel-poll1/src/main/scala/Statement.scala -> 
 AAAAAAAAAAA=
 compilations:
-5 items
-0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWa02/yR1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv
-1 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWcFOH/d1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv
-2 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWcFyLXx1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv
-3 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWcFy35x1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv
-4 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWcFzTQR1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv
+1 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWe77X+d1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATy9Vc2Vycy9CcmVuZGEvRGVza3RvcC9jaGFubmVsLXBvbGwtcmVwby9jaGFubmVsLXBvbGwxL3RhcmdldC9zY2FsYS0yLjEyL2NsYXNzZXN0AAEv

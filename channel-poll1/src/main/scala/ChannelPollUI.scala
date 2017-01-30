@@ -17,52 +17,57 @@ object ChannelPollUI extends JFXApp {
 
   val statements = List(statement1, statement2)
 
+  var likes = ObservableMap(1 -> 3, 2 -> 4)
 
   var comments = ObservableMap(1 -> List("comment 1 for statement 1", "comment 2 for statement 1"), 2 -> List("comment 1 for statement 2", "comment 2 for statement 2"))
 
   var polls = ObservableMap(1 -> List(), 2 -> List())
 
-  override val stage = new PrimaryStage {
+   stage = new PrimaryStage {
     title = "Channel Poll"
     height = 600
     width = 500
     scene = new Scene {
       val border = new BorderPane()
-
-
-      var statementBoxes = statements.map(s =>
-        createStatementBox(s)
-      )
-
-
       border.top = new Label("ChannelPoll")
       border.bottom = new Button("Logout")
       //border.left
       //border.right
+
+
+      //VerticalBox, die später alle StatementBoxen enthalten soll
       val vbox = new VBox()
 
 
+      //Für jedes Statement wird eine StatementBox erstellt
+      var statementBoxes = statements.map(s =>
+        createStatementBox(s)
+      )
+
+      //Die erzeugten StatementBoxen werden der VerticalBox hinzugefügt
       statementBoxes.foreach(box => vbox.children.add(box))
 
-      vbox
-
       border.center = vbox
-
       root = border
-
-
     }
 
-
+    //Funktion, die für ein gegebenes Statement eine StatementBox erzeugt
     def createStatementBox(statement: Statement): VBox = {
-
+      //StatementText
       val statementTextFlow = new TextFlow(new Text(statement.text))
 
+      //InfoBox
+      val numberOfLikes = new Text(likes(statement.id).toString + " Likes")
+      val numberOfComments = new Text(comments(statement.id).length.toString + " Comments")
+      val numberOfPolls = new Text(polls(statement.id).length.toString + " Polls")
+      val infoBox = new HBox(numberOfLikes, new Text("\t"), numberOfComments, new Text("\t"), numberOfPolls)
 
       //Like Button
       val likeButton = new Button("Like")
       likeButton.onAction = e => {
         println("Like button clicked")
+        val countLikes = likes(statement.id) + 1
+        likes+= (statement.id -> countLikes)
       }
 
       //Comment Button
@@ -89,7 +94,7 @@ object ChannelPollUI extends JFXApp {
           case Some(question) => {
             println("Your question: " + question)
             //TODO: id muss angepasst werden
-            val newPoll = new Poll(0,statement.id, question)
+            val newPoll = new Poll(0, statement.id, question)
 
           }
 
@@ -97,7 +102,6 @@ object ChannelPollUI extends JFXApp {
           case None => println("Dialog was canceled.")
         }
       }
-
 
 
       val pollList = getPollsFromServer(statement.id)
@@ -140,11 +144,9 @@ object ChannelPollUI extends JFXApp {
 
 
       val pollBox = new VBox()
-      return new VBox(statementTextFlow, new HBox(likeButton, commentButton, pollButton), commentBox)
+      return new VBox(statementTextFlow, infoBox, new HBox(likeButton, commentButton, pollButton), commentBox)
 
     }
-
-
 
 
     def getCommentsFromServer(statementId: Int): List[String] = {
@@ -153,7 +155,7 @@ object ChannelPollUI extends JFXApp {
     }
 
 
-    def getPollsFromServer(statementId: Int): List[Poll] ={
+    def getPollsFromServer(statementId: Int): List[Poll] = {
       //TODO
       return polls(statementId)
     }
