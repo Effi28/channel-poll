@@ -13,7 +13,11 @@ import twitter4j.auth.{AccessToken, RequestToken}
 /**
   * Created by KathrinNetzer on 28.01.2017.
   */
-class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var myTwitter: Twitter) extends HttpServlet{
+class TwitterLogin() extends HttpServlet{
+
+  var a: AccessToken = null
+  var r: RequestToken = null
+  var m: Twitter = null
 
   def startLogin(): URL = {
     val TwitterSettings = new TwitterSettings
@@ -21,13 +25,13 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
 
     try {
       val TwttrFctry: TwitterFactory = new TwitterFactory(settings.build())
-      val myTwitter: Twitter = TwttrFctry.getInstance()
+      m = TwttrFctry.getInstance()
 
       try{
-        val ReqToken: RequestToken = myTwitter.getOAuthRequestToken()
-        while (null == AccToken) {
+        r = m.getOAuthRequestToken()
+        while (null == a) {
           try{
-            val authUrl = new URL(ReqToken.getAuthorizationURL())
+            val authUrl = new URL(r.getAuthorizationURL())
             return authUrl
           } catch {
             case e: TwitterException => println(e)
@@ -39,12 +43,18 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
   }
 
   def doLogin(loginCode: String): Boolean = {
+    val x = loginCode.length
     if (loginCode.length > 0) {
-      AccToken = myTwitter.getOAuthAccessToken(ReqToken, loginCode)
+      println("1")
+      a = m.getOAuthAccessToken(r, loginCode)
+      println("2")
     }else {
-      AccToken = myTwitter.getOAuthAccessToken(ReqToken)
+      println("3")
+      a = m.getOAuthAccessToken(r)
     }
-    val hasAccess = checkIfAccess(AccToken)
+    val hasAccess = checkIfAccess(a)
+    println("..................................")
+    println(hasAccess)
     return hasAccess
   }
 
@@ -58,6 +68,7 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
     if(AccToken.getToken != null && AccToken.getTokenSecret != null){
       ret = true
     }
+    println("ret:   " + ret)
     return ret
   }
 }
