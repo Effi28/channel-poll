@@ -1,6 +1,7 @@
 package main.client
 
 import main.client.controller.Controller
+import main.client.view.LoginView
 import main.server.serverCommunication.ClientControl
 
 /**
@@ -18,5 +19,7 @@ object Client {
     //TODO initialize controller with gui
     val control:Controller = new Controller(clientControl)
     clientControl.setupClient(nick)
+
+    val loginView = new LoginView
   }
 }

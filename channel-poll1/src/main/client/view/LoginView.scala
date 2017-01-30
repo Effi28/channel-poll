@@ -15,13 +15,13 @@ import scalafx.scene.layout.{BorderPane, VBox}
   * Created by Brenda on 30.01.17.
   */
 
-object LoginView extends JFXApp {
+class LoginView extends JFXApp {
 
 
   stage = new PrimaryStage {
     title = "Login"
-    height = 500
-    width  = 500
+    height = 300
+    width  = 300
     scene = new Scene {
       val border = new BorderPane()
 
@@ -37,7 +37,11 @@ object LoginView extends JFXApp {
 
       val loginCode = new TextField()
       loginCode.promptText="Enter your code"
+      val submitButton = new Button("Submit")
 
+      submitButton.onAction = e => {
+        println("submit")
+      }
 
       border.center = loginButton
 
