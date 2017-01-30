@@ -43,6 +43,7 @@ object LoginView extends JFXApp {
       val submitButton = new Button("Submit")
 
       submitButton.onAction = e => {
+        println("code: " + loginCode.getText)
         println(twitterLogin.doLogin(loginCode.getText))
       }
 

@@ -1,10 +1,12 @@
 package main.client.view
 
+import main.client.model.Poll
+
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
-import scalafx.scene.layout.BorderPane
+import scalafx.scene.control._
+import scalafx.scene.layout.{BorderPane, HBox, VBox}
 
 /**
   * Created by Brenda on 30.01.17.
@@ -16,7 +18,7 @@ object PollView extends JFXApp{
     height = 400
     width = 400
     scene = new Scene(){
-      val border = BorderPane()
+      val border = new BorderPane()
       val questionLabel = new Label("Question:")
       val questionTextField = new TextField()
       questionTextField.promptText = "Ask something..."
@@ -24,7 +26,7 @@ object PollView extends JFXApp{
 
 
 
-
+      val options = new VBox()
 
       val addOptionButton = new Button("Add Option")
 
@@ -35,9 +37,34 @@ object PollView extends JFXApp{
           headerText = "Add Option"
           contentText = "Add Option..."
         }
+
+        val result = dialog.showAndWait()
+
+        result match {
+          case Some(option) => {
+
+            val radioButton = new RadioButton(option)
+            options.children.add(radioButton)
+            println("Your option: " + option)
+
+
+          }
+
+
+          case None => println("Dialog was canceled.")
+        }
       }
 
+
+
+
+
       val createPollButton = new Button("Create Poll")
+
+      val vbox = new VBox(new HBox(questionLabel, questionTextField), addOptionButton)
+
+      border.center = vbox
+      border.bottom = createPollButton
 
       root = border
     }
