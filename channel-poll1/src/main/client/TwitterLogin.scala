@@ -15,7 +15,7 @@ import twitter4j.auth.{AccessToken, RequestToken}
   */
 class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var myTwitter: Twitter) extends HttpServlet{
 
-  def startlogin(): Unit = {
+  def startLogin(): Unit = {
     val TwitterSettings = new TwitterSettings
     val settings = TwitterSettings.settings
 
@@ -47,7 +47,6 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
       AccToken = myTwitter.getOAuthAccessToken(ReqToken)
     }
     val hasAccess = checkIfAccess(AccToken)
-    println(hasAccess)
     return hasAccess
   }
 

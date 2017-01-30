@@ -20,6 +20,6 @@ object Client {
     val control:Controller = new Controller(clientControl)
     clientControl.setupClient(nick)
 
-    val loginView = new LoginView
+    //val loginView = new LoginView
   }
 }

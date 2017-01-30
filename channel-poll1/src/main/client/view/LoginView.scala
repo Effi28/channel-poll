@@ -15,7 +15,7 @@ import scalafx.scene.layout.{BorderPane, VBox}
   * Created by Brenda on 30.01.17.
   */
 
-class LoginView extends JFXApp {
+object LoginView extends JFXApp {
 
 
   stage = new PrimaryStage {
@@ -28,10 +28,13 @@ class LoginView extends JFXApp {
 
       val loginButton = new Button("Login")
 
+      val twitterLogin = new TwitterLogin(AccToken = null, ReqToken = null, myTwitter = null)
+
       loginButton.onAction = e => {
 
-        val twitterLogin = new TwitterLogin(AccToken = null, ReqToken = null, myTwitter = null)
-        twitterLogin.startlogin()
+
+        val loginURL = twitterLogin.startLogin()
+        println(loginURL)
 
       }
 
@@ -40,10 +43,10 @@ class LoginView extends JFXApp {
       val submitButton = new Button("Submit")
 
       submitButton.onAction = e => {
-        println("submit")
+        println(twitterLogin.doLogin(loginCode.getText))
       }
 
-      border.center = loginButton
+      border.center = new VBox(loginButton, loginCode, submitButton)
 
       root = border
     }
