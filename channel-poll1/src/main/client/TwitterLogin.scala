@@ -15,7 +15,7 @@ import twitter4j.auth.{AccessToken, RequestToken}
   */
 class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var myTwitter: Twitter) extends HttpServlet{
 
-  def startLogin(): Unit = {
+  def startLogin(): URL = {
     val TwitterSettings = new TwitterSettings
     val settings = TwitterSettings.settings
 
@@ -25,8 +25,6 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
 
       try{
         val ReqToken: RequestToken = myTwitter.getOAuthRequestToken()
-
-        val BffrdRdr: BufferedReader = new BufferedReader(new InputStreamReader(System.in))
         while (null == AccToken) {
           try{
             val authUrl = new URL(ReqToken.getAuthorizationURL())
@@ -36,8 +34,8 @@ class TwitterLogin(var AccToken: AccessToken, var ReqToken: RequestToken, var my
           }
         }
       }
-      System.exit(0)
     }
+    return(new URL(""))
   }
 
   def doLogin(loginCode: String): Boolean = {
