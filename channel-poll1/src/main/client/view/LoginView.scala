@@ -3,6 +3,8 @@
   */
 package main.client.view
 
+import java.awt.Desktop
+
 import main.client.TwitterLogin
 
 import scalafx.application.JFXApp
@@ -17,50 +19,37 @@ import scalafx.scene.layout.{BorderPane, VBox}
 
 object LoginView extends JFXApp {
 
-
   stage = new PrimaryStage {
     title = "Login"
     height = 300
     width  = 300
     scene = new Scene {
       val border = new BorderPane()
-
-
       val loginButton = new Button("Login")
-
       val twitterLogin = new TwitterLogin()
-
       loginButton.onAction = e => {
-
-
         val loginURL = twitterLogin.startLogin()
-        println(loginURL)
+        if(Desktop.isDesktopSupported){
+          Desktop.getDesktop.browse(loginURL.toURI)
+        }else{
+          println(loginURL)
+        }
       }
-
       val loginCode = new TextField()
       loginCode.promptText="Enter your code"
       val submitButton = new Button("Submit")
-
       /**
         * Hier bei doLogin kommt (true, Screenname) zurueck,
         * wenn login erfolgreich war
         */
-
       submitButton.onAction = e => {
         println("code: " + loginCode.getText)
         println(twitterLogin.doLogin(loginCode.getText))
       }
-
       border.center = new VBox(loginButton, loginCode, submitButton)
-
       root = border
     }
-
-
-
   }
-
-
 }
 
 
