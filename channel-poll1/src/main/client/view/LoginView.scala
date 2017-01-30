@@ -41,6 +41,11 @@ object LoginView extends JFXApp {
       loginCode.promptText="Enter your code"
       val submitButton = new Button("Submit")
 
+      /**
+        * Hier bei doLogin kommt (true, Screenname) zurueck,
+        * wenn login erfolgreich war
+        */
+
       submitButton.onAction = e => {
         println("code: " + loginCode.getText)
         println(twitterLogin.doLogin(loginCode.getText))
