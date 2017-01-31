@@ -4,10 +4,12 @@ import java.io.BufferedReader
 
 import main.client.controller.Controller
 import main.client.model.clientCommunication.ServerHandler
-import main.client.view.ClientView
+import main.client.view.{ClientView, LoginView}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
+
+import scalafx.application.Platform
 
 class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
 
@@ -33,7 +35,15 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleLoginSuccessful(jSONObject:JSONObject): Unit ={
-    Controller.closeLoginView()
+    Platform.runLater(new Runnable {
+      override def run(): Unit = {
+        LoginView.exit()
+      }
+    })
+  }
+
+  def handleStatement(jSONObject: JSONObject):Unit={
+    ClientView.
   }
 
   def handleLoginFailed(jSONObject:JSONObject): Unit ={

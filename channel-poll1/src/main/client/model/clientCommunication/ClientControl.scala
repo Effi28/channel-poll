@@ -3,15 +3,18 @@ package main.server.serverCommunication
 
 import java.io.OutputStreamWriter
 import java.net.Socket
+import javafx.beans.InvalidationListener
+import javafx.collections.{ArrayChangeListener, ObservableArray}
 
 import client.model.clientCommunication.{ClientMessageReceiver, ClientMessageSender}
 import main.client.model.clientCommunication.ServerHandler
 
-import scala.collection.mutable.ListBuffer
+import scalafx.collections.ObservableHashSet
+
 
 
 object ClientControl {
-  val users:ListBuffer[String] = new ListBuffer[String];
+  val users:ObservableHashSet[String] = new ObservableHashSet[String]()
   var sender:ClientMessageSender = null
   var nick = ""
 

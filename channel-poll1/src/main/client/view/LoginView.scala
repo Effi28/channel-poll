@@ -52,12 +52,9 @@ object LoginView extends JFXApp {
   }
 
   def exit():Unit={
-    stage = new PrimaryStage{
-      title = "Channel Poll"
-      height = 600
-      width = 500
-      scene = new Scene {}
-    }
+    println ("123")
+    val clientView:ClientView = new ClientView()
+    stage = clientView.getStage()
   }
 }
 

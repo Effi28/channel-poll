@@ -27,6 +27,7 @@ object ClientView extends JFXApp {
 
     var polls = ObservableMap(1 -> List(), 2 -> List())
 
+  def getStage():PrimaryStage= {
 
     stage = new PrimaryStage {
       title = "Channel Poll"
@@ -45,19 +46,20 @@ object ClientView extends JFXApp {
 
 
         //Für jedes Statement wird eine StatementBox erstellt
-        var statementBoxes = statements.map(s =>
-          createStatementBox(s)
-        )
+        //var statementBoxes = statements.map(s =>
+        //  createStatementBox(s)
+        //)
 
         //Die erzeugten StatementBoxen werden der VerticalBox hinzugefügt
-        statementBoxes.foreach(box => vbox.children.add(box))
+        //statementBoxes.foreach(box => vbox.children.add(box))
 
         border.center = vbox
         root = border
       }
 
     }
-
+    stage
+  }
 
   //Funktion, die für ein gegebenes Statement eine StatementBox erzeugt
   def createStatementBox(statement: Statement): VBox = {
