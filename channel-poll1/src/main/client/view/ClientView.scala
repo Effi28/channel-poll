@@ -1,6 +1,7 @@
 package main.client.view
 
 import main.client.view.Statement
+import main.shared.Comment
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -9,6 +10,8 @@ import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
+import main.server.serverCommunication.ClientControl
+
 
 object ClientView extends JFXApp {
 
@@ -161,6 +164,12 @@ object ClientView extends JFXApp {
     println("New Comment List: " + updatedCommentList)
     comments += (statementId -> updatedCommentList)
     println("Comments: " + comments)
+
+    // sending comment to server
+    val newcomment = new Comment(comment, "", new Array[String](0), statementId)
+
+    // screenname ? likes ?
+    ClientControl.sendComment(newcomment)
   }
 
 }

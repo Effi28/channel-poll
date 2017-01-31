@@ -47,6 +47,13 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
     handler.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
+  def handleComment(jSONObject: JSONObject): Unit = {
+    val message: String = jSONObject.optString("message")
+    val screenname: String = jSONObject.optString("screenname")
+    val likes = jSONObject.opt("likes")
+    val id = jSONObject.optInt("id")
+  }
+
   def handleLoginFailed(jSONObject:JSONObject): Unit ={
     //TODO show the reason why login failed(e.G. username already taken)
   }

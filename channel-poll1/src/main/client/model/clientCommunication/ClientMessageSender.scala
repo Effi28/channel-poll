@@ -1,7 +1,7 @@
 package client.model.clientCommunication
 
 import java.io.OutputStreamWriter
-import main.shared.{Message, Statement}
+import main.shared.{Message, Statement, Comment}
 import org.json._
 
 class ClientMessageSender(out:OutputStreamWriter, nick:String) {
@@ -14,8 +14,17 @@ class ClientMessageSender(out:OutputStreamWriter, nick:String) {
     writeMessage(ClientMessageBuilder.chatMessage(msg))
   }
 
+  def writeStComment(cmd: Comment): Unit = {
+    writeComment(ClientMessageBuilder.comment(cmd))
+  }
+
   def writeMessage(json:JSONObject): Unit ={
     println("CLIENT SENT: " + json.toString + "\n")
+    out.write(json.toString + "\n")
+    out.flush()
+  }
+
+  def writeComment(json: JSONObject): Unit = {
     out.write(json.toString + "\n")
     out.flush()
   }
