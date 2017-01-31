@@ -1,7 +1,7 @@
 package main.client
 
 import main.client.controller.Controller
-import main.client.view.LoginView
+import main.client.view.{ClientView, LoginView}
 import main.server.serverCommunication.ClientControl
 
 /**
@@ -20,6 +20,8 @@ object Client {
     val control:Controller = new Controller(clientControl)
     clientControl.setupClient(nick)
 
-    //val loginView = new LoginView
+
+
+
   }
 }

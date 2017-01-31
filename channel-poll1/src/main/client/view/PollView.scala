@@ -13,17 +13,16 @@ import scalafx.scene.layout.{BorderPane, HBox, VBox}
   */
 object PollView extends JFXApp{
 
-  stage = new PrimaryStage{
+
+  stage = new PrimaryStage {
     title = "Create a new poll"
     height = 400
     width = 400
-    scene = new Scene(){
+    scene = new Scene() {
       val border = new BorderPane()
       val questionLabel = new Label("Question:")
       val questionTextField = new TextField()
       questionTextField.promptText = "Ask something..."
-
-
 
 
       val options = new VBox()
@@ -31,7 +30,7 @@ object PollView extends JFXApp{
       val addOptionButton = new Button("Add Option")
 
       addOptionButton.onAction = e => {
-        val dialog = new TextInputDialog(){
+        val dialog = new TextInputDialog() {
           initOwner(stage)
           title = "Add Option"
           headerText = "Add Option"
@@ -56,9 +55,6 @@ object PollView extends JFXApp{
       }
 
 
-
-
-
       val createPollButton = new Button("Create Poll")
 
       val vbox = new VBox(new HBox(questionLabel, questionTextField), addOptionButton)
@@ -69,5 +65,9 @@ object PollView extends JFXApp{
       root = border
     }
   }
+
+
+
+
 
 }
