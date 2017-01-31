@@ -8,7 +8,7 @@ import java.awt.Desktop
 import main.client.TwitterLogin
 import main.client.controller.Controller
 
-import scalafx.application.JFXApp
+import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Label, TextField}
@@ -51,8 +51,13 @@ object LoginView extends JFXApp {
     }
   }
 
-  def close(): Unit ={
-    
+  def exit():Unit={
+    stage = new PrimaryStage{
+      title = "Channel Poll"
+      height = 600
+      width = 500
+      scene = new Scene {}
+    }
   }
 }
 

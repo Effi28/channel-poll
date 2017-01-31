@@ -15,8 +15,4 @@ object Controller{
     ClientControl.nick = nick1
     ClientControl.setupClient("localhost", 8008)
   }
-
-  def closeLoginView(): Unit ={
-    LoginView.close()
-  }
 }
