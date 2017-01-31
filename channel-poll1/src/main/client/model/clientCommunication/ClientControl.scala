@@ -11,7 +11,7 @@ object ClientControl {
   val users:ObservableHashSet[String] = new ObservableHashSet[String]()
   val globalChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
   val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
-  val statements:ObservableHashMap[Int, Statement] = new ObservableHashMap[Int, Statement]()
+  val statements:ObservableHashMap[Long, Statement] = new ObservableHashMap[Long, Statement]()
   var sender:ClientMessageSender = null
 
   def setupClient(nick:String): Unit ={

@@ -11,10 +11,12 @@ import scala.collection.mutable.HashMap
 object Server {
   val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
   val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
-  val statements:HashMap[Int, Statement] = new HashMap[Int, Statement]
+  val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
   var chatID = 0
 
   def main(args: Array[String]): Unit = {
+    startTwitterStream()
+
     val pool: ExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
     val serverSocket = new ServerSocket(8008)
     try {
@@ -27,6 +29,16 @@ object Server {
       pool.shutdown()
     }
   }
+
+  def startTwitterStream(): Unit = {
+    val accessStreamer = new TwitterAccess
+    accessStreamer.streamingThread.start()
+
+    // start dequeue thread for getting statements from queue
+    val statementGetter = new QueueGetter
+    statementGetter.dequeueThread.start()
+  }
+
   def checkLogin(nick:String, client:ClientHandler): Unit ={
     if(connectedHandler.keySet.contains(nick)){
       client.sender.writeLoginFailed(nick)
@@ -85,7 +97,7 @@ object Server {
 
   def addStatement(statement:Statement): Unit ={
     statements += statement.ID -> statement
-    //TODO check statement?
+    println(statement)
     for ((k, v) <- connectedHandler) {
       v.sender.writeStatement(statement)
     }

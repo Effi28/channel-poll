@@ -1,9 +1,11 @@
-package main.twitter
+package main.server
 
 import java.io._
-import twitter4j._
-import scala.io.Source
+
 import com.google.gson._
+import twitter4j._
+
+import scala.io.Source
 
 /**
   * Created by KathrinNetzer on 29.01.2017.

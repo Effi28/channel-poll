@@ -1,11 +1,10 @@
-package main.twitter
+package main.server
 
-import twitter4j._
-import twitter4j.TwitterStreamFactory
+import twitter4j.{TwitterStreamFactory, _}
 
 import scala.collection.mutable.Queue
 import scala.io.Source
-
+import main.shared.Statement
 
 /**
   * @author Kathrin Netzer
@@ -16,15 +15,15 @@ import scala.io.Source
 class TwitterAccess {
 
   // Put statements in a queue for the view
-  var _statementsQueue = new Queue[JSONObject]
+  var _statementsQueue = new Queue[Statement]
   def statementsQueue = this._statementsQueue
-  def setStatementsQueue(twitterJson: JSONObject): Unit = {
-    this._statementsQueue += twitterJson
+  def setStatementsQueue(twitterStatement: Statement): Unit = {
+    this._statementsQueue += twitterStatement
   }
 
   // Settings for the registered application
   val TwitterSettings = new TwitterSettings
-  val settings = TwitterSettings.settings
+  val settings = TwitterSettings.streamsettings
 
   // Statements should be saved in JSON, done in classe SaveJsons
   val StatementsPath = TwitterSettings.pathToStatements
@@ -33,17 +32,18 @@ class TwitterAccess {
   val statements: JSONArray = tweetsJson.getJSONArray("data")
   val StatementsSaver = new SaveJsons(StatementsPath)
 
-
   val streamFactory = new TwitterStreamFactory(settings.build()).getInstance
   //streamFactory.addListener(getPosts(statements))
-  streamFactory.addListener(getPosts())
+  streamFactory.addListener(getPosts(statements))
   val politicalFilter = new FilterQuery()
 
   //  follow - Specifies the users, by ID, to receive public tweets from.
-  politicalFilter.follow()
-  politicalFilter.track(TwitterSettings.hashtags)
-  politicalFilter.filterLevel(TwitterSettings.filterLevel)
-  politicalFilter.language(TwitterSettings.filterLanguage)
+  politicalFilter.follow(25073877, 813286, 1339835893, 23022687, 939091, 18916432,
+    15808765, 36412963, 36042554, 14224719, 24705126, 20713061, 15416505,
+    65493023, 733751245, 490126636, 19394188)
+  //politicalFilter.filterLevel(TwitterSettings.filterLevel)
+  //politicalFilter.language(TwitterSettings.filterLanguage)
+  // politicalFilter.track(TwitterSettings.hashtags)
   streamFactory.filter(politicalFilter)
 
   /**
@@ -64,32 +64,39 @@ class TwitterAccess {
           val statementsString = "{\"data\": " + statements.toString() + '}'
           StatementsSaver.saveJsonString(statementsString)
         }
-
         Thread.sleep(10000) // important: not too low!
         streamFactory.cleanUp()
         streamFactory.shutdown()
     }}
   })
-  streamingThread.start()
 
-  //def getPosts(statements: JSONArray) = new StatusListener() {
-
-  def getPosts() = new StatusListener {
+  def getPosts(statements: JSONArray) = new StatusListener() {
     def onStatus(status: Status) {
       // Create Json from tweetJson
       val tweetJson:JSONObject = new JSONObject()
-      tweetJson.put("type", "statement")
-      tweetJson.put("message", status.getText)
-      tweetJson.put("userid", status.getUser.getId)
-      tweetJson.put("name", status.getUser.getName)
-      tweetJson.put("screenname", status.getUser.getScreenName)
-      tweetJson.put("pictureurl", status.getUser.getProfileImageURL)
-      tweetJson.put("created_at", status.getCreatedAt.toString)
-      tweetJson.put("id", status.getId)
-      // put Json Statement into the Queue
-      setStatementsQueue(tweetJson)
-      statements.put(tweetJson)
 
+      val message = status.getText
+      val userid = status.getUser.getId
+      val username = status.getUser.getName
+      val screenname = status.getUser.getScreenName
+      val profilepictureurl = status.getUser.getProfileImageURL
+      val createdat = status.getCreatedAt.toString
+      val tweetid = status.getId
+
+      tweetJson.put("type", "statement")
+      tweetJson.put("message", message)
+      tweetJson.put("userid", userid)
+      tweetJson.put("name", username)
+      tweetJson.put("screenname", screenname)
+      tweetJson.put("pictureurl", profilepictureurl)
+      tweetJson.put("created_at", createdat)
+      tweetJson.put("id", tweetid)
+
+      // put Statement Object into the Queue
+      val statementObject = new Statement(message, userid.toString, username, screenname,
+        profilepictureurl, createdat, tweetid)
+      setStatementsQueue(statementObject)
+      statements.put(tweetJson)
     }
 
     def onDeletionNotice(statusDeletionNotice: StatusDeletionNotice) {}

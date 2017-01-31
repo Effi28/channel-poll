@@ -3,7 +3,7 @@ package main.client.view
 import java.net.URL
 import javax.servlet.http.HttpServlet
 
-import main.twitter.TwitterSettings
+import main.server.TwitterSettings
 import twitter4j._
 import twitter4j.auth.{AccessToken, RequestToken}
 
