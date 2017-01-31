@@ -162,6 +162,8 @@ object ClientView extends JFXApp {
     println("Existing Comment List: " + existingCommentList)
     val updatedCommentList = comment :: existingCommentList
     println("New Comment List: " + updatedCommentList)
+
+    // muss das nicht im Server handler handle Comment passieren ?
     comments += (statementId -> updatedCommentList)
     println("Comments: " + comments)
 
