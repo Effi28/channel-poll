@@ -1,7 +1,8 @@
 package main.server
 
 import java.io.OutputStreamWriter
-import main.shared.{Message, Statement}
+
+import main.shared.{Comment, Message, Statement}
 import org.json._
 
 class ServerMessageSender(out:OutputStreamWriter) {
@@ -12,6 +13,10 @@ class ServerMessageSender(out:OutputStreamWriter) {
 
   def writeStatement(statement: Statement):Unit = {
     writeMessage(ServerMessageBuilder.writeStatement(statement))
+  }
+
+  def writeComment(comment: Comment): Unit = {
+    writeMessage(ServerMessageBuilder.writeComment(comment))
   }
 
   def writeNewLogin(nick:String):Unit ={

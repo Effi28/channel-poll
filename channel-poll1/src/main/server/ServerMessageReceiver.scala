@@ -40,6 +40,13 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     client.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
+  def handleComment(jSONObject: JSONObject): Unit = {
+    val message: String = jSONObject.optString("message")
+    val screenname: String = jSONObject.optString("screenname")
+    val likes = jSONObject.opt("likes")
+    val id = jSONObject.optInt("id")
+  }
+
   def handleLogin(jSONObject: JSONObject): Unit ={
     client.checkLogin(jSONObject.optString("name"))
   }
