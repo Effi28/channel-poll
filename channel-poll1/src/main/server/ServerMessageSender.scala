@@ -1,12 +1,18 @@
 package main.server
 
 import java.io.OutputStreamWriter
+
+import main.shared.{Message, Statement}
 import org.json._
 
 class ServerMessageSender(out:OutputStreamWriter) {
 
   def writeLoginSuccess(users:Iterable[String]): Unit ={
     writeMessage(ServerMessageBuilder.loginSucceded(users))
+  }
+
+  def writeStatement(statement: Statement): Unit = {
+    writeMessage(ServerMessageBuilder.writeStatement(statement))
   }
 
   def writeNewLogin(nick:String): Unit ={
@@ -20,12 +26,8 @@ class ServerMessageSender(out:OutputStreamWriter) {
     writeMessage(ServerMessageBuilder.userDisconnect(nick))
   }
 
-  def writeChatMessage(sender:String, msg:String, stamp:String): Unit={
-    writeMessage(ServerMessageBuilder.writeChatMessage(sender, msg, stamp))
-  }
-
-  def writeChatMessage(sender:String, msg:String, group:String, stamp:String): Unit={
-    writeMessage(ServerMessageBuilder.writeGroupMessage(sender, msg, stamp, group))
+  def writeChatMessage(message:Message): Unit={
+    writeMessage(ServerMessageBuilder.writeChatMessage(message))
   }
 
   def writeMessage(json:JSONObject): Unit ={

@@ -1,20 +1,21 @@
 package main.server.serverCommunication
 
-
 import java.io.OutputStreamWriter
 import java.net.Socket
-import javafx.beans.InvalidationListener
-import javafx.collections.{ArrayChangeListener, ObservableArray}
 
 import client.model.clientCommunication.{ClientMessageReceiver, ClientMessageSender}
 import main.client.model.clientCommunication.ServerHandler
+import main.shared.{Message, Statement}
 
-import scalafx.collections.ObservableHashSet
+import scalafx.collections.{ObservableHashMap, ObservableHashSet}
 
 
 
 object ClientControl {
   val users:ObservableHashSet[String] = new ObservableHashSet[String]()
+  val globalChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
+  val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
+  val statements:ObservableHashMap[Int, Statement] = new ObservableHashMap[Int, Statement]()
   var sender:ClientMessageSender = null
   var nick = ""
 
@@ -25,9 +26,7 @@ object ClientControl {
     sender.writeLoginMessage()
     }
 
-  def sendMessage(msg:String):Unit={ sender.writeChatMessage(msg)}
-  def sendMessage(msg:String, recv:String):Unit = {sender.writeChatMessage(msg, recv)}
-
+  def sendMessage(msg:Message):Unit={ sender.writeChatMessage(msg)}
   def sendNick(nick1:String): Unit ={
    nick = nick1
   }

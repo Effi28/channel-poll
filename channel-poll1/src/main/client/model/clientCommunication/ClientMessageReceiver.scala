@@ -4,12 +4,9 @@ import java.io.BufferedReader
 
 import main.client.controller.Controller
 import main.client.model.clientCommunication.ServerHandler
-import main.client.view.{ClientView, LoginView}
+import main.shared.{Message, Statement}
 import main.shared.enums.JsonType
-import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
-
-import scalafx.application.Platform
 
 class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
 
@@ -24,7 +21,7 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
     }
   }
 
-  def matchTest(x: JsonType, jSONObject: JSONObject): Unit = x match {
+  def matchTest(x: JsonType.JsonType, jSONObject: JSONObject): Unit = x match {
     case JsonType.LOGINSUCCESS => handleLoginSuccessful(jSONObject)
     case JsonType.LOGINFAILED => handleLoginFailed(jSONObject)
     case JsonType.LOGIN => handleLogin(jSONObject)
@@ -35,15 +32,18 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleLoginSuccessful(jSONObject:JSONObject): Unit ={
-    Platform.runLater(new Runnable {
-      override def run(): Unit = {
-        LoginView.exit()
-      }
-    })
+    Controller.exitLoginView()
   }
 
-  def handleStatement(jSONObject: JSONObject):Unit={
-    ClientView.
+  def handleStatement(jSONObject: JSONObject): Unit = {
+    val message: String = jSONObject.optString("message")
+    val userID: String = jSONObject.optString("userid")
+    val userName: String = jSONObject.optString("name")
+    val screenName: String = jSONObject.optString("screenname")
+    val pictureURL: String = jSONObject.optString("pictureurl")
+    val creationDate: String = jSONObject.optString("created_at")
+    val id: Int = jSONObject.optInt("id")
+    handler.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
   def handleLoginFailed(jSONObject:JSONObject): Unit ={
@@ -64,12 +64,15 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
     val sender:String =jSONObject.optString("senderID")
     val stamp:String =jSONObject.optString("stamp")
     val msg:String =jSONObject.optString("message")
+    val id:Int = jSONObject.optInt("id")
     val rcv:String = jSONObject.optString("groupID")
+    val msgT:Message = new Message(sender, stamp, msg, rcv, id)
     if(rcv == null){
+      handler.handleGlobalChat(msgT)
     }
     else{
+      handler.handleGroupChat(msgT)
     }
-    //TODO show the chat message in GUI
   }
 
   def handleInvalid(jSONObject: JSONObject):Unit = {

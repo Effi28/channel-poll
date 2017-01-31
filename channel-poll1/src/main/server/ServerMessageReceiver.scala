@@ -2,6 +2,7 @@ package main.server
 
 import java.io.BufferedReader
 
+import main.shared.{Message, Statement}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
@@ -24,7 +25,19 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case JsonType.DISCONNECT => handleLogout(jSONObject)
     case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
+    case JsonType.STATEMENT => handleStatement(jSONObject)
     case _ => handleInvalid(jSONObject)
+  }
+
+  def handleStatement(jSONObject: JSONObject): Unit = {
+    val message: String = jSONObject.optString("message")
+    val userID: String = jSONObject.optString("userid")
+    val userName: String = jSONObject.optString("name")
+    val screenName: String = jSONObject.optString("screenname")
+    val pictureURL: String = jSONObject.optString("pictureurl")
+    val creationDate: String = jSONObject.optString("created_at")
+    val id: Int = jSONObject.optInt("id")
+    client.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
   def handleLogin(jSONObject: JSONObject): Unit ={
@@ -43,11 +56,12 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     val stamp:String =jSONObject.optString("stamp")
     val msg:String =jSONObject.optString("message")
     val rcv:String = jSONObject.optString("groupID")
+    val msgT:Message = new Message(sender, stamp, msg, rcv, Server.chatID+1)
     if(rcv == null){
-      client.checkGlobalMessage(sender, stamp, msg)
+      Server.broadcastGlobalMessage(msgT)
     }
     else{
-      client.checkGroupMessage(sender, stamp, msg, rcv)
+      Server.broadcastGroupMessage(msgT)
     }
   }
 

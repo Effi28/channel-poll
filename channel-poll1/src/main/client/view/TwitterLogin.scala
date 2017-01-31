@@ -1,12 +1,10 @@
-package main.client
+package main.client.view
 
 import java.net.URL
-import java.io.{BufferedReader, InputStreamReader}
-
-import twitter4j._
 import javax.servlet.http.HttpServlet
 
 import main.twitter.TwitterSettings
+import twitter4j._
 import twitter4j.auth.{AccessToken, RequestToken}
 
 

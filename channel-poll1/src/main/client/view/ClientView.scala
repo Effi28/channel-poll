@@ -1,6 +1,6 @@
 package main.client.view
 
-import main.client.model.{Poll, Statement}
+import main.client.model.Statement
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage

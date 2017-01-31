@@ -5,7 +5,6 @@ package main.client.view
 
 import java.awt.Desktop
 
-import main.client.TwitterLogin
 import main.client.controller.Controller
 
 import scalafx.application.{JFXApp, Platform}
@@ -52,9 +51,7 @@ object LoginView extends JFXApp {
   }
 
   def exit():Unit={
-    println ("123")
-    val clientView:ClientView = new ClientView()
-    stage = clientView.getStage()
+    stage = ClientView.getStage()
   }
 }
 
