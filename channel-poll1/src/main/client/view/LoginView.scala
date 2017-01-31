@@ -6,6 +6,7 @@ package main.client.view
 import java.awt.Desktop
 
 import main.client.TwitterLogin
+import main.client.controller.Controller
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -18,7 +19,6 @@ import scalafx.scene.layout.{BorderPane, VBox}
   */
 
 object LoginView extends JFXApp {
-
   stage = new PrimaryStage {
     title = "Login"
     height = 300
@@ -44,11 +44,15 @@ object LoginView extends JFXApp {
         */
       submitButton.onAction = e => {
         println("code: " + loginCode.getText)
-        println(twitterLogin.doLogin(loginCode.getText))
+        Controller.setupClient(twitterLogin.doLogin(loginCode.getText)._2)
       }
       border.center = new VBox(loginButton, loginCode, submitButton)
       root = border
     }
+  }
+
+  def close(): Unit ={
+    
   }
 }
 
