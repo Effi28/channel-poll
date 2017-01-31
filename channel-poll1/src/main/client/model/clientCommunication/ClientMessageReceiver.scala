@@ -2,7 +2,9 @@ package client.model.clientCommunication
 
 import java.io.BufferedReader
 
+import main.client.controller.Controller
 import main.client.model.clientCommunication.ServerHandler
+import main.client.view.ClientView
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
@@ -31,7 +33,7 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleLoginSuccessful(jSONObject:JSONObject): Unit ={
-    //TODO start chatlobby here
+    Controller.closeLoginView()
   }
 
   def handleLoginFailed(jSONObject:JSONObject): Unit ={
