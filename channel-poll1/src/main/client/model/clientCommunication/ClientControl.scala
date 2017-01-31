@@ -2,14 +2,10 @@ package main.server.serverCommunication
 
 import java.io.OutputStreamWriter
 import java.net.Socket
-
-import client.model.clientCommunication.{ClientMessageReceiver, ClientMessageSender}
+import client.model.clientCommunication.{ClientMessageSender}
 import main.client.model.clientCommunication.ServerHandler
 import main.shared.{Message, Statement}
-
 import scalafx.collections.{ObservableHashMap, ObservableHashSet}
-
-
 
 object ClientControl {
   val users:ObservableHashSet[String] = new ObservableHashSet[String]()
@@ -17,17 +13,15 @@ object ClientControl {
   val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
   val statements:ObservableHashMap[Int, Statement] = new ObservableHashMap[Int, Statement]()
   var sender:ClientMessageSender = null
-  var nick = ""
 
-  def setupClient(address:String, port:Int): Unit ={
-    val socket:Socket = new Socket(address, port)
+  def setupClient(nick:String): Unit ={
+    val socket:Socket = new Socket("localhost", 8008)
     new ServerHandler(socket).start()
     sender = new ClientMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"), nick)
     sender.writeLoginMessage()
-    }
+  }
 
-  def sendMessage(msg:Message):Unit={ sender.writeChatMessage(msg)}
-  def sendNick(nick1:String): Unit ={
-   nick = nick1
+  def sendMessage(msg:Message):Unit={
+    sender.writeChatMessage(msg)
   }
 }

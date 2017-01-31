@@ -1,24 +1,23 @@
 package main.server
 
 import java.io.OutputStreamWriter
-
 import main.shared.{Message, Statement}
 import org.json._
 
 class ServerMessageSender(out:OutputStreamWriter) {
 
-  def writeLoginSuccess(users:Iterable[String]): Unit ={
+  def writeLoginSuccess(users:Iterable[String]):Unit ={
     writeMessage(ServerMessageBuilder.loginSucceded(users))
   }
 
-  def writeStatement(statement: Statement): Unit = {
+  def writeStatement(statement: Statement):Unit = {
     writeMessage(ServerMessageBuilder.writeStatement(statement))
   }
 
-  def writeNewLogin(nick:String): Unit ={
+  def writeNewLogin(nick:String):Unit ={
     writeMessage(ServerMessageBuilder.newLogin(nick))
   }
-  def writeLoginFailed(nick:String): Unit ={
+  def writeLoginFailed(nick:String):Unit ={
     writeMessage(ServerMessageBuilder.loginFailed(nick))
   }
 
@@ -26,11 +25,11 @@ class ServerMessageSender(out:OutputStreamWriter) {
     writeMessage(ServerMessageBuilder.userDisconnect(nick))
   }
 
-  def writeChatMessage(message:Message): Unit={
+  def writeChatMessage(message:Message):Unit={
     writeMessage(ServerMessageBuilder.writeChatMessage(message))
   }
 
-  def writeMessage(json:JSONObject): Unit ={
+  def writeMessage(json:JSONObject):Unit ={
     println("SERVER SENT: " + json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()

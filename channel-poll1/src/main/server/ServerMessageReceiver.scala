@@ -41,13 +41,11 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleLogin(jSONObject: JSONObject): Unit ={
-   val nick:String = jSONObject.optString("name")
-    client.checkLogin(nick)
+    client.checkLogin(jSONObject.optString("name"))
   }
 
   def handleLogout(jSONObject: JSONObject): Unit ={
-    val nick:String = jSONObject.optString("name")
-    client.handleLogout(nick)
+    client.handleLogout(jSONObject.optString("name"))
   }
 
 

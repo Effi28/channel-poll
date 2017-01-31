@@ -2,7 +2,6 @@ package main.server
 
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
-
 import main.shared.Statement
 
 class ClientHandler(socket:Socket) extends Runnable{

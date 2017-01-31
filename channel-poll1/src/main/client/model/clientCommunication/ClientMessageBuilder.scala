@@ -1,6 +1,6 @@
 package client.model.clientCommunication
 
-import main.shared.Message
+import main.shared.{Message, Statement}
 import org.json._
 import main.shared.enums.JsonType
 

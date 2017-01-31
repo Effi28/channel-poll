@@ -1,12 +1,9 @@
 package client.model.clientCommunication
 
 import java.io.OutputStreamWriter
-
-import main.shared.Message
+import main.shared.{Message, Statement}
 import org.json._
-/**
-  * Created by Effi2 on 16.01.2017.
-  */
+
 class ClientMessageSender(out:OutputStreamWriter, nick:String) {
 
   def writeLoginMessage(): Unit ={

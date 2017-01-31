@@ -28,6 +28,7 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
     case JsonType.DISCONNECT => handleLogout(jSONObject)
     case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
+    case JsonType.STATEMENT => handleStatement(jSONObject)
     case _ => handleInvalid(jSONObject)
   }
 
