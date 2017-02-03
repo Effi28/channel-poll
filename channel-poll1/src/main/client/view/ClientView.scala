@@ -12,7 +12,7 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import main.server.serverCommunication.ClientControl
-import main.server.serverCommunication.ClientControl._
+import main.server.serverCommunication.ClientControl.{feed, _}
 
 
 object ClientView extends JFXApp {
@@ -20,19 +20,10 @@ object ClientView extends JFXApp {
 
 
 
-    //Variablen sind provisorisch, die Sachen müssen eigentlich vom Server geholt werden, und neue Kommentare auch dort hin geschickt werden
-    //val statement1 = new Statement(1, "statement 1 statement 1 statement 1 statement 1 statement 1 statement 1 statement 1")
-    //val statement2 = new Statement(2, "statement 2")
-
-    //val statements = List(statement1, statement2)
-
-    //var likes = ObservableMap(1 -> 3, 2 -> 4)
-
-    //var comments = ObservableMap(1 -> List("comment 1 for statement 1", "comment 2 for statement 1"), 2 -> List("comment 1 for statement 2", "comment 2 for statement 2"))
-
-    //var polls = ObservableMap(1 -> List(), 2 -> List())
-
   def getStage():PrimaryStage= {
+
+
+
 
     stage = new PrimaryStage {
       title = "Channel Poll"
@@ -49,8 +40,7 @@ object ClientView extends JFXApp {
 
         border.bottom = logoutButton
         //border.left
-        //var users = new ObservableHashSet[String]()
-        //users = ClientControl.users
+
 
         val userList = new ListView[String]
 
@@ -67,6 +57,7 @@ object ClientView extends JFXApp {
 
 
 
+
         border.right = userList
 
 
@@ -77,7 +68,7 @@ object ClientView extends JFXApp {
 
        val observableMessageList = new ObservableBuffer[String]()
 
-        val messageList = new ListView[String]
+        val messageList = new ListView[HBox]
 messageList.items = ClientControl.feed
 
 
@@ -85,7 +76,7 @@ messageList.items = ClientControl.feed
 
 
 
-        val vBox = new VBox()
+
 
 
 
@@ -96,15 +87,28 @@ messageList.items = ClientControl.feed
 
 
 
-          val hBox = createHBox(statements.last)
-          addMessage(statements.last.screenName)
+          val messageBox = createHBox(statements.last)
+          addMessage(messageBox)
 
         })
 
 
+        val feed = new VBox()
 
+        border.center = this.feed
+/*
+        ClientControl.feed.onChange({
+          println("feed size: " +feed.children.size())
 
+          println("something changed")
 
+          this.feed.children.add(ClientControl.feed.last) : Unit
+
+          border.center = this.feed
+
+        })
+
+*/
 
 
         //VerticalBox, die später alle StatementBoxen enthalten soll
@@ -123,7 +127,7 @@ messageList.items = ClientControl.feed
 
 
 
-        border.center = messageList
+        //border.center = messageList
         root = border
       }
 
@@ -132,7 +136,8 @@ messageList.items = ClientControl.feed
   }
 
 
-  def createHBox(statement: Statement) {
+
+  def createHBox(statement: Statement):HBox = {
     val user = new Text(statement.userName)
     val message = new Text(statement.message)
 
@@ -141,6 +146,7 @@ messageList.items = ClientControl.feed
 
 def addMessage(hBox: HBox):Unit={
   ClientControl.feed += hBox
+
 }
 
   def getMessageFromStatement(statement: Statement){
