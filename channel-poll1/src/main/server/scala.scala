@@ -38,9 +38,7 @@ class TwitterAccess {
   val politicalFilter = new FilterQuery()
 
   //  follow - Specifies the users, by ID, to receive public tweets from.
-  politicalFilter.follow(25073877, 813286, 1339835893, 23022687, 939091, 18916432,
-    15808765, 36412963, 36042554, 14224719, 24705126, 20713061, 15416505,
-    65493023, 733751245, 490126636, 19394188)
+  politicalFilter.follow(25073877, 813286)
   //politicalFilter.filterLevel(TwitterSettings.filterLevel)
   //politicalFilter.language(TwitterSettings.filterLanguage)
   // politicalFilter.track(TwitterSettings.hashtags)
