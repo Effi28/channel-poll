@@ -45,7 +45,8 @@ object ServerMessageBuilder {
   def writeStatement(statement: Statement): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.STATEMENT)
-    Jmsg.put("userid", statement.message)
+    Jmsg.put("userid", statement.userID)
+    Jmsg.put("message", statement.message)
     Jmsg.put("name", statement.userName)
     Jmsg.put("screenname", statement.screenName)
     Jmsg.put("pictureurl", statement.pictureURL)
