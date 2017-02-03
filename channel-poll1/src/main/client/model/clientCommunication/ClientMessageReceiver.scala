@@ -43,7 +43,7 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleStatement(jSONObject: JSONObject):Unit={
-    ClientView.
+
   }
 
   def handleLoginFailed(jSONObject:JSONObject): Unit ={

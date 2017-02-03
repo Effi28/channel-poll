@@ -2,6 +2,7 @@ package main.client.view
 
 import main.client.model.{Poll, Statement}
 
+import scala.compat.Platform
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.collections.ObservableMap
@@ -36,7 +37,13 @@ object ClientView extends JFXApp {
       scene = new Scene {
         val border = new BorderPane()
         border.top = new Label("ChannelPoll")
-        border.bottom = new Button("Logout")
+
+        val logoutButton = new Button("Logout")
+        logoutButton.onAction = e =>{
+          logout()
+        }
+
+        border.bottom = logoutButton
         //border.left
         //border.right
 
@@ -161,6 +168,11 @@ object ClientView extends JFXApp {
     println("New Comment List: " + updatedCommentList)
     comments += (statementId -> updatedCommentList)
     println("Comments: " + comments)
+  }
+
+  def logout(): Unit ={
+    //TODO: TwitterLogout
+    //Fenster schließen
   }
 
 }

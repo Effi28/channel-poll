@@ -53,9 +53,9 @@ object LoginView extends JFXApp {
 
   def exit():Unit={
     println ("123")
-    val clientView:ClientView = new ClientView()
-    stage = clientView.getStage()
+    stage = ClientView.getStage()
   }
+
 }
 
 
