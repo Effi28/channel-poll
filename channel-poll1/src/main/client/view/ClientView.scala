@@ -1,17 +1,18 @@
 package main.client.view
 
-import main.client.view.Statement
-import main.shared.Comment
+
+import main.shared.{Comment, Statement}
 
 import scala.compat.Platform
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.collections.ObservableMap
+import scalafx.collections.{ObservableBuffer, ObservableHashSet, ObservableMap}
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
+import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import main.server.serverCommunication.ClientControl
+import main.server.serverCommunication.ClientControl._
 
 
 object ClientView extends JFXApp {
@@ -20,23 +21,23 @@ object ClientView extends JFXApp {
 
 
     //Variablen sind provisorisch, die Sachen müssen eigentlich vom Server geholt werden, und neue Kommentare auch dort hin geschickt werden
-    val statement1 = new Statement(1, "statement 1 statement 1 statement 1 statement 1 statement 1 statement 1 statement 1")
-    val statement2 = new Statement(2, "statement 2")
+    //val statement1 = new Statement(1, "statement 1 statement 1 statement 1 statement 1 statement 1 statement 1 statement 1")
+    //val statement2 = new Statement(2, "statement 2")
 
-    val statements = List(statement1, statement2)
+    //val statements = List(statement1, statement2)
 
-    var likes = ObservableMap(1 -> 3, 2 -> 4)
+    //var likes = ObservableMap(1 -> 3, 2 -> 4)
 
-    var comments = ObservableMap(1 -> List("comment 1 for statement 1", "comment 2 for statement 1"), 2 -> List("comment 1 for statement 2", "comment 2 for statement 2"))
+    //var comments = ObservableMap(1 -> List("comment 1 for statement 1", "comment 2 for statement 1"), 2 -> List("comment 1 for statement 2", "comment 2 for statement 2"))
 
-    var polls = ObservableMap(1 -> List(), 2 -> List())
+    //var polls = ObservableMap(1 -> List(), 2 -> List())
 
   def getStage():PrimaryStage= {
 
     stage = new PrimaryStage {
       title = "Channel Poll"
-      height = 600
-      width = 500
+      height = 900
+      width = 700
       scene = new Scene {
         val border = new BorderPane()
         border.top = new Label("ChannelPoll")
@@ -48,11 +49,48 @@ object ClientView extends JFXApp {
 
         border.bottom = logoutButton
         //border.left
-        //border.right
+        //var users = new ObservableHashSet[String]()
+        //users = ClientControl.users
+
+        val userList = new ListView[String]
+
+        userList.items = ClientControl.users
+        println("user size beginning: " + ClientControl.users.size)
+
+
+        ClientControl.users.onChange({
+
+          userList.items = ClientControl.users
+          println("user size: " + ClientControl.users.size)
+
+        })
+
+
+
+        border.right = userList
+
+
+
+      val statementList = new ListView[Statement]()
+
+
+
+       // val messageList =
+
+
+        ClientControl.statements.onChange({
+          println("size: " + ClientControl.statements.size)
+          statementList.items = ClientControl.statements
+        })
+
+
+
+
+
 
 
         //VerticalBox, die später alle StatementBoxen enthalten soll
-        val vbox = new VBox()
+        //val vbox = new VBox()
 
 
         //Für jedes Statement wird eine StatementBox erstellt
@@ -63,7 +101,7 @@ object ClientView extends JFXApp {
         //Die erzeugten StatementBoxen werden der VerticalBox hinzugefügt
         //statementBoxes.foreach(box => vbox.children.add(box))
 
-        border.center = vbox
+        border.center = statementList
         root = border
       }
 
@@ -71,6 +109,9 @@ object ClientView extends JFXApp {
     stage
   }
 
+
+
+  /*
   //Funktion, die für ein gegebenes Statement eine StatementBox erzeugt
   def createStatementBox(statement: Statement): VBox = {
     //StatementText
@@ -181,6 +222,8 @@ object ClientView extends JFXApp {
     ClientControl.sendComment(newcomment)
   }
 
+
+*/
   def logout(): Unit ={
     //TODO: TwitterLogout
     //Fenster schließen

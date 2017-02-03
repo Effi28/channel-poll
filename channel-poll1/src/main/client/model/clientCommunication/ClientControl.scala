@@ -2,16 +2,21 @@ package main.server.serverCommunication
 
 import java.io.OutputStreamWriter
 import java.net.Socket
-import client.model.clientCommunication.{ClientMessageSender}
+
+import client.model.clientCommunication.ClientMessageSender
 import main.client.model.clientCommunication.ServerHandler
-import main.shared.{Message, Statement, Comment}
-import scalafx.collections.{ObservableHashMap, ObservableHashSet}
+import main.shared.{Comment, Message, Statement}
+
+import scalafx.collections.{ObservableBuffer, ObservableHashMap, ObservableHashSet}
 
 object ClientControl {
-  val users:ObservableHashSet[String] = new ObservableHashSet[String]()
+  val users:ObservableBuffer[String] = new ObservableBuffer[String]()
   val globalChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
   val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
-  val statements:ObservableHashMap[Long, Statement] = new ObservableHashMap[Long, Statement]()
+  //val statements:ObservableHashMap[Long, Statement] = new ObservableHashMap[Long, Statement]()
+
+  val statements:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
+
   val comments:ObservableHashMap[Int, Comment] = new ObservableHashMap[Int, Comment]()
   var sender:ClientMessageSender = null
 

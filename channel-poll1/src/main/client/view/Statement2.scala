@@ -1,6 +1,6 @@
 package main.client.view
 
-class Statement(i: Int, t: String) {
+class Statement2(i: Int, t: String) {
   var id = i
   var text = t
 

@@ -34,27 +34,25 @@ object LoginView extends JFXApp {
           println(loginURL)
         }
       }
-      val loginCode = new TextField()
-      loginCode.promptText="Enter your code"
+      val codeTextField = new TextField()
+      codeTextField.promptText="Enter your code"
       val submitButton = new Button("Submit")
       /**
         * Hier bei doLogin kommt (true, Screenname) zurueck,
         * wenn login erfolgreich war
         */
       submitButton.onAction = e => {
-        println("code: " + loginCode.getText)
-        Controller.setupClient(twitterLogin.doLogin(loginCode.getText)._2)
+        //TODO: Fehler anzeigen, falls kein Code eingegeben wurde
+        val code = codeTextField.getText
+        Controller.setupClient(twitterLogin.doLogin(code)._2)
       }
-      border.center = new VBox(loginButton, loginCode, submitButton)
+      border.center = new VBox(loginButton, codeTextField, submitButton)
       root = border
     }
   }
 
   def exit():Unit={
-<<<<<<< HEAD
-    println ("123")
-=======
->>>>>>> 3b4af6f11a9833a9eb2def659b51b235bd224a9e
+
     stage = ClientView.getStage()
   }
 
