@@ -12,6 +12,8 @@ import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import main.server.serverCommunication.ClientControl
 
+import scalafx.scene.control.ScrollPane.ScrollBarPolicy
+
 
 object ClientView extends JFXApp {
 
@@ -64,28 +66,15 @@ object ClientView extends JFXApp {
 
         val feed = new VBox()
         feed.children = ClientControl.activityFeed
-        border.center = feed
+        val scroll = new ScrollPane()
+        scroll.content = feed
+        scroll.hbarPolicy = ScrollBarPolicy.Never
+        border.center = scroll
 
         ClientControl.activityFeed.onChange({
-
-
-
-         println("test");
-
-          //println("feed size: " + feed.children.size())
-
           Platform.runLater{
             feed.children.add(ClientControl.activityFeed.last): Unit
           }
-
-
-
-          //val feed = new VBox()
-          //feed.children = ClientControl.activityFeed
-
-
-          //border.center = feed
-
         })
 
 
