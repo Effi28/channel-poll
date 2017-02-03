@@ -33,6 +33,8 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleLoginSuccessful(jSONObject:JSONObject): Unit ={
+    val userName: String = jSONObject.optString("name")
+    handler.handleLogin(userName)
     Controller.exitLoginView()
   }
 
