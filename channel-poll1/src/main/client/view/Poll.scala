@@ -1,4 +1,4 @@
-package main.client.model
+package main.client.view
 
 class Poll(i: Int, sId: Int, q:String) {
 

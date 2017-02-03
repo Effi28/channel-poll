@@ -1,34 +1,32 @@
 package main.server.serverCommunication
 
-
 import java.io.OutputStreamWriter
 import java.net.Socket
-import javafx.beans.InvalidationListener
-import javafx.collections.{ArrayChangeListener, ObservableArray}
-
-import client.model.clientCommunication.{ClientMessageReceiver, ClientMessageSender}
+import client.model.clientCommunication.{ClientMessageSender}
 import main.client.model.clientCommunication.ServerHandler
-
-import scalafx.collections.ObservableHashSet
-
-
+import main.shared.{Message, Statement, Comment}
+import scalafx.collections.{ObservableHashMap, ObservableHashSet}
 
 object ClientControl {
   val users:ObservableHashSet[String] = new ObservableHashSet[String]()
+  val globalChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
+  val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
+  val statements:ObservableHashMap[Long, Statement] = new ObservableHashMap[Long, Statement]()
+  val comments:ObservableHashMap[Int, Comment] = new ObservableHashMap[Int, Comment]()
   var sender:ClientMessageSender = null
-  var nick = ""
 
-  def setupClient(address:String, port:Int): Unit ={
-    val socket:Socket = new Socket(address, port)
+  def setupClient(nick:String): Unit ={
+    val socket:Socket = new Socket("localhost", 8008)
     new ServerHandler(socket).start()
     sender = new ClientMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"), nick)
     sender.writeLoginMessage()
-    }
+  }
 
-  def sendMessage(msg:String):Unit={ sender.writeChatMessage(msg)}
-  def sendMessage(msg:String, recv:String):Unit = {sender.writeChatMessage(msg, recv)}
+  def sendComment(cmd:Comment): Unit={
+    sender.writeStComment(cmd)
+  }
 
-  def sendNick(nick1:String): Unit ={
-   nick = nick1
+  def sendMessage(msg:Message):Unit={
+    sender.writeChatMessage(msg)
   }
 }

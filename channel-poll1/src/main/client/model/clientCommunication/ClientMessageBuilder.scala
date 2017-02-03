@@ -1,5 +1,6 @@
 package client.model.clientCommunication
 
+import main.shared.{Comment, Message, Statement}
 import org.json._
 import main.shared.enums.JsonType
 
@@ -15,17 +16,21 @@ object ClientMessageBuilder {
     new JSONObject().put("type", JsonType.DISCONNECT)
   }
 
-  def chatMessage(senderID:String, msg:String):JSONObject = {
+  def chatMessage(message:Message):JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.CHAT)
-    Jmsg.put("senderID", senderID)
-    Jmsg.put("stamp", System.currentTimeMillis());
-    Jmsg.put("message", msg)
+    Jmsg.put("senderID", message.sender)
+    Jmsg.put("stamp", message.rcv);
+    Jmsg.put("message", message.msg)
+    Jmsg.put("recv", message.rcv)
   }
 
-  def writeChatMessage(senderID:String, msg:String):JSONObject = { chatMessage(senderID, msg) }
-
-  def writeChatMessage(senderID:String, msg:String, receiverID:String): JSONObject ={
-    chatMessage(senderID, msg).put("groupID", receiverID)
+  def comment(comment: Comment):JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.COMMENT)
+    Jmsg.put("senderID", comment.screenname)
+    Jmsg.put("message", comment.message)
+    Jmsg.put("likes", comment.likes)
+    Jmsg.put("id", comment.ID)
   }
 }

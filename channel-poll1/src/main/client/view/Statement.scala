@@ -1,4 +1,4 @@
-package main.client.model
+package main.client.view
 
 class Statement(i: Int, t: String) {
   var id = i

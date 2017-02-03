@@ -5,7 +5,6 @@ package main.client.view
 
 import java.awt.Desktop
 
-import main.client.TwitterLogin
 import main.client.controller.Controller
 
 import scalafx.application.{JFXApp, Platform}
@@ -52,7 +51,10 @@ object LoginView extends JFXApp {
   }
 
   def exit():Unit={
+<<<<<<< HEAD
     println ("123")
+=======
+>>>>>>> 3b4af6f11a9833a9eb2def659b51b235bd224a9e
     stage = ClientView.getStage()
   }
 

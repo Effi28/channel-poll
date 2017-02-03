@@ -1,26 +1,30 @@
 package client.model.clientCommunication
 
 import java.io.OutputStreamWriter
+import main.shared.{Message, Statement, Comment}
 import org.json._
-/**
-  * Created by Effi2 on 16.01.2017.
-  */
+
 class ClientMessageSender(out:OutputStreamWriter, nick:String) {
 
   def writeLoginMessage(): Unit ={
     writeMessage(ClientMessageBuilder.loginMessage(nick))
   }
 
-  def writeChatMessage(msg:String): Unit={
-    writeMessage(ClientMessageBuilder.writeChatMessage(nick, msg))
+  def writeChatMessage(msg:Message): Unit={
+    writeMessage(ClientMessageBuilder.chatMessage(msg))
   }
 
-  def writeChatMessage(msg:String, group:String): Unit={
-    writeMessage(ClientMessageBuilder.writeChatMessage(nick, msg, group))
+  def writeStComment(cmd: Comment): Unit = {
+    writeComment(ClientMessageBuilder.comment(cmd))
   }
 
   def writeMessage(json:JSONObject): Unit ={
     println("CLIENT SENT: " + json.toString + "\n")
+    out.write(json.toString + "\n")
+    out.flush()
+  }
+
+  def writeComment(json: JSONObject): Unit = {
     out.write(json.toString + "\n")
     out.flush()
   }

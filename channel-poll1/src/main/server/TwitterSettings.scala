@@ -1,4 +1,5 @@
-package main.twitter
+package main.server
+
 import twitter4j.conf.ConfigurationBuilder
 
 /**
@@ -8,8 +9,8 @@ import twitter4j.conf.ConfigurationBuilder
 class TwitterSettings {
 
   // Pathes to the Json Files
-  val pathToStatements = "src/main/twitter/Statements.json"
-  val pathToComments = "src/main/twitter/Comments.json"
+  val pathToStatements = "src/main/server/JsonFiles/Statements.json"
+  val pathToComments = "src/main/server/JsonFiles/Comments.json"
 
   //"C:\\Users\\KathrinNetzer\\Desktop\\twitter\\src\\twitter\\Statements.json"
 
@@ -17,6 +18,11 @@ class TwitterSettings {
   // Login Oauth Settings
   val consumerKey = "wehGBs5c032ZcQz7elJG25RuB"
   val consumerSecret = "iPSm2vKsbt81ocCjxE8tyrYnQ5z4GiuegrmVdSaKzRI24yJQvl"
+
+  // vorruebergehend (for streaming twitter appliction):
+  val consumerKey1 = "DG7mPrtNYG4zkOWi31JC7ZZXH"
+  val consumerSecret1 = "WBIzuPNnqNPIEAcHphdD1t0kILdLDRUwKNZOKEuPd85mI28HjH"
+
   val accessToken = "4874134271-uRS80fyMpmOUeUz4pKvyk077DHNcUTerKJjuzAm"
   val accessTokenSecret = "PRA5GqEsNDeL2uZ4MyB1qx0mINMO4istb6aHczQmy69Nf"
 
@@ -27,8 +33,8 @@ class TwitterSettings {
 
   val streamsettings: ConfigurationBuilder = new ConfigurationBuilder
   streamsettings.setDebugEnabled(true)
-  streamsettings.setOAuthConsumerKey(consumerKey)
-  streamsettings.setOAuthConsumerSecret(consumerSecret)
+  streamsettings.setOAuthConsumerKey(consumerKey1)
+  streamsettings.setOAuthConsumerSecret(consumerSecret1)
   streamsettings.setOAuthAccessToken(accessToken)
   streamsettings.setOAuthAccessTokenSecret(accessTokenSecret)
 

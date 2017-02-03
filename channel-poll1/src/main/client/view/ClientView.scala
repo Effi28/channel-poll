@@ -1,6 +1,7 @@
 package main.client.view
 
-import main.client.model.{Poll, Statement}
+import main.client.view.Statement
+import main.shared.Comment
 
 import scala.compat.Platform
 import scalafx.application.JFXApp
@@ -10,6 +11,8 @@ import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Label, TextField, TextInputDialog}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
+import main.server.serverCommunication.ClientControl
+
 
 object ClientView extends JFXApp {
 
@@ -166,8 +169,16 @@ object ClientView extends JFXApp {
     println("Existing Comment List: " + existingCommentList)
     val updatedCommentList = comment :: existingCommentList
     println("New Comment List: " + updatedCommentList)
+
+    // muss das nicht im Server handler handle Comment passieren ?
     comments += (statementId -> updatedCommentList)
     println("Comments: " + comments)
+
+    // sending comment to server
+    val newcomment = new Comment(comment, "", new Array[String](0), statementId)
+
+    // screenname ? likes ?
+    ClientControl.sendComment(newcomment)
   }
 
   def logout(): Unit ={

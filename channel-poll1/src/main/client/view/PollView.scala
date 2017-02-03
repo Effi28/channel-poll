@@ -1,7 +1,5 @@
 package main.client.view
 
-import main.client.model.Poll
-
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene

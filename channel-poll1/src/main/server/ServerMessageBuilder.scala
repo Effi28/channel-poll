@@ -1,5 +1,6 @@
 package main.server
 
+import main.shared.{Comment, Message, Statement}
 import main.shared.enums.JsonType
 import org.json.JSONObject
 import org.json.JSONArray
@@ -32,19 +33,32 @@ object ServerMessageBuilder {
     Jmsg.put("name", nick)
   }
 
-  def writeChatMessage(sender:String, msg:String, stamp:String): JSONObject ={
-  writeGeneralMessage(sender, msg, stamp)
-  }
-
-  def writeGroupMessage(sender:String, msg:String, stamp:String, group:String): JSONObject={
-    writeGeneralMessage(sender, msg, stamp).put("group", group)
-  }
-
-  def writeGeneralMessage(sender:String, msg:String, stamp:String): JSONObject ={
+  def writeChatMessage(message:Message): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.CHAT.toString)
-    Jmsg.put("sender", sender)
-    Jmsg.put("message", msg)
-    Jmsg.put("stamp", stamp)
+    Jmsg.put("sender", message.sender)
+    Jmsg.put("message", message.msg)
+    Jmsg.put("stamp", message.stamp)
+    Jmsg.put("recv", message.rcv)
+  }
+
+  def writeStatement(statement: Statement): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.STATEMENT)
+    Jmsg.put("userid", statement.message)
+    Jmsg.put("name", statement.userName)
+    Jmsg.put("screenname", statement.screenName)
+    Jmsg.put("pictureurl", statement.pictureURL)
+    Jmsg.put("created_at", statement.creationDate)
+    Jmsg.put("id", statement.ID)
+  }
+
+  def writeComment(comment: Comment): JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.COMMENT)
+    Jmsg.put("senderID", comment.screenname)
+    Jmsg.put("message", comment.message)
+    Jmsg.put("likes", comment.likes)
+    Jmsg.put("id", comment.ID)
   }
 }
