@@ -5,9 +5,10 @@ import java.net.Socket
 
 import client.model.clientCommunication.ClientMessageSender
 import main.client.model.clientCommunication.ServerHandler
-import main.shared.{Comment, Message, Statement}
+import main.shared.{Comment, Message, Post, Statement}
 
 import scalafx.collections.{ObservableBuffer, ObservableHashMap, ObservableHashSet}
+import scalafx.scene.layout.HBox
 
 object ClientControl {
   val users:ObservableBuffer[String] = new ObservableBuffer[String]()
@@ -19,6 +20,9 @@ object ClientControl {
 
   val comments:ObservableHashMap[Int, Comment] = new ObservableHashMap[Int, Comment]()
   var sender:ClientMessageSender = null
+
+
+  val feed:ObservableBuffer[HBox] = new ObservableBuffer[HBox]()
 
   def setupClient(nick:String): Unit ={
     val socket:Socket = new Socket("localhost", 8008)

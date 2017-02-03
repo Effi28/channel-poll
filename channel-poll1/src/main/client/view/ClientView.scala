@@ -1,7 +1,7 @@
 package main.client.view
 
 
-import main.shared.{Comment, Statement}
+import main.shared.{Comment, Message, Statement}
 
 import scala.compat.Platform
 import scalafx.application.JFXApp
@@ -75,12 +75,30 @@ object ClientView extends JFXApp {
 
 
 
-       // val messageList =
+       val observableMessageList = new ObservableBuffer[String]()
+
+        val messageList = new ListView[String]
+messageList.items = ClientControl.feed
+
+
+
+
+
+
+        val vBox = new VBox()
+
+
 
 
         ClientControl.statements.onChange({
           println("size: " + ClientControl.statements.size)
           statementList.items = ClientControl.statements
+
+
+
+          val hBox = createHBox(statements.last)
+          addMessage(statements.last.screenName)
+
         })
 
 
@@ -101,12 +119,32 @@ object ClientView extends JFXApp {
         //Die erzeugten StatementBoxen werden der VerticalBox hinzugefügt
         //statementBoxes.foreach(box => vbox.children.add(box))
 
-        border.center = statementList
+
+
+
+
+        border.center = messageList
         root = border
       }
 
     }
     stage
+  }
+
+
+  def createHBox(statement: Statement) {
+    val user = new Text(statement.userName)
+    val message = new Text(statement.message)
+
+    return new HBox(user, message)
+  }
+
+def addMessage(hBox: HBox):Unit={
+  ClientControl.feed += hBox
+}
+
+  def getMessageFromStatement(statement: Statement){
+    return statement.message
   }
 
 
