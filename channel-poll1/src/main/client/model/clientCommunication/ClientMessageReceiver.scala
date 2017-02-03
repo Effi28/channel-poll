@@ -2,11 +2,12 @@ package client.model.clientCommunication
 
 import java.io.BufferedReader
 
+import com.google.gson.JsonArray
 import main.client.controller.Controller
 import main.client.model.clientCommunication.ServerHandler
 import main.shared.{Message, Statement}
 import main.shared.enums.JsonType
-import org.json.JSONObject
+import org.json.{JSONArray, JSONObject}
 
 class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
 
@@ -33,8 +34,12 @@ class ClientMessageReceiver(in:BufferedReader, handler:ServerHandler) {
   }
 
   def handleLoginSuccessful(jSONObject:JSONObject): Unit ={
-    val userName: String = jSONObject.optString("name")
-    handler.handleLogin(userName)
+    val userNames: JSONArray = jSONObject.optJSONArray("users")
+    var i = 0;
+    while(i < userNames.length()){
+      handler.handleLogin(userNames.getString(i))
+      i = i + 1
+    }
     Controller.exitLoginView()
   }
 
