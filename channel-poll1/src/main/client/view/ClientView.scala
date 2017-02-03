@@ -3,8 +3,7 @@ package main.client.view
 
 import main.shared.{Comment, Message, Statement}
 
-import scala.compat.Platform
-import scalafx.application.JFXApp
+import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.collections.{ObservableBuffer, ObservableHashSet, ObservableMap}
 import scalafx.scene.Scene
@@ -12,7 +11,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import main.server.serverCommunication.ClientControl
-import main.server.serverCommunication.ClientControl.{feed, _}
 
 
 object ClientView extends JFXApp {
@@ -20,7 +18,7 @@ object ClientView extends JFXApp {
 
 
 
-  def getStage():PrimaryStage= {
+  def getStage(): PrimaryStage = {
 
 
 
@@ -31,84 +29,64 @@ object ClientView extends JFXApp {
       width = 700
       scene = new Scene {
         val border = new BorderPane()
+
+
+        //Top
         border.top = new Label("ChannelPoll")
 
-        val logoutButton = new Button("Logout")
-        logoutButton.onAction = e =>{
-          logout()
-        }
 
-        border.bottom = logoutButton
+        //Left
         //border.left
 
 
+        //Center: Content
+
+
+        //Right: User
         val userList = new ListView[String]
-
         userList.items = ClientControl.users
-        println("user size beginning: " + ClientControl.users.size)
-
-
         ClientControl.users.onChange({
-
           userList.items = ClientControl.users
-          println("user size: " + ClientControl.users.size)
-
         })
-
-
-
-
         border.right = userList
 
 
-
-      val statementList = new ListView[Statement]()
-
-
-
-       val observableMessageList = new ObservableBuffer[String]()
-
-        val messageList = new ListView[HBox]
-messageList.items = ClientControl.feed
-
-
-
-
-
-
-
+        val statementList = new ListView[Statement]()
 
 
 
 
         ClientControl.statements.onChange({
-          println("size: " + ClientControl.statements.size)
           statementList.items = ClientControl.statements
-
-
-
-          val messageBox = createHBox(statements.last)
-          addMessage(messageBox)
-
+          val activity = createActivity(ClientControl.statements.last)
+          addActivity(activity)
         })
-
 
         val feed = new VBox()
+        feed.children = ClientControl.activityFeed
+        border.center = feed
 
-        border.center = this.feed
-/*
-        ClientControl.feed.onChange({
-          println("feed size: " +feed.children.size())
+        ClientControl.activityFeed.onChange({
 
-          println("something changed")
 
-          this.feed.children.add(ClientControl.feed.last) : Unit
 
-          border.center = this.feed
+         println("test");
+
+          //println("feed size: " + feed.children.size())
+
+          Platform.runLater{
+            feed.children.add(ClientControl.activityFeed.last): Unit
+          }
+
+
+
+          //val feed = new VBox()
+          //feed.children = ClientControl.activityFeed
+
+
+          //border.center = feed
 
         })
-
-*/
 
 
         //VerticalBox, die später alle StatementBoxen enthalten soll
@@ -124,10 +102,18 @@ messageList.items = ClientControl.feed
         //statementBoxes.foreach(box => vbox.children.add(box))
 
 
-
-
-
         //border.center = messageList
+
+
+        //Bottom: Logout
+        val logoutButton = new Button("Logout")
+        logoutButton.onAction = e => {
+          logout()
+        }
+        border.bottom = logoutButton
+
+
+        //Root
         root = border
       }
 
@@ -135,24 +121,27 @@ messageList.items = ClientControl.feed
     stage
   }
 
+/*
+  def getStage(): PrimaryStage ={
+    stage
+  }
+  */
 
 
-  def createHBox(statement: Statement):HBox = {
+  def createActivity(statement: Statement): VBox = {
     val user = new Text(statement.userName)
-    val message = new Text(statement.message)
+    val message = new TextFlow(new Text(statement.message))
 
-    return new HBox(user, message)
+    return new VBox(user, message)
   }
 
-def addMessage(hBox: HBox):Unit={
-  ClientControl.feed += hBox
+  def addActivity(activity: VBox): Unit = {
+    ClientControl.activityFeed += activity
+  }
 
-}
-
-  def getMessageFromStatement(statement: Statement){
+  def getMessageFromStatement(statement: Statement) {
     return statement.message
   }
-
 
 
   /*
@@ -268,7 +257,7 @@ def addMessage(hBox: HBox):Unit={
 
 
 */
-  def logout(): Unit ={
+  def logout(): Unit = {
     //TODO: TwitterLogout
     //Fenster schließen
   }

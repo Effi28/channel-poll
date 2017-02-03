@@ -16,7 +16,7 @@ class QueueGetter {
           val firstTweet = TestTwitterAccess.statementsQueue.dequeue()
           Server.addStatement(firstTweet)
         }
-        Thread.sleep(3000)
+        Thread.sleep(10000)
       }
     }
   })

@@ -20,12 +20,6 @@ class ServerHandler (socket:Socket) extends Thread{
 
   def handleLogin(nick:String): Unit = {
     ClientControl.users += nick
-
-
-
-    println("#########################################")
-
-
   }
 
   def handleLogout(nick:String): Unit = {

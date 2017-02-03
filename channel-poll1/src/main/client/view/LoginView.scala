@@ -52,7 +52,6 @@ object LoginView extends JFXApp {
   }
 
   def exit():Unit={
-
     stage = ClientView.getStage()
   }
 

@@ -8,7 +8,7 @@ import main.client.model.clientCommunication.ServerHandler
 import main.shared.{Comment, Message, Post, Statement}
 
 import scalafx.collections.{ObservableBuffer, ObservableHashMap, ObservableHashSet}
-import scalafx.scene.layout.HBox
+import scalafx.scene.layout.{HBox, VBox}
 
 object ClientControl {
   val users:ObservableBuffer[String] = new ObservableBuffer[String]()
@@ -22,7 +22,7 @@ object ClientControl {
   var sender:ClientMessageSender = null
 
 
-  val feed:ObservableBuffer[HBox] = new ObservableBuffer[HBox]()
+  val activityFeed:ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
 
   def setupClient(nick:String): Unit ={
     val socket:Socket = new Socket("localhost", 8008)
