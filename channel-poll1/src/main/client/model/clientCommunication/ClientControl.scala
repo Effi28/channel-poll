@@ -22,6 +22,8 @@ object ClientControl {
   var sender:ClientMessageSender = null
 
 
+  val chatRooms:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
+
   val activityFeed:ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
 
   def setupClient(nick:String): Unit ={

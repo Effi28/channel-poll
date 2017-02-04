@@ -12,17 +12,17 @@ import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import main.server.serverCommunication.ClientControl
 
+import scala.collection.mutable.ListBuffer
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 
 
 object ClientView extends JFXApp {
 
 
+  //val statementTabs = new ObservableBuffer[Statement]()
+
+
   def getStage(): PrimaryStage = {
-
-
-    val statementTabs = ObservableBuffer[Statement]()
-
     stage = new PrimaryStage {
       title = "Channel Poll"
       height = 900
@@ -34,17 +34,26 @@ object ClientView extends JFXApp {
         generalTab.text = "General"
         generalTab.content = generalTabContent()
 
-        val tabList = List(generalTab)
-
+        val tabList = ListBuffer(generalTab)
+        println("tabList size beginning: " + tabList.size)
 
         tabPane.tabs = tabList
 
-        statementTabs.foreach(statement =>{
-            val statementTab = new Tab()
-            statementTab.text = statement.userName
-            statementTab.content = statementTabContent(statement)
-            tabList.::(statementTab)
-        })
+            ClientControl.chatRooms.onChange({
+              val statementTab = new Tab()
+              statementTab.text = ClientControl.chatRooms.last.userName
+              statementTab.content = statementTabContent(ClientControl.chatRooms.last)
+              tabList += statementTab
+              println("tabList size onchange: " + tabList.size)
+              tabPane.tabs = tabList
+            })
+
+
+
+
+
+
+
 
 
 
@@ -68,7 +77,7 @@ object ClientView extends JFXApp {
 
 
     //Top
-    border.top = new Label("ChannelPoll")
+    border.top = new Label("Political Statements")
 
 
     //Left
@@ -111,11 +120,7 @@ object ClientView extends JFXApp {
 
 
     //Bottom: Logout
-    val logoutButton = new Button("Logout")
-    logoutButton.onAction = e => {
-      logout()
-    }
-    border.bottom = logoutButton
+    border.bottom = logoutButton()
 
 
     return border
@@ -126,6 +131,43 @@ object ClientView extends JFXApp {
     val border = new BorderPane()
 
 
+
+
+    val user = new Text(statement.userName)
+    val message = new TextFlow(new Text(statement.message))
+
+
+    //Top
+    border.top = new VBox(user, message)
+
+
+
+
+    //Left
+    //border.left
+
+
+    //Center: Content
+
+
+    //Right: User
+    val userList = new ListView[String]
+    userList.items = ClientControl.users
+    ClientControl.users.onChange({
+      userList.items = ClientControl.users
+    })
+    border.right = userList
+
+
+
+    //Bottom: Logout
+    border.bottom = logoutButton()
+
+
+
+
+
+
     return border
   }
 
@@ -133,7 +175,7 @@ object ClientView extends JFXApp {
   def createActivity(statement: Statement): VBox = {
     val user = new Text(statement.userName)
     val message = new TextFlow(new Text(statement.message))
-    return new VBox(user, message, enterChatRoomButton())
+    return new VBox(user, message, enterChatRoomButton(statement))
   }
 
   def addActivity(activity: VBox): Unit = {
@@ -158,10 +200,10 @@ object ClientView extends JFXApp {
     return new HBox(likeButton(), commentButton(), pollButton())
   }
 
-  def enterChatRoomButton(): Button = {
+  def enterChatRoomButton(statement: Statement): Button = {
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
-      //TODO: neuen tab öffnen
+      ClientControl.chatRooms.add(statement)
     }
     return enterChatRoomButton
   }
@@ -189,6 +231,14 @@ object ClientView extends JFXApp {
       //TODO
     }
     return pollButton
+  }
+
+  def logoutButton(): Button ={
+    val logoutButton = new Button("Logout")
+    logoutButton.onAction = e=> {
+      logout()
+    }
+    return logoutButton
   }
 
 
