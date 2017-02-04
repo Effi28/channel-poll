@@ -4,7 +4,7 @@ package main.client.view
 import main.client.controller.Controller
 import main.shared.{Statement}
 import scalafx.application.{JFXApp, Platform}
-import scalafx.application.JFXApp.PrimaryStage}
+import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, HBox, VBox}

@@ -35,7 +35,7 @@ object ClientMessageReceiver {
 
   def handleLoginSuccessful(json:JSONObject): Unit ={
     val userNames: JSONArray = json.optJSONArray("users")
-    for(i <- 1 to userNames.length()){
+    for(i <- 0 until userNames.length()){
       ServerHandler.handleLogin(userNames.getString(i))
     }
     Controller.exitLoginView()
@@ -57,13 +57,27 @@ object ClientMessageReceiver {
     val arr:JSONArray = json.optJSONArray("likes")
     //TODO check if array is ok
     val likes:Array[String] = new Array[String](arr.length())
-    for(i <- 1 to arr.length()){
+    for(i <- 0 until arr.length()){
       likes.update(i, arr.toString)
     }
-    ServerHandler.handleComment(new Comment(json.optString("message"),json.optString("screenname"), likes, json.optInt("id")))
+    val statement:Statement = getStatement(json.optJSONObject("statement"))
+
+    ServerHandler.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), likes, json.optInt("id")))
   }
 
-  def handleLoginFailed(jSONObject:JSONObject): Unit ={
+  def getStatement(json: JSONObject): Statement = {
+    val jsonStatement:JSONObject = json.optJSONObject("statement")
+    val message: String = jsonStatement.optString("message")
+    val userID: String = jsonStatement.optString("userid")
+    val userName: String = jsonStatement.optString("name")
+    val screenName: String = jsonStatement.optString("screenname")
+    val pictureURL: String = jsonStatement.optString("pictureurl")
+    val creationDate: String = jsonStatement.optString("created_at")
+    val id: Int = jsonStatement.optInt("id")
+    new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
+  }
+
+    def handleLoginFailed(jSONObject:JSONObject): Unit ={
     //TODO show the reason why login failed(e.G. username already taken)
   }
 

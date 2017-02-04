@@ -3,6 +3,7 @@ package main.server.serverCommunication
 import java.net.Socket
 import client.model.clientCommunication.{ClientMessageSender}
 import main.client.model.clientCommunication.ServerHandler
+import scala.collection.mutable.ArrayBuffer
 import main.shared.{Comment, Message, Statement}
 import scalafx.collections.{ObservableBuffer, ObservableHashMap}
 import scalafx.scene.layout.{VBox}
@@ -14,7 +15,7 @@ object ClientControl {
   val globalChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
   val groupChat:ObservableHashMap[Int, Message] = new ObservableHashMap[Int, Message]()
   val statements:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
-  val comments:ObservableHashMap[Int, Comment] = new ObservableHashMap[Int, Comment]()
+  val comments:ObservableHashMap[Statement, ArrayBuffer[Comment]] = new ObservableHashMap[Statement, ArrayBuffer[Comment]]()
   val chatRooms:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
   val activityFeed:ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
 

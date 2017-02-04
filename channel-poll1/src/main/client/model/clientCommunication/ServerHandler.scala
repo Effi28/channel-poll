@@ -26,7 +26,7 @@ object ServerHandler extends Thread{
   }
 
   def handleComment(comment: Comment): Unit = {
-    ClientControl.comments += comment.ID -> comment
+    ClientControl.comments.get(comment.statement).get += comment
   }
 
   def handleGlobalChat(message:Message): Unit ={

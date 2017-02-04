@@ -2,10 +2,10 @@ package main.server
 
 import java.io.BufferedReader
 
-import main.shared.{Message, Statement}
+import main.shared.{Comment, Message, Statement}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
-import org.json.JSONObject
+import org.json.{JSONArray, JSONObject}
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
 
@@ -40,11 +40,28 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     client.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
-  def handleComment(jSONObject: JSONObject): Unit = {
-    val message: String = jSONObject.optString("message")
-    val screenname: String = jSONObject.optString("screenname")
-    val likes = jSONObject.opt("likes")
-    val id = jSONObject.optInt("id")
+  def handleComment(json: JSONObject): Unit = {
+    val arr:JSONArray = json.optJSONArray("likes")
+    //TODO check if array is ok
+    val likes:Array[String] = new Array[String](arr.length())
+    for(i <- 0 until arr.length()){
+      likes.update(i, arr.toString)
+    }
+
+    val statement:Statement = getStatement(json.optJSONObject("statement"))
+    client.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), likes, json.optInt("id")))
+  }
+
+  def getStatement(json: JSONObject): Statement = {
+    val jsonStatement:JSONObject = json.optJSONObject("statement")
+    val message: String = jsonStatement.optString("message")
+    val userID: String = jsonStatement.optString("userid")
+    val userName: String = jsonStatement.optString("name")
+    val screenName: String = jsonStatement.optString("screenname")
+    val pictureURL: String = jsonStatement.optString("pictureurl")
+    val creationDate: String = jsonStatement.optString("created_at")
+    val id: Int = jsonStatement.optInt("id")
+    new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
   }
 
   def handleLogin(jSONObject: JSONObject): Unit ={
