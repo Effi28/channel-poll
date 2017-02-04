@@ -21,83 +21,35 @@ object ClientView extends JFXApp {
   def getStage(): PrimaryStage = {
 
 
+    val statementTabs = ObservableBuffer[Statement]()
+
     stage = new PrimaryStage {
       title = "Channel Poll"
       height = 900
       width = 700
       scene = new Scene {
-        val border = new BorderPane()
+
+        val tabPane = new TabPane()
+        val generalTab = new Tab()
+        generalTab.text = "General"
+        generalTab.content = generalTabContent()
+
+        val tabList = List(generalTab)
 
 
-        //Top
-        border.top = new Label("ChannelPoll")
+        tabPane.tabs = tabList
 
-
-        //Left
-        //border.left
-
-
-        //Center: Content
-
-
-        //Right: User
-        val userList = new ListView[String]
-        userList.items = ClientControl.users
-        ClientControl.users.onChange({
-          userList.items = ClientControl.users
-        })
-        border.right = userList
-
-
-        val statementList = new ListView[Statement]()
-
-
-        ClientControl.statements.onChange({
-          statementList.items = ClientControl.statements
-          val activity = createActivity(ClientControl.statements.last)
-          addActivity(activity)
+        statementTabs.foreach(statement =>{
+            val statementTab = new Tab()
+            statementTab.text = statement.userName
+            statementTab.content = statementTabContent(statement)
+            tabList.::(statementTab)
         })
 
-        val feed = new VBox()
-        feed.children = ClientControl.activityFeed
-        val scroll = new ScrollPane()
-        scroll.content = feed
-        scroll.hbarPolicy = ScrollBarPolicy.Never
-        border.center = scroll
-
-        ClientControl.activityFeed.onChange({
-          Platform.runLater {
-            feed.children.add(ClientControl.activityFeed.last): Unit
-          }
-        })
-
-
-        //VerticalBox, die später alle StatementBoxen enthalten soll
-        //val vbox = new VBox()
-
-
-        //Für jedes Statement wird eine StatementBox erstellt
-        //var statementBoxes = statements.map(s =>
-        //  createStatementBox(s)
-        //)
-
-        //Die erzeugten StatementBoxen werden der VerticalBox hinzugefügt
-        //statementBoxes.foreach(box => vbox.children.add(box))
-
-
-        //border.center = messageList
-
-
-        //Bottom: Logout
-        val logoutButton = new Button("Logout")
-        logoutButton.onAction = e => {
-          logout()
-        }
-        border.bottom = logoutButton
 
 
         //Root
-        root = border
+        root = tabPane
       }
 
     }
@@ -111,10 +63,81 @@ object ClientView extends JFXApp {
     */
 
 
+  def generalTabContent(): BorderPane = {
+    val border = new BorderPane()
+
+
+    //Top
+    border.top = new Label("ChannelPoll")
+
+
+    //Left
+    //border.left
+
+
+    //Center: Content
+
+
+    //Right: User
+    val userList = new ListView[String]
+    userList.items = ClientControl.users
+    ClientControl.users.onChange({
+      userList.items = ClientControl.users
+    })
+    border.right = userList
+
+
+    val statementList = new ListView[Statement]()
+
+
+    ClientControl.statements.onChange({
+      statementList.items = ClientControl.statements
+      val activity = createActivity(ClientControl.statements.last)
+      addActivity(activity)
+    })
+
+    val feed = new VBox()
+    feed.children = ClientControl.activityFeed
+    val scroll = new ScrollPane()
+    scroll.content = feed
+    scroll.hbarPolicy = ScrollBarPolicy.Never
+    border.center = scroll
+
+    ClientControl.activityFeed.onChange({
+      Platform.runLater {
+        feed.children.add(ClientControl.activityFeed.last): Unit
+      }
+    })
+
+
+    //Bottom: Logout
+    val logoutButton = new Button("Logout")
+    logoutButton.onAction = e => {
+      logout()
+    }
+    border.bottom = logoutButton
+
+
+    return border
+  }
+
+
+  def statementTabContent(statement: Statement):BorderPane={
+    val border = new BorderPane()
+
+
+    return border
+  }
+
+
   def createActivity(statement: Statement): VBox = {
     val user = new Text(statement.userName)
     val message = new TextFlow(new Text(statement.message))
-    return new VBox(user, message, infoBox(), actionBox())
+    return new VBox(user, message, enterChatRoomButton())
+  }
+
+  def addActivity(activity: VBox): Unit = {
+    ClientControl.activityFeed += activity
   }
 
   def infoBox(): HBox = {
@@ -134,6 +157,15 @@ object ClientView extends JFXApp {
   def actionBox(): HBox = {
     return new HBox(likeButton(), commentButton(), pollButton())
   }
+
+  def enterChatRoomButton(): Button = {
+    val enterChatRoomButton = new Button("Enter Chat Room")
+    enterChatRoomButton.onAction = e => {
+      //TODO: neuen tab öffnen
+    }
+    return enterChatRoomButton
+  }
+
 
   def likeButton(): Button = {
     val likeButton = new Button("Like")
@@ -159,43 +191,40 @@ object ClientView extends JFXApp {
     return pollButton
   }
 
-  def addActivity(activity: VBox): Unit = {
-    ClientControl.activityFeed += activity
-  }
 
 
 
-/*
-  def getCommentsFromServer(statementId: Int): List[String] = {
-    //TODO: comments vom server holen
-    return comments(statementId)
-  }
+  /*
+    def getCommentsFromServer(statementId: Int): List[String] = {
+      //TODO: comments vom server holen
+      return comments(statementId)
+    }
 
-  def getPollsFromServer(statementId: Int): List[Poll] = {
-    //TODO
-    return polls(statementId)
-  }
-
-
-  def sendCommentToServer(statementId: Int, comment: String): Unit = {
-    val existingCommentList = comments(statementId)
-    println("Existing Comment List: " + existingCommentList)
-    val updatedCommentList = comment :: existingCommentList
-    println("New Comment List: " + updatedCommentList)
-
-    // muss das nicht im Server handler handle Comment passieren ?
-    comments += (statementId -> updatedCommentList)
-    println("Comments: " + comments)
-
-    // sending comment to server
-    val newcomment = new Comment(comment, "", new Array[String](0), statementId)
-
-    // screenname ? likes ?
-    ClientControl.sendComment(newcomment)
-  }
+    def getPollsFromServer(statementId: Int): List[Poll] = {
+      //TODO
+      return polls(statementId)
+    }
 
 
-  */
+    def sendCommentToServer(statementId: Int, comment: String): Unit = {
+      val existingCommentList = comments(statementId)
+      println("Existing Comment List: " + existingCommentList)
+      val updatedCommentList = comment :: existingCommentList
+      println("New Comment List: " + updatedCommentList)
+
+      // muss das nicht im Server handler handle Comment passieren ?
+      comments += (statementId -> updatedCommentList)
+      println("Comments: " + comments)
+
+      // sending comment to server
+      val newcomment = new Comment(comment, "", new Array[String](0), statementId)
+
+      // screenname ? likes ?
+      ClientControl.sendComment(newcomment)
+    }
+
+
+    */
 
   def logout(): Unit = {
     //TODO: TwitterLogout
