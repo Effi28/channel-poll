@@ -35,16 +35,12 @@ object ClientView extends JFXApp {
         generalTab.content = generalTabContent()
 
         val tabList = ListBuffer(generalTab)
-        println("tabList size beginning: " + tabList.size)
-
         tabPane.tabs = tabList
-
             ClientControl.chatRooms.onChange({
               val statementTab = new Tab()
               statementTab.text = ClientControl.chatRooms.last.userName
               statementTab.content = statementTabContent(ClientControl.chatRooms.last)
               tabList += statementTab
-              println("tabList size onchange: " + tabList.size)
               tabPane.tabs = tabList
             })
 
