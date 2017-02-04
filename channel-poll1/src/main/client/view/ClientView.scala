@@ -18,11 +18,7 @@ import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 object ClientView extends JFXApp {
 
 
-
-
   def getStage(): PrimaryStage = {
-
-
 
 
     stage = new PrimaryStage {
@@ -56,8 +52,6 @@ object ClientView extends JFXApp {
         val statementList = new ListView[Statement]()
 
 
-
-
         ClientControl.statements.onChange({
           statementList.items = ClientControl.statements
           val activity = createActivity(ClientControl.statements.last)
@@ -72,7 +66,7 @@ object ClientView extends JFXApp {
         border.center = scroll
 
         ClientControl.activityFeed.onChange({
-          Platform.runLater{
+          Platform.runLater {
             feed.children.add(ClientControl.activityFeed.last): Unit
           }
         })
@@ -110,112 +104,68 @@ object ClientView extends JFXApp {
     stage
   }
 
-/*
-  def getStage(): PrimaryStage ={
-    stage
-  }
-  */
+  /*
+    def getStage(): PrimaryStage ={
+      stage
+    }
+    */
 
 
   def createActivity(statement: Statement): VBox = {
     val user = new Text(statement.userName)
     val message = new TextFlow(new Text(statement.message))
+    return new VBox(user, message, infoBox(), actionBox())
+  }
 
-    return new VBox(user, message)
+  def infoBox(): HBox = {
+    //InfoBox
+    val numberOfLikes = 0
+    //TODO
+    val likes = new Text(numberOfLikes + " Likes")
+    val numberOfComments = 0
+    //TODO
+    val comments = new Text(numberOfComments + " Comments")
+    val numberOfPolls = 0
+    //TODO
+    val polls = new Text(numberOfPolls + " Polls")
+    return new HBox(likes, new Text("\t"), comments, new Text("\t"), polls)
+  }
+
+  def actionBox(): HBox = {
+    return new HBox(likeButton(), commentButton(), pollButton())
+  }
+
+  def likeButton(): Button = {
+    val likeButton = new Button("Like")
+    likeButton.onAction = e => {
+      //TODO
+    }
+    return likeButton
+  }
+
+  def commentButton(): Button = {
+    val commentButton = new Button("Comment")
+    commentButton.onAction = e => {
+      //TODO
+    }
+    return commentButton
+  }
+
+  def pollButton(): Button = {
+    val pollButton = new Button("Poll")
+    pollButton.onAction = e => {
+      //TODO
+    }
+    return pollButton
   }
 
   def addActivity(activity: VBox): Unit = {
     ClientControl.activityFeed += activity
   }
 
-  def getMessageFromStatement(statement: Statement) {
-    return statement.message
-  }
 
 
-  /*
-  //Funktion, die für ein gegebenes Statement eine StatementBox erzeugt
-  def createStatementBox(statement: Statement): VBox = {
-    //StatementText
-    val statementTextFlow = new TextFlow(new Text(statement.text))
-
-    //InfoBox
-    val numberOfLikes = new Text(likes(statement.id).toString + " Likes")
-    val numberOfComments = new Text(comments(statement.id).length.toString + " Comments")
-    val numberOfPolls = new Text(polls(statement.id).length.toString + " Polls")
-    val infoBox = new HBox(numberOfLikes, new Text("\t"), numberOfComments, new Text("\t"), numberOfPolls)
-
-    //Like Button
-    val likeButton = new Button("Like")
-    likeButton.onAction = e => {
-      println("Like button clicked")
-      val countLikes = likes(statement.id) + 1
-      likes += (statement.id -> countLikes)
-    }
-
-    //Comment Button
-    val commentButton = new Button("Comment")
-    commentButton.onAction = e => {
-      println("Comment button clicked")
-    }
-
-    //Poll Button
-    val pollButton = new Button("Poll")
-    pollButton.onAction = e => {
-      println("Poll button clicked")
-
-      val pollView = new PollView
-      pollView.start()
-      //pollView öffnen
-
-    }
-
-
-    val pollList = getPollsFromServer(statement.id)
-    var existingPolls = new VBox()
-
-
-    pollList
-
-
-    val commentList = getCommentsFromServer(statement.id)
-    var existingComments = new TextFlow()
-
-    commentList.foreach(comment => {
-      existingComments.children.add(new Text("\n"))
-      existingComments.children.add(new Text(comment))
-    })
-
-    comments.onChange({
-      val updatedCommentList = getCommentsFromServer(statement.id)
-      existingComments.children.clear()
-      updatedCommentList.foreach(comment => {
-        existingComments.children.add(new Text("\n"))
-        existingComments.children.add(new Text(comment))
-      })
-      println("on change activated")
-    })
-
-    val newComment = new TextField()
-    newComment.promptText = "Write a comment..."
-    newComment.onKeyPressed = e => {
-      if (e.getCode.getName.equals("Enter")) {
-        val comment = newComment.getText()
-        sendCommentToServer(statement.id, comment)
-        newComment.clear()
-      }
-    }
-
-
-    val commentBox = new VBox(newComment, existingComments)
-
-
-    val pollBox = new VBox()
-    return new VBox(statementTextFlow, infoBox, new HBox(likeButton, commentButton, pollButton), commentBox)
-
-  }
-
-
+/*
   def getCommentsFromServer(statementId: Int): List[String] = {
     //TODO: comments vom server holen
     return comments(statementId)
@@ -245,7 +195,8 @@ object ClientView extends JFXApp {
   }
 
 
-*/
+  */
+
   def logout(): Unit = {
     //TODO: TwitterLogout
     //Fenster schließen
