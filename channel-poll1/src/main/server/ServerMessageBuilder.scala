@@ -59,7 +59,9 @@ object ServerMessageBuilder {
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("senderID", comment.screenname)
     Jmsg.put("message", comment.message)
-    Jmsg.put("likes", comment.likes)
+    val arr:JSONArray = new JSONArray()
+    for (u <- comment.likes) arr.put(u)
+    Jmsg.put("likes", arr)
     Jmsg.put("id", comment.ID)
   }
 }

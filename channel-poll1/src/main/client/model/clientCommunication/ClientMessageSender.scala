@@ -1,13 +1,15 @@
 package client.model.clientCommunication
 
-import java.io.OutputStreamWriter
-import main.shared.{Message, Statement, Comment}
-import org.json._
+import main.shared.{Comment, Message}
+import java.io.{BufferedWriter, OutputStreamWriter}
+import main.server.serverCommunication.ClientControl
+import org.json.JSONObject
 
-class ClientMessageSender(out:OutputStreamWriter, nick:String) {
 
+object ClientMessageSender{
+  val out:BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
   def writeLoginMessage(): Unit ={
-    writeMessage(ClientMessageBuilder.loginMessage(nick))
+    writeMessage(ClientMessageBuilder.loginMessage(ClientControl.nick))
   }
 
   def writeChatMessage(msg:Message): Unit={
@@ -15,16 +17,16 @@ class ClientMessageSender(out:OutputStreamWriter, nick:String) {
   }
 
   def writeStComment(cmd: Comment): Unit = {
-    writeComment(ClientMessageBuilder.comment(cmd))
+    writeMessage(ClientMessageBuilder.comment(cmd))
+  }
+
+  def writeLogout(): Unit ={
+    writeMessage(ClientMessageBuilder.writeLogoutMessage(ClientControl.nick))
+    ClientControl.close()
   }
 
   def writeMessage(json:JSONObject): Unit ={
     println("CLIENT SENT: " + json.toString + "\n")
-    out.write(json.toString + "\n")
-    out.flush()
-  }
-
-  def writeComment(json: JSONObject): Unit = {
     out.write(json.toString + "\n")
     out.flush()
   }

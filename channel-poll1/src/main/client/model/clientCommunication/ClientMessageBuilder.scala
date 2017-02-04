@@ -1,6 +1,6 @@
 package client.model.clientCommunication
 
-import main.shared.{Comment, Message, Statement}
+import main.shared.{Comment, Message}
 import org.json._
 import main.shared.enums.JsonType
 
@@ -12,8 +12,10 @@ object ClientMessageBuilder {
     Jmsg.put("name", nick)
   }
 
-  def writeLogoutMessage(): JSONObject ={
-    new JSONObject().put("type", JsonType.DISCONNECT)
+  def writeLogoutMessage(nick:String): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.DISCONNECT)
+    Jmsg.put("name", nick)
   }
 
   def chatMessage(message:Message):JSONObject = {
