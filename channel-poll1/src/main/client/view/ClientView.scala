@@ -24,6 +24,8 @@ import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 object ClientView extends JFXApp {
 
 
+  var pollTemplateIsVisible = false
+
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
       title = "Channel Poll"
@@ -174,99 +176,116 @@ object ClientView extends JFXApp {
       }
     }
 
-    chatGridPane.add(commentInputField, 0, 0, 2, 2)
-    chatGridPane.add(sendButton, 2, 0)
+
 
 
     val pollTemplate = new VBox()
 
     val pollButton = new Button("Poll")
     pollButton.onAction = e => {
+      if (!pollTemplateIsVisible) {
+        pollTemplateIsVisible = true
+        val questionLabel = new Label("Question")
+        val questionInputField = new TextField()
+        questionInputField.requestFocus()
 
-      val questionLabel = new Label("Question")
-      val questionInputField = new TextField()
-      questionInputField.requestFocus()
+        val optionLabel1 = new Label("Option 1")
+        val optionInputField1 = new TextField()
 
-      val optionLabel1 = new Label("Option 1")
-      val optionInputField1 = new TextField()
+        val optionLabel2 = new Label("Option 2")
+        val optionInputField2 = new TextField()
 
-      val optionLabel2 = new Label("Option 2")
-      val optionInputField2 = new TextField()
-
-      val optionHashMap = new HashMap[Int, (Label, TextField)]
-      optionHashMap.put(1, (optionLabel1, optionInputField1))
-      optionHashMap.put(2, (optionLabel2, optionInputField2))
-
-
-
-      val pollGridPane = new GridPane()
-      pollGridPane.addRow(0, questionLabel, questionInputField)
-      pollGridPane.addRow(2,optionLabel1, optionInputField1)
-      pollGridPane.addRow(3,optionLabel2, optionInputField2)
-
-      var countOptions = 2
-      var currentRowIndex = IntegerProperty(3)
-
-      val addOptionButton = new Button("Add Option")
-      addOptionButton.onAction = e => {
-        countOptions += 1
-        currentRowIndex.value = currentRowIndex.value+1
-
-        val optionLabel = new Label("Option " + countOptions)
-        val optionInputField = new TextField()
-        optionHashMap.put(countOptions, (optionLabel, optionInputField))
-
-        pollGridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
-      }
+        val optionHashMap = new HashMap[Int, (Label, TextField)]
+        optionHashMap.put(1, (optionLabel1, optionInputField1))
+        optionHashMap.put(2, (optionLabel2, optionInputField2))
 
 
-      var indexForAddOptionButton = currentRowIndex + 1
-      var indexForSubmitButton = currentRowIndex + 2
+        val pollGridPane = new GridPane()
+        pollGridPane.addRow(0, questionLabel, questionInputField)
+        pollGridPane.addRow(2, optionLabel1, optionInputField1)
+        pollGridPane.addRow(3, optionLabel2, optionInputField2)
 
-      currentRowIndex.onChange({
-        indexForAddOptionButton = currentRowIndex + 1
-        indexForSubmitButton = currentRowIndex + 2
+        var countOptions = 2
+        var currentRowIndex = IntegerProperty(3)
 
-      })
+        val addOptionButton = new Button("Add Option")
+        addOptionButton.onAction = e => {
+          countOptions += 1
+          currentRowIndex.value = currentRowIndex.value + 1
 
+          val optionLabel = new Label("Option " + countOptions)
+          val optionInputField = new TextField()
+          optionHashMap.put(countOptions, (optionLabel, optionInputField))
 
-      pollGridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
-
-      val submitButton = new Button("Submit")
-      submitButton.onAction = e => {
-
-        val createdAt = Calendar.getInstance().getTime.toString
-
-        //TODO: eigenen user setzen
-        val user = null
+          pollGridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
+        }
 
 
-        val question = questionInputField.getText
-        val options = new HashMap[Int, (String, Int)]()
+        var indexForAddOptionButton = currentRowIndex + 1
+        var indexForSubmitButton = currentRowIndex + 2
 
-        optionHashMap.foreach(x => {
-          val key = x._1
-          val value = x._2
-          val optionInputField= value._2
-
-          options.put(key, (optionInputField.getText, 0))
+        currentRowIndex.onChange({
+          indexForAddOptionButton = currentRowIndex + 1
+          indexForSubmitButton = currentRowIndex + 2
 
         })
-        val pollID = 1 // todo ids generieren
-        val poll = new Poll(pollID, statement.ID, createdAt, user, question, options)
 
-        ClientControl.sendPoll(poll)
 
-        pollTemplate.children.clear()
-        //TODO: submit poll
+        pollGridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
+
+        val submitButton = new Button("Submit")
+        submitButton.onAction = e => {
+
+          val createdAt = Calendar.getInstance().getTime.toString
+
+          //TODO: eigenen user setzen
+          val user = null
+
+
+          val question = questionInputField.getText
+          val options = new HashMap[Int, (String, Int)]()
+
+          optionHashMap.foreach(x => {
+            val key = x._1
+            val value = x._2
+            val optionInputField = value._2
+
+            options.put(key, (optionInputField.getText, 0))
+
+          })
+          val pollID = 1
+          // todo ids generieren
+          val poll = new Poll(pollID, statement.ID, createdAt, user, question, options)
+
+          ClientControl.sendPoll(poll)
+
+          pollTemplate.children.clear()
+          //TODO: submit poll
+
+
+          pollTemplateIsVisible = false
+        }
+
+        pollGridPane.addRow(indexForSubmitButton.intValue(), submitButton)
+
+        pollTemplate.children.addAll(pollGridPane)
       }
-
-      pollGridPane.addRow(indexForSubmitButton.intValue(), submitButton)
-
-      pollTemplate.children.addAll(pollGridPane)
     }
 
-    chatGridPane.add(pollButton, 2, 1)
+
+
+
+
+    commentInputField.setMaxHeight(Double.MaxValue)
+    val commentField = new VBox()
+    commentField.children.add(commentInputField)
+    chatGridPane.add(commentField, 0, 0, 2, 1)
+
+
+    sendButton.setMaxWidth(Double.MaxValue)
+    pollButton.setMaxWidth(Double.MaxValue)
+    val buttons = new VBox(sendButton, pollButton)
+    chatGridPane.add(buttons, 2, 0, 1, 2)
 
     border.center = new VBox(new VBox(user, message), scrollPane, chatGridPane, pollTemplate)
 
