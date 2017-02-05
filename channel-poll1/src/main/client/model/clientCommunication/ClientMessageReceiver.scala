@@ -31,6 +31,9 @@ object ClientMessageReceiver {
     case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
+    case JsonType.POLL => handlePoll(jSONObject)
+    case JsonType.POLLANSWER => handlePollAnswer(jSONObject)
+    case JsonType.COMMENT => handleComment(jSONObject)
     case _ => handleInvalid(jSONObject)
   }
 
@@ -76,6 +79,10 @@ object ClientMessageReceiver {
 
   def handlePollAnswer(jSONObject: JSONObject): Unit = {
     //ServerHandler.handlePollAnswer()  todo
+  }
+
+  def handlePoll(jSONObject: JSONObject): Unit = {
+    //todo
   }
 
 
