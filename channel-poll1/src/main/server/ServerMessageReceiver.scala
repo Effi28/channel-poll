@@ -50,16 +50,16 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     val user: String = jSONObject.optString("user")
     val question: String = jSONObject.optString("question")
     val options_Array: JSONArray = jSONObject.optJSONArray("options")
-
     val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
-    /**
-    for(option: JSONObject <- options_Array){
+
+    for(i <- 0 until options_Array.length()){
+      val option: JSONObject = options_Array.getJSONObject(i)
       val key: Int = option.optInt("Int")
       val option_str: String = option.optString("key")
       val option_likes: Int = option.optInt("likes")
       val opt_tuple = (option_str, option_likes)
       options += key -> opt_tuple
-    }**/
+    }
     val pollID: Int = jSONObject.optInt("pollid")
 
     val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
