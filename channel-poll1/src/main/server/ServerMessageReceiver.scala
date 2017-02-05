@@ -30,6 +30,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
+    case JsonType.COMMENT => handleComment(jSONObject)
     case _ => handleInvalid(jSONObject)
   }
 
@@ -81,27 +82,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleComment(json: JSONObject): Unit = {
-    val arr:JSONArray = json.optJSONArray("likes")
-    //TODO check if array is ok
-    val likes:Array[String] = new Array[String](arr.length())
-    for(i <- 0 until arr.length()){
-      likes.update(i, arr.toString)
-    }
-
-    val statement:Statement = getStatement(json.optJSONObject("statement"))
-    client.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
-  }
-
-  def getStatement(json: JSONObject): Statement = {
-    val jsonStatement:JSONObject = json.optJSONObject("statement")
-    val message: String = jsonStatement.optString("message")
-    val userID: String = jsonStatement.optString("userid")
-    val userName: String = jsonStatement.optString("name")
-    val screenName: String = jsonStatement.optString("screenname")
-    val pictureURL: String = jsonStatement.optString("pictureurl")
-    val creationDate: String = jsonStatement.optString("created_at")
-    val id: Int = jsonStatement.optInt("id")
-    new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
+    client.handleComment(new Comment(json.optLong("statementID"), json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
   }
 
   def handleLogin(jSONObject: JSONObject): Unit ={

@@ -19,7 +19,7 @@ object ClientControl {
   val globalChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
   val groupChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
   val statements:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
-  val comments:ObservableHashMap[Statement, ArrayBuffer[Comment]] = new ObservableHashMap[Statement, ArrayBuffer[Comment]]()
+  val comments:ObservableHashMap[Long, ArrayBuffer[Comment]] = new ObservableHashMap[Long, ArrayBuffer[Comment]]()
   val polls: ObservableHashMap[Statement, ArrayBuffer[Poll]] = new ObservableHashMap[Statement, ArrayBuffer[Poll]]()
   val pollAnswers: ObservableHashMap[Poll, ArrayBuffer[PollAnswer]] = new ObservableHashMap[Poll, ArrayBuffer[PollAnswer]]()
   val chatRooms:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()

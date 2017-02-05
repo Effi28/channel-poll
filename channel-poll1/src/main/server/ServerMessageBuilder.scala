@@ -62,7 +62,9 @@ object ServerMessageBuilder {
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("senderID", comment.screenName)
     Jmsg.put("message", comment.message)
-    Jmsg.put("statement", comment.statement)
+    Jmsg.put("statementID", comment.statementID)
+    Jmsg.put("ID", comment.ID)
+    Jmsg.put("stamp", comment.stamp)
   }
 
   def writePoll(poll: Poll): JSONObject = {

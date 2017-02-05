@@ -41,7 +41,10 @@ object ServerHandler extends Thread{
   }
 
   def handleComment(comment: Comment): Unit = {
-    ClientControl.comments.get(comment.statement).get += comment
+    if(!ClientControl.comments.contains(comment.statementID)){
+      ClientControl.comments += comment.statementID -> new ArrayBuffer[Comment]()
+    }
+    ClientControl.comments.get(comment.statementID).get += comment
   }
 
   def handleGlobalChat(message: Message): Unit = {

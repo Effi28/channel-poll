@@ -59,22 +59,7 @@ object ClientMessageReceiver {
 
 
   def handleComment(json: JSONObject): Unit = {
-
-    val statement:Statement = getStatement(json.optJSONObject("statement"))
-
-    ServerHandler.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
-  }
-
-  def getStatement(json: JSONObject): Statement = {
-    val jsonStatement:JSONObject = json.optJSONObject("statement")
-    val message: String = jsonStatement.optString("message")
-    val userID: String = jsonStatement.optString("userid")
-    val userName: String = jsonStatement.optString("name")
-    val screenName: String = jsonStatement.optString("screenname")
-    val pictureURL: String = jsonStatement.optString("pictureurl")
-    val creationDate: String = jsonStatement.optString("created_at")
-    val id: Int = jsonStatement.optInt("id")
-    new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
+    ServerHandler.handleComment(new Comment(json.optLong("statementID"), json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
   }
 
   def handlePollAnswer(jSONObject: JSONObject): Unit = {

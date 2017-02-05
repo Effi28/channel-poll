@@ -32,7 +32,7 @@ object ClientMessageBuilder {
   def comment(comment: Comment):JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
-    Jmsg.put("statement", writeStatement(comment.statement))
+    Jmsg.put("statementID", comment.statementID)
     Jmsg.put("senderID", comment.screenName)
     Jmsg.put("message", comment.message)
     Jmsg.put("id", comment.ID)

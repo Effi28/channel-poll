@@ -14,7 +14,7 @@ object Server {
   val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
   val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
-  val comments:HashMap[Statement, ArrayBuffer[Comment]] = new HashMap[Statement, ArrayBuffer[Comment]]
+  val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
   val polls:HashMap[Statement, ArrayBuffer[Poll]] = new HashMap[Statement, ArrayBuffer[Poll]]
   val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
 
@@ -110,7 +110,11 @@ object Server {
   }
 
   def broadcastComment(comment:Comment): Unit ={
-    comments.get(comment.statement).get += comment
+    if(!comments.contains(comment.statementID)){
+      comments += comment.statementID -> new ArrayBuffer[Comment]()
+
+    }
+    comments.get(comment.statementID).get += comment
     for ((k, v) <- connectedHandler) {
       v.sender.writeComment(comment)
     }

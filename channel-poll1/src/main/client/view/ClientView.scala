@@ -170,7 +170,7 @@ object ClientView extends JFXApp {
         //TODO: receiver => ?
         val sender = null
         val id = 0  //TODO: id setzen
-        val comment = new Comment(statement, message, sender, id, createdAt)
+        val comment = new Comment(statement.ID, message, sender, id, createdAt)
         ClientControl.sendComment(comment)
         commentInputField.clear()
       }
