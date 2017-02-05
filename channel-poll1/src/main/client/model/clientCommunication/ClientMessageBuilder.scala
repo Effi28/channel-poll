@@ -33,12 +33,13 @@ object ClientMessageBuilder {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("statement", writeStatement(comment.statement))
-    Jmsg.put("senderID", comment.screenname)
+    Jmsg.put("senderID", comment.screenName)
     Jmsg.put("message", comment.message)
     Jmsg.put("id", comment.ID)
+    Jmsg.put("stamp", comment.stamp)
   }
 
-  def pollanswer(pollAnswer: PollAnswer): JSONObject = {
+  def pollAnswer(pollAnswer: PollAnswer): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLLANSWER)
     Jmsg.put("userid", pollAnswer.userid)

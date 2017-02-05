@@ -13,6 +13,11 @@ object ClientMessageSender{
     writeMessage(ClientMessageBuilder.loginMessage(ClientControl.nick))
   }
 
+  def writeStComment(comment: Comment): Unit = {
+    writeMessage(ClientMessageBuilder.comment(comment))
+  }
+
+
   def writeChatMessage(msg: Message): Unit = {
     writeMessage(ClientMessageBuilder.chatMessage(msg))
   }

@@ -60,9 +60,9 @@ object ServerMessageBuilder {
   def writeComment(comment: Comment): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
-    Jmsg.put("senderID", comment.screenname)
+    Jmsg.put("senderID", comment.screenName)
     Jmsg.put("message", comment.message)
-    Jmsg.put("statementID", comment.ID)
+    Jmsg.put("statement", comment.statement)
   }
 
   def writePoll(poll: Poll): JSONObject = {

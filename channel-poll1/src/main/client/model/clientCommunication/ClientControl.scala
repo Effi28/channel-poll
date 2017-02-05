@@ -32,9 +32,9 @@ object ClientControl {
     ClientMessageSender.writeLoginMessage()
   }
 
-  //def sendComment(cmd:Comment): Unit={
-    //ClientMessageSender.writeStComment(cmd)
-  //}
+  def sendComment(comment:Comment): Unit={
+    ClientMessageSender.writeStComment(comment)
+  }
 
 
 

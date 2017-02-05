@@ -89,7 +89,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     }
 
     val statement:Statement = getStatement(json.optJSONObject("statement"))
-    client.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), json.optInt("id")))
+    client.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
   }
 
   def getStatement(json: JSONObject): Statement = {

@@ -6,7 +6,7 @@ import java.util.Calendar
 
 import main.client.controller.Controller
 import main.server.serverCommunication.ClientControl
-import main.shared.{Message, Poll, Statement}
+import main.shared.{Comment, Message, Poll, Statement}
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
@@ -155,26 +155,30 @@ object ClientView extends JFXApp {
         */
 
 
-    val messageInputField = new TextArea()
+    val chatGridPane = new GridPane()
+
+    val commentInputField = new TextArea()
 
     val sendButton = new Button("Send")
     sendButton.autosize()
     sendButton.onAction = e => {
-      val messageText = messageInputField.getText
-      if (messageText.size != 0) {
+      val message = commentInputField.getText
+      if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
         //TODO: receiver => ?
         val sender = null
-        val receiver = null
-        val message = new Message(sender, createdAt, messageText, receiver, statement.ID)
-        ClientControl.sendMessage(message)
-        messageInputField.clear()
+        val id = 0  //TODO: id setzen
+        val comment = new Comment(statement, message, sender, id, createdAt)
+        ClientControl.sendComment(comment)
+        commentInputField.clear()
       }
     }
 
+    chatGridPane.add(commentInputField, 0, 0, 2, 2)
+    chatGridPane.add(sendButton, 2, 0)
+
 
     val pollTemplate = new VBox()
-
 
     val pollButton = new Button("Poll")
     pollButton.onAction = e => {
@@ -195,10 +199,10 @@ object ClientView extends JFXApp {
 
 
 
-      val gridPane = new GridPane()
-      gridPane.addRow(0, questionLabel, questionInputField)
-      gridPane.addRow(2,optionLabel1, optionInputField1)
-      gridPane.addRow(3,optionLabel2, optionInputField2)
+      val pollGridPane = new GridPane()
+      pollGridPane.addRow(0, questionLabel, questionInputField)
+      pollGridPane.addRow(2,optionLabel1, optionInputField1)
+      pollGridPane.addRow(3,optionLabel2, optionInputField2)
 
       var countOptions = 2
       var currentRowIndex = IntegerProperty(3)
@@ -211,9 +215,8 @@ object ClientView extends JFXApp {
         val optionLabel = new Label("Option " + countOptions)
         val optionInputField = new TextField()
         optionHashMap.put(countOptions, (optionLabel, optionInputField))
-        //val optionTemplate = new HBox(optionLabel, optionInputField)
-        //optionBox.children.add(optionTemplate)
-        gridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
+
+        pollGridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
       }
 
 
@@ -227,7 +230,7 @@ object ClientView extends JFXApp {
       })
 
 
-      gridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
+      pollGridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
 
       val submitButton = new Button("Submit")
       submitButton.onAction = e => {
@@ -258,12 +261,14 @@ object ClientView extends JFXApp {
         //TODO: submit poll
       }
 
-      gridPane.addRow(indexForSubmitButton.intValue(), submitButton)
+      pollGridPane.addRow(indexForSubmitButton.intValue(), submitButton)
 
-      pollTemplate.children.addAll(gridPane)
+      pollTemplate.children.addAll(pollGridPane)
     }
 
-    border.center = new VBox(new VBox(user, message), scrollPane, new HBox(messageInputField, new VBox(sendButton, pollButton)), pollTemplate)
+    chatGridPane.add(pollButton, 2, 1)
+
+    border.center = new VBox(new VBox(user, message), scrollPane, chatGridPane, pollTemplate)
 
 
     //Right: User
