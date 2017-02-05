@@ -74,6 +74,10 @@ object ClientMessageReceiver {
     new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
   }
 
+  def handlePollAnswer(jSONObject: JSONObject): Unit = {
+    ServerHandler.handlePollAns
+  }
+
 
     def handleLoginFailed(jSONObject:JSONObject): Unit ={
     //TODO show the reason why login failed(e.G. username already taken)

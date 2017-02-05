@@ -3,7 +3,7 @@ package main.server
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
 
-import main.shared.{Comment, Statement}
+import main.shared.{Comment, Statement, Poll, PollAnswer}
 
 class ClientHandler(socket:Socket) extends Runnable{
   val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -35,5 +35,13 @@ class ClientHandler(socket:Socket) extends Runnable{
 
   def handleComment(comment:Comment): Unit = {
     Server.broadcastComment(comment)
+  }
+
+  def handlePoll(poll:Poll): Unit = {
+    Server.broadcastPoll(poll)
+  }
+
+  def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
+    Server.broadcastPollAnswers(pollAnswer)
   }
 }

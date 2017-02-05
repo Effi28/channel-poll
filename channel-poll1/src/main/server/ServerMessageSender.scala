@@ -2,7 +2,7 @@ package main.server
 
 import java.io.OutputStreamWriter
 
-import main.shared.{ChatMessage, Comment, Message, Statement}
+import main.shared.{ChatMessage, Comment, Message, Statement, Poll, PollAnswer}
 import org.json._
 
 class ServerMessageSender(out:OutputStreamWriter) {
@@ -17,6 +17,14 @@ class ServerMessageSender(out:OutputStreamWriter) {
 
   def writeComment(comment: Comment): Unit = {
     writeMessage(ServerMessageBuilder.writeComment(comment))
+  }
+
+  def writePoll(poll: Poll): Unit = {
+    writeMessage(ServerMessageBuilder.writePoll(poll))
+  }
+
+  def writePollAnswer(pollAnswer: PollAnswer): Unit = {
+    writeMessage(ServerMessageBuilder.writePollAnswer(pollAnswer))
   }
 
   def writeNewLogin(nick:String):Unit ={

@@ -4,7 +4,9 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.{ExecutorService, Executors}
 
-import main.shared.{Comment, Message, Statement}
+import main.shared._
+
+import scala.collection.mutable
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
@@ -13,6 +15,9 @@ object Server {
   val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
   val comments:HashMap[Statement, ArrayBuffer[Comment]] = new HashMap[Statement, ArrayBuffer[Comment]]
+  val polls:HashMap[Statement, ArrayBuffer[Poll]] = new HashMap[Statement, ArrayBuffer[Poll]]
+  val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
+
   var chatID = 0
 
   def main(args: Array[String]): Unit = {
@@ -109,5 +114,56 @@ object Server {
     for ((k, v) <- connectedHandler) {
       v.sender.writeComment(comment)
     }
+  }
+
+  def broadcastPoll(poll: Poll): Unit = {
+    val statement = statements(poll.statementID)
+    polls.get(statement).get += poll
+    for ((k, v) <- connectedHandler) {
+      v.sender.writePoll(poll)
+    }
+  }
+
+  def broadcastPollUpdate(poll: Poll): Unit = {
+    for ((k, v) <- connectedHandler) {
+      v.sender.writePoll(poll)
+    }
+  }
+
+  def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
+    val statement = statements(pollAnswer.statementID)
+    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val thisPoll = polls_map(pollAnswer.pollID)
+    pollAnswers.get(thisPoll).get += pollAnswer
+    for ((k, v) <- connectedHandler) {
+      v.sender.writePollAnswer(pollAnswer)
+    }
+  }
+
+  /**
+    * evaluates poll after each new selection
+    * @param poll poll refering to a certain statement
+    * @param selectedOption  option user selected in poll
+    */
+  def calcPoll(poll: Poll, selectedOption: (Int, String)): HashMap[Int, (String, Int)] ={
+    val polOptions = poll.options
+    val optionid = selectedOption._1
+    val options_tuple = polOptions(optionid)
+
+    polOptions.update(optionid, (selectedOption._2, options_tuple._2 + selectedOption._1)
+    )
+    return polOptions
+  }
+
+  def updatePoll(pollAnswer: PollAnswer): Unit = {
+    val statement = statements(pollAnswer.statementID)
+    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val thisPoll = polls_map(pollAnswer.pollID)
+    val newoptions = calcPoll(thisPoll, pollAnswer.selectedOption)
+    val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.user, thisPoll.question,
+      newoptions)
+    polls_map(thisPoll.pollID) = updatedPoll
+    polls.update(statement, polls_map)
+    broadcastPollUpdate(updatedPoll)
   }
 }

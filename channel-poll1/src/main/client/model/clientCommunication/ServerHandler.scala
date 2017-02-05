@@ -2,7 +2,9 @@ package main.client.model.clientCommunication
 
 import client.model.clientCommunication.ClientMessageReceiver
 import main.server.serverCommunication.ClientControl
-import main.shared.{ChatMessage, Comment, Message, Statement}
+import main.shared._
+
+import scala.collection.mutable.ArrayBuffer
 
 
 object ServerHandler extends Thread{
@@ -22,6 +24,14 @@ object ServerHandler extends Thread{
     ClientControl.users -= nick
   }
 
+  def handlePoll(poll: Poll): Unit = {
+    ClientControl.polls.get(poll.question)
+    // todo
+  }
+
+  def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
+    //todo
+  }
 
   def handleStatement(statement:Statement):Unit = {
     ClientControl.statements += statement

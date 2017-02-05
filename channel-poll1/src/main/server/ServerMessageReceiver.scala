@@ -1,11 +1,15 @@
 package main.server
 
 import java.io.BufferedReader
+import java.security.Timestamp
 
-import main.shared.{Comment, Message, Statement}
+import main.shared.{Comment, Message, PollAnswer, Statement, Poll}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.{JSONArray, JSONObject}
+
+import scala.collection.mutable
+import scala.collection.mutable.HashMap
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
 
@@ -38,6 +42,41 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     val creationDate: String = jSONObject.optString("created_at")
     val id: Int = jSONObject.optInt("id")
     client.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
+  }
+
+  def handlePoll(jSONObject: JSONObject): Unit = {
+    val statementID: Long = jSONObject.optLong("statementid")
+    val stamp: String = jSONObject.optString("stamp")
+    val user: String = jSONObject.optString("user")
+    val question: String = jSONObject.optString("question")
+    val options_Array = jSONObject.optJSONObject("options")
+
+    val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
+    for(option: JSONObject <- options_Array){
+      val key: Int = option.optInt("Int")
+      val option_str: String = option.optString("key")
+      val option_likes: Int = option.optInt("likes")
+      val opt_tuple = (option_str, option_likes)
+      options += key -> opt_tuple
+    }
+    val pollID: Int = jSONObject.optInt("pollid")
+
+    val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
+    client.handlePoll(thisPoll)
+  }
+
+  def handlePollAnswer(jSONObject: JSONObject): Unit = {
+    val userID: Long = jSONObject.optLong("userid")
+    val question: String = jSONObject.optString("question")
+    val selectedOptionKey = jSONObject.optInt("selectedoptionkey")
+    val selectedOptionStr = jSONObject.optString("selectedoptionstr")
+    val pollID: Int = jSONObject.optInt("pollid")
+    val timestamp = jSONObject.optString("timestamp")
+    val statementID: Long = jSONObject.optLong("statementid")
+
+
+    val pollAnswer = new PollAnswer(userID, question, (selectedOptionKey, selectedOptionStr), pollID, timestamp, statementID)
+    client.handlePollAnswer(pollAnswer)
   }
 
   def handleComment(json: JSONObject): Unit = {

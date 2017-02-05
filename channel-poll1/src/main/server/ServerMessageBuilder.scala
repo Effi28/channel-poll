@@ -1,6 +1,8 @@
 package main.server
 
-import main.shared.{ChatMessage, Comment, Message, Statement}
+import java.security.Timestamp
+
+import main.shared._
 import main.shared.enums.JsonType
 import org.json.JSONObject
 import org.json.JSONArray
@@ -61,6 +63,38 @@ object ServerMessageBuilder {
     Jmsg.put("senderID", comment.screenname)
     Jmsg.put("message", comment.message)
     Jmsg.put("statementID", comment.ID)
+  }
+
+  def writePoll(poll: Poll): JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.POLL)
+    Jmsg.put("statementid", poll.statementID)
+    Jmsg.put("stamp", poll.stamp)
+    Jmsg.put("user", poll.user)
+    Jmsg.put("question", poll.question)
+
+    val Jmsg1:JSONArray = new JSONArray()
+    for ((k, v) <- poll.options) {
+      val Jmsg2: JSONObject = new JSONObject()
+      Jmsg2.put("optionsstr", v._1)
+      Jmsg2.put("likes", v._2)
+      Jmsg2.put("key", Jmsg2)
+      Jmsg1.put(Jmsg2)
+    }
+    Jmsg.put("options", Jmsg1)
+    Jmsg.put("pollid", poll.pollID)
+  }
+
+  def writePollAnswer(pollAnswer: PollAnswer): JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.POLLANSWER)
+    Jmsg.put("userid", pollAnswer.userid)
+    Jmsg.put("question", pollAnswer.question)
+    Jmsg.put("selectedoptionkey", pollAnswer.selectedOption._1)
+    Jmsg.put("selectedoptionstr", pollAnswer.selectedOption._2)
+    Jmsg.put("pollid", pollAnswer.pollID)
+    Jmsg.put("timestamp", pollAnswer.timestamp)
+    Jmsg.put("statementid", pollAnswer.statementID)
   }
 
 }
