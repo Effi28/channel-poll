@@ -2,7 +2,7 @@ package main.server
 
 import java.io.OutputStreamWriter
 
-import main.shared.{ChatMessage, Comment, Message, Statement, Poll, PollAnswer}
+import main.shared.{Comment, Message, Statement, Poll, PollAnswer}
 import org.json._
 
 class ServerMessageSender(out:OutputStreamWriter) {

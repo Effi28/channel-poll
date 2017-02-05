@@ -12,10 +12,12 @@ import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.layout.{BorderPane, HBox, VBox}
+import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
+import scalafx.beans.property.IntegerProperty
+import scalafx.beans.value.ObservableValue
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 
 
@@ -180,33 +182,52 @@ object ClientView extends JFXApp {
       val questionLabel = new Label("Question")
       val questionInputField = new TextField()
       questionInputField.requestFocus()
-      val questionTemplate = new HBox(questionLabel, questionInputField)
 
       val optionLabel1 = new Label("Option 1")
       val optionInputField1 = new TextField()
-      val optionTemplate1 = new HBox(optionLabel1, optionInputField1)
 
       val optionLabel2 = new Label("Option 2")
       val optionInputField2 = new TextField()
-      val optionTemplate2 = new HBox(optionLabel2, optionInputField2)
 
       val optionHashMap = new HashMap[Int, (Label, TextField)]
       optionHashMap.put(1, (optionLabel1, optionInputField1))
       optionHashMap.put(2, (optionLabel2, optionInputField2))
 
-      var countOptions = 2
 
-      val optionBox =  new VBox(optionTemplate1, optionTemplate2)
+
+      val gridPane = new GridPane()
+      gridPane.addRow(0, questionLabel, questionInputField)
+      gridPane.addRow(2,optionLabel1, optionInputField1)
+      gridPane.addRow(3,optionLabel2, optionInputField2)
+
+      var countOptions = 2
+      var currentRowIndex = IntegerProperty(3)
 
       val addOptionButton = new Button("Add Option")
       addOptionButton.onAction = e => {
         countOptions += 1
+        currentRowIndex.value = currentRowIndex.value+1
+
         val optionLabel = new Label("Option " + countOptions)
         val optionInputField = new TextField()
         optionHashMap.put(countOptions, (optionLabel, optionInputField))
-        val optionTemplate = new HBox(optionLabel, optionInputField)
-        optionBox.children.add(optionTemplate)
+        //val optionTemplate = new HBox(optionLabel, optionInputField)
+        //optionBox.children.add(optionTemplate)
+        gridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
       }
+
+
+      var indexForAddOptionButton = currentRowIndex + 1
+      var indexForSubmitButton = currentRowIndex + 2
+
+      currentRowIndex.onChange({
+        indexForAddOptionButton = currentRowIndex + 1
+        indexForSubmitButton = currentRowIndex + 2
+
+      })
+
+
+      gridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
 
       val submitButton = new Button("Submit")
       submitButton.onAction = e => {
@@ -228,8 +249,8 @@ object ClientView extends JFXApp {
           options.put(key, (optionInputField.getText, 0))
 
         })
-        val pollid = 1 // todo ids generieren
-        val poll = new Poll(pollid, statement.ID, createdAt, user, question, options)
+        val pollID = 1 // todo ids generieren
+        val poll = new Poll(pollID, statement.ID, createdAt, user, question, options)
 
         ClientControl.sendPoll(poll)
 
@@ -237,7 +258,9 @@ object ClientView extends JFXApp {
         //TODO: submit poll
       }
 
-      pollTemplate.children.addAll(questionTemplate, optionBox, addOptionButton, submitButton)
+      gridPane.addRow(indexForSubmitButton.intValue(), submitButton)
+
+      pollTemplate.children.addAll(gridPane)
     }
 
     border.center = new VBox(new VBox(user, message), scrollPane, new HBox(messageInputField, new VBox(sendButton, pollButton)), pollTemplate)
