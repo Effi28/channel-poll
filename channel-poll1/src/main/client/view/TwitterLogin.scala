@@ -7,6 +7,7 @@ import main.server.TwitterSettings
 import twitter4j._
 import twitter4j.auth.{AccessToken, RequestToken}
 
+import main.shared.TwitterUser
 
 /**
   * Created by KathrinNetzer on 28.01.2017.
@@ -40,18 +41,25 @@ class TwitterLogin() extends HttpServlet{
     return(new URL(""))
   }
 
-  def doLogin(loginCode: String): (Boolean, String) = {
+  def doLogin(loginCode: String): (Boolean, TwitterUser) = {
     var userScreenname = "noname"
+    var userid: Long = null
+    val defUser: TwitterUser = new TwitterUser(userid, userScreenname)
+
     if (loginCode.length > 0) {
       a = m.getOAuthAccessToken(r, loginCode)
 
       userScreenname = m.getScreenName
+      userid = m.getId
+      val fullUser: TwitterUser = new TwitterUser(userid, userScreenname)
+      val hasAccess = checkIfAccess(a)
+      return (hasAccess, fullUser)
 
     }else {
       a = m.getOAuthAccessToken(r)
     }
     val hasAccess = checkIfAccess(a)
-    return (hasAccess, userScreenname)
+    return (hasAccess, defUser)
   }
 
   /**

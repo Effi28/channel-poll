@@ -42,6 +42,7 @@ object LoginView extends JFXApp {
         * wenn login erfolgreich war
         *
         * TODO: @Kathrin: kann man auch den vollständigen user zurückgeben, also mit id, username usw.? ich brauche die id später, wenn ich nachrichten verschicken möchte
+        *  -> ERLEDIGT !!
         */
       submitButton.onAction = e => {
         //TODO: Fehler anzeigen, falls kein Code eingegeben wurde
