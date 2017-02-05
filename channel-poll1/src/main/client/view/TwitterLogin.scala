@@ -43,7 +43,7 @@ class TwitterLogin() extends HttpServlet{
 
   def doLogin(loginCode: String): (Boolean, TwitterUser) = {
     var userScreenname = "noname"
-    var userid: Long = null
+    var userid: Long = 0
     val defUser: TwitterUser = new TwitterUser(userid, userScreenname)
 
     if (loginCode.length > 0) {

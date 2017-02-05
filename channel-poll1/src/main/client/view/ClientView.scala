@@ -230,8 +230,8 @@ object ClientView extends JFXApp {
         })
 
 
-
-        val poll = new Poll(statement.ID, createdAt, user, question, options)
+        val pollid = 1 // todo ids generieren, mach ich gleich
+        val poll = new Poll(pollid, statement.ID, createdAt, user, question, options)
 
         ClientControl.sendPoll(poll)
 

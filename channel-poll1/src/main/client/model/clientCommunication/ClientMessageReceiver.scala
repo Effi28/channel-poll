@@ -75,7 +75,7 @@ object ClientMessageReceiver {
   }
 
   def handlePollAnswer(jSONObject: JSONObject): Unit = {
-    ServerHandler.handlePollAns
+    //ServerHandler.handlePollAnswer()  todo
   }
 
 

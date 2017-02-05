@@ -14,7 +14,7 @@ import scalafx.scene.layout.VBox
 object ClientControl {
   val socket:Socket = new Socket("localhost", 8008)
   var nick = ""
-  var userid: Long = null
+  var userid: Long = 0
   val users:ObservableBuffer[String] = new ObservableBuffer[String]()
   val globalChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
   val groupChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
