@@ -25,11 +25,14 @@ object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
-    ClientControl.polls.get(poll.question)
-    // todo
+    //val statement = ClientControl.statements
+    ClientControl.polls.get(poll.statementID)
+    // todo @Brenda wie bekomme ich denn hier die statements dass ich
+    //mit der id das statement finden kann ??
   }
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
+    //ClientControl.pollAnswers.get(pollAnswer.pollID).get += pollAnswer
     //todo
   }
 

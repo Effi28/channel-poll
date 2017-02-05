@@ -228,8 +228,7 @@ object ClientView extends JFXApp {
           options.put(key, (optionInputField.getText, 0))
 
         })
-
-        val pollid = 1 // todo ids generieren, mach ich gleich
+        val pollid = 1 // todo ids generieren
         val poll = new Poll(pollid, statement.ID, createdAt, user, question, options)
 
         ClientControl.sendPoll(poll)
