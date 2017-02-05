@@ -32,6 +32,7 @@ class SaveJsons(path: String) {
     * @param username Screenname of the user that commented
     * @param likes [User Screenname]
     */
+  /*
   def saveKomment(statementID: Int, commenttext: String, username: String, likes: Array[String]): Unit ={
     val commentsJsonString =  Source.fromFile(path).getLines.mkString
     val commentsJson = new JSONObject(commentsJsonString)
@@ -46,4 +47,5 @@ class SaveJsons(path: String) {
     val commentssString = "{\"data\": " + comments.toString() + '}'
     saveJsonString(commentssString)
   }
+  */
 }

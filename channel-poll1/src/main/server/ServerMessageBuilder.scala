@@ -1,6 +1,6 @@
 package main.server
 
-import main.shared.{Comment, Message, Statement}
+import main.shared.{ChatMessage, Message, Statement}
 import main.shared.enums.JsonType
 import org.json.JSONObject
 import org.json.JSONArray
@@ -54,7 +54,8 @@ object ServerMessageBuilder {
     Jmsg.put("id", statement.ID)
   }
 
-  def writeComment(comment: Comment): JSONObject = {
+  /*
+  def writeComment(comment: ChatMessage): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("senderID", comment.screenname)
@@ -62,4 +63,5 @@ object ServerMessageBuilder {
     Jmsg.put("likes", comment.likes)
     Jmsg.put("id", comment.ID)
   }
+  */
 }

@@ -5,9 +5,9 @@ import java.net.Socket
 
 import client.model.clientCommunication.ClientMessageReceiver
 import main.server.serverCommunication.ClientControl
-import main.shared.{Comment, Message, Statement}
+import main.shared.{ChatMessage, Message, Statement}
 
-class ServerHandler (socket:Socket) extends Thread{
+class ServerHandler(socket: Socket) extends Thread {
   val rec: ClientMessageReceiver = new ClientMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
 
   def message = (Thread.currentThread.getName() + "\n").getBytes
@@ -18,28 +18,28 @@ class ServerHandler (socket:Socket) extends Thread{
     }
   }
 
-  def handleLogin(nick:String): Unit = {
+  def handleLogin(nick: String): Unit = {
     ClientControl.users += nick
   }
 
-  def handleLogout(nick:String): Unit = {
+  def handleLogout(nick: String): Unit = {
     ClientControl.users -= nick
   }
 
-  def handleStatement(statement:Statement):Unit = {
+  def handleStatement(statement: Statement): Unit = {
     //ClientControl.statements += statement.ID -> statement
     ClientControl.statements += statement
   }
 
-  def handleComment(comment: Comment): Unit = {
-    ClientControl.comments += comment.ID -> comment
+  /*def handleChatMessage(message: Message): Unit = {
+    ClientControl.chatMessages += message.statementID -> message
+  }*/
+
+  def handleGlobalChat(message: Message): Unit = {
+    ClientControl.globalChat += message.statementID -> message
   }
 
-  def handleGlobalChat(message:Message): Unit ={
-    ClientControl.globalChat += message.id -> message
-  }
-
-  def handleGroupChat(message:Message): Unit = {
-    ClientControl.groupChat += message.id -> message
+  def handleGroupChat(message: Message): Unit = {
+    ClientControl.groupChat += message.statementID -> message
   }
 }

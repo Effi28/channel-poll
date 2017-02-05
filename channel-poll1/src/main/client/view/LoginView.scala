@@ -21,25 +21,27 @@ object LoginView extends JFXApp {
   stage = new PrimaryStage {
     title = "Login"
     height = 300
-    width  = 300
+    width = 300
     scene = new Scene {
       val border = new BorderPane()
       val loginButton = new Button("Login")
       val twitterLogin = new TwitterLogin()
       loginButton.onAction = e => {
         val loginURL = twitterLogin.startLogin()
-        if(Desktop.isDesktopSupported){
+        if (Desktop.isDesktopSupported) {
           Desktop.getDesktop.browse(loginURL.toURI)
-        }else{
+        } else {
           println(loginURL)
         }
       }
       val codeTextField = new TextField()
-      codeTextField.promptText="Enter your code"
+      codeTextField.promptText = "Enter your code"
       val submitButton = new Button("Submit")
       /**
         * Hier bei doLogin kommt (true, Screenname) zurueck,
         * wenn login erfolgreich war
+        *
+        * TODO: @Kathrin: kann man auch den vollständigen user zurückgeben, also mit id, username usw.? ich brauche die id später, wenn ich nachrichten verschicken möchte
         */
       submitButton.onAction = e => {
         //TODO: Fehler anzeigen, falls kein Code eingegeben wurde
@@ -51,7 +53,7 @@ object LoginView extends JFXApp {
     }
   }
 
-  def exit():Unit={
+  def exit(): Unit = {
     stage = ClientView.getStage()
   }
 
