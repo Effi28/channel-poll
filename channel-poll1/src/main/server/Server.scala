@@ -4,14 +4,15 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.{ExecutorService, Executors}
 
-import main.shared.{Message, Statement}
-
+import main.shared.{Comment, Message, Statement}
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.ArrayBuffer
 
 object Server {
   val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
   val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
+  val comments:HashMap[Statement, ArrayBuffer[Comment]] = new HashMap[Statement, ArrayBuffer[Comment]]
   var chatID = 0
 
   def main(args: Array[String]): Unit = {
@@ -95,11 +96,18 @@ object Server {
     }
   }
 
-  def addStatement(statement:Statement): Unit ={
+  def broadcastStatement(statement:Statement): Unit ={
     statements += statement.ID -> statement
     println(statement)
     for ((k, v) <- connectedHandler) {
       v.sender.writeStatement(statement)
+    }
+  }
+
+  def broadcastComment(comment:Comment): Unit ={
+    comments.get(comment.statement).get += comment
+    for ((k, v) <- connectedHandler) {
+      v.sender.writeComment(comment)
     }
   }
 }

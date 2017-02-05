@@ -2,7 +2,8 @@ package main.server
 
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
-import main.shared.Statement
+
+import main.shared.{Comment, Statement}
 
 class ClientHandler(socket:Socket) extends Runnable{
   val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -29,6 +30,10 @@ class ClientHandler(socket:Socket) extends Runnable{
   }
 
   def handleStatement(statement:Statement): Unit ={
-    Server.addStatement(statement)
+    Server.broadcastStatement(statement)
+  }
+
+  def handleComment(comment:Comment): Unit = {
+    Server.broadcastComment(comment)
   }
 }

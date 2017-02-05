@@ -1,19 +1,19 @@
 package main.client.view
 
 
+
 import java.util.Calendar
 
+import main.client.controller.Controller
+import main.server.serverCommunication.ClientControl
 import main.shared.{Message, Poll, Statement}
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.collections.ObservableBuffer
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.{Text, TextFlow}
-import main.server.serverCommunication.ClientControl
-
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
@@ -36,13 +36,22 @@ object ClientView extends JFXApp {
 
         val tabList = ListBuffer(generalTab)
         tabPane.tabs = tabList
-        ClientControl.chatRooms.onChange({
-          val statementTab = new Tab()
-          statementTab.text = ClientControl.chatRooms.last.userName
-          statementTab.content = statementTabContent(ClientControl.chatRooms.last)
-          tabList += statementTab
-          tabPane.tabs = tabList
-        })
+
+        Controller.getChatRooms().onChange({
+              val statementTab = new Tab()
+              statementTab.text = Controller.getChatRooms().last.userName
+              statementTab.content = statementTabContent(Controller.getChatRooms().last)
+              tabList += statementTab
+              tabPane.tabs = tabList
+            })
+
+
+
+
+
+
+
+
 
 
         //Root
@@ -67,25 +76,31 @@ object ClientView extends JFXApp {
 
 
     //Center: Content
+
+
+
+
+
     val statementList = new ListView[Statement]()
 
 
-    ClientControl.statements.onChange({
-      statementList.items = ClientControl.statements
-      val activity = createActivity(ClientControl.statements.last)
+    Controller.getStatements().onChange({
+      statementList.items = Controller.getStatements()
+      val activity = createActivity(Controller.getStatements().last)
       addActivity(activity)
     })
 
     val feed = new VBox()
-    feed.children = ClientControl.activityFeed
-    val scrollPane = new ScrollPane()
-    scrollPane.content = feed
-    scrollPane.hbarPolicy = ScrollBarPolicy.Never
-    border.center = scrollPane
 
-    ClientControl.activityFeed.onChange({
+    feed.children = Controller.getActivityFeedback
+    val scroll = new ScrollPane()
+    scroll.content = feed
+    scroll.hbarPolicy = ScrollBarPolicy.Never
+    border.center = scroll
+
+    Controller.getActivityFeedback.onChange({
       Platform.runLater {
-        feed.children.add(ClientControl.activityFeed.last): Unit
+        feed.children.add(Controller.getActivityFeedback.last): Unit
       }
     })
 
@@ -232,9 +247,9 @@ object ClientView extends JFXApp {
 
     //Right: User
     val userList = new ListView[String]
-    userList.items = ClientControl.users
-    ClientControl.users.onChange({
-      userList.items = ClientControl.users
+    userList.items = Controller.getUsers()
+    Controller.getUsers().onChange({
+      userList.items = Controller.getUsers()
     })
     border.right = userList
 
@@ -254,17 +269,15 @@ object ClientView extends JFXApp {
   }
 
   def addActivity(activity: VBox): Unit = {
-    ClientControl.activityFeed += activity
+    Controller.getActivityFeedback += activity
   }
 
 
   def enterChatRoomButton(statement: Statement): Button = {
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
-      ClientControl.chatRooms.add(statement)
-      if (!ClientControl.chatMessages.contains(statement.ID)) {
-        ClientControl.chatMessages.put(statement.ID, new ObservableBuffer[Message]())
-      }
+
+      Controller.getChatRooms().add(statement)
     }
     return enterChatRoomButton
   }
@@ -280,8 +293,6 @@ object ClientView extends JFXApp {
 
 
   def logout(): Unit = {
-    //TODO: TwitterLogout
-    //Fenster schließen
+    Controller.logout()
   }
-
 }

@@ -1,52 +1,49 @@
 package main.server.serverCommunication
 
-import java.io.OutputStreamWriter
 import java.net.Socket
 
 import client.model.clientCommunication.ClientMessageSender
 import main.client.model.clientCommunication.ServerHandler
-import main.shared.{ChatMessage, Message, Poll, Statement}
 
-import scala.collection.mutable
-import scala.collection.mutable.HashMap
-import scalafx.collections.{ObservableBuffer, ObservableHashMap, ObservableHashSet}
-import scalafx.scene.layout.{HBox, VBox}
+import scala.collection.mutable.ArrayBuffer
+import main.shared.{Comment, Message, Poll, Statement}
+
+import scalafx.collections.{ObservableBuffer, ObservableHashMap}
+import scalafx.scene.layout.VBox
 
 object ClientControl {
-  val users: ObservableBuffer[String] = new ObservableBuffer[String]()
-  val globalChat: ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
-  val groupChat: ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
-  //val statements:ObservableHashMap[Long, Statement] = new ObservableHashMap[Long, Statement]()
+  val socket:Socket = new Socket("localhost", 8008)
+  var nick = ""
+  val users:ObservableBuffer[String] = new ObservableBuffer[String]()
+  val globalChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
+  val groupChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
+  val statements:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
+  val comments:ObservableHashMap[Statement, ArrayBuffer[Comment]] = new ObservableHashMap[Statement, ArrayBuffer[Comment]]()
+  val chatRooms:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
+  val activityFeed:ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
 
-  val statements: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
-
-  //val chatMessages:ObservableHashMap[Int, ChatMessage] = new ObservableHashMap[Int, ChatMessage]()
-  var sender: ClientMessageSender = null
-
-
-  val chatRooms: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
-  val chatMessages: HashMap[Long, ObservableBuffer[Message]] = new HashMap[Long, ObservableBuffer[Message]]()
-
-  val activityFeed: ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
-
-  val statementPolls: HashMap[Long, ObservableBuffer[Poll]] = new HashMap[Long, ObservableBuffer[Poll]]()
-
-
-  def setupClient(nick: String): Unit = {
-    val socket: Socket = new Socket("localhost", 8008)
-    new ServerHandler(socket).start()
-    sender = new ClientMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"), nick)
-    sender.writeLoginMessage()
+  def setupClient(nickTemp:String): Unit ={
+    ServerHandler.start()
+    nick = nickTemp
+    ClientMessageSender.writeLoginMessage()
   }
 
-  /*
-  def sendChatMessage(msg:ChatMessage): Unit={
-    sender.writeStComment(msg)
-  }
-  */
+  //def sendComment(cmd:Comment): Unit={
+    //ClientMessageSender.writeStComment(cmd)
+  //}
 
-  def sendMessage(msg: Message): Unit = {
-    sender.writeChatMessage(msg)
+
+
+  def sendMessage(msg:Message):Unit={
+    ClientMessageSender.writeChatMessage(msg)
+  }
+
+  def logout(): Unit ={
+    ClientMessageSender.writeLogout()
+  }
+
+  def close()={
+    System.exit(0)
   }
 
   def sendPoll(poll: Poll): Unit = {

@@ -1,6 +1,6 @@
 package client.model.clientCommunication
 
-import main.shared.{ChatMessage, Message, Statement}
+import main.shared.{ChatMessage, Comment, Message, Statement}
 import org.json._
 import main.shared.enums.JsonType
 
@@ -12,8 +12,11 @@ object ClientMessageBuilder {
     Jmsg.put("name", nick)
   }
 
-  def writeLogoutMessage(): JSONObject = {
-    new JSONObject().put("type", JsonType.DISCONNECT)
+
+  def writeLogoutMessage(nick:String): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.DISCONNECT)
+    Jmsg.put("name", nick)
   }
 
   def chatMessage(message: Message): JSONObject = {
@@ -26,14 +29,24 @@ object ClientMessageBuilder {
   }
 
 
-  /*
-    def comment(comment: ChatMessage):JSONObject = {
-      val Jmsg:JSONObject = new JSONObject()
-      Jmsg.put("type", JsonType.COMMENT)
-      Jmsg.put("senderID", comment.userID)
-      Jmsg.put("stamp", comment.createdAt)
-      Jmsg.put("message", comment.message)
-      Jmsg.put("statementID", comment.statementID)
-    }
-    */
+  def comment(comment: Comment):JSONObject = {
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.COMMENT)
+    Jmsg.put("statement", writeStatement(comment.statement))
+    Jmsg.put("senderID", comment.screenname)
+    Jmsg.put("message", comment.message)
+    Jmsg.put("id", comment.ID)
+  }
+
+  def writeStatement(statement: Statement): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.STATEMENT)
+    Jmsg.put("userid", statement.userID)
+    Jmsg.put("message", statement.message)
+    Jmsg.put("name", statement.userName)
+    Jmsg.put("screenname", statement.screenName)
+    Jmsg.put("pictureurl", statement.pictureURL)
+    Jmsg.put("created_at", statement.creationDate)
+    Jmsg.put("id", statement.ID)
+  }
 }

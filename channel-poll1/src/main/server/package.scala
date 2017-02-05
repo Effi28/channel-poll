@@ -14,7 +14,7 @@ class QueueGetter {
         println(TestTwitterAccess.statementsQueue)
         if(TestTwitterAccess.statementsQueue.nonEmpty) {
           val firstTweet = TestTwitterAccess.statementsQueue.dequeue()
-          Server.addStatement(firstTweet)
+          Server.broadcastStatement(firstTweet)
         }
         Thread.sleep(7000)
       }

@@ -2,8 +2,11 @@ package main.client.controller
 
 import main.client.view.LoginView
 import main.server.serverCommunication.ClientControl
-import main.shared.Message
+import main.shared.{Message, Statement}
+
 import scalafx.application.Platform
+import scalafx.collections.ObservableBuffer
+import scalafx.scene.layout.VBox
 
 object Controller {
   def sendMessage(msg: Message): Unit = {
@@ -16,5 +19,25 @@ object Controller {
 
   def exitLoginView(): Unit = {
     Platform.runLater(new Thread -> LoginView.exit())
+  }
+
+  def getStatements():ObservableBuffer[Statement]= {
+    ClientControl.statements
+  }
+
+  def getUsers():ObservableBuffer[String]= {
+    ClientControl.users
+  }
+
+  def getChatRooms():ObservableBuffer[Statement]= {
+    ClientControl.chatRooms
+  }
+
+  def getActivityFeedback():ObservableBuffer[VBox]= {
+    ClientControl.activityFeed
+  }
+
+  def logout() {
+    ClientControl.logout()
   }
 }
