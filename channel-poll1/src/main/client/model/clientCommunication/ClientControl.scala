@@ -54,6 +54,21 @@ object ClientControl {
     ClientMessageSender.writeSubscribe(statement)
   }
 
+  /**
+    * Returns a statement with the correct statementID if no statement has the ID it returns null
+    * @param statementID statementID of the statement
+    * @return correct statement or null
+    */
+  def getStatementFromID(statementID: Long):Statement={
+    var statementReturn:Statement = null
+    for(statement:Statement <- statements){
+      if(statement.ID == statementID){
+      statementReturn = statement
+      }
+    }
+    statementReturn
+  }
+
   def unsubscribe(statement: Statement): Unit ={
     ClientMessageSender.writeUnsubscribe(statement)
   }

@@ -26,12 +26,12 @@ object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
+
     if(!ClientControl.polls.contains(poll.statementID)){
       ClientControl.polls += poll.statementID -> new ObservableBuffer[Poll]
+
     }
     ClientControl.polls.get(poll.statementID).get += poll
-    // todo @Brenda wie bekomme ich denn hier die statements dass ich
-    //mit der id das statement finden kann ??
   }
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
@@ -44,8 +44,10 @@ object ServerHandler extends Thread{
   }
 
   def handleComment(comment: Comment): Unit = {
+
     if(!ClientControl.comments.contains(comment.statementID)){
       ClientControl.comments += comment.statementID -> new ObservableBuffer[Comment]()
+
     }
     ClientControl.comments.get(comment.statementID).get += comment
   }
