@@ -12,12 +12,11 @@ import scala.collection.mutable.ArrayBuffer
 
 object Server {
   val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
-  val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
+  val chatRooms:HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
   val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
   val polls:HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
   val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
-
   var chatID = 0
 
   def main(args: Array[String]): Unit = {
@@ -115,8 +114,10 @@ object Server {
 
     }
     comments.get(comment.statementID).get += comment
-    for ((k, v) <- connectedHandler) {
-      v.sender.writeComment(comment)
+    for ((k:String, v:ClientHandler) <- connectedHandler) {
+      if(chatRooms.contains(v) && chatRooms.get(v).get.contains(comment.statementID)){
+        v.sender.writeComment(comment)
+      }
     }
   }
 
@@ -126,7 +127,9 @@ object Server {
     }
     polls.get(poll.statementID).get += poll
     for ((k, v) <- connectedHandler) {
-      v.sender.writePoll(poll)
+      if(chatRooms.contains(v) && chatRooms.get(v).get.contains(poll.statementID)){
+        v.sender.writePoll(poll)
+      }
     }
   }
 

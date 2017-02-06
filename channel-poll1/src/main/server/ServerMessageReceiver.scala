@@ -38,11 +38,11 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleSubscribe(jSONObject: JSONObject):Unit={
-
+    client.handleSubscribe(jSONObject.optString("statementID"), jSONObject.optLong("name"))
   }
 
   def handleUnsubscribe(jSONObject: JSONObject):Unit={
-
+    client.handleUnsubscribe(jSONObject.optString("statementID"), jSONObject.optLong("name"))
   }
 
   def handleStatement(jSONObject: JSONObject): Unit = {
