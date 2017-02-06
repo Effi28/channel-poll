@@ -43,5 +43,6 @@
     <orderEntry type="library" name="SBT: org.scalafx:scalafx_2.12:8.0.102-R11:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.12.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.7.22 (2)" level="project" />
   </component>
 </module>
