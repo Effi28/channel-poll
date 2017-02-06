@@ -3,22 +3,23 @@ package main.server
 import java.io.BufferedReader
 import java.security.Timestamp
 
-import main.shared.{Comment, Message, PollAnswer, Statement, Poll}
+import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.{JSONArray, JSONObject}
+import org.slf4j.{Logger, LoggerFactory}
 
-import scala.collection.mutable
 import scala.collection.mutable.HashMap
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
+  val logger:Logger = LoggerFactory.getLogger(this.getClass)
 
   def readMessage(): Unit ={
     var jsonText:String = null
     while (true) {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject:JSONObject = new JSONObject(jsonText)
-        println("SERVER RECEIVED: " + jsonObject)
+        logger.info(jsonObject.toString())
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
     }
@@ -30,7 +31,19 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
+    case JsonType.COMMENT => handleComment(jSONObject)
+    case JsonType.POLL => handlePoll(jSONObject)
+    case JsonType.SUBSCRIBE => handleSubscribe(jSONObject)
+    case JsonType.UNSUBSCRIBE => handleUnsubscribe(jSONObject)
     case _ => handleInvalid(jSONObject)
+  }
+
+  def handleSubscribe(jSONObject: JSONObject):Unit={
+    client.handleSubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
+  }
+
+  def handleUnsubscribe(jSONObject: JSONObject):Unit={
+    client.handleUnsubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
   }
 
   def handleStatement(jSONObject: JSONObject): Unit = {
@@ -54,15 +67,13 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
 
     for(i <- 0 until options_Array.length()){
       val option: JSONObject = options_Array.getJSONObject(i)
-      val key: Int = option.optInt("Int")
-      val option_str: String = option.optString("key")
-      val option_likes: Int = option.optInt("likes")
-      val opt_tuple = (option_str, option_likes)
-      options += key -> opt_tuple
+      val key:Int = option.optInt("key")
+      val optionStr:String = option.optString("optionsstr")
+      val likes:Int = option.optInt("likes")
+      options += key -> (optionStr,likes)
     }
     val pollID: Int = jSONObject.optInt("pollid")
-
-    val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
+    val thisPoll = new Poll(pollID, statementID, stamp, user, question, options)
     client.handlePoll(thisPoll)
   }
 
@@ -81,27 +92,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleComment(json: JSONObject): Unit = {
-    val arr:JSONArray = json.optJSONArray("likes")
-    //TODO check if array is ok
-    val likes:Array[String] = new Array[String](arr.length())
-    for(i <- 0 until arr.length()){
-      likes.update(i, arr.toString)
-    }
-
-    val statement:Statement = getStatement(json.optJSONObject("statement"))
-    client.handleComment(new Comment(statement, json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
-  }
-
-  def getStatement(json: JSONObject): Statement = {
-    val jsonStatement:JSONObject = json.optJSONObject("statement")
-    val message: String = jsonStatement.optString("message")
-    val userID: String = jsonStatement.optString("userid")
-    val userName: String = jsonStatement.optString("name")
-    val screenName: String = jsonStatement.optString("screenname")
-    val pictureURL: String = jsonStatement.optString("pictureurl")
-    val creationDate: String = jsonStatement.optString("created_at")
-    val id: Int = jsonStatement.optInt("id")
-    new Statement(message, userID, userName, screenName, pictureURL, creationDate, id)
+    client.handleComment(new Comment(json.optLong("statementID"), json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
   }
 
   def handleLogin(jSONObject: JSONObject): Unit ={

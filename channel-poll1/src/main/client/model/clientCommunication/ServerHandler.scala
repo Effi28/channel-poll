@@ -25,8 +25,10 @@ object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
-    //val statement = ClientControl.statements
-    ClientControl.polls.get(poll.statementID)
+    if(!ClientControl.polls.contains(poll.statementID)){
+      ClientControl.polls += poll.statementID -> new ArrayBuffer[Poll]
+    }
+    ClientControl.polls.get(poll.statementID).get += poll
     // todo @Brenda wie bekomme ich denn hier die statements dass ich
     //mit der id das statement finden kann ??
   }
@@ -41,7 +43,10 @@ object ServerHandler extends Thread{
   }
 
   def handleComment(comment: Comment): Unit = {
-    ClientControl.comments.get(comment.statement).get += comment
+    if(!ClientControl.comments.contains(comment.statementID)){
+      ClientControl.comments += comment.statementID -> new ArrayBuffer[Comment]()
+    }
+    ClientControl.comments.get(comment.statementID).get += comment
   }
 
   def handleGlobalChat(message: Message): Unit = {

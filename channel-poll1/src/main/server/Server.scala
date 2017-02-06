@@ -12,12 +12,11 @@ import scala.collection.mutable.ArrayBuffer
 
 object Server {
   val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
-  val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
+  val chatRooms:HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
-  val comments:HashMap[Statement, ArrayBuffer[Comment]] = new HashMap[Statement, ArrayBuffer[Comment]]
-  val polls:HashMap[Statement, ArrayBuffer[Poll]] = new HashMap[Statement, ArrayBuffer[Poll]]
+  val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
+  val polls:HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
   val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
-
   var chatID = 0
 
   def main(args: Array[String]): Unit = {
@@ -110,17 +109,27 @@ object Server {
   }
 
   def broadcastComment(comment:Comment): Unit ={
-    comments.get(comment.statement).get += comment
-    for ((k, v) <- connectedHandler) {
-      v.sender.writeComment(comment)
+    if(!comments.contains(comment.statementID)){
+      comments += comment.statementID -> new ArrayBuffer[Comment]()
+
+    }
+    comments.get(comment.statementID).get += comment
+    for ((k:String, v:ClientHandler) <- connectedHandler) {
+      if(chatRooms.contains(v) && chatRooms.get(v).get.contains(comment.statementID)){
+        v.sender.writeComment(comment)
+      }
     }
   }
 
   def broadcastPoll(poll: Poll): Unit = {
-    val statement = statements(poll.statementID)
-    polls.get(statement).get += poll
+    if(!polls.contains(poll.statementID)){
+      polls += poll.statementID -> new ArrayBuffer[Poll]()
+    }
+    polls.get(poll.statementID).get += poll
     for ((k, v) <- connectedHandler) {
-      v.sender.writePoll(poll)
+      if(chatRooms.contains(v) && chatRooms.get(v).get.contains(poll.statementID)){
+        v.sender.writePoll(poll)
+      }
     }
   }
 
@@ -131,8 +140,7 @@ object Server {
   }
 
   def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
-    val statement = statements(pollAnswer.statementID)
-    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
     val thisPoll = polls_map(pollAnswer.pollID)
     pollAnswers.get(thisPoll).get += pollAnswer
     for ((k, v) <- connectedHandler) {
@@ -156,14 +164,13 @@ object Server {
   }
 
   def updatePoll(pollAnswer: PollAnswer): Unit = {
-    val statement = statements(pollAnswer.statementID)
-    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
     val thisPoll = polls_map(pollAnswer.pollID)
     val newoptions = calcPoll(thisPoll, pollAnswer.selectedOption)
     val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.user, thisPoll.question,
       newoptions)
     polls_map(thisPoll.pollID) = updatedPoll
-    polls.update(statement, polls_map)
+    polls.update(pollAnswer.statementID, polls_map)
     broadcastPollUpdate(updatedPoll)
   }
 }

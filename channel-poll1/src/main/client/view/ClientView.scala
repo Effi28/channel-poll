@@ -5,19 +5,17 @@ package main.client.view
 import java.util.Calendar
 
 import main.client.controller.Controller
-import main.server.serverCommunication.ClientControl
-import main.shared.{Comment, Message, Poll, Statement}
+import main.shared.{Comment, Poll, Statement, TwitterUser}
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox}
+import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 import scalafx.beans.property.IntegerProperty
-import scalafx.beans.value.ObservableValue
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 
 
@@ -45,6 +43,10 @@ object ClientView extends JFXApp {
               val statementTab = new Tab()
               statementTab.text = Controller.getChatRooms().last.userName
               statementTab.content = statementTabContent(Controller.getChatRooms().last)
+
+          //TODO brenda please move that where it belongs
+              statementTab.onClosed = e => { Controller.unsubscribe(Controller.getChatRooms().last)
+          }
               tabList += statementTab
               tabPane.tabs = tabList
             })
@@ -157,10 +159,10 @@ object ClientView extends JFXApp {
         */
 
 
-    Controller.getComments(statement).onChange({
-      chatFeed.children.add(new Text(Controller.getComments(statement).last.message)):Unit
+    Controller.getCommentsForStatement(statement).onChange({
+      chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)):Unit
+      scrollPane.content = chatFeed
     })
-
 
 
 
@@ -180,10 +182,10 @@ object ClientView extends JFXApp {
       if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
         //TODO: receiver => ?
-        val sender = null
+        val sender = Controller.getTwitterUser().screenname
         val id = 0  //TODO: id setzen
-        val comment = new Comment(statement, message, sender, id, createdAt)
-        ClientControl.sendComment(comment)
+        val comment = new Comment(statement.ID, message, sender, id, createdAt)
+        Controller.sendComment(comment)
         commentInputField.clear()
       }
     }
@@ -251,7 +253,7 @@ object ClientView extends JFXApp {
           val createdAt = Calendar.getInstance().getTime.toString
 
           //TODO: eigenen user setzen
-          val user = null
+          val user:TwitterUser = Controller.getTwitterUser()
 
 
           val question = questionInputField.getText
@@ -267,9 +269,9 @@ object ClientView extends JFXApp {
           })
           val pollID = 1
           // todo ids generieren
-          val poll = new Poll(pollID, statement.ID, createdAt, user, question, options)
+          val poll = new Poll(pollID, statement.ID, createdAt, user.screenname, question, options)
 
-          ClientControl.sendPoll(poll)
+          Controller.sendPoll(poll)
 
           pollTemplate.children.clear()
           //TODO: submit poll
@@ -336,9 +338,17 @@ object ClientView extends JFXApp {
 
       Controller.getChatRooms().add(statement)
 
-      if(!Controller.getComments().contains(statement)){
 
+      if(!Controller.commentsContainStatement(statement)){
+        Controller.setStatementInComments(statement)
       }
+
+      if (!Controller.pollsContainStatement(statement)){
+        Controller.setStatementInPolls(statement)
+      }
+
+
+      Controller.subscribe(statement)
 
     }
     return enterChatRoomButton

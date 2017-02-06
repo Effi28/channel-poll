@@ -3,7 +3,9 @@ package main.server
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
 
-import main.shared.{Comment, Statement, Poll, PollAnswer}
+import main.shared.{Comment, Poll, PollAnswer, Statement}
+
+import scala.collection.mutable.ArrayBuffer
 
 class ClientHandler(socket:Socket) extends Runnable{
   val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -31,6 +33,23 @@ class ClientHandler(socket:Socket) extends Runnable{
 
   def handleStatement(statement:Statement): Unit ={
     Server.broadcastStatement(statement)
+  }
+
+  def handleSubscribe(statementID:Long, nick:String): Unit ={
+    val tempClient:ClientHandler =  Server.connectedHandler(nick)
+    if(!Server.chatRooms.contains(tempClient)){
+      Server.chatRooms += tempClient -> new ArrayBuffer[Long]
+    }
+    Server.chatRooms.get(tempClient).get += statementID
+  }
+
+  def handleUnsubscribe(statementID:Long, nick:String): Unit ={
+    val tempClient:ClientHandler =  Server.connectedHandler(nick)
+    Server.chatRooms.get(tempClient).get -= statementID
+
+    if(Server.chatRooms.get(tempClient).size == 0){
+      Server.chatRooms -= tempClient
+    }
   }
 
   def handleComment(comment:Comment): Unit = {

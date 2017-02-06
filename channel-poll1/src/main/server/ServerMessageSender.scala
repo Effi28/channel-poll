@@ -2,10 +2,13 @@ package main.server
 
 import java.io.OutputStreamWriter
 
-import main.shared.{Comment, Message, Statement, Poll, PollAnswer}
+import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
 import org.json._
+import org.slf4j.{Logger, LoggerFactory}
 
 class ServerMessageSender(out:OutputStreamWriter) {
+  val logger:Logger = LoggerFactory.getLogger(this.getClass)
+
 
   def writeLoginSuccess(users:Iterable[String]):Unit ={
     writeMessage(ServerMessageBuilder.loginSucceded(users))
@@ -43,7 +46,7 @@ class ServerMessageSender(out:OutputStreamWriter) {
   }
 
   def writeMessage(json:JSONObject):Unit ={
-    println("SERVER SENT: " + json.toString + "\n")
+    logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()
   }
