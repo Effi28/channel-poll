@@ -111,9 +111,9 @@ object ClientView extends JFXApp {
 
     //Right: User
     val userList = new ListView[String]
-    userList.items = ClientControl.users
-    ClientControl.users.onChange({
-      userList.items = ClientControl.users
+    userList.items = Controller.getUsers()
+    Controller.getUsers().onChange({
+      userList.items = Controller.getUsers()
     })
     border.right = userList
 
@@ -155,6 +155,18 @@ object ClientView extends JFXApp {
           chatFeed.children.add(new Text(ClientControl.chatMessages.get(statement.ID).get.last.msg)):Unit
         })
         */
+
+
+    Controller.getComments(statement).onChange({
+      chatFeed.children.add(new Text(Controller.getComments(statement).last.message)):Unit
+    })
+
+
+
+
+
+    //TODO: Kathrin fragen, ob man statt ObservableHashMap normale HashMap mit ObservableBuffer nehmen kann
+    //ClientControl.polls.get(statement).
 
 
     val chatGridPane = new GridPane()
@@ -323,6 +335,11 @@ object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
 
       Controller.getChatRooms().add(statement)
+
+      if(!Controller.getComments().contains(statement)){
+
+      }
+
     }
     return enterChatRoomButton
   }
