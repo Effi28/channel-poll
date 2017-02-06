@@ -31,6 +31,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
     case JsonType.COMMENT => handleComment(jSONObject)
+    case JsonType.POLL => handlePoll(jSONObject)
     case _ => handleInvalid(jSONObject)
   }
 
@@ -55,15 +56,13 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
 
     for(i <- 0 until options_Array.length()){
       val option: JSONObject = options_Array.getJSONObject(i)
-      val key: Int = option.optInt("Int")
-      val option_str: String = option.optString("key")
-      val option_likes: Int = option.optInt("likes")
-      val opt_tuple = (option_str, option_likes)
-      options += key -> opt_tuple
+      val key:Int = option.optInt("key")
+      val optionStr:String = option.optString("optionsstr")
+      val likes:Int = option.optInt("likes")
+      options += key -> (optionStr,likes)
     }
     val pollID: Int = jSONObject.optInt("pollid")
-
-    val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
+    val thisPoll = new Poll(pollID, statementID, stamp, user, question, options)
     client.handlePoll(thisPoll)
   }
 

@@ -15,7 +15,7 @@ object Server {
   val chatRooms:HashMap[String, HashMap[String, ClientHandler]] = new HashMap[String, HashMap[String, ClientHandler]];
   val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
   val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
-  val polls:HashMap[Statement, ArrayBuffer[Poll]] = new HashMap[Statement, ArrayBuffer[Poll]]
+  val polls:HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
   val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
 
   var chatID = 0
@@ -121,8 +121,10 @@ object Server {
   }
 
   def broadcastPoll(poll: Poll): Unit = {
-    val statement = statements(poll.statementID)
-    polls.get(statement).get += poll
+    if(!polls.contains(poll.statementID)){
+      polls += poll.statementID -> new ArrayBuffer[Poll]()
+    }
+    polls.get(poll.statementID).get += poll
     for ((k, v) <- connectedHandler) {
       v.sender.writePoll(poll)
     }
@@ -135,8 +137,7 @@ object Server {
   }
 
   def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
-    val statement = statements(pollAnswer.statementID)
-    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
     val thisPoll = polls_map(pollAnswer.pollID)
     pollAnswers.get(thisPoll).get += pollAnswer
     for ((k, v) <- connectedHandler) {
@@ -160,14 +161,13 @@ object Server {
   }
 
   def updatePoll(pollAnswer: PollAnswer): Unit = {
-    val statement = statements(pollAnswer.statementID)
-    val polls_map: ArrayBuffer[Poll] = polls(statement)
+    val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
     val thisPoll = polls_map(pollAnswer.pollID)
     val newoptions = calcPoll(thisPoll, pollAnswer.selectedOption)
     val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.user, thisPoll.question,
       newoptions)
     polls_map(thisPoll.pollID) = updatedPoll
-    polls.update(statement, polls_map)
+    polls.update(pollAnswer.statementID, polls_map)
     broadcastPollUpdate(updatedPoll)
   }
 }

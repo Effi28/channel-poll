@@ -5,19 +5,17 @@ package main.client.view
 import java.util.Calendar
 
 import main.client.controller.Controller
-import main.server.serverCommunication.ClientControl
-import main.shared.{Comment, Message, Poll, Statement}
+import main.shared.{Comment, Poll, Statement, TwitterUser}
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox}
+import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 import scalafx.beans.property.IntegerProperty
-import scalafx.beans.value.ObservableValue
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 
 
@@ -111,9 +109,9 @@ object ClientView extends JFXApp {
 
     //Right: User
     val userList = new ListView[String]
-    userList.items = ClientControl.users
-    ClientControl.users.onChange({
-      userList.items = ClientControl.users
+    userList.items = Controller.getUsers()
+    Controller.getUsers().onChange({
+      userList.items = Controller.getUsers()
     })
     border.right = userList
 
@@ -168,10 +166,10 @@ object ClientView extends JFXApp {
       if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
         //TODO: receiver => ?
-        val sender = null
+        val sender = Controller.getTwitterUser().screenname
         val id = 0  //TODO: id setzen
         val comment = new Comment(statement.ID, message, sender, id, createdAt)
-        ClientControl.sendComment(comment)
+        Controller.sendComment(comment)
         commentInputField.clear()
       }
     }
@@ -239,7 +237,7 @@ object ClientView extends JFXApp {
           val createdAt = Calendar.getInstance().getTime.toString
 
           //TODO: eigenen user setzen
-          val user = null
+          val user:TwitterUser = Controller.getTwitterUser()
 
 
           val question = questionInputField.getText
@@ -255,9 +253,9 @@ object ClientView extends JFXApp {
           })
           val pollID = 1
           // todo ids generieren
-          val poll = new Poll(pollID, statement.ID, createdAt, user, question, options)
+          val poll = new Poll(pollID, statement.ID, createdAt, user.screenname, question, options)
 
-          ClientControl.sendPoll(poll)
+          Controller.sendPoll(poll)
 
           pollTemplate.children.clear()
           //TODO: submit poll

@@ -51,24 +51,23 @@ object ClientMessageBuilder {
     Jmsg.put("statementid", pollAnswer.statementID)
   }
 
-  def poll(poll: Poll): JSONObject = {
+  def writePoll(poll: Poll): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLL)
     Jmsg.put("statementid", poll.statementID)
     Jmsg.put("stamp", poll.stamp)
     Jmsg.put("user", poll.user)
     Jmsg.put("question", poll.question)
-
-    val Jmsg1:JSONArray = new JSONArray()
-    for ((k, v) <- poll.options) {
-      val Jmsg2: JSONObject = new JSONObject()
-      Jmsg2.put("optionsstr", v._1)
-      Jmsg2.put("likes", v._2)
-      Jmsg2.put("key", Jmsg2)
-      Jmsg1.put(Jmsg2)
-    }
-    Jmsg.put("options", Jmsg1)
     Jmsg.put("pollid", poll.pollID)
+    val arr:JSONArray = new JSONArray()
+    for ((k, v) <- poll.options) {
+      val obj: JSONObject = new JSONObject()
+      obj.put("key", k)
+      obj.put("optionsstr",v._1)
+      obj.put("likes", v._2)
+      arr.put(obj)
+    }
+    Jmsg.put("options", arr)
   }
 
   def writeStatement(statement: Statement): JSONObject ={

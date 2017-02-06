@@ -2,7 +2,7 @@ package main.client.controller
 
 import main.client.view.LoginView
 import main.server.serverCommunication.ClientControl
-import main.shared.{Message, Statement, TwitterUser}
+import main.shared._
 
 import scalafx.application.Platform
 import scalafx.collections.ObservableBuffer
@@ -39,5 +39,17 @@ object Controller {
 
   def logout() {
     ClientControl.logout()
+  }
+
+  def sendComment(comment:Comment):Unit={
+    ClientControl.sendComment(comment)
+  }
+
+  def sendPoll(poll: Poll):Unit={
+    ClientControl.sendPoll(poll)
+  }
+
+  def getTwitterUser():TwitterUser={
+    ClientControl.user
   }
 }

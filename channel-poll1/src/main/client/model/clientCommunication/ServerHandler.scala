@@ -25,8 +25,10 @@ object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
-    //val statement = ClientControl.statements
-    ClientControl.polls.get(poll.statementID)
+    if(!ClientControl.polls.contains(poll.statementID)){
+      ClientControl.polls += poll.statementID -> new ArrayBuffer[Poll]
+    }
+    ClientControl.polls.get(poll.statementID).get += poll
     // todo @Brenda wie bekomme ich denn hier die statements dass ich
     //mit der id das statement finden kann ??
   }

@@ -1,12 +1,15 @@
 package client.model.clientCommunication
 
 import java.io.{BufferedReader, InputStreamReader}
+
 import main.client.controller.Controller
 import main.client.model.clientCommunication.ServerHandler
 import main.server.serverCommunication.ClientControl
-import main.shared.{Message, Statement, Comment}
+import main.shared.{Comment, Message, Poll, Statement}
 import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
+
+import scala.collection.mutable.HashMap
 
 
 object ClientMessageReceiver {
@@ -67,7 +70,23 @@ object ClientMessageReceiver {
   }
 
   def handlePoll(jSONObject: JSONObject): Unit = {
-    //todo
+    val statementID: Long = jSONObject.optLong("statementid")
+    val stamp: String = jSONObject.optString("stamp")
+    val user: String = jSONObject.optString("user")
+    val question: String = jSONObject.optString("question")
+    val options_Array: JSONArray = jSONObject.optJSONArray("options")
+    val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
+
+    for(i <- 0 until options_Array.length()){
+      val option: JSONObject = options_Array.getJSONObject(i)
+      val key:Int = option.optInt("key")
+      val optionStr:String = option.optString("optionsstr")
+      val likes:Int = option.optInt("likes")
+      options += key -> (optionStr,likes)
+    }
+    val pollID: Int = jSONObject.optInt("pollid")
+    val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
+    ServerHandler.handlePoll(thisPoll)
   }
 
 
