@@ -43,6 +43,10 @@ object ClientView extends JFXApp {
               val statementTab = new Tab()
               statementTab.text = Controller.getChatRooms().last.userName
               statementTab.content = statementTabContent(Controller.getChatRooms().last)
+
+          //TODO brenda please move that where it belongs
+              statementTab.onClosed = e => { Controller.unsubscribe(Controller.getChatRooms().last)
+          }
               tabList += statementTab
               tabPane.tabs = tabList
             })
@@ -321,6 +325,7 @@ object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
 
       Controller.getChatRooms().add(statement)
+      Controller.subscribe(statement)
     }
     return enterChatRoomButton
   }

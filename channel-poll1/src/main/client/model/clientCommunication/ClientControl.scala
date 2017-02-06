@@ -49,4 +49,12 @@ object ClientControl {
   def sendPoll(poll: Poll): Unit = {
     ClientMessageSender.writePoll(poll)
   }
+
+  def subscribe(statement: Statement): Unit ={
+    ClientMessageSender.writeSubscribe(statement)
+  }
+
+  def unsubscribe(statement: Statement): Unit ={
+    ClientMessageSender.writeUnsubscribe(statement)
+  }
 }

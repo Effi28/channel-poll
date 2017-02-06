@@ -61,4 +61,12 @@ object Controller {
   def getTwitterUser():TwitterUser={
     ClientControl.user
   }
+
+  def subscribe(statement: Statement): Unit ={
+    ClientControl.subscribe(statement)
+  }
+
+  def unsubscribe(statement: Statement): Unit ={
+    ClientControl.unsubscribe(statement)
+  }
 }

@@ -32,7 +32,17 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case JsonType.STATEMENT => handleStatement(jSONObject)
     case JsonType.COMMENT => handleComment(jSONObject)
     case JsonType.POLL => handlePoll(jSONObject)
+    case JsonType.SUBSCRIBE => handleSubscribe(jSONObject)
+    case JsonType.UNSUBSCRIBE => handleUnsubscribe(jSONObject)
     case _ => handleInvalid(jSONObject)
+  }
+
+  def handleSubscribe(jSONObject: JSONObject):Unit={
+
+  }
+
+  def handleUnsubscribe(jSONObject: JSONObject):Unit={
+
   }
 
   def handleStatement(jSONObject: JSONObject): Unit = {

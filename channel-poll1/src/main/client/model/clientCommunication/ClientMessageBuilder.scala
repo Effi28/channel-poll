@@ -6,7 +6,7 @@ import main.shared.enums.JsonType
 
 object ClientMessageBuilder {
 
-  def loginMessage(nick: String): JSONObject = {
+  def writeLogin(nick: String): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGIN)
     Jmsg.put("name", nick)
@@ -19,7 +19,21 @@ object ClientMessageBuilder {
     Jmsg.put("name", nick)
   }
 
-  def chatMessage(message: Message): JSONObject = {
+  def writeSubscribe(nick:String, statement: Statement): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.SUBSCRIBE)
+    Jmsg.put("statementID", statement.ID)
+    Jmsg.put("name", nick)
+  }
+
+  def writeUnsubscribe(nick:String, statement: Statement): JSONObject ={
+    val Jmsg:JSONObject = new JSONObject()
+    Jmsg.put("type", JsonType.UNSUBSCRIBE)
+    Jmsg.put("statementID", statement.ID)
+    Jmsg.put("name", nick)
+  }
+
+  def writeMessage(message: Message): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.CHAT)
     Jmsg.put("senderID", message.sender)
@@ -29,7 +43,7 @@ object ClientMessageBuilder {
   }
 
 
-  def comment(comment: Comment):JSONObject = {
+  def writeComment(comment: Comment):JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("statementID", comment.statementID)
