@@ -5,6 +5,7 @@ import main.server.serverCommunication.ClientControl
 import main.shared._
 
 import scala.collection.mutable.ArrayBuffer
+import scalafx.collections.ObservableBuffer
 
 
 object ServerHandler extends Thread{
@@ -25,12 +26,11 @@ object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
-    if(!ClientControl.polls.contains(poll.statementID)){
-      ClientControl.polls += poll.statementID -> new ArrayBuffer[Poll]
+    val statement: Statement = ClientControl.getStatementFromID(poll.statementID)
+    if(!ClientControl.polls.contains(statement)){
+      ClientControl.polls += statement -> new ObservableBuffer[Poll]
     }
-    ClientControl.polls.get(poll.statementID).get += poll
-    // todo @Brenda wie bekomme ich denn hier die statements dass ich
-    //mit der id das statement finden kann ??
+    ClientControl.polls.get(statement).get += poll
   }
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
@@ -43,10 +43,11 @@ object ServerHandler extends Thread{
   }
 
   def handleComment(comment: Comment): Unit = {
-    if(!ClientControl.comments.contains(comment.statementID)){
-      ClientControl.comments += comment.statementID -> new ArrayBuffer[Comment]()
+    val statement: Statement = ClientControl.getStatementFromID(comment.statementID)
+    if(!ClientControl.comments.contains(statement)){
+      ClientControl.comments += statement -> new ObservableBuffer[Comment]()
     }
-    ClientControl.comments.get(comment.statementID).get += comment
+    ClientControl.comments.get(statement).get += comment
   }
 
   def handleGlobalChat(message: Message): Unit = {
