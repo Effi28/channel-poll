@@ -4,12 +4,9 @@ import java.net.Socket
 
 import client.model.clientCommunication.ClientMessageSender
 import main.client.model.clientCommunication.ServerHandler
-
-import scala.collection.mutable.ArrayBuffer
 import main.shared._
 
-import scala.collection.mutable
-import scala.collection.mutable.HashMap
+import scala.collection.mutable.{ArrayBuffer, HashMap}
 import scalafx.collections.{ObservableBuffer, ObservableHashMap}
 import scalafx.scene.layout.VBox
 
@@ -20,8 +17,8 @@ object ClientControl {
   val globalChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
   val groupChat:ObservableHashMap[Long, Message] = new ObservableHashMap[Long, Message]()
   val statements:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
-  val comments:HashMap[Statement, ObservableBuffer[Comment]] = new HashMap[Statement, ObservableBuffer[Comment]]()
-  val polls: HashMap[Statement, ObservableBuffer[Poll]] = new HashMap[Statement, ObservableBuffer[Poll]]()
+  val comments:HashMap[Long, ObservableBuffer[Comment]] = new HashMap[Long, ObservableBuffer[Comment]]()
+  val polls: HashMap[Long, ObservableBuffer[Poll]] = new HashMap[Long, ObservableBuffer[Poll]]()
 
   val pollAnswers: ObservableHashMap[Poll, ArrayBuffer[PollAnswer]] = new ObservableHashMap[Poll, ArrayBuffer[PollAnswer]]()
   val chatRooms:ObservableBuffer[Statement] = new ObservableBuffer[Statement]()

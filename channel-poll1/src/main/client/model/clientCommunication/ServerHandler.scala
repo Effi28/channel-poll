@@ -5,6 +5,7 @@ import main.server.serverCommunication.ClientControl
 import main.shared._
 
 import scala.collection.mutable.ArrayBuffer
+import scalafx.collections.ObservableBuffer
 
 
 object ServerHandler extends Thread{
@@ -26,7 +27,7 @@ object ServerHandler extends Thread{
 
   def handlePoll(poll: Poll): Unit = {
     if(!ClientControl.polls.contains(poll.statementID)){
-      ClientControl.polls += poll.statementID -> new ArrayBuffer[Poll]
+      ClientControl.polls += poll.statementID -> new ObservableBuffer[Poll]
     }
     ClientControl.polls.get(poll.statementID).get += poll
     // todo @Brenda wie bekomme ich denn hier die statements dass ich
@@ -44,7 +45,7 @@ object ServerHandler extends Thread{
 
   def handleComment(comment: Comment): Unit = {
     if(!ClientControl.comments.contains(comment.statementID)){
-      ClientControl.comments += comment.statementID -> new ArrayBuffer[Comment]()
+      ClientControl.comments += comment.statementID -> new ObservableBuffer[Comment]()
     }
     ClientControl.comments.get(comment.statementID).get += comment
   }

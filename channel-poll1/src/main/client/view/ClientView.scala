@@ -1,7 +1,6 @@
 package main.client.view
 
 
-
 import java.util.Calendar
 
 import main.client.controller.Controller
@@ -40,24 +39,17 @@ object ClientView extends JFXApp {
         tabPane.tabs = tabList
 
         Controller.getChatRooms().onChange({
-              val statementTab = new Tab()
-              statementTab.text = Controller.getChatRooms().last.userName
-              statementTab.content = statementTabContent(Controller.getChatRooms().last)
+          val statementTab = new Tab()
+          statementTab.text = Controller.getChatRooms().last.userName
+          statementTab.content = statementTabContent(Controller.getChatRooms().last)
 
           //TODO brenda please move that where it belongs
-              statementTab.onClosed = e => { Controller.unsubscribe(Controller.getChatRooms().last)
+          statementTab.onClosed = e => {
+            Controller.unsubscribe(Controller.getChatRooms().last)
           }
-              tabList += statementTab
-              tabPane.tabs = tabList
-            })
-
-
-
-
-
-
-
-
+          tabList += statementTab
+          tabPane.tabs = tabList
+        })
 
 
         //Root
@@ -82,9 +74,6 @@ object ClientView extends JFXApp {
 
 
     //Center: Content
-
-
-
 
 
     val statementList = new ListView[Statement]()
@@ -152,23 +141,17 @@ object ClientView extends JFXApp {
     scrollPane.hbarPolicy = ScrollBarPolicy.Never
 
 
-    /*
-        ClientControl.chatMessages.get(statement.ID).get.onChange({
-          chatFeed.children.add(new Text(ClientControl.chatMessages.get(statement.ID).get.last.msg)):Unit
-        })
-        */
+
 
 
     Controller.getCommentsForStatement(statement).onChange({
-      chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)):Unit
-      scrollPane.content = chatFeed
+      println("something happened")
+     // chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)): Unit
+     //scrollPane.content = chatFeed
     })
 
 
 
-
-    //TODO: Kathrin fragen, ob man statt ObservableHashMap normale HashMap mit ObservableBuffer nehmen kann
-    //ClientControl.polls.get(statement).
 
 
     val chatGridPane = new GridPane()
@@ -183,14 +166,13 @@ object ClientView extends JFXApp {
         val createdAt = Calendar.getInstance().getTime.toString
         //TODO: receiver => ?
         val sender = Controller.getTwitterUser().screenname
-        val id = 0  //TODO: id setzen
+        val id = 0
+        //TODO: id setzen
         val comment = new Comment(statement.ID, message, sender, id, createdAt)
         Controller.sendComment(comment)
         commentInputField.clear()
       }
     }
-
-
 
 
     val pollTemplate = new VBox()
@@ -253,7 +235,7 @@ object ClientView extends JFXApp {
           val createdAt = Calendar.getInstance().getTime.toString
 
           //TODO: eigenen user setzen
-          val user:TwitterUser = Controller.getTwitterUser()
+          val user: TwitterUser = Controller.getTwitterUser()
 
 
           val question = questionInputField.getText
@@ -285,9 +267,6 @@ object ClientView extends JFXApp {
         pollTemplate.children.addAll(pollGridPane)
       }
     }
-
-
-
 
 
     commentInputField.setMaxHeight(Double.MaxValue)
@@ -339,11 +318,11 @@ object ClientView extends JFXApp {
       Controller.getChatRooms().add(statement)
 
 
-      if(!Controller.commentsContainStatement(statement)){
+      if (!Controller.commentsContainStatement(statement)) {
         Controller.setStatementInComments(statement)
       }
 
-      if (!Controller.pollsContainStatement(statement)){
+      if (!Controller.pollsContainStatement(statement)) {
         Controller.setStatementInPolls(statement)
       }
 

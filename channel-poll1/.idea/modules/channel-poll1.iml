@@ -45,5 +45,6 @@
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.12.1:jar" level="project" />
     <orderEntry type="library" name="slf4j-api-1.7.22 (2)" level="project" />
     <orderEntry type="library" name="slf4j-simple-1.7.22" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.7.22" level="project" />
   </component>
 </module>

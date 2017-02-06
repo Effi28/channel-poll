@@ -34,20 +34,20 @@ object Controller {
   //ClientControl.polls
   //}
 
-  def getPolls(): HashMap[Statement, ObservableBuffer[Poll]] = {
+  def getPolls(): HashMap[Long, ObservableBuffer[Poll]] = {
     ClientControl.polls
   }
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
-    ClientControl.polls.get(statement).get
+    ClientControl.polls.get(statement.ID).get
   }
 
   def pollsContainStatement(statement: Statement): Boolean = {
-    ClientControl.polls.contains(statement)
+    ClientControl.polls.contains(statement.ID)
   }
 
   def setStatementInPolls(statement: Statement): Unit = {
-    ClientControl.polls.put(statement, new ObservableBuffer[Poll]())
+    ClientControl.polls.put(statement.ID, new ObservableBuffer[Poll]())
   }
 
   //def getComments():ObservableHashMap[Long, ArrayBuffer[Comment]]= {
@@ -62,20 +62,20 @@ object Controller {
     ClientControl.activityFeed
   }
 
-  def getComments(): HashMap[Statement, ObservableBuffer[Comment]] = {
+  def getComments(): HashMap[Long, ObservableBuffer[Comment]] = {
     ClientControl.comments
   }
 
   def getCommentsForStatement(statement: Statement): ObservableBuffer[Comment] = {
-    ClientControl.comments.get(statement).get
+    ClientControl.comments.get(statement.ID).get
   }
 
   def commentsContainStatement(statement: Statement): Boolean = {
-    ClientControl.comments.contains(statement)
+    ClientControl.comments.contains(statement.ID)
   }
 
   def setStatementInComments(statement: Statement): Unit = {
-    ClientControl.comments.put(statement, new ObservableBuffer[Comment]())
+    ClientControl.comments.put(statement.ID, new ObservableBuffer[Comment]())
   }
 
 
