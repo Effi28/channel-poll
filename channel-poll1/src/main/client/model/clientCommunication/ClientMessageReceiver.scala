@@ -75,7 +75,8 @@ object ClientMessageReceiver {
   def handlePoll(jSONObject: JSONObject): Unit = {
     val statementID: Long = jSONObject.optLong("statementid")
     val stamp: String = jSONObject.optString("stamp")
-    val user: String = jSONObject.optString("user")
+    val userID: Long = jSONObject.optLong("userid")
+    val userName : String = jSONObject.optString("username")
     val question: String = jSONObject.optString("question")
     val options_Array: JSONArray = jSONObject.optJSONArray("options")
     val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
@@ -88,7 +89,7 @@ object ClientMessageReceiver {
       options += key -> (optionStr,likes)
     }
     val pollID: Int = jSONObject.optInt("pollid")
-    val thisPoll = new Poll(pollID, statementID, user, stamp, question, options)
+    val thisPoll = new Poll(pollID, statementID, userName, userID, stamp, question, options)
     ServerHandler.handlePoll(thisPoll)
   }
 

@@ -166,9 +166,9 @@ object Server {
   def updatePoll(pollAnswer: PollAnswer): Unit = {
     val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
     val thisPoll = polls_map(pollAnswer.pollID)
-    val newoptions = calcPoll(thisPoll, pollAnswer.selectedOption)
-    val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.user, thisPoll.question,
-      newoptions)
+    val newOptions = calcPoll(thisPoll, pollAnswer.selectedOption)
+    val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.pollID, thisPoll.userName, thisPoll.question,
+      newOptions)
     polls_map(thisPoll.pollID) = updatedPoll
     polls.update(pollAnswer.statementID, polls_map)
     broadcastPollUpdate(updatedPoll)

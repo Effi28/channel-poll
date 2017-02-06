@@ -2,9 +2,10 @@ package main.client.view
 
 
 import java.util.Calendar
+import javax.swing.ButtonGroup
 
 import main.client.controller.Controller
-import main.shared.{Comment, Poll, Statement, TwitterUser}
+import main.shared._
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
@@ -141,17 +142,11 @@ object ClientView extends JFXApp {
     scrollPane.hbarPolicy = ScrollBarPolicy.Never
 
 
-
-
-
     Controller.getCommentsForStatement(statement).onChange({
       println("something happened")
-     // chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)): Unit
-     //scrollPane.content = chatFeed
+      // chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)): Unit
+      //scrollPane.content = chatFeed
     })
-
-
-
 
 
     val chatGridPane = new GridPane()
@@ -234,7 +229,6 @@ object ClientView extends JFXApp {
 
           val createdAt = Calendar.getInstance().getTime.toString
 
-          //TODO: eigenen user setzen
           val user: TwitterUser = Controller.getTwitterUser()
 
 
@@ -251,7 +245,7 @@ object ClientView extends JFXApp {
           })
           val pollID = 1
           // todo ids generieren
-          val poll = new Poll(pollID, statement.ID, createdAt, user.screenname, question, options)
+          val poll = new Poll(pollID, statement.ID, createdAt, user.userid, user.screenname, question, options)
 
           Controller.sendPoll(poll)
 
@@ -299,11 +293,60 @@ object ClientView extends JFXApp {
     return border
   }
 
+  def showComment(comment: Comment): GridPane = {
+    val commentGrid = new GridPane()
+    commentGrid.addRow(0, new Label(comment.screenName), new Text(comment.message))
+    return commentGrid
+  }
+
+  def showPoll(poll: Poll): GridPane = {
+    val pollGrid = new GridPane()
+    var rowIndex = 0
+    val columnIndex = 1
+    pollGrid.addRow(1, new Label(poll.userName), new Text(poll.question))
+
+
+    val toggleGroup = new ToggleGroup()
+
+    poll.options.foreach(option => {
+      rowIndex += 1
+      val optionId = option._1
+      val optionInfo = option._2
+      val optionText = optionInfo._1
+      val radioButton = new RadioButton(optionText)
+      radioButton.id = optionId.toString
+      radioButton.onAction = e => {
+        radioButton.selected = true
+      }
+      toggleGroup.toggles.add(radioButton)
+      pollGrid.add(radioButton, columnIndex, rowIndex)
+    })
+    rowIndex += 1
+    val submitButton = new Button("Submit")
+    submitButton.onAction = e => {
+
+      val selectedButton = toggleGroup.getSelectedToggle()
+      val selectedButtonId = selectedButton.getProperties.get("id")
+      val selectedButonText = selectedButton.getProperties.get("text")
+
+      val stamp = Calendar.getInstance().getTime.toString
+
+      val pollAnswer = new PollAnswer(poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButonText.toString), poll.pollID,
+        stamp, poll.statementID)
+
+
+
+
+
+    }
+    pollGrid.add(submitButton, columnIndex, rowIndex)
+    return pollGrid
+  }
+
 
   def createActivity(statement: Statement): VBox = {
-    val user = new Text(statement.userName)
-    val message = new TextFlow(new Text(statement.message))
-    return new VBox(user, message, enterChatRoomButton(statement))
+    val activity = new VBox(new Label(statement.screenName), new Text(statement.message), enterChatRoomButton(statement))
+    return activity
   }
 
   def addActivity(activity: VBox): Unit = {

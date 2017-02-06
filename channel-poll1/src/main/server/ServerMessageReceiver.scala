@@ -60,7 +60,8 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   def handlePoll(jSONObject: JSONObject): Unit = {
     val statementID: Long = jSONObject.optLong("statementid")
     val stamp: String = jSONObject.optString("stamp")
-    val user: String = jSONObject.optString("user")
+    val userID: Long = jSONObject.optLong("userid")
+    val userName: String = jSONObject.optString("username")
     val question: String = jSONObject.optString("question")
     val options_Array: JSONArray = jSONObject.optJSONArray("options")
     val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
@@ -73,12 +74,13 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
       options += key -> (optionStr,likes)
     }
     val pollID: Int = jSONObject.optInt("pollid")
-    val thisPoll = new Poll(pollID, statementID, stamp, user, question, options)
+    val thisPoll = new Poll(pollID, statementID, stamp, userID, userName, question, options)
     client.handlePoll(thisPoll)
   }
 
   def handlePollAnswer(jSONObject: JSONObject): Unit = {
     val userID: Long = jSONObject.optLong("userid")
+    val userName : String = jSONObject.optString("username")
     val question: String = jSONObject.optString("question")
     val selectedOptionKey = jSONObject.optInt("selectedoptionkey")
     val selectedOptionStr = jSONObject.optString("selectedoptionstr")
@@ -87,7 +89,7 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     val statementID: Long = jSONObject.optLong("statementid")
 
 
-    val pollAnswer = new PollAnswer(userID, question, (selectedOptionKey, selectedOptionStr), pollID, timestamp, statementID)
+    val pollAnswer = new PollAnswer(userID, userName, question, (selectedOptionKey, selectedOptionStr), pollID, timestamp, statementID)
     client.handlePollAnswer(pollAnswer)
   }
 

@@ -41,11 +41,12 @@ object LoginView extends JFXApp {
         * Hier bei doLogin kommt (true, Screenname) zurueck,
         * wenn login erfolgreich war
         *
-        * TODO: @Kathrin: kann man auch den vollständigen user zurückgeben, also mit id, username usw.? ich brauche die id später, wenn ich nachrichten verschicken möchte
-        *  -> ERLEDIGT !!, auch schon in den Controller rein getan
+        *
         */
       submitButton.onAction = e => {
-        //TODO: Fehler anzeigen, falls kein Code eingegeben wurde
+        if (codeTextField.getText.size ==0){
+          //TODO Fehlermeldung anzeigen, dass codefeld nicht leer sein darf
+        }
         val code = codeTextField.getText
         Controller.setupClient(twitterLogin.doLogin(code)._2)
       }

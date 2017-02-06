@@ -45,7 +45,7 @@ class TwitterAccess {
   //politicalFilter.filterLevel(TwitterSettings.filterLevel)
   //politicalFilter.language(TwitterSettings.filterLanguage)
   // politicalFilter.track(TwitterSettings.hashtags)
-  streamFactory.filter(politicalFilter)
+  //streamFactory.filter(politicalFilter)
 
   /**
     * Twitter Stream:
