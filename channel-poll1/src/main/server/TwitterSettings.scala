@@ -40,15 +40,18 @@ class TwitterSettings {
 
   // Settings for the Stream Filter
   //  follow - Specifies the users, by ID, to receive public tweets from.
-  /*val interestingUsers = (25073877, 813286, 1339835893, 23022687, 939091, 18916432,
-    15808765, 36412963, 36042554, 14224719, 24705126, 20713061, 15416505,
-    65493023, 733751245, 490126636, 19394188, 34996429, 7334402, 12044602,
-    15762708, 28587919, 16832632, 138787319, 135815730, 121887978, 113420831,
-    101782947, 78431501, 82939583, 70188601, 65691824, 62442994, 55235265,
-    50982086, 45835766, 44335525, 33576489)*/
-  val interestingUsers = (25073877, 813286)
-  val hashtags = "elections, politics, trump, america, democrats," +
-    " obama, republicans"
-  val filterLanguage = "en"
+  /**
+  val interestingUsers = (425845268, 47375691, 378693834, 569832889, 22260144, 888289790,
+    304342650, 626287930, 16337664, 485751594, 347792540, 28066013, 46085533, 24725119,
+    140821364, 293066780, 856641566, 113754382, 94363834, 18933321, 15943222, 299650387,
+    17752770, 1425265488)
+  **/
+  val hashtags = "cdu, csu, merkel, spdbpt, CSUListe, aft, grüne, fdp, linke, gabriel," +
+    "steinmaier, zypries, bundestagswahl, merkel, angelamerkel, katjakipping," +
+    "spitzenkandidat, spitzenkandidatin, linke_sachsen, wahlrecht, btw17, schulz," +
+    "martinschulz, bundestag, deutschland, mega, kanzlerkandidatur, politik, germany," +
+    "eu, osthessen, grünen, wahlumfrage, höcke, keinealternative, agenda, kraft," +
+    "flüchtlinge, spdde, wahlbetrug, kanzleramt, mandate, kandidaten"
+  val filterLanguage = "german"
   val filterLevel = "medium"
 }
