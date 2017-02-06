@@ -40,7 +40,7 @@ class ClientHandler(socket:Socket) extends Runnable{
     if(!Server.chatRooms.contains(tempClient)){
       Server.chatRooms += tempClient -> new ArrayBuffer[Long]
     }
-    Server.chatRooms.get(Server.connectedHandler(nick)) += statementID
+    Server.chatRooms.get(tempClient).get += statementID
   }
 
   def handleUnsubscribe(statementID:Long, nick:String): Unit ={

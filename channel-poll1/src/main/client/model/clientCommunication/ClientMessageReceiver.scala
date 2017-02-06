@@ -8,18 +8,22 @@ import main.server.serverCommunication.ClientControl
 import main.shared.{Comment, Message, Poll, Statement}
 import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.mutable.HashMap
 
 
 object ClientMessageReceiver {
   val in:BufferedReader = new BufferedReader(new InputStreamReader(ClientControl.socket.getInputStream, "UTF-8"))
+  val logger:Logger = LoggerFactory.getLogger(ClientMessageReceiver.getClass)
+
 
   def readMessage(): Unit ={
     var jsonText:String = null
     while (!ClientControl.socket.isClosed) {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject: JSONObject = new JSONObject(jsonText)
+        logger.info(jsonObject.toString())
         println("CLIENT RECEIVED: " + jsonObject)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }

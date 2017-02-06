@@ -16,7 +16,8 @@ object JsonType extends Enumeration {
   val CHAT = Value("chat")
   val STATEMENT = Value("statement")
   val COMMENT = Value("comment")
-  val USER = Value("user")
+  val SUBSCRIBE = Value("subscribe")
+  val UNSUBSCRIBE = Value("unsubscribe")
   val POLL = Value("poll")
   val POLLANSWER = Value("pollanswer")
 }

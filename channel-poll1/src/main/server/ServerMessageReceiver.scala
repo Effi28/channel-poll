@@ -3,21 +3,23 @@ package main.server
 import java.io.BufferedReader
 import java.security.Timestamp
 
-import main.shared.{Comment, Message, PollAnswer, Statement, Poll}
+import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.{JSONArray, JSONObject}
+import org.slf4j.{Logger, LoggerFactory}
 
-import scala.collection.mutable
 import scala.collection.mutable.HashMap
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
+  val logger:Logger = LoggerFactory.getLogger(this.getClass)
 
   def readMessage(): Unit ={
     var jsonText:String = null
     while (true) {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject:JSONObject = new JSONObject(jsonText)
+        logger.info(jsonObject.toString())
         println("SERVER RECEIVED: " + jsonObject)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
@@ -38,11 +40,11 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   }
 
   def handleSubscribe(jSONObject: JSONObject):Unit={
-    client.handleSubscribe(jSONObject.optString("statementID"), jSONObject.optLong("name"))
+    client.handleSubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
   }
 
   def handleUnsubscribe(jSONObject: JSONObject):Unit={
-    client.handleUnsubscribe(jSONObject.optString("statementID"), jSONObject.optLong("name"))
+    client.handleUnsubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
   }
 
   def handleStatement(jSONObject: JSONObject): Unit = {

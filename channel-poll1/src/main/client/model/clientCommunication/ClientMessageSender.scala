@@ -6,10 +6,13 @@ import java.io.{BufferedWriter, OutputStreamWriter}
 
 import main.server.serverCommunication.ClientControl
 import org.json.JSONObject
+import org.slf4j.{Logger, LoggerFactory}
 
 
 object ClientMessageSender{
   val out:BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
+  val logger:Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
+
   def writeLoginMessage(): Unit ={
     writeMessage(ClientMessageBuilder.writeLogin(ClientControl.user.screenname))
   }
@@ -40,6 +43,7 @@ object ClientMessageSender{
   }
 
   def writeMessage(json:JSONObject): Unit ={
+    logger.info(json.toString + "\n")
     println("CLIENT SENT: " + json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()
