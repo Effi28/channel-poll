@@ -4,8 +4,9 @@ import main.client.view.LoginView
 import main.server.serverCommunication.ClientControl
 import main.shared._
 
+import scala.collection.mutable.ArrayBuffer
 import scalafx.application.Platform
-import scalafx.collections.ObservableBuffer
+import scalafx.collections.{ObservableBuffer, ObservableHashMap}
 import scalafx.scene.layout.VBox
 
 object Controller {
@@ -27,6 +28,14 @@ object Controller {
 
   def getUsers():ObservableBuffer[String]= {
     ClientControl.users
+  }
+
+  def getPolls():ObservableHashMap[Long, ArrayBuffer[Poll]]= {
+    ClientControl.polls
+  }
+
+  def getComments():ObservableHashMap[Long, ArrayBuffer[Comment]]= {
+    ClientControl.comments
   }
 
   def getChatRooms():ObservableBuffer[Statement]= {
