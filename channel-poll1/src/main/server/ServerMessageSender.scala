@@ -47,7 +47,6 @@ class ServerMessageSender(out:OutputStreamWriter) {
 
   def writeMessage(json:JSONObject):Unit ={
     logger.info(json.toString + "\n")
-    println("SERVER SENT: " + json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()
   }

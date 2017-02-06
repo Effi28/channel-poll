@@ -44,7 +44,6 @@ object ClientMessageSender{
 
   def writeMessage(json:JSONObject): Unit ={
     logger.info(json.toString + "\n")
-    println("CLIENT SENT: " + json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()
   }

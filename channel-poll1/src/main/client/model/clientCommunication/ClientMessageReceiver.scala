@@ -24,7 +24,6 @@ object ClientMessageReceiver {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject: JSONObject = new JSONObject(jsonText)
         logger.info(jsonObject.toString())
-        println("CLIENT RECEIVED: " + jsonObject)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
     }

@@ -20,7 +20,6 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
       if ((jsonText = in.readLine()) != null) {
         val jsonObject:JSONObject = new JSONObject(jsonText)
         logger.info(jsonObject.toString())
-        println("SERVER RECEIVED: " + jsonObject)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
     }
