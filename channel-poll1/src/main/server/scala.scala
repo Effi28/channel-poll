@@ -29,23 +29,23 @@ class TwitterAccess {
   val StatementsPath = TwitterSettings.pathToStatements
   val tweetsJsonString = Source.fromFile(StatementsPath).getLines.mkString
   val tweetsJson = new JSONObject(tweetsJsonString)
-  val statements: JSONArray = tweetsJson.getJSONArray("data")
+  //val statements: JSONArray = tweetsJson.getJSONArray("data")
   val StatementsSaver = new SaveJsons(StatementsPath)
 
   val streamFactory = new TwitterStreamFactory(settings.build()).getInstance
+  streamFactory.addListener(getPosts())
   //streamFactory.addListener(getPosts(statements))
-  streamFactory.addListener(getPosts(statements))
   val politicalFilter = new FilterQuery()
 
   //  follow - Specifies the users, by ID, to receive public tweets from.
-  politicalFilter.follow(425845268, 47375691, 378693834, 569832889, 22260144, 888289790,
-    304342650, 626287930, 16337664, 485751594, 347792540, 28066013, 46085533, 24725119,
-    140821364, 293066780, 856641566, 113754382, 94363834, 18933321, 15943222, 299650387,
-    17752770, 1425265488)
+  //politicalFilter.follow(425845268, 47375691, 378693834, 569832889, 22260144, 888289790,
+  //  304342650, 626287930, 16337664, 485751594, 347792540, 28066013, 46085533, 24725119,
+  //  140821364, 293066780, 856641566, 113754382, 94363834, 18933321, 15943222, 299650387,
+  //  17752770, 1425265488)
   //politicalFilter.filterLevel(TwitterSettings.filterLevel)
   //politicalFilter.language(TwitterSettings.filterLanguage)
-  // politicalFilter.track(TwitterSettings.hashtags)
-  //streamFactory.filter(politicalFilter)
+  politicalFilter.track(TwitterSettings.hashtags)
+  streamFactory.filter(politicalFilter)
 
   /**
     * Twitter Stream:
@@ -56,8 +56,8 @@ class TwitterAccess {
     override def run(): Unit = {
       // in periodical time intervals:  update json file
       var counter = 0
-      println("**************************************")
       while (!Thread.currentThread().isInterrupted()) {
+        /**
         if(counter < 3){
           counter += 1
         }else{
@@ -66,17 +66,18 @@ class TwitterAccess {
           val statementsString = "{\"data\": " + statements.toString() + '}'
           StatementsSaver.saveJsonString(statementsString)
         }
+        **/
         Thread.sleep(10000) // important: not too low!
         streamFactory.cleanUp()
         streamFactory.shutdown()
     }}
   })
 
-  def getPosts(statements: JSONArray) = new StatusListener() {
+  // def getPosts(statements: JSONArray) = new StatusListener() {
+  def getPosts() = new StatusListener() {
     def onStatus(status: Status) {
-      println(status.getUser)
-      println(status.getText)
       // Create Json from tweetJson
+      println(status)
       val tweetJson:JSONObject = new JSONObject()
 
       val message = status.getText
@@ -100,7 +101,7 @@ class TwitterAccess {
       val statementObject = new Statement(message, userid.toString, username, screenname,
         profilepictureurl, createdat, tweetid)
       setStatementsQueue(statementObject)
-      statements.put(tweetJson)
+      //statements.put(tweetJson)
     }
 
     def onDeletionNotice(statusDeletionNotice: StatusDeletionNotice) {}
