@@ -1,4 +1,4 @@
-package main.shared
+package main.shared.data
 
 /**
   * Created by KathrinNetzer on 05.02.2017.

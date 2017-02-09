@@ -3,9 +3,11 @@ package main.client.controller
 import main.client.model.ClientControl
 import main.client.view.LoginView
 import main.shared._
+import main.shared.data.{Comment, Poll, Statement, TwitterUser}
+
 import scala.collection.mutable.HashMap
 import scalafx.application.Platform
-import scalafx.collections.{ObservableBuffer}
+import scalafx.collections.ObservableBuffer
 import scalafx.scene.layout.VBox
 
 final object Controller {

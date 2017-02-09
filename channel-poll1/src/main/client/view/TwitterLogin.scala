@@ -1,13 +1,13 @@
 package main.client.view
 
-import java.net.URL
+import java.net.{SocketException, URL}
 import javax.servlet.http.HttpServlet
 
-import main.server.TwitterSettings
+import main.server.Server
+import main.server.twitter.TwitterSettings
+import main.shared.data.TwitterUser
 import twitter4j._
 import twitter4j.auth.{AccessToken, RequestToken}
-
-import main.shared.TwitterUser
 
 /**
   * Created by KathrinNetzer on 28.01.2017.
@@ -18,21 +18,17 @@ final object TwitterLogin extends HttpServlet{
   var m: Twitter = null
 
   def startLogin(): URL = {
-    try {
+    try{
       val TwttrFctry: TwitterFactory = new TwitterFactory(TwitterSettings.settings.build())
       m = TwttrFctry.getInstance()
-
-      try{
-        r = m.getOAuthRequestToken()
-        while (null == a) {
-          try{
-            val authUrl = new URL(r.getAuthorizationURL())
-            return authUrl
-          } catch {
-            case e: TwitterException => println(e)
-          }
-        }
+      r = m.getOAuthRequestToken()
+      while (null == a) {
+        val authUrl = new URL(r.getAuthorizationURL())
+        return authUrl
       }
+    }
+    catch{
+      case e: TwitterException => println(e)
     }
     return(new URL(""))
   }
@@ -44,13 +40,11 @@ final object TwitterLogin extends HttpServlet{
 
     if (loginCode.length > 0) {
       a = m.getOAuthAccessToken(r, loginCode)
-
       userScreenname = m.getScreenName
       userid = m.getId
       val fullUser: TwitterUser = new TwitterUser(userid, userScreenname)
       val hasAccess = checkIfAccess(a)
       return (hasAccess, fullUser)
-
     }else {
       a = m.getOAuthAccessToken(r)
     }

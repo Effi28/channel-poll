@@ -1,10 +1,10 @@
-package server
+package main.server.twitter
 
+import main.shared.data.Statement
 import twitter4j.{TwitterStreamFactory, _}
+
 import scala.collection.mutable.Queue
 import scala.io.Source
-import main.shared.Statement
-import main.server.TwitterSettings
 
 object TwitterAccess {
 

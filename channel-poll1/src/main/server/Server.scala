@@ -3,8 +3,10 @@ package main.server
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.{ExecutorService, Executors}
-import main.shared.{Comment, Poll, PollAnswer, Statement}
-import server.{QueueGetter, TwitterAccess}
+
+import main.server.communication.ClientHandler
+import main.server.twitter.{QueueGetter, TwitterAccess}
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
@@ -108,7 +110,6 @@ final object Server {
   def broadcastComment(comment:Comment): Unit ={
     if(!comments.contains(comment.statementID)){
       comments += comment.statementID -> new ArrayBuffer[Comment]()
-
     }
     comments.get(comment.statementID).get += comment
     for ((k:String, v:ClientHandler) <- connectedHandler) {

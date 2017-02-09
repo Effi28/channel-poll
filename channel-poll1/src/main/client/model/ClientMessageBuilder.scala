@@ -1,6 +1,7 @@
 package main.client.model
 
 import main.shared._
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
 import org.json._
 

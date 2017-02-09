@@ -3,6 +3,7 @@ package main.client.model
 import java.net.Socket
 
 import main.shared._
+import main.shared.data._
 
 import scala.collection.mutable.{ArrayBuffer, HashMap}
 import scalafx.collections.{ObservableBuffer, ObservableHashMap}

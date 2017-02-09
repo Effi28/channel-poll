@@ -1,4 +1,4 @@
-package main.server
+package main.server.twitter
 
 import twitter4j.conf.ConfigurationBuilder
 

@@ -1,6 +1,7 @@
-package main.server
+package main.server.JsonFiles
 
 import java.io._
+
 import com.google.gson._
 
 /**

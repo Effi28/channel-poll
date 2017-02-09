@@ -1,8 +1,8 @@
-package main.server
+package main.server.communication
 
 import java.io.OutputStreamWriter
 
-import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import org.json._
 import org.slf4j.{Logger, LoggerFactory}
 

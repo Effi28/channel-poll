@@ -1,9 +1,9 @@
-package main.server
+package main.server.communication
 
 import main.shared._
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
-import org.json.JSONObject
-import org.json.JSONArray
+import org.json.{JSONArray, JSONObject}
 
 final object ServerMessageBuilder {
 

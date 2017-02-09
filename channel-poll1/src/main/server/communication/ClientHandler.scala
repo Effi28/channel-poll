@@ -1,9 +1,10 @@
-package main.server
+package main.server.communication
 
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
-import main.shared.{Comment, Poll, PollAnswer, Statement}
-import scala.collection.mutable.ArrayBuffer
+
+import main.server.Server
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 
 final class ClientHandler(socket:Socket) extends Runnable{
   private val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -32,14 +33,6 @@ final class ClientHandler(socket:Socket) extends Runnable{
     Server.broadcastStatement(statement)
   }
 
-  def handleSubscribe(statementID:Long, nick:String): Unit ={
-    Server.handleSubscribe(statementID, nick)
-  }
-
-  def handleUnsubscribe(statementID:Long, nick:String): Unit ={
-    Server.handleUnSubscribe(statementID, nick)
-  }
-
   def handleComment(comment:Comment): Unit = {
     Server.broadcastComment(comment)
   }
@@ -50,5 +43,13 @@ final class ClientHandler(socket:Socket) extends Runnable{
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
     Server.broadcastPollAnswers(pollAnswer)
+  }
+
+  def handleSubscribe(statementID:Long, nick:String): Unit ={
+    Server.handleSubscribe(statementID, nick)
+  }
+
+  def handleUnsubscribe(statementID:Long, nick:String): Unit ={
+    Server.handleUnSubscribe(statementID, nick)
   }
 }

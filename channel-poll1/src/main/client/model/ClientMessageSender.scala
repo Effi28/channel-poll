@@ -1,7 +1,8 @@
 package main.client.model
 
 import java.io.{BufferedWriter, OutputStreamWriter}
-import main.shared.{Comment, Poll, Statement}
+
+import main.shared.data.{Comment, Poll, Statement}
 import org.json.JSONObject
 import org.slf4j.{Logger, LoggerFactory}
 

@@ -1,11 +1,13 @@
-package main.server
+package main.server.communication
 
 import java.io.BufferedReader
-import main.shared.{Comment, Poll, PollAnswer, Statement}
+
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
+import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
+
 import scala.collection.mutable.HashMap
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
@@ -14,7 +16,8 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
   def readMessage(): Unit ={
     var jsonText:String = null
     while (true) {
-      if ((jsonText = in.readLine()) != null) {
+      jsonText = in.readLine()
+      if (jsonText != null) {
         val jsonObject:JSONObject = new JSONObject(jsonText)
         logger.info(jsonObject.toString())
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)

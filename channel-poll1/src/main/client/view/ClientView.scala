@@ -6,6 +6,7 @@ import javax.swing.ButtonGroup
 
 import main.client.controller.Controller
 import main.shared._
+import main.shared.data._
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage

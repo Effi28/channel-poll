@@ -1,11 +1,14 @@
 package main.client.model
 
 import java.io.{BufferedReader, InputStreamReader}
+
 import main.client.controller.Controller
+import main.shared.data.{Comment, Poll, Statement}
 import main.shared.enums.JsonType
-import main.shared.{Comment, Poll, Statement}
+import main.shared.data.{Poll, Statement}
 import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
+
 import scala.collection.mutable.HashMap
 
 
