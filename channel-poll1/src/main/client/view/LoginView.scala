@@ -4,20 +4,18 @@
 package main.client.view
 
 import java.awt.Desktop
-
 import main.client.controller.Controller
-
-import scalafx.application.{JFXApp, Platform}
+import scalafx.application.{JFXApp}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, Label, TextField}
+import scalafx.scene.control.{Button,TextField}
 import scalafx.scene.layout.{BorderPane, VBox}
 
 /**
   * Created by Brenda on 30.01.17.
   */
 
-object LoginView extends JFXApp {
+final object LoginView extends JFXApp {
   stage = new PrimaryStage {
     title = "Login"
     height = 300
@@ -25,9 +23,8 @@ object LoginView extends JFXApp {
     scene = new Scene {
       val border = new BorderPane()
       val loginButton = new Button("Login")
-      val twitterLogin = new TwitterLogin()
       loginButton.onAction = e => {
-        val loginURL = twitterLogin.startLogin()
+        val loginURL = TwitterLogin.startLogin()
         if (Desktop.isDesktopSupported) {
           Desktop.getDesktop.browse(loginURL.toURI)
         } else {
@@ -48,7 +45,7 @@ object LoginView extends JFXApp {
           //TODO Fehlermeldung anzeigen, dass codefeld nicht leer sein darf
         }
         val code = codeTextField.getText
-        Controller.setupClient(twitterLogin.doLogin(code)._2)
+        Controller.setupClient(TwitterLogin.doLogin(code)._2)
       }
       border.center = new VBox(loginButton, codeTextField, submitButton)
       root = border

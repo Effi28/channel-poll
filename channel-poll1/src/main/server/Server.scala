@@ -3,25 +3,22 @@ package main.server
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.{ExecutorService, Executors}
-
-import main.shared._
-
-import scala.collection.mutable
+import main.shared.{Comment, Poll, PollAnswer, Statement}
+import server.{QueueGetter, TwitterAccess}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
-object Server {
-  val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
-  val chatRooms:HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
-  val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
-  val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
-  val polls:HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
-  val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
-  var chatID = 0
+final object Server {
+  private val connectedHandler:HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
+  private val chatRooms:HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
+  private val statements:HashMap[Long, Statement] = new HashMap[Long, Statement]
+  private val comments:HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
+  private val polls:HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
+  private val pollAnswers:HashMap[Poll, ArrayBuffer[PollAnswer]] = new HashMap[Poll, ArrayBuffer[PollAnswer]]
+  private var chatID = 0
 
   def main(args: Array[String]): Unit = {
     startTwitterStream()
-
     val pool: ExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
     val serverSocket = new ServerSocket(8008)
     try {
@@ -35,13 +32,26 @@ object Server {
     }
   }
 
-  def startTwitterStream(): Unit = {
-    val accessStreamer = new TwitterAccess
-    accessStreamer.streamingThread.start()
+  def handleSubscribe(statementID:Long, nick:String): Unit ={
+    val tempClient:ClientHandler =  Server.connectedHandler(nick)
+    if(!Server.chatRooms.contains(tempClient)){
+      Server.chatRooms += tempClient -> new ArrayBuffer[Long]
+    }
+    Server.chatRooms.get(tempClient).get += statementID
+  }
 
+  def handleUnSubscribe(statementID:Long, nick:String): Unit ={
+    val tempClient:ClientHandler =  Server.connectedHandler(nick)
+    Server.chatRooms.get(tempClient).get -= statementID
+    if(Server.chatRooms.get(tempClient).size == 0){
+      Server.chatRooms -= tempClient
+    }
+  }
+
+  private def startTwitterStream(): Unit = {
+  TwitterAccess.streamingThread.start()
     // start dequeue thread for getting statements from queue
-    val statementGetter = new QueueGetter
-    statementGetter.dequeueThread.start()
+    QueueGetter.dequeueThread.start()
   }
 
   def checkLogin(nick:String, client:ClientHandler): Unit ={
@@ -54,7 +64,7 @@ object Server {
     }
   }
 
-  def broadcastLogin(client:ClientHandler, nick:String): Unit ={
+  private def broadcastLogin(client:ClientHandler, nick:String): Unit ={
     for ((k, v) <- connectedHandler) {
       if(k.equals(nick)){
         v.sender.writeLoginSuccess(connectedHandler.keys)
@@ -63,19 +73,6 @@ object Server {
         v.sender.writeNewLogin(nick)
       }
     }
-  }
-
-  def broadcastGlobalMessage(message:Message): Unit = {
-    for ((k, v) <- connectedHandler) {
-      if(!k.equals(message.sender)){
-        v.sender.writeChatMessage(message)
-      }
-    }
-    chatID = chatID + 1;
-  }
-
-  def broadcastGroupMessage(message:Message): Unit = {
-  //TODO
   }
 
   def removeClient(clientHandler: ClientHandler): Unit ={
@@ -157,9 +154,7 @@ object Server {
     val polOptions = poll.options
     val optionid = selectedOption._1
     val options_tuple = polOptions(optionid)
-
-    polOptions.update(optionid, (selectedOption._2, options_tuple._2 + selectedOption._1)
-    )
+    polOptions.update(optionid, (selectedOption._2, options_tuple._2 + selectedOption._1))
     return polOptions
   }
 

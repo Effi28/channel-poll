@@ -1,18 +1,15 @@
 package main.server
 
 import java.io.BufferedReader
-import java.security.Timestamp
-
-import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
+import main.shared.{Comment, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
-
 import scala.collection.mutable.HashMap
 
 class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
-  val logger:Logger = LoggerFactory.getLogger(this.getClass)
+  private val logger:Logger = LoggerFactory.getLogger(this.getClass)
 
   def readMessage(): Unit ={
     var jsonText:String = null
@@ -25,10 +22,9 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     }
   }
 
-  def matchTest(x: JsonType, jSONObject: JSONObject): Unit = x match {
+  private def matchTest(x: JsonType, jSONObject: JSONObject): Unit = x match {
     case JsonType.LOGIN => handleLogin(jSONObject)
     case JsonType.DISCONNECT => handleLogout(jSONObject)
-    case JsonType.CHAT => handleChat(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
     case JsonType.COMMENT => handleComment(jSONObject)
@@ -38,32 +34,32 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
     case _ => handleInvalid(jSONObject)
   }
 
-  def handleSubscribe(jSONObject: JSONObject):Unit={
-    client.handleSubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
+  private def handleSubscribe(json: JSONObject):Unit={
+    client.handleSubscribe(json.optLong("statementID"), json.optString("name"))
   }
 
-  def handleUnsubscribe(jSONObject: JSONObject):Unit={
-    client.handleUnsubscribe(jSONObject.optLong("statementID"), jSONObject.optString("name"))
+  private def handleUnsubscribe(json: JSONObject):Unit={
+    client.handleUnsubscribe(json.optLong("statementID"), json.optString("name"))
   }
 
-  def handleStatement(jSONObject: JSONObject): Unit = {
-    val message: String = jSONObject.optString("message")
-    val userID: String = jSONObject.optString("userid")
-    val userName: String = jSONObject.optString("name")
-    val screenName: String = jSONObject.optString("screenname")
-    val pictureURL: String = jSONObject.optString("pictureurl")
-    val creationDate: String = jSONObject.optString("created_at")
-    val id: Int = jSONObject.optInt("id")
+  private def handleStatement(json: JSONObject): Unit = {
+    val message: String = json.optString("message")
+    val userID: String = json.optString("userid")
+    val userName: String = json.optString("name")
+    val screenName: String = json.optString("screenname")
+    val pictureURL: String = json.optString("pictureurl")
+    val creationDate: String = json.optString("created_at")
+    val id: Int = json.optInt("id")
     client.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
   }
 
-  def handlePoll(jSONObject: JSONObject): Unit = {
-    val statementID: Long = jSONObject.optLong("statementid")
-    val stamp: String = jSONObject.optString("stamp")
-    val userID: Long = jSONObject.optLong("userid")
-    val userName: String = jSONObject.optString("username")
-    val question: String = jSONObject.optString("question")
-    val options_Array: JSONArray = jSONObject.optJSONArray("options")
+  private def handlePoll(json: JSONObject): Unit = {
+    val statementID: Long = json.optLong("statementid")
+    val stamp: String = json.optString("stamp")
+    val userID: Long = json.optLong("userid")
+    val userName: String = json.optString("username")
+    val question: String = json.optString("question")
+    val options_Array: JSONArray = json.optJSONArray("options")
     val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
 
     for(i <- 0 until options_Array.length()){
@@ -73,55 +69,37 @@ class ServerMessageReceiver(in:BufferedReader, client:ClientHandler) {
       val likes:Int = option.optInt("likes")
       options += key -> (optionStr,likes)
     }
-    val pollID: Int = jSONObject.optInt("pollid")
+    val pollID: Int = json.optInt("pollid")
     val thisPoll = new Poll(pollID, statementID, stamp, userID, userName, question, options)
     client.handlePoll(thisPoll)
   }
 
-  def handlePollAnswer(jSONObject: JSONObject): Unit = {
-    val userID: Long = jSONObject.optLong("userid")
-    val userName : String = jSONObject.optString("username")
-    val question: String = jSONObject.optString("question")
-    val selectedOptionKey = jSONObject.optInt("selectedoptionkey")
-    val selectedOptionStr = jSONObject.optString("selectedoptionstr")
-    val pollID: Int = jSONObject.optInt("pollid")
-    val timestamp = jSONObject.optString("timestamp")
-    val statementID: Long = jSONObject.optLong("statementid")
-
-
+  private def handlePollAnswer(json: JSONObject): Unit = {
+    val userID: Long = json.optLong("userid")
+    val userName : String = json.optString("username")
+    val question: String = json.optString("question")
+    val selectedOptionKey = json.optInt("selectedoptionkey")
+    val selectedOptionStr = json.optString("selectedoptionstr")
+    val pollID: Int = json.optInt("pollid")
+    val timestamp = json.optString("timestamp")
+    val statementID: Long = json.optLong("statementid")
     val pollAnswer = new PollAnswer(userID, userName, question, (selectedOptionKey, selectedOptionStr), pollID, timestamp, statementID)
     client.handlePollAnswer(pollAnswer)
   }
 
-  def handleComment(json: JSONObject): Unit = {
+  private def handleComment(json: JSONObject): Unit = {
     client.handleComment(new Comment(json.optLong("statementID"), json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
   }
 
-  def handleLogin(jSONObject: JSONObject): Unit ={
-    client.checkLogin(jSONObject.optString("name"))
+  private def handleLogin(json: JSONObject): Unit ={
+    client.checkLogin(json.optString("name"))
   }
 
-  def handleLogout(jSONObject: JSONObject): Unit ={
-    client.handleLogout(jSONObject.optString("name"))
+  private def handleLogout(json: JSONObject): Unit ={
+    client.handleLogout(json.optString("name"))
   }
 
-
-  def handleChat(jSONObject: JSONObject): Unit ={
-    val sender:String =jSONObject.optString("senderID")
-    val stamp:String =jSONObject.optString("stamp")
-    val msg:String =jSONObject.optString("message")
-    val rcv:String = jSONObject.optString("groupID")
-    val msgT:Message = new Message(sender, stamp, msg, rcv, Server.chatID+1)
-    if(rcv == null){
-      Server.broadcastGlobalMessage(msgT)
-    }
-    else{
-      Server.broadcastGroupMessage(msgT)
-    }
-  }
-
-
-  def handleInvalid(jSONObject: JSONObject): Unit ={
-
+  private def handleInvalid(json: JSONObject): Unit ={
+    //TODO
   }
 }

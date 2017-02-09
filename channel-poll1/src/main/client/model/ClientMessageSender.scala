@@ -1,17 +1,14 @@
-package client.model.clientCommunication
+package main.client.model
 
-
-import main.shared.{Comment, Message, Poll, Statement}
 import java.io.{BufferedWriter, OutputStreamWriter}
-
-import main.server.serverCommunication.ClientControl
+import main.shared.{Comment, Poll, Statement}
 import org.json.JSONObject
 import org.slf4j.{Logger, LoggerFactory}
 
 
-object ClientMessageSender{
-  val out:BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
-  val logger:Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
+final object ClientMessageSender{
+  private val out:BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
+  private val logger:Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
 
   def writeLoginMessage(): Unit ={
     writeMessage(ClientMessageBuilder.writeLogin(ClientControl.user.screenname))
@@ -19,10 +16,6 @@ object ClientMessageSender{
 
   def writeStComment(comment: Comment): Unit = {
     writeMessage(ClientMessageBuilder.writeComment(comment))
-  }
-
-  def writeChatMessage(msg: Message): Unit = {
-    writeMessage(ClientMessageBuilder.writeMessage(msg))
   }
 
   def writePoll(poll:Poll): Unit ={
@@ -42,7 +35,7 @@ object ClientMessageSender{
     writeMessage(ClientMessageBuilder.writeUnsubscribe(ClientControl.user.screenname, statement))
   }
 
-  def writeMessage(json:JSONObject): Unit ={
+  private def writeMessage(json:JSONObject): Unit ={
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()

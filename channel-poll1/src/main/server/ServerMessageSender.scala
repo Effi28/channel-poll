@@ -6,9 +6,8 @@ import main.shared.{Comment, Message, Poll, PollAnswer, Statement}
 import org.json._
 import org.slf4j.{Logger, LoggerFactory}
 
-class ServerMessageSender(out:OutputStreamWriter) {
-  val logger:Logger = LoggerFactory.getLogger(this.getClass)
-
+final class ServerMessageSender(out:OutputStreamWriter) {
+  private val logger:Logger = LoggerFactory.getLogger(this.getClass)
 
   def writeLoginSuccess(users:Iterable[String]):Unit ={
     writeMessage(ServerMessageBuilder.loginSucceded(users))
@@ -41,11 +40,7 @@ class ServerMessageSender(out:OutputStreamWriter) {
     writeMessage(ServerMessageBuilder.userDisconnect(nick))
   }
 
-  def writeChatMessage(message:Message):Unit={
-    writeMessage(ServerMessageBuilder.writeChatMessage(message))
-  }
-
-  def writeMessage(json:JSONObject):Unit ={
+  private def writeMessage(json:JSONObject):Unit ={
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()

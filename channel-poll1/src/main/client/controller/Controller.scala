@@ -1,19 +1,14 @@
 package main.client.controller
 
+import main.client.model.ClientControl
 import main.client.view.LoginView
-import main.server.serverCommunication.ClientControl
 import main.shared._
-
 import scala.collection.mutable.HashMap
 import scalafx.application.Platform
-import scalafx.collections.{ObservableBuffer, ObservableHashMap}
+import scalafx.collections.{ObservableBuffer}
 import scalafx.scene.layout.VBox
 
-object Controller {
-  def sendMessage(msg: Message): Unit = {
-    ClientControl.sendMessage(msg)
-  }
-
+final object Controller {
   def setupClient(user: TwitterUser): Unit = {
     ClientControl.setupClient(user)
   }
@@ -29,10 +24,6 @@ object Controller {
   def getUsers(): ObservableBuffer[String] = {
     ClientControl.users
   }
-
-  //def getPolls():ObservableHashMap[Long, ArrayBuffer[Poll]]= {
-  //ClientControl.polls
-  //}
 
   def getPolls(): HashMap[Long, ObservableBuffer[Poll]] = {
     ClientControl.polls
@@ -50,10 +41,6 @@ object Controller {
     ClientControl.polls.put(statement.ID, new ObservableBuffer[Poll]())
   }
 
-  //def getComments():ObservableHashMap[Long, ArrayBuffer[Comment]]= {
-  //ClientControl.comments
-  //}
-
   def getChatRooms(): ObservableBuffer[Statement] = {
     ClientControl.chatRooms
   }
@@ -67,6 +54,9 @@ object Controller {
   }
 
   def getCommentsForStatement(statement: Statement): ObservableBuffer[Comment] = {
+    if(!ClientControl.comments.contains(statement.ID)){
+      ClientControl.comments += statement.ID -> new ObservableBuffer[Comment]()
+    }
     ClientControl.comments.get(statement.ID).get
   }
 
@@ -77,7 +67,6 @@ object Controller {
   def setStatementInComments(statement: Statement): Unit = {
     ClientControl.comments.put(statement.ID, new ObservableBuffer[Comment]())
   }
-
 
   def logout() {
     ClientControl.logout()

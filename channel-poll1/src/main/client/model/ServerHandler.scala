@@ -1,14 +1,11 @@
-package main.client.model.clientCommunication
+package main.client.model
 
-import client.model.clientCommunication.ClientMessageReceiver
-import main.server.serverCommunication.ClientControl
 import main.shared._
 
-import scala.collection.mutable.ArrayBuffer
 import scalafx.collections.ObservableBuffer
 
 
-object ServerHandler extends Thread{
+final object ServerHandler extends Thread{
   def message = (Thread.currentThread.getName() + "\n").getBytes
 
   override def run(): Unit = {
@@ -50,13 +47,5 @@ object ServerHandler extends Thread{
 
     }
     ClientControl.comments.get(comment.statementID).get += comment
-  }
-
-  def handleGlobalChat(message: Message): Unit = {
-    ClientControl.globalChat += message.statementID -> message
-  }
-
-  def handleGroupChat(message: Message): Unit = {
-    ClientControl.groupChat += message.statementID -> message
   }
 }

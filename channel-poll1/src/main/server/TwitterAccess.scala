@@ -1,18 +1,12 @@
-package main.server
+package server
 
 import twitter4j.{TwitterStreamFactory, _}
-
 import scala.collection.mutable.Queue
 import scala.io.Source
 import main.shared.Statement
+import main.server.TwitterSettings
 
-/**
-  * @author Kathrin Netzer
-  */
-
-// import scala.collection.mutable.ArrayBuffer
-
-class TwitterAccess {
+object TwitterAccess {
 
   // Put statements in a queue for the view
   var _statementsQueue = new Queue[Statement]
@@ -22,7 +16,6 @@ class TwitterAccess {
   }
 
   // Settings for the registered application
-  val TwitterSettings = new TwitterSettings
   val settings = TwitterSettings.streamsettings
 
   // Statements should be saved in JSON, done in classe SaveJsons
@@ -30,7 +23,6 @@ class TwitterAccess {
   val tweetsJsonString = Source.fromFile(StatementsPath).getLines.mkString
   val tweetsJson = new JSONObject(tweetsJsonString)
   //val statements: JSONArray = tweetsJson.getJSONArray("data")
-  val StatementsSaver = new SaveJsons(StatementsPath)
 
   val streamFactory = new TwitterStreamFactory(settings.build()).getInstance
   streamFactory.addListener(getPosts())
@@ -52,25 +44,24 @@ class TwitterAccess {
     * The Thread is important, because the Stream has to be running all the time.
     */
 
-  val streamingThread = new Thread(new Runnable {
-    override def run(): Unit = {
-      // in periodical time intervals:  update json file
-      var counter = 0
-      while (!Thread.currentThread().isInterrupted()) {
-        /**
-        if(counter < 3){
-          counter += 1
-        }else{
-          counter = 0
-          // update Json File: Write statements to file
-          val statementsString = "{\"data\": " + statements.toString() + '}'
-          StatementsSaver.saveJsonString(statementsString)
-        }
+  val streamingThread = new Thread(() => {
+    // in periodical time intervals:  update json file
+    var counter = 0
+    while (!Thread.currentThread().isInterrupted()) {
+      /**
+        * if(counter < 3){
+        * counter += 1
+        * }else{
+        * counter = 0
+        * // update Json File: Write statements to file
+        * val statementsString = "{\"data\": " + statements.toString() + '}'
+        *StatementsSaver.saveJsonString(statementsString)
+        * }
         **/
-        Thread.sleep(10000) // important: not too low!
-        streamFactory.cleanUp()
-        streamFactory.shutdown()
-    }}
+      Thread.sleep(10000) // important: not too low!
+      streamFactory.cleanUp()
+      streamFactory.shutdown()
+    }
   })
 
   // def getPosts(statements: JSONArray) = new StatusListener() {
@@ -110,5 +101,4 @@ class TwitterAccess {
     def onScrubGeo(arg0: Long, arg1: Long) {}
     def onStallWarning(warning: StallWarning) {}
   }
-
 }

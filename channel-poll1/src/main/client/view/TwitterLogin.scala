@@ -12,18 +12,14 @@ import main.shared.TwitterUser
 /**
   * Created by KathrinNetzer on 28.01.2017.
   */
-class TwitterLogin() extends HttpServlet{
-
+final object TwitterLogin extends HttpServlet{
   var a: AccessToken = null
   var r: RequestToken = null
   var m: Twitter = null
 
   def startLogin(): URL = {
-    val TwitterSettings = new TwitterSettings
-    val settings = TwitterSettings.settings
-
     try {
-      val TwttrFctry: TwitterFactory = new TwitterFactory(settings.build())
+      val TwttrFctry: TwitterFactory = new TwitterFactory(TwitterSettings.settings.build())
       m = TwttrFctry.getInstance()
 
       try{
@@ -67,7 +63,7 @@ class TwitterLogin() extends HttpServlet{
     * @param AccToken  Oauth Access Token
     * @return true, if the user is authenticated
     */
-  def checkIfAccess(AccToken: AccessToken): Boolean = {
+  private def checkIfAccess(AccToken: AccessToken): Boolean = {
     var ret = false
     if(AccToken.getToken != null && AccToken.getTokenSecret != null){
       ret = true

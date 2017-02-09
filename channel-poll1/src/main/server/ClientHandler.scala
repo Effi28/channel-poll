@@ -2,15 +2,12 @@ package main.server
 
 import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
-
 import main.shared.{Comment, Poll, PollAnswer, Statement}
-
 import scala.collection.mutable.ArrayBuffer
 
-class ClientHandler(socket:Socket) extends Runnable{
-  val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
+final class ClientHandler(socket:Socket) extends Runnable{
+  private val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
   var sender:ServerMessageSender = new ServerMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"))
-  def message = (Thread.currentThread.getName() + "\n").getBytes
 
   def run(): Unit = {
     try{
@@ -36,20 +33,11 @@ class ClientHandler(socket:Socket) extends Runnable{
   }
 
   def handleSubscribe(statementID:Long, nick:String): Unit ={
-    val tempClient:ClientHandler =  Server.connectedHandler(nick)
-    if(!Server.chatRooms.contains(tempClient)){
-      Server.chatRooms += tempClient -> new ArrayBuffer[Long]
-    }
-    Server.chatRooms.get(tempClient).get += statementID
+    Server.handleSubscribe(statementID, nick)
   }
 
   def handleUnsubscribe(statementID:Long, nick:String): Unit ={
-    val tempClient:ClientHandler =  Server.connectedHandler(nick)
-    Server.chatRooms.get(tempClient).get -= statementID
-
-    if(Server.chatRooms.get(tempClient).size == 0){
-      Server.chatRooms -= tempClient
-    }
+    Server.handleUnSubscribe(statementID, nick)
   }
 
   def handleComment(comment:Comment): Unit = {

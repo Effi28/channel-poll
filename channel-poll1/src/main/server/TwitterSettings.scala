@@ -6,7 +6,7 @@ import twitter4j.conf.ConfigurationBuilder
   * Created by KathrinNetzer on 29.01.2017.
   */
 
-class TwitterSettings {
+final object TwitterSettings {
 
   // Pathes to the Json Files
   val pathToStatements = "src/main/server/JsonFiles/Statements.json"

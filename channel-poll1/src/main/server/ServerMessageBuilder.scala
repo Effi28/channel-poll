@@ -1,13 +1,11 @@
 package main.server
 
-import java.security.Timestamp
-
 import main.shared._
 import main.shared.enums.JsonType
 import org.json.JSONObject
 import org.json.JSONArray
 
-object ServerMessageBuilder {
+final object ServerMessageBuilder {
 
   def loginSucceded(users:Iterable[String]): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
@@ -35,15 +33,6 @@ object ServerMessageBuilder {
     Jmsg.put("name", nick)
   }
 
-  def writeChatMessage(message:Message): JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
-    Jmsg.put("type", JsonType.CHAT.toString)
-    Jmsg.put("sender", message.sender)
-    Jmsg.put("message", message.msg)
-    Jmsg.put("stamp", message.stamp)
-    Jmsg.put("recv", message.rcv)
-  }
-
   def writeStatement(statement: Statement): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.STATEMENT)
@@ -55,7 +44,6 @@ object ServerMessageBuilder {
     Jmsg.put("created_at", statement.creationDate)
     Jmsg.put("id", statement.ID)
   }
-
 
   def writeComment(comment: Comment): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
@@ -99,5 +87,4 @@ object ServerMessageBuilder {
     Jmsg.put("timestamp", pollAnswer.timestamp)
     Jmsg.put("statementid", pollAnswer.statementID)
   }
-
 }

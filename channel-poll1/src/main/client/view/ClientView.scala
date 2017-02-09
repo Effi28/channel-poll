@@ -19,9 +19,7 @@ import scalafx.beans.property.IntegerProperty
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 
 
-object ClientView extends JFXApp {
-
-
+final object ClientView extends JFXApp {
   var pollTemplateIsVisible = false
 
   def getStage(): PrimaryStage = {

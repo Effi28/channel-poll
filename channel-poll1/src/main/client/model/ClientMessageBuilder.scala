@@ -1,10 +1,10 @@
-package client.model.clientCommunication
+package main.client.model
 
 import main.shared._
-import org.json._
 import main.shared.enums.JsonType
+import org.json._
 
-object ClientMessageBuilder {
+final object ClientMessageBuilder {
 
   def writeLogin(nick: String): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
@@ -32,16 +32,6 @@ object ClientMessageBuilder {
     Jmsg.put("statementID", statement.ID)
     Jmsg.put("name", nick)
   }
-
-  def writeMessage(message: Message): JSONObject = {
-    val Jmsg: JSONObject = new JSONObject()
-    Jmsg.put("type", JsonType.CHAT)
-    Jmsg.put("senderID", message.sender)
-    Jmsg.put("stamp", message.stamp);
-    Jmsg.put("message", message.msg)
-    Jmsg.put("recv", message.rcv)
-  }
-
 
   def writeComment(comment: Comment):JSONObject = {
     val Jmsg:JSONObject = new JSONObject()

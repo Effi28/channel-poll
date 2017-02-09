@@ -1,22 +1,17 @@
 package main.server
 
 import java.io._
-
 import com.google.gson._
-import twitter4j._
-
-import scala.io.Source
 
 /**
   * Created by KathrinNetzer on 29.01.2017.
   */
-class SaveJsons(path: String) {
-  val jsonFile = new File(path)
+final object SaveJsons {
   val gsonFormatter = new GsonBuilder().setPrettyPrinting().create
   val gsonParser = new JsonParser()
 
-  def saveJsonString(jString: String): Unit = {
-
+  def saveJsonString(jString: String, path: String): Unit = {
+    val jsonFile = new File(path)
     var sString = jString
     val parsedStatementString = gsonParser.parse(sString)
     sString = gsonFormatter.toJson(parsedStatementString)
