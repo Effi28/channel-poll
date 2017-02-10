@@ -4,9 +4,11 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.{ExecutorService, Executors}
 
+import main.server.JsonFiles.SaveJsons
 import main.server.communication.ClientHandler
 import main.server.twitter.{QueueGetter, TwitterAccess}
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
@@ -21,6 +23,7 @@ final object Server {
 
   def main(args: Array[String]): Unit = {
     startTwitterStream()
+    startSaveJson()
     val pool: ExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
     val serverSocket = new ServerSocket(8008)
     try {
@@ -54,6 +57,10 @@ final object Server {
   TwitterAccess.streamingThread.start()
     // start dequeue thread for getting statements from queue
     QueueGetter.dequeueThread.start()
+  }
+
+  private def startSaveJson(): Unit = {
+    SaveJsons.saveJsonsThread.start()
   }
 
   def checkLogin(nick:String, client:ClientHandler): Unit ={
@@ -101,7 +108,6 @@ final object Server {
 
   def broadcastStatement(statement:Statement): Unit ={
     statements += statement.ID -> statement
-    println(statement)
     for ((k, v) <- connectedHandler) {
       v.sender.writeStatement(statement)
     }
