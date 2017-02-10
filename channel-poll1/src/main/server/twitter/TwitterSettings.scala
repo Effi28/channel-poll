@@ -8,13 +8,6 @@ import twitter4j.conf.ConfigurationBuilder
 
 final object TwitterSettings {
 
-  // Pathes to the Json Files
-  val pathToStatements = "src/main/server/JsonFiles/Statements.json"
-  val pathToComments = "src/main/server/JsonFiles/Comments.json"
-
-  //"C:\\Users\\KathrinNetzer\\Desktop\\twitter\\src\\twitter\\Statements.json"
-
-
   // Login Oauth Settings
   val consumerKey = "wehGBs5c032ZcQz7elJG25RuB"
   val consumerSecret = "iPSm2vKsbt81ocCjxE8tyrYnQ5z4GiuegrmVdSaKzRI24yJQvl"

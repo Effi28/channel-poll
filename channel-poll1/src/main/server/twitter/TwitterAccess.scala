@@ -14,19 +14,11 @@ object TwitterAccess {
   def setStatementsQueue(twitterStatement: Statement): Unit = {
     this._statementsQueue += twitterStatement
   }
-
   // Settings for the registered application
   val settings = TwitterSettings.streamsettings
 
-  // Statements should be saved in JSON, done in classe SaveJsons
-  val StatementsPath = TwitterSettings.pathToStatements
-  val tweetsJsonString = Source.fromFile(StatementsPath).getLines.mkString
-  val tweetsJson = new JSONObject(tweetsJsonString)
-  //val statements: JSONArray = tweetsJson.getJSONArray("data")
-
   val streamFactory = new TwitterStreamFactory(settings.build()).getInstance
   streamFactory.addListener(getPosts())
-  //streamFactory.addListener(getPosts(statements))
   val politicalFilter = new FilterQuery()
 
   //  follow - Specifies the users, by ID, to receive public tweets from.
@@ -45,54 +37,29 @@ object TwitterAccess {
     */
 
   val streamingThread = new Thread(() => {
-    // in periodical time intervals:  update json file
-    var counter = 0
     while (!Thread.currentThread().isInterrupted()) {
-      /**
-        * if(counter < 3){
-        * counter += 1
-        * }else{
-        * counter = 0
-        * // update Json File: Write statements to file
-        * val statementsString = "{\"data\": " + statements.toString() + '}'
-        *StatementsSaver.saveJsonString(statementsString)
-        * }
-        **/
       Thread.sleep(10000) // important: not too low!
       streamFactory.cleanUp()
       streamFactory.shutdown()
     }
   })
 
-  // def getPosts(statements: JSONArray) = new StatusListener() {
   def getPosts() = new StatusListener() {
-    def onStatus(status: Status) {
+    def onStatus(nextStatus: Status) {
       // Create Json from tweetJson
-      println(status)
-      val tweetJson:JSONObject = new JSONObject()
-
-      val message = status.getText
-      val userid = status.getUser.getId
-      val username = status.getUser.getName
-      val screenname = status.getUser.getScreenName
-      val profilepictureurl = status.getUser.getProfileImageURL
-      val createdat = status.getCreatedAt.toString
-      val tweetid = status.getId
-
-      tweetJson.put("type", "statement")
-      tweetJson.put("message", message)
-      tweetJson.put("userid", userid)
-      tweetJson.put("name", username)
-      tweetJson.put("screenname", screenname)
-      tweetJson.put("pictureurl", profilepictureurl)
-      tweetJson.put("created_at", createdat)
-      tweetJson.put("id", tweetid)
+      println(nextStatus)
+      val message = nextStatus.getText
+      val userid = nextStatus.getUser.getId
+      val username = nextStatus.getUser.getName
+      val screenname = nextStatus.getUser.getScreenName
+      val profilepictureurl = nextStatus.getUser.getProfileImageURL
+      val createdat = nextStatus.getCreatedAt.toString
+      val tweetid = nextStatus.getId
 
       // put Statement Object into the Queue
       val statementObject = new Statement(message, userid.toString, username, screenname,
         profilepictureurl, createdat, tweetid)
       setStatementsQueue(statementObject)
-      //statements.put(tweetJson)
     }
 
     def onDeletionNotice(statusDeletionNotice: StatusDeletionNotice) {}
