@@ -75,6 +75,8 @@ final object Server {
 
   private def broadcastLogin(client:ClientHandler, nick:String): Unit ={
     for ((k, v) <- connectedHandler) {
+
+
       if(k.equals(nick)){
         v.sender.writeLoginSuccess(connectedHandler.keys)
       }

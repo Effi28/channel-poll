@@ -25,29 +25,22 @@ final object SaveJsons {
 
   val saveJsonsThread = new Thread(() =>
     while (!Thread.currentThread().isInterrupted) {
-      if (statementsJsonQueue.nonEmpty) {
+      while (statementsJsonQueue.nonEmpty && !writeStatementsFlag) {
         val firstStatement = statementsJsonQueue.dequeue()
-        writeStatementsFlag = true
+        print("*************************************************")
         save_json(firstStatement)
-        writeStatementsFlag = false
       }
-      if (commentsJsonQueue.nonEmpty) {
+      while (commentsJsonQueue.nonEmpty && !writeStatementsFlag) {
         val firstComment = commentsJsonQueue.dequeue()
-        writeCommentsFlag = true
         save_json(firstComment)
-        writeCommentsFlag = false
       }
-      if (pollsAnswersQueue.nonEmpty) {
+      while (pollsAnswersQueue.nonEmpty && !writePollAnswersFlag) {
         val firstPollAnswer = pollsAnswersQueue.dequeue()
-        writePollAnswersFlag = true
         save_json(firstPollAnswer)
-        writePollAnswersFlag = false
       }
-      if (pollsQueue.nonEmpty) {
+      while (pollsQueue.nonEmpty && !writePollsFlag) {
         val firstPoll = pollsQueue.dequeue()
-        writePollsFlag = true
         save_json(firstPoll)
-        writePollsFlag = false
       }
       Thread.sleep(7000)
     })
@@ -72,7 +65,7 @@ final object SaveJsons {
     case "POLL" =>
       val pollsString = Source.fromFile(pathToPolls).getLines.mkString
       val pollsJson = new JSONObject(pollsString)
-      val polls: json.JSONArray = pollsJson.getJSONArray("data")
+      val polls: JSONArray = pollsJson.getJSONArray("data")
       polls.put(newJSON)
       val newPolls = createNewStr(polls)
       finalSave(pathToPolls, newPolls)
@@ -80,7 +73,7 @@ final object SaveJsons {
     case "POLLANSWER" =>
       val pollAnswersString = Source.fromFile(pathToPollAnswers).getLines.mkString
       val pollAnswersJson = new JSONObject(pollAnswersString)
-      val pollAnswers: json.JSONArray = pollAnswersJson.getJSONArray("data")
+      val pollAnswers: JSONArray = pollAnswersJson.getJSONArray("data")
       pollAnswers.put(newJSON)
       val newPollAnswers = createNewStr(pollAnswers)
       finalSave(pathToPollAnswers, newPollAnswers)
@@ -88,7 +81,7 @@ final object SaveJsons {
     case "COMMENT" =>
       val commentsString = Source.fromFile(pathToComments).getLines.mkString
       val commentsJson = new JSONObject(commentsString)
-      val comments: json.JSONArray = commentsJson.getJSONArray("data")
+      val comments: JSONArray = commentsJson.getJSONArray("data")
       comments.put(newJSON)
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
@@ -96,7 +89,7 @@ final object SaveJsons {
     case "STATEMENT" =>
       val statementsString = Source.fromFile(pathToStatements).getLines.mkString
       val statementsJson = new JSONObject(statementsString)
-      val statements: json.JSONArray = statementsJson.getJSONArray("data")
+      val statements: JSONArray = statementsJson.getJSONArray("data")
       statements.put(newJSON)
       val newStatements = createNewStr(statements)
       finalSave(pathToStatements, newStatements)

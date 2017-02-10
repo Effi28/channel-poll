@@ -2,6 +2,7 @@ package main.server.communication
 
 import java.io.BufferedReader
 
+import main.server.JsonFiles.SaveJsons
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
@@ -30,10 +31,16 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) {
     case JsonType.DISCONNECT => handleLogout(jSONObject)
     case JsonType.INVALIDMESSAGE => handleInvalid(jSONObject)
     case JsonType.STATEMENT => handleStatement(jSONObject)
-    case JsonType.COMMENT => handleComment(jSONObject)
-    case JsonType.POLL => handlePoll(jSONObject)
+    case JsonType.COMMENT =>
+      // SaveJsons.commentsJsonQueue += jSONObject
+      handleComment(jSONObject)
+    case JsonType.POLL =>
+      //SaveJsons.pollsQueue += jSONObject
+      handlePoll(jSONObject)
     case JsonType.SUBSCRIBE => handleSubscribe(jSONObject)
     case JsonType.UNSUBSCRIBE => handleUnsubscribe(jSONObject)
+    case JsonType.POLLANSWER =>
+      //SaveJsons.pollsAnswersQueue += jSONObject
     case _ => handleInvalid(jSONObject)
   }
 

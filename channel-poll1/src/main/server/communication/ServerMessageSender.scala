@@ -2,7 +2,6 @@ package main.server.communication
 
 import java.io.OutputStreamWriter
 
-import main.server.JsonFiles.SaveJsons
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import org.json._
 import org.slf4j.{Logger, LoggerFactory}
@@ -15,26 +14,19 @@ final class ServerMessageSender(out:OutputStreamWriter) {
   }
 
   def writeStatement(statement: Statement):Unit = {
-    val statementJson = ServerMessageBuilder.writeStatement(statement)
-    SaveJsons.statementsJsonQueue += statementJson
-    writeMessage(statementJson)
+    writeMessage(ServerMessageBuilder.writeStatement(statement))
   }
 
   def writeComment(comment: Comment): Unit = {
-    val commentJson = ServerMessageBuilder.writeComment(comment)
-    SaveJsons.commentsJsonQueue += commentJson
-    writeMessage(commentJson)
+    writeMessage(ServerMessageBuilder.writeComment(comment))
   }
 
   def writePoll(poll: Poll): Unit = {
-    val pollJson = ServerMessageBuilder.writePoll(poll)
-    SaveJsons.pollsQueue += pollJson
-    writeMessage(pollJson)
+    writeMessage(ServerMessageBuilder.writePoll(poll))
   }
 
   def writePollAnswer(pollAnswer: PollAnswer): Unit = {
     val pollAnswerJson = ServerMessageBuilder.writePollAnswer(pollAnswer)
-    SaveJsons.pollsAnswersQueue += pollAnswerJson
     writeMessage(pollAnswerJson)
   }
 
