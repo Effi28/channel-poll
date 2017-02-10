@@ -33,15 +33,15 @@ final object TwitterLogin extends HttpServlet {
   }
 
   def doLogin(loginCode: String): (Boolean, TwitterUser) = {
-    var userScreenname = "noname"
+    var username = "noname"
     var userid: Long = 0
-    val defUser: TwitterUser = new TwitterUser(userid, userScreenname)
+    val defUser: TwitterUser = new TwitterUser(userid, username)
 
     if (loginCode.length > 0) {
       a = m.getOAuthAccessToken(r, loginCode)
-      userScreenname = m.getScreenName
+      username = m.getScreenName
       userid = m.getId
-      val fullUser: TwitterUser = new TwitterUser(userid, userScreenname)
+      val fullUser: TwitterUser = new TwitterUser(userid, username)
       val hasAccess = checkIfAccess(a)
       return (hasAccess, fullUser)
     } else {

@@ -142,8 +142,15 @@ final object ClientView extends JFXApp {
 
 
     Controller.getCommentsForStatement(statement).onChange({
-      println("something happened")
-      // chatFeed.children.add(new Text(Controller.getCommentsForStatement(statement).last.message)): Unit
+      Platform.runLater {
+        val newestComment = Controller.getCommentsForStatement(statement).last;
+        val user = newestComment.userName;
+        val message = newestComment.message;
+
+
+        chatFeed.children.add(new Text(user + ": " + message)): Unit
+      }
+
       //scrollPane.content = chatFeed
     })
 
@@ -155,14 +162,27 @@ final object ClientView extends JFXApp {
     val sendButton = new Button("Send")
     sendButton.autosize()
     sendButton.onAction = e => {
+
+
       val message = commentInputField.getText
+
+
       if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
+
+
         //TODO: receiver => ?
-        val sender = Controller.getTwitterUser().screenname
+        //val sender = Controller.getTwitterUser().screenname
+
+        val userID = Controller.getTwitterUser().ID
+
+
+        val userName = Controller.getTwitterUser().userName
+
+
         val id = 0
         //TODO: id setzen
-        val comment = new Comment(statement.ID, message, sender, id, createdAt)
+        val comment = new Comment(id, statement.ID, userID, userName, message, createdAt)
         Controller.sendComment(comment)
         commentInputField.clear()
       }
@@ -244,7 +264,7 @@ final object ClientView extends JFXApp {
           })
           val pollID = 1
           // todo ids generieren
-          val poll = new Poll(pollID, statement.ID, createdAt, user.userid, user.screenname, question, options)
+          val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
 
           Controller.sendPoll(poll)
 
@@ -294,7 +314,7 @@ final object ClientView extends JFXApp {
 
   def showComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
-    commentGrid.addRow(0, new Label(comment.screenName), new Text(comment.message))
+    commentGrid.addRow(0, new Label(comment.userName), new Text(comment.message))
     return commentGrid
   }
 
@@ -330,11 +350,8 @@ final object ClientView extends JFXApp {
 
       val stamp = Calendar.getInstance().getTime.toString
 
-      val pollAnswer = new PollAnswer(poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButonText.toString), poll.pollID,
-        stamp, poll.statementID)
-
-
-
+      val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButonText.toString),
+        stamp)
 
 
     }
@@ -344,7 +361,7 @@ final object ClientView extends JFXApp {
 
 
   def createActivity(statement: Statement): VBox = {
-    val activity = new VBox(new Label(statement.screenName), new Text(statement.message), enterChatRoomButton(statement))
+    val activity = new VBox(new Label(statement.userName), new Text(statement.message), enterChatRoomButton(statement))
     return activity
   }
 

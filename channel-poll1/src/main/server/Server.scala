@@ -145,7 +145,7 @@ final object Server {
 
   def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
     val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
-    val thisPoll = polls_map(pollAnswer.pollID)
+    val thisPoll = polls_map(pollAnswer.pollID.toInt)
     pollAnswers.get(thisPoll).get += pollAnswer
     for ((k, v) <- connectedHandler) {
       v.sender.writePollAnswer(pollAnswer)
@@ -167,11 +167,11 @@ final object Server {
 
   def updatePoll(pollAnswer: PollAnswer): Unit = {
     val polls_map: ArrayBuffer[Poll] = polls(pollAnswer.statementID)
-    val thisPoll = polls_map(pollAnswer.pollID)
+    val thisPoll = polls_map(pollAnswer.pollID.toInt)
     val newOptions = calcPoll(thisPoll, pollAnswer.selectedOption)
-    val updatedPoll = new Poll(thisPoll.pollID, thisPoll.statementID, thisPoll.stamp, thisPoll.pollID, thisPoll.userName, thisPoll.question,
-      newOptions)
-    polls_map(thisPoll.pollID) = updatedPoll
+    val updatedPoll = new Poll(thisPoll.ID, thisPoll.statementID, thisPoll.userID, thisPoll.userName, thisPoll.question,
+      newOptions, thisPoll.timestamp)
+    polls_map(thisPoll.ID.toInt) = updatedPoll
     polls.update(pollAnswer.statementID, polls_map)
     broadcastPollUpdate(updatedPoll)
   }

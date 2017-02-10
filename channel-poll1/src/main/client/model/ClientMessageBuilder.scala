@@ -10,62 +10,62 @@ final object ClientMessageBuilder {
   def writeLogin(nick: String): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGIN)
-    Jmsg.put("name", nick)
+    Jmsg.put("username", nick)
   }
 
 
   def writeLogoutMessage(nick:String): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.DISCONNECT)
-    Jmsg.put("name", nick)
+    Jmsg.put("username", nick)
   }
 
   def writeSubscribe(nick:String, statement: Statement): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.SUBSCRIBE)
-    Jmsg.put("statementID", statement.ID)
-    Jmsg.put("name", nick)
+    Jmsg.put("statementid", statement.ID)
+    Jmsg.put("username", nick)
   }
 
   def writeUnsubscribe(nick:String, statement: Statement): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.UNSUBSCRIBE)
-    Jmsg.put("statementID", statement.ID)
-    Jmsg.put("name", nick)
+    Jmsg.put("statementid", statement.ID)
+    Jmsg.put("username", nick)
   }
 
   def writeComment(comment: Comment):JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
-    Jmsg.put("statementID", comment.statementID)
-    Jmsg.put("senderID", comment.screenName)
-    Jmsg.put("message", comment.message)
     Jmsg.put("id", comment.ID)
-    Jmsg.put("stamp", comment.stamp)
+    Jmsg.put("statementid", comment.statementID)
+    Jmsg.put("userid", comment.userID)
+    Jmsg.put("username", comment.userName)
+    Jmsg.put("message", comment.message)
+    Jmsg.put("timestamp", comment.timestamp)
   }
 
   def pollAnswer(pollAnswer: PollAnswer): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLLANSWER)
+    Jmsg.put("pollid", pollAnswer.pollID)
+    Jmsg.put("statementid", pollAnswer.statementID)
     Jmsg.put("userid", pollAnswer.userID)
     Jmsg.put("username", pollAnswer.userName)
     Jmsg.put("question", pollAnswer.question)
     Jmsg.put("selectedoptionkey", pollAnswer.selectedOption._1)
     Jmsg.put("selectedoptionstr", pollAnswer.selectedOption._2)
-    Jmsg.put("pollid", pollAnswer.pollID)
     Jmsg.put("timestamp", pollAnswer.timestamp)
-    Jmsg.put("statementid", pollAnswer.statementID)
   }
 
   def writePoll(poll: Poll): JSONObject = {
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLL)
+    Jmsg.put("id", poll.ID)
     Jmsg.put("statementid", poll.statementID)
-    Jmsg.put("stamp", poll.stamp)
     Jmsg.put("userid", poll.userID)
     Jmsg.put("username", poll.userName)
     Jmsg.put("question", poll.question)
-    Jmsg.put("pollid", poll.pollID)
     val arr:JSONArray = new JSONArray()
     for ((k, v) <- poll.options) {
       val obj: JSONObject = new JSONObject()
@@ -75,17 +75,17 @@ final object ClientMessageBuilder {
       arr.put(obj)
     }
     Jmsg.put("options", arr)
+    Jmsg.put("timestamp", poll.timestamp)
   }
 
   def writeStatement(statement: Statement): JSONObject ={
     val Jmsg:JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.STATEMENT)
-    Jmsg.put("userid", statement.userID)
-    Jmsg.put("message", statement.message)
-    Jmsg.put("name", statement.userName)
-    Jmsg.put("screenname", statement.screenName)
-    Jmsg.put("pictureurl", statement.pictureURL)
-    Jmsg.put("created_at", statement.creationDate)
     Jmsg.put("id", statement.ID)
+    Jmsg.put("userid", statement.userID)
+    Jmsg.put("username", statement.userName)
+    Jmsg.put("pictureurl", statement.pictureURL)
+    Jmsg.put("message", statement.message)
+    Jmsg.put("timestamp", statement.timestamp)
   }
 }

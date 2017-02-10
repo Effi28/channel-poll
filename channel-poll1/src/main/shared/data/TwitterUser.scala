@@ -3,6 +3,6 @@ package main.shared.data
 /**
   * Created by KathrinNetzer on 05.02.2017.
   */
-final class TwitterUser(val userid: Long, val screenname: String) {
+final class TwitterUser(val ID: Long, val userName: String) {
 
 }

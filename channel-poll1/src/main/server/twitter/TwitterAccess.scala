@@ -52,8 +52,8 @@ object TwitterAccess {
       val tweetid = nextStatus.getId
 
       // put Statement Object into the Queue
-      val statementObject = new Statement(message, userid.toString, username, screenname,
-        profilepictureurl, createdat, tweetid)
+      val statementObject = new Statement(tweetid, userid, username,
+        profilepictureurl, message, createdat)
       setStatementsQueue(statementObject)
     }
 

@@ -1,5 +1,5 @@
 package main.shared.data
 
-final class Statement(val message: String, val userID: String, val userName: String, val screenName: String, val pictureURL: String, val creationDate: String, val ID: Long) extends Serializable{
+final class Statement(val ID: Long, val userID: Long, val userName: String, val pictureURL: String, val message: String, val timestamp: String) extends Serializable {
 
 }

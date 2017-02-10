@@ -12,7 +12,7 @@ final object ClientMessageSender{
   private val logger:Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
 
   def writeLoginMessage(): Unit ={
-    writeMessage(ClientMessageBuilder.writeLogin(ClientControl.user.screenname))
+    writeMessage(ClientMessageBuilder.writeLogin(ClientControl.user.userName))
   }
 
   def writeStComment(comment: Comment): Unit = {
@@ -24,16 +24,16 @@ final object ClientMessageSender{
   }
 
   def writeLogout(): Unit ={
-    writeMessage(ClientMessageBuilder.writeLogoutMessage(ClientControl.user.screenname))
+    writeMessage(ClientMessageBuilder.writeLogoutMessage(ClientControl.user.userName))
     ClientControl.close()
   }
 
   def writeSubscribe(statement: Statement): Unit ={
-    writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user.screenname, statement))
+    writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user.userName, statement))
   }
 
   def writeUnsubscribe(statement: Statement): Unit ={
-    writeMessage(ClientMessageBuilder.writeUnsubscribe(ClientControl.user.screenname, statement))
+    writeMessage(ClientMessageBuilder.writeUnsubscribe(ClientControl.user.userName, statement))
   }
 
   private def writeMessage(json:JSONObject): Unit ={

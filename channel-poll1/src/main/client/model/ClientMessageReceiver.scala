@@ -51,18 +51,17 @@ final object ClientMessageReceiver {
 
   private def handleStatement(json: JSONObject): Unit = {
     val message: String = json.optString("message")
-    val userID: String = json.optString("userid")
-    val userName: String = json.optString("name")
-    val screenName: String = json.optString("screenname")
+    val userID: Long = json.optLong("userid")
+    val userName: String = json.optString("username")
     val pictureURL: String = json.optString("pictureurl")
-    val creationDate: String = json.optString("created_at")
+    val timestamp: String = json.optString("timestamp")
     val id: Int = json.optInt("id")
-    ServerHandler.handleStatement(new Statement(message, userID, userName, screenName, pictureURL, creationDate, id))
+    ServerHandler.handleStatement(new Statement(id, userID, userName, pictureURL,message, timestamp))
   }
 
 
   private def handleComment(json: JSONObject): Unit = {
-    ServerHandler.handleComment(new Comment(json.optLong("statementID"), json.optString("message"),json.optString("screenname"), json.optInt("id"), json.optString("stamp")))
+    ServerHandler.handleComment(new Comment(json.optLong("id"), json.optLong("statementid"),json.optLong("userid"),json.optString("username"), json.optString("message"), json.optString("timestamp")))
   }
 
   private def handlePollAnswer(json: JSONObject): Unit = {
@@ -70,8 +69,8 @@ final object ClientMessageReceiver {
   }
 
   private def handlePoll(json: JSONObject): Unit = {
+    val pollID: Long = json.optInt("id")
     val statementID: Long = json.optLong("statementid")
-    val stamp: String = json.optString("stamp")
     val userID: Long = json.optLong("userid")
     val userName : String = json.optString("username")
     val question: String = json.optString("question")
@@ -85,8 +84,8 @@ final object ClientMessageReceiver {
       val likes:Int = option.optInt("likes")
       options += key -> (optionStr,likes)
     }
-    val pollID: Int = json.optInt("pollid")
-    val thisPoll = new Poll(pollID, statementID, userName, userID, stamp, question, options)
+    val timestamp: String = json.optString("timestamp")
+    val thisPoll = new Poll(pollID, statementID, userID, userName, question, options, timestamp)
     ServerHandler.handlePoll(thisPoll)
   }
 
@@ -95,11 +94,11 @@ final object ClientMessageReceiver {
   }
 
   private def handleLogin(json:JSONObject): Unit ={
-    ServerHandler.handleLogin(json.optString("name"))
+    ServerHandler.handleLogin(json.optString("username"))
   }
 
   private def handleLogout(json:JSONObject): Unit ={
-    ServerHandler.handleLogout(json.optString("name"))
+    ServerHandler.handleLogout(json.optString("username"))
   }
 
   private def handleInvalid(jSONObject: JSONObject):Unit = {
