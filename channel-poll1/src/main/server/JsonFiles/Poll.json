@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "type": "poll",
+      "statementid": 23343,
+      "stamp": "10.02.2017",
+      "userid": 12345678,
+      "username": "TestUserScreenName",
+      "question": "Test Questiom",
+      "pollid": 123,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "BLA BLA OPTION",
+          "likes": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,36 +1,23 @@
 package main.server.JsonFiles
 
 import java.io._
-import com.google.gson._
 
-import scala.collection.mutable.Queue
+import com.google.gson._
 import org.json
 import org.json.{JSONArray, JSONObject}
 
-import scala.collection.mutable
+import scala.collection.mutable.Queue
 import scala.io.Source
+
 /**
   * Created by KathrinNetzer on 29.01.2017.
   */
 final object SaveJsons {
-  /**
-    * Opens JSON- file, adds Objects and closes it
-    */
-
-  // pathes
-  private val pathToStatements = "src/main/server/JsonFiles/Statement.json"
-  private val pathToComments = "src/main/server/JsonFiles/Comments.json"
-  private val pathToPolls = "src/main/server/JsonFiles/Poll.json"
-  private val pathToPollAnswers = "src/main/server/JsonFiles/PollAnswer.json"
-
-  private val gsonFormatter = new GsonBuilder().setPrettyPrinting().create
-  private val gsonParser = new JsonParser()
 
   var statementsJsonQueue = new Queue[JSONObject]
   var commentsJsonQueue = new Queue[JSONObject]
   var pollsAnswersQueue = new Queue[JSONObject]
   var pollsQueue = new Queue[JSONObject]
-
   var writeStatementsFlag = false
   var writeCommentsFlag = false
   var writePollAnswersFlag = false
@@ -64,8 +51,19 @@ final object SaveJsons {
       }
       Thread.sleep(7000)
     })
+  /**
+    * Opens JSON- file, adds Objects and closes it
+    */
 
-  private def save_json(newJson: JSONObject) : Unit = {
+  // pathes
+  private val pathToStatements = "src/main/server/JsonFiles/Statement.json"
+  private val pathToComments = "src/main/server/JsonFiles/Comments.json"
+  private val pathToPolls = "src/main/server/JsonFiles/Poll.json"
+  private val pathToPollAnswers = "src/main/server/JsonFiles/PollAnswer.json"
+  private val gsonFormatter = new GsonBuilder().setPrettyPrinting().create
+  private val gsonParser = new JsonParser()
+
+  private def save_json(newJson: JSONObject): Unit = {
     val jsonType: String = newJson.optString("type")
     matchRightFile(jsonType, newJson)
   }
@@ -108,7 +106,7 @@ final object SaveJsons {
     "{\"data\": " + _jsonArray.toString() + "}"
   }
 
-  private def finalSave(jsonFile:String, jString: String): Unit = {
+  private def finalSave(jsonFile: String, jString: String): Unit = {
     val parsedString = gsonParser.parse(jString)
     val gString = gsonFormatter.toJson(parsedString)
     val bufferedJsonWriter = new BufferedWriter(new FileWriter(jsonFile))

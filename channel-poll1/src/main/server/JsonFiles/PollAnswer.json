@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "type": "pollanswer",
+      "userid": 282718,
+      "username": "bla blabla blaaa",
+      "question": "TESTUSER123",
+      "selectedoptionkey": 1,
+      "selectedoptionstr": "BLA BLA OPTION",
+      "pollid": 123,
+      "timestamp": "10.02.2017",
+      "statementid": 23343
+    }
+  ]
+}
