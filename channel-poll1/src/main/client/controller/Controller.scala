@@ -32,6 +32,9 @@ final object Controller {
   }
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
+    if(ClientControl.polls.contains(statement.ID)){
+      ClientControl.polls += statement.ID -> new ObservableBuffer[Poll]()
+    }
     ClientControl.polls.get(statement.ID).get
   }
 
