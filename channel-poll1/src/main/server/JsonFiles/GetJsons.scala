@@ -13,6 +13,7 @@ final object GetJsons {
   private val pathToPolls = "src/main/server/JsonFiles/Poll.json"
   private val pathToPollAnswers = "src/main/server/JsonFiles/PollAnswer.json"
 
+  /*
   def getLastStatements(): JSONArray = {
     SaveJsons.writeStatementsFlag = true
     wait(2)
@@ -21,6 +22,7 @@ final object GetJsons {
 
     val statementsJson = new JSONObject(statementsString)
     val statements: JSONArray = statementsJson.getJSONArray("data")
+
 
     val lastStatements: JSONArray = JSONArray
     if (statements.length() >= 10) {
@@ -31,5 +33,7 @@ final object GetJsons {
     } else {
       return statements
     }
+
   }
+  */
 }

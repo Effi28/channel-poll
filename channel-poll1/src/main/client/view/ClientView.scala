@@ -143,16 +143,27 @@ final object ClientView extends JFXApp {
 
     Controller.getCommentsForStatement(statement).onChange({
       Platform.runLater {
-        val newestComment = Controller.getCommentsForStatement(statement).last;
-        val user = newestComment.userName;
-        val message = newestComment.message;
+        val latestComment = Controller.getCommentsForStatement(statement).last
+        val comment = renderComment(latestComment)
 
-
-        chatFeed.children.add(new Text(user + ": " + message)): Unit
+        chatFeed.children.add(comment)
       }
 
-      //scrollPane.content = chatFeed
+
     })
+
+
+    Controller.getPollsForStatement(statement).onChange({
+      println("+++++++++++ change ++++++++++++")
+      /*
+      Platform.runLater{
+        val latestPoll = Controller.getPollsForStatement(statement).last
+        val poll = renderPoll(latestPoll)
+        chatFeed.children.add(poll)
+      }
+      */
+    })
+
 
 
     val chatGridPane = new GridPane()
@@ -252,6 +263,11 @@ final object ClientView extends JFXApp {
 
 
           val question = questionInputField.getText
+
+          if (question.length == 0){
+            //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
+          }
+
           val options = new HashMap[Int, (String, Int)]()
 
           optionHashMap.foreach(x => {
@@ -259,19 +275,20 @@ final object ClientView extends JFXApp {
             val value = x._2
             val optionInputField = value._2
 
+
+            if (optionInputField.getText.length == 0){
+              //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
+            }
+
             options.put(key, (optionInputField.getText, 0))
 
           })
-          val pollID = 1
           // todo ids generieren
+          val pollID = 1
+
           val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
-
           Controller.sendPoll(poll)
-
           pollTemplate.children.clear()
-          //TODO: submit poll
-
-
           pollTemplateIsVisible = false
         }
 
@@ -312,13 +329,17 @@ final object ClientView extends JFXApp {
     return border
   }
 
-  def showComment(comment: Comment): GridPane = {
+
+
+
+
+  def renderComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
     commentGrid.addRow(0, new Label(comment.userName), new Text(comment.message))
     return commentGrid
   }
 
-  def showPoll(poll: Poll): GridPane = {
+  def renderPoll(poll: Poll): GridPane = {
     val pollGrid = new GridPane()
     var rowIndex = 0
     val columnIndex = 1
@@ -346,11 +367,11 @@ final object ClientView extends JFXApp {
 
       val selectedButton = toggleGroup.getSelectedToggle()
       val selectedButtonId = selectedButton.getProperties.get("id")
-      val selectedButonText = selectedButton.getProperties.get("text")
+      val selectedButtonText = selectedButton.getProperties.get("text")
 
       val stamp = Calendar.getInstance().getTime.toString
 
-      val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButonText.toString),
+      val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
 
 
@@ -379,10 +400,12 @@ final object ClientView extends JFXApp {
 
       if (!Controller.commentsContainStatement(statement)) {
         Controller.setStatementInComments(statement)
+        println("statement set in comments")
       }
 
       if (!Controller.pollsContainStatement(statement)) {
         Controller.setStatementInPolls(statement)
+        println("statement set in polls")
       }
 
 

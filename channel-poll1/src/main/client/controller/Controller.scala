@@ -75,9 +75,6 @@ final object Controller {
   }
 
   def sendComment(comment: Comment): Unit = {
-
-    println("in Controller sendComment")
-
     ClientControl.sendComment(comment)
   }
 
