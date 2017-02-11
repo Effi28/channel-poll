@@ -154,14 +154,11 @@ final object ClientView extends JFXApp {
 
 
     Controller.getPollsForStatement(statement).onChange({
-      println("+++++++++++ change ++++++++++++")
-      /*
       Platform.runLater{
         val latestPoll = Controller.getPollsForStatement(statement).last
         val poll = renderPoll(latestPoll)
         chatFeed.children.add(poll)
       }
-      */
     })
 
 
@@ -335,15 +332,15 @@ final object ClientView extends JFXApp {
 
   def renderComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
-    commentGrid.addRow(0, new Label(comment.userName), new Text(comment.message))
+    commentGrid.addRow(0, new Label(comment.userName),new Label(" : "), new Text(comment.message))
     return commentGrid
   }
 
   def renderPoll(poll: Poll): GridPane = {
     val pollGrid = new GridPane()
     var rowIndex = 0
-    val columnIndex = 1
-    pollGrid.addRow(1, new Label(poll.userName), new Text(poll.question))
+    val columnIndex = 2
+    pollGrid.addRow(rowIndex, new Label(poll.userName), new Label(" : "), new Text(poll.question))
 
 
     val toggleGroup = new ToggleGroup()
@@ -396,19 +393,6 @@ final object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
 
       Controller.getChatRooms().add(statement)
-
-
-      if (!Controller.commentsContainStatement(statement)) {
-        Controller.setStatementInComments(statement)
-        println("statement set in comments")
-      }
-
-      if (!Controller.pollsContainStatement(statement)) {
-        Controller.setStatementInPolls(statement)
-        println("statement set in polls")
-      }
-
-
       Controller.subscribe(statement)
 
     }
