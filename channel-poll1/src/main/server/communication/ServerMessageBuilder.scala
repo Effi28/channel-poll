@@ -7,34 +7,34 @@ import org.json.{JSONArray, JSONObject}
 
 final object ServerMessageBuilder {
 
-  def loginSucceded(users:Iterable[String]): JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
-    val arr:JSONArray = new JSONArray()
+  def loginSucceded(users: Iterable[String]): JSONObject = {
+    val Jmsg: JSONObject = new JSONObject()
+    val arr: JSONArray = new JSONArray()
     for (u <- users) arr.put(u)
     Jmsg.put("users", arr)
     Jmsg.put("type", JsonType.LOGINSUCCESS)
   }
 
-  def newLogin(nick:String): JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
+  def newLogin(nick: String): JSONObject = {
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGIN)
     Jmsg.put("username", nick)
   }
 
-  def loginFailed(nick:String):JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
+  def loginFailed(nick: String): JSONObject = {
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGINFAILED.toString)
     Jmsg.put("reason", "nick already used")
   }
 
-  def userDisconnect(nick:String):JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
+  def userDisconnect(nick: String): JSONObject = {
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.DISCONNECT)
     Jmsg.put("username", nick)
   }
 
-  def writeStatement(statement: Statement): JSONObject ={
-    val Jmsg:JSONObject = new JSONObject()
+  def writeStatement(statement: Statement): JSONObject = {
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.STATEMENT)
     Jmsg.put("id", statement.ID)
     Jmsg.put("userid", statement.userID)
@@ -45,7 +45,7 @@ final object ServerMessageBuilder {
   }
 
   def writeComment(comment: Comment): JSONObject = {
-    val Jmsg:JSONObject = new JSONObject()
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("id", comment.ID)
     Jmsg.put("statementid", comment.statementID)
@@ -56,18 +56,18 @@ final object ServerMessageBuilder {
   }
 
   def writePoll(poll: Poll): JSONObject = {
-    val Jmsg:JSONObject = new JSONObject()
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLL)
     Jmsg.put("id", poll.ID)
     Jmsg.put("statementid", poll.statementID)
     Jmsg.put("userid", poll.userID)
     Jmsg.put("username", poll.userName)
     Jmsg.put("question", poll.question)
-    val arr:JSONArray = new JSONArray()
+    val arr: JSONArray = new JSONArray()
     for ((k, v) <- poll.options) {
       val obj: JSONObject = new JSONObject()
       obj.put("key", k)
-      obj.put("optionsstr",v._1)
+      obj.put("optionsstr", v._1)
       obj.put("likes", v._2)
       arr.put(obj)
     }
@@ -76,7 +76,7 @@ final object ServerMessageBuilder {
   }
 
   def writePollAnswer(pollAnswer: PollAnswer): JSONObject = {
-    val Jmsg:JSONObject = new JSONObject()
+    val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.POLLANSWER)
     Jmsg.put("pollid", pollAnswer.pollID)
     Jmsg.put("statementid", pollAnswer.statementID)

@@ -2,7 +2,6 @@ package main.client.view
 
 
 import java.util.Calendar
-import javax.swing.ButtonGroup
 
 import main.client.controller.Controller
 import main.shared._
@@ -11,13 +10,13 @@ import main.shared.data._
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.control._
 import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 import scalafx.beans.property.IntegerProperty
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
+import scalafx.scene.control._
 
 
 final object ClientView extends JFXApp {
@@ -154,13 +153,12 @@ final object ClientView extends JFXApp {
 
 
     Controller.getPollsForStatement(statement).onChange({
-      Platform.runLater{
+      Platform.runLater {
         val latestPoll = Controller.getPollsForStatement(statement).last
-        val poll = renderPoll(latestPoll)
+        val poll = renderActivePoll(latestPoll)
         chatFeed.children.add(poll)
       }
     })
-
 
 
     val chatGridPane = new GridPane()
@@ -261,7 +259,7 @@ final object ClientView extends JFXApp {
 
           val question = questionInputField.getText
 
-          if (question.length == 0){
+          if (question.length == 0) {
             //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
           }
 
@@ -273,7 +271,7 @@ final object ClientView extends JFXApp {
             val optionInputField = value._2
 
 
-            if (optionInputField.getText.length == 0){
+            if (optionInputField.getText.length == 0) {
               //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
             }
 
@@ -327,16 +325,13 @@ final object ClientView extends JFXApp {
   }
 
 
-
-
-
   def renderComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
-    commentGrid.addRow(0, new Label(comment.userName),new Label(" : "), new Text(comment.message))
+    commentGrid.addRow(0, new Label(comment.userName), new Label(" : "), new Text(comment.message))
     return commentGrid
   }
 
-  def renderPoll(poll: Poll): GridPane = {
+  def renderActivePoll(poll: Poll): GridPane = {
     val pollGrid = new GridPane()
     var rowIndex = 0
     val columnIndex = 2
@@ -359,17 +354,23 @@ final object ClientView extends JFXApp {
       pollGrid.add(radioButton, columnIndex, rowIndex)
     })
     rowIndex += 1
-    val submitButton = new Button("Submit")
+    val submitButton = new Button("Submit Answer")
     submitButton.onAction = e => {
+      val selectedButton = toggleGroup.selectedToggle.value.asInstanceOf[javafx.scene.control.RadioButton]
 
-      val selectedButton = toggleGroup.getSelectedToggle()
-      val selectedButtonId = selectedButton.getProperties.get("id")
-      val selectedButtonText = selectedButton.getProperties.get("text")
 
+
+      val selectedButtonId = selectedButton.getId
+      val selectedButtonText = selectedButton.getText
       val stamp = Calendar.getInstance().getTime.toString
+
+
+
+
 
       val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
+
 
 
     }

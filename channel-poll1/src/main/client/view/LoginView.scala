@@ -8,7 +8,7 @@ import main.client.controller.Controller
 import scalafx.application.{JFXApp}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button,TextField}
+import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.layout.{BorderPane, VBox}
 
 /**
@@ -41,7 +41,7 @@ final object LoginView extends JFXApp {
         *
         */
       submitButton.onAction = e => {
-        if (codeTextField.getText.size ==0){
+        if (codeTextField.getText.size == 0) {
           //TODO Fehlermeldung anzeigen, dass codefeld nicht leer sein darf
         }
         val code = codeTextField.getText

@@ -6,14 +6,14 @@ import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import org.json._
 import org.slf4j.{Logger, LoggerFactory}
 
-final class ServerMessageSender(out:OutputStreamWriter) {
-  private val logger:Logger = LoggerFactory.getLogger(this.getClass)
+final class ServerMessageSender(out: OutputStreamWriter) {
+  private val logger: Logger = LoggerFactory.getLogger(this.getClass)
 
-  def writeLoginSuccess(users:Iterable[String]):Unit ={
+  def writeLoginSuccess(users: Iterable[String]): Unit = {
     writeMessage(ServerMessageBuilder.loginSucceded(users))
   }
 
-  def writeStatement(statement: Statement):Unit = {
+  def writeStatement(statement: Statement): Unit = {
     writeMessage(ServerMessageBuilder.writeStatement(statement))
   }
 
@@ -26,22 +26,22 @@ final class ServerMessageSender(out:OutputStreamWriter) {
   }
 
   def writePollAnswer(pollAnswer: PollAnswer): Unit = {
-    val pollAnswerJson = ServerMessageBuilder.writePollAnswer(pollAnswer)
-    writeMessage(pollAnswerJson)
+    writeMessage(ServerMessageBuilder.writePollAnswer(pollAnswer))
   }
 
-  def writeNewLogin(nick:String):Unit ={
+  def writeNewLogin(nick: String): Unit = {
     writeMessage(ServerMessageBuilder.newLogin(nick))
   }
-  def writeLoginFailed(nick:String):Unit ={
+
+  def writeLoginFailed(nick: String): Unit = {
     writeMessage(ServerMessageBuilder.loginFailed(nick))
   }
 
-  def writeDisconnect(nick:String):Unit={
+  def writeDisconnect(nick: String): Unit = {
     writeMessage(ServerMessageBuilder.userDisconnect(nick))
   }
 
-  private def writeMessage(json:JSONObject):Unit ={
+  private def writeMessage(json: JSONObject): Unit = {
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
     out.flush()

@@ -39,8 +39,8 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) {
       handlePoll(jSONObject)
     case JsonType.SUBSCRIBE => handleSubscribe(jSONObject)
     case JsonType.UNSUBSCRIBE => handleUnsubscribe(jSONObject)
-    case JsonType.POLLANSWER =>
-      //SaveJsons.pollsAnswersQueue += jSONObject
+    case JsonType.POLLANSWER => handlePollAnswer(jSONObject)
+    //SaveJsons.pollsAnswersQueue += jSONObject
     case _ => handleInvalid(jSONObject)
   }
 
@@ -96,7 +96,14 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) {
   }
 
   private def handleComment(json: JSONObject): Unit = {
-    client.handleComment(new Comment(json.optLong("id"), json.optLong("statementid"), json.optLong("userid"), json.optString("username"), json.optString("message"), json.optString("timestamp")))
+    val id: Long = json.optLong("id")
+    val statementID: Long = json.optLong("statementid")
+    val userID: Long = json.optLong("userid")
+    val userName: String = json.optString("username")
+    val message: String = json.optString("message")
+    val timestamp: String = json.optString("timestamp")
+
+    client.handleComment(new Comment(id, statementID, userID, userName, message, timestamp))
   }
 
   private def handleLogin(json: JSONObject): Unit = {

@@ -3,7 +3,7 @@ package main.client.controller
 import main.client.model.ClientControl
 import main.client.view.LoginView
 import main.shared._
-import main.shared.data.{Comment, Poll, Statement, TwitterUser}
+import main.shared.data._
 
 import scala.collection.mutable.HashMap
 import scalafx.application.Platform
@@ -32,7 +32,7 @@ final object Controller {
   }
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
-    if(!ClientControl.polls.contains(statement.ID)){
+    if (!ClientControl.polls.contains(statement.ID)) {
       ClientControl.polls += statement.ID -> new ObservableBuffer[Poll]()
     }
     ClientControl.polls.get(statement.ID).get
@@ -59,7 +59,7 @@ final object Controller {
   }
 
   def getCommentsForStatement(statement: Statement): ObservableBuffer[Comment] = {
-    if(!ClientControl.comments.contains(statement.ID)){
+    if (!ClientControl.comments.contains(statement.ID)) {
       ClientControl.comments += statement.ID -> new ObservableBuffer[Comment]()
     }
     ClientControl.comments.get(statement.ID).get
@@ -83,6 +83,10 @@ final object Controller {
 
   def sendPoll(poll: Poll): Unit = {
     ClientControl.sendPoll(poll)
+  }
+
+  def sendPollAnswer(pollAnswer: PollAnswer):Unit={
+    ClientControl.sendPollAnswer(pollAnswer);
   }
 
   def getTwitterUser(): TwitterUser = {

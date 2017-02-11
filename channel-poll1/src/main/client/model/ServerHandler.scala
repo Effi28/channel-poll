@@ -6,7 +6,7 @@ import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import scalafx.collections.ObservableBuffer
 
 
-final object ServerHandler extends Thread{
+final object ServerHandler extends Thread {
   def message = (Thread.currentThread.getName() + "\n").getBytes
 
   override def run(): Unit = {
@@ -24,8 +24,7 @@ final object ServerHandler extends Thread{
   }
 
   def handlePoll(poll: Poll): Unit = {
-
-    if(!ClientControl.polls.contains(poll.statementID)){
+    if (!ClientControl.polls.contains(poll.statementID)) {
       ClientControl.polls += poll.statementID -> new ObservableBuffer[Poll]
 
     }
@@ -33,17 +32,18 @@ final object ServerHandler extends Thread{
   }
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
-    //ClientControl.pollAnswers.get(pollAnswer.pollID).get += pollAnswer
-    //todo
+    if (!ClientControl.pollAnswers.contains(pollAnswer.pollID)) {
+      ClientControl.pollAnswers += pollAnswer.pollID -> new ObservableBuffer[PollAnswer]
+    }
+    ClientControl.pollAnswers.get(pollAnswer.pollID).get += pollAnswer
   }
 
-  def handleStatement(statement:Statement):Unit = {
+  def handleStatement(statement: Statement): Unit = {
     ClientControl.statements += statement
   }
 
   def handleComment(comment: Comment): Unit = {
-
-    if(!ClientControl.comments.contains(comment.statementID)){
+    if (!ClientControl.comments.contains(comment.statementID)) {
       ClientControl.comments += comment.statementID -> new ObservableBuffer[Comment]()
 
     }

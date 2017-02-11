@@ -4,7 +4,11 @@
       "type": "comment",
       "message": "example comment",
       "screenname": "Jana",
-      "likes": ["Brenda", "Kathrin", "Michael"],
+      "likes": [
+        "Brenda",
+        "Kathrin",
+        "Michael"
+      ],
       "id": 1
     }
   ]
