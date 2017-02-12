@@ -4,6 +4,8 @@ import java.io.{BufferedReader, InputStreamReader}
 
 import main.client.controller.Controller
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.communication.MessageReceiver
+
 import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
@@ -11,7 +13,7 @@ import org.slf4j.{Logger, LoggerFactory}
 import scala.collection.mutable.HashMap
 
 
-final object ClientMessageReceiver {
+final object ClientMessageReceiver extends MessageReceiver{
   private val in: BufferedReader = new BufferedReader(new InputStreamReader(ClientControl.socket.getInputStream, "UTF-8"))
   private val logger: Logger = LoggerFactory.getLogger(ClientMessageReceiver.getClass)
 
@@ -89,25 +91,10 @@ final object ClientMessageReceiver {
     ServerHandler.handlePollAnswer(new PollAnswer(pollID, statementID, userID, userName, question, selectedOption, timestamp))
   }
 
-  private def handlePoll(json: JSONObject): Unit = {
-    val pollID: Long = json.optInt("id")
-    val statementID: Long = json.optLong("statementid")
-    val userID: Long = json.optLong("userid")
-    val userName: String = json.optString("username")
-    val question: String = json.optString("question")
-    val options_Array: JSONArray = json.optJSONArray("options")
-    val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
-
-    for (i <- 0 until options_Array.length()) {
-      val option: JSONObject = options_Array.getJSONObject(i)
-      val key: Int = option.optInt("key")
-      val optionStr: String = option.optString("optionsstr")
-      val likes: Int = option.optInt("likes")
-      options += key -> (optionStr, likes)
-    }
-    val timestamp: String = json.optString("timestamp")
-    val thisPoll = new Poll(pollID, statementID, userID, userName, question, options, timestamp)
-    ServerHandler.handlePoll(thisPoll)
+  override def handlePoll(json: JSONObject): Poll = {
+    val poll:Poll =  super.handlePoll(json)
+    ServerHandler.handlePoll(poll)
+    super.handlePoll(json)
   }
 
   private def handleLoginFailed(json: JSONObject): Unit = {

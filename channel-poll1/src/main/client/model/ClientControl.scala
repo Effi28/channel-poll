@@ -16,7 +16,6 @@ final object ClientControl {
   val statements: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
   val comments: HashMap[Long, ObservableBuffer[Comment]] = new HashMap[Long, ObservableBuffer[Comment]]()
   val polls: HashMap[Long, ObservableBuffer[Poll]] = new HashMap[Long, ObservableBuffer[Poll]]()
-  val pollAnswers: HashMap[Long, ObservableBuffer[PollAnswer]] = new HashMap[Long, ObservableBuffer[PollAnswer]]()
   val chatRooms: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
   val activityFeed: ObservableBuffer[VBox] = new ObservableBuffer[VBox]()
 
@@ -45,8 +44,6 @@ final object ClientControl {
   def close() = {
     System.exit(0)
   }
-
-
 
   def subscribe(statement: Statement): Unit = {
     ClientMessageSender.writeSubscribe(statement)

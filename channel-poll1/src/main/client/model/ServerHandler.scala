@@ -1,6 +1,5 @@
 package main.client.model
 
-import main.shared._
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 
 import scalafx.collections.ObservableBuffer
@@ -32,10 +31,16 @@ final object ServerHandler extends Thread {
   }
 
   def handlePollAnswer(pollAnswer: PollAnswer): Unit = {
-    if (!ClientControl.pollAnswers.contains(pollAnswer.pollID)) {
-      ClientControl.pollAnswers += pollAnswer.pollID -> new ObservableBuffer[PollAnswer]
+    for(poll <- ClientControl.polls.get(pollAnswer.statementID).get){
+      if(poll.ID == pollAnswer.pollID){
+        for(option <- poll.options){
+          if(option.key == pollAnswer.selectedOption._1){
+            option.likes += 1
+            println (option.name +" has: "  + option.likes + " likes.")
+          }
+        }
+      }
     }
-    ClientControl.pollAnswers.get(pollAnswer.pollID).get += pollAnswer
   }
 
   def handleStatement(statement: Statement): Unit = {
