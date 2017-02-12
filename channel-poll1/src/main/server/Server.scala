@@ -7,13 +7,13 @@ import java.util.concurrent.{ExecutorService, Executors}
 import main.server.JsonFiles.SaveJsons
 import main.server.communication.ClientHandler
 import main.server.twitter.{QueueGetter, TwitterAccess}
-import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.data._
 
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
 final object Server {
-  private val connectedHandler: HashMap[String, ClientHandler] = new HashMap[String, ClientHandler]
+  private val connectedHandler: HashMap[TwitterUser, ClientHandler] = new HashMap[TwitterUser, ClientHandler]
   private val chatRooms: HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
   private val statements: HashMap[Long, Statement] = new HashMap[Long, Statement]
   private val comments: HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
@@ -36,16 +36,26 @@ final object Server {
     }
   }
 
-  def handleSubscribe(statementID: Long, nick: String): Unit = {
-    val tempClient: ClientHandler = Server.connectedHandler(nick)
+  def handleSubscribe(statementID: Long, user: TwitterUser): Unit = {
+    var tempClient:ClientHandler = null
+    for ((k, v) <- connectedHandler) {
+      if(k.ID == user.ID){
+        tempClient = v
+      }
+    }
     if (!Server.chatRooms.contains(tempClient)) {
       Server.chatRooms += tempClient -> new ArrayBuffer[Long]
     }
     Server.chatRooms.get(tempClient).get += statementID
   }
 
-  def handleUnSubscribe(statementID: Long, nick: String): Unit = {
-    val tempClient: ClientHandler = Server.connectedHandler(nick)
+  def handleUnSubscribe(statementID: Long, user: TwitterUser): Unit = {
+    var tempClient:ClientHandler = null
+    for ((k, v) <- connectedHandler) {
+      if(k.ID == user.ID){
+        tempClient = v
+      }
+    }
     Server.chatRooms.get(tempClient).get -= statementID
     if (Server.chatRooms.get(tempClient).size == 0) {
       Server.chatRooms -= tempClient
@@ -62,31 +72,29 @@ final object Server {
     SaveJsons.saveJsonsThread.start()
   }
 
-  def checkLogin(nick: String, client: ClientHandler): Unit = {
-    if (connectedHandler.keySet.contains(nick)) {
-      client.sender.writeLoginFailed(nick)
+  def checkLogin(user: TwitterUser, client: ClientHandler): Unit = {
+    if (connectedHandler.keySet.contains(user)) {
+      client.sender.writeLoginFailed(user)
     }
     else {
-      connectedHandler += (nick -> client)
-      broadcastLogin(client, nick)
+      connectedHandler += (user -> client)
+      broadcastLogin(client, user)
     }
   }
 
-  private def broadcastLogin(client: ClientHandler, nick: String): Unit = {
+  private def broadcastLogin(client: ClientHandler, user: TwitterUser): Unit = {
     for ((k, v) <- connectedHandler) {
-
-
-      if (k.equals(nick)) {
+      if (k.equals(user)) {
         v.sender.writeLoginSuccess(connectedHandler.keys)
       }
       else {
-        v.sender.writeNewLogin(nick)
+        v.sender.writeLoginMessage(user)
       }
     }
   }
 
   def removeClient(clientHandler: ClientHandler): Unit = {
-    var user: String = null
+    var user: TwitterUser = null
     for ((k, v) <- connectedHandler) {
       if (v.equals(clientHandler)) {
         connectedHandler.remove(k)
@@ -94,16 +102,7 @@ final object Server {
       }
     }
     for ((k, v) <- connectedHandler) {
-      if (v.equals(clientHandler)) {
-        v.sender.writeDisconnect(user)
-      }
-    }
-  }
-
-  def removeClient(user: String): Unit = {
-    connectedHandler.remove(user)
-    for ((k, v) <- connectedHandler) {
-      v.sender.writeDisconnect(user)
+        v.sender.writeLogout(user)
     }
   }
 
@@ -119,9 +118,9 @@ final object Server {
       comments += comment.statementID -> new ArrayBuffer[Comment]()
     }
     comments.get(comment.statementID).get += comment
-    for ((k: String, v: ClientHandler) <- connectedHandler) {
+    for ((k: TwitterUser, v: ClientHandler) <- connectedHandler) {
       if (chatRooms.contains(v) && chatRooms.get(v).get.contains(comment.statementID)) {
-        v.sender.writeComment(comment)
+        v.sender.writeStComment(comment)
       }
     }
   }

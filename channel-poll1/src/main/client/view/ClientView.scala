@@ -99,7 +99,7 @@ final object ClientView extends JFXApp {
 
 
     //Right: User
-    val userList = new ListView[String]
+    val userList = new ListView[TwitterUser]
     userList.items = Controller.getUsers()
     Controller.getUsers().onChange({
       userList.items = Controller.getUsers()
@@ -308,7 +308,7 @@ final object ClientView extends JFXApp {
 
 
     //Right: User
-    val userList = new ListView[String]
+    val userList = new ListView[TwitterUser]
     userList.items = Controller.getUsers()
     Controller.getUsers().onChange({
       userList.items = Controller.getUsers()

@@ -4,7 +4,7 @@ import java.io.{BufferedReader, InputStreamReader, OutputStreamWriter}
 import java.net.{Socket, SocketException}
 
 import main.server.Server
-import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.data._
 
 final class ClientHandler(socket: Socket) extends Runnable {
   private val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
@@ -21,12 +21,12 @@ final class ClientHandler(socket: Socket) extends Runnable {
     }
   }
 
-  def checkLogin(nick: String): Unit = {
-    Server.checkLogin(nick: String, this)
+  def handleLogin(user: TwitterUser): Unit = {
+    Server.checkLogin(user, this)
   }
 
-  def handleLogout(nick: String): Unit = {
-    Server.removeClient(nick)
+  def handleLogout(user: TwitterUser): Unit = {
+    Server.removeClient(this)
   }
 
   def handleStatement(statement: Statement): Unit = {
@@ -45,11 +45,11 @@ final class ClientHandler(socket: Socket) extends Runnable {
     Server.broadcastPollAnswers(pollAnswer)
   }
 
-  def handleSubscribe(statementID: Long, nick: String): Unit = {
-    Server.handleSubscribe(statementID, nick)
+  def handleSubscribe(statementID: Long, user: TwitterUser):Unit = {
+    Server.handleSubscribe(statementID, user)
   }
 
-  def handleUnsubscribe(statementID: Long, nick: String): Unit = {
-    Server.handleUnSubscribe(statementID, nick)
+  def handleUnsubscribe(statementID: Long, user: TwitterUser): Unit = {
+    Server.handleUnSubscribe(statementID, user)
   }
 }

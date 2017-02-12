@@ -23,7 +23,7 @@ final object Controller {
     ClientControl.statements
   }
 
-  def getUsers(): ObservableBuffer[String] = {
+  def getUsers(): ObservableBuffer[TwitterUser] = {
     ClientControl.users
   }
 

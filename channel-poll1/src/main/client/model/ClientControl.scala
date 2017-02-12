@@ -12,7 +12,7 @@ import scalafx.scene.layout.VBox
 final object ClientControl {
   val socket: Socket = new Socket("localhost", 8008)
   var user: TwitterUser = null
-  val users: ObservableBuffer[String] = new ObservableBuffer[String]()
+  val users: ObservableBuffer[TwitterUser] = new ObservableBuffer[TwitterUser]()
   val statements: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
   val comments: HashMap[Long, ObservableBuffer[Comment]] = new HashMap[Long, ObservableBuffer[Comment]]()
   val polls: HashMap[Long, ObservableBuffer[Poll]] = new HashMap[Long, ObservableBuffer[Poll]]()
@@ -22,7 +22,7 @@ final object ClientControl {
   def setupClient(user1: TwitterUser): Unit = {
     ServerHandler.start()
     user = user1
-    ClientMessageSender.writeLoginMessage()
+    ClientMessageSender.writeLoginMessage(user)
   }
 
   def sendComment(comment: Comment): Unit = {
@@ -38,7 +38,7 @@ final object ClientControl {
   }
 
   def logout(): Unit = {
-    ClientMessageSender.writeLogout()
+    ClientMessageSender.writeLogout(user)
   }
 
   def close() = {

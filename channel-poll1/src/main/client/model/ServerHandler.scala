@@ -1,6 +1,7 @@
 package main.client.model
 
-import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.data._
+import twitter4j.Twitter
 
 import scalafx.collections.ObservableBuffer
 
@@ -14,11 +15,11 @@ final object ServerHandler extends Thread {
     }
   }
 
-  def handleLogin(nick: String): Unit = {
+  def handleLogin(nick: TwitterUser): Unit = {
     ClientControl.users += nick
   }
 
-  def handleLogout(nick: String): Unit = {
+  def handleLogout(nick: TwitterUser): Unit = {
     ClientControl.users -= nick
   }
 

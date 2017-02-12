@@ -1,36 +1,24 @@
 package main.shared.communication
 
-import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.data._
 import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
 
-/**
-  * Created by Effi on 12.02.17.
-  */
-abstract class MessageBuilder {
+class MessageBuilder {
 
-  def writeLogin(nick: String): JSONObject = {
+  def writeLogin(user: TwitterUser): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.LOGIN)
-    Jmsg.put("username", nick)
+    Jmsg.put("username", user.userName)
+    Jmsg.put("userid", user.ID)
   }
 
-  def writeLogout(nick: String): JSONObject = {
+  def writeLogout(user: TwitterUser): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     Jmsg.put("type", JsonType.DISCONNECT)
-    Jmsg.put("username", nick)
-  }
-
-  def writeStatement(statement: Statement): JSONObject = {
-    val Jmsg: JSONObject = new JSONObject()
-    Jmsg.put("type", JsonType.STATEMENT)
-    Jmsg.put("id", statement.ID)
-    Jmsg.put("userid", statement.userID)
-    Jmsg.put("username", statement.userName)
-    Jmsg.put("pictureurl", statement.pictureURL)
-    Jmsg.put("message", statement.message)
-    Jmsg.put("timestamp", statement.timestamp)
-  }
+    Jmsg.put("type", JsonType.LOGIN)
+    Jmsg.put("username", user.userName)
+    Jmsg.put("userid", user.ID)  }
 
   def writeComment(comment: Comment): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
@@ -75,5 +63,4 @@ abstract class MessageBuilder {
     Jmsg.put("selectedoptionstr", pollAnswer.selectedOption._2)
     Jmsg.put("timestamp", pollAnswer.timestamp)
   }
-
 }
