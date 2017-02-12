@@ -1,8 +1,6 @@
 package main.client.model
 
 import main.shared.data._
-import twitter4j.Twitter
-
 import scalafx.collections.ObservableBuffer
 
 
@@ -51,7 +49,6 @@ final object ServerHandler extends Thread {
   def handleComment(comment: Comment): Unit = {
     if (!ClientControl.comments.contains(comment.statementID)) {
       ClientControl.comments += comment.statementID -> new ObservableBuffer[Comment]()
-
     }
     ClientControl.comments.get(comment.statementID).get += comment
   }

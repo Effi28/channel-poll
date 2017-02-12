@@ -5,4 +5,6 @@ package main.shared.data
   */
 final class TwitterUser(val ID: Long, val userName: String) {
 
+  override def toString: String = userName
+
 }
