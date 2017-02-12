@@ -28,7 +28,7 @@ final object ClientMessageSender {
   }
 
   def writeLogout(): Unit = {
-    writeMessage(ClientMessageBuilder.writeLogoutMessage(ClientControl.user.userName))
+    writeMessage(ClientMessageBuilder.writeLogout(ClientControl.user.userName))
     ClientControl.close()
   }
 

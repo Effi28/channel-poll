@@ -33,7 +33,7 @@ final class ServerMessageSender(out: OutputStreamWriter) {
   }
 
   def writeNewLogin(nick: String): Unit = {
-    writeMessage(ServerMessageBuilder.newLogin(nick))
+    writeMessage(ServerMessageBuilder.writeLogin(nick))
   }
 
   def writeLoginFailed(nick: String): Unit = {
@@ -41,7 +41,7 @@ final class ServerMessageSender(out: OutputStreamWriter) {
   }
 
   def writeDisconnect(nick: String): Unit = {
-    writeMessage(ServerMessageBuilder.userDisconnect(nick))
+    writeMessage(ServerMessageBuilder.writeLogout(nick))
   }
 
   private def writeMessage(json: JSONObject): Unit = {
