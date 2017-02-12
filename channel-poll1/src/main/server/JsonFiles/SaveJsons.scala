@@ -27,7 +27,6 @@ final object SaveJsons {
     while (!Thread.currentThread().isInterrupted) {
       while (statementsJsonQueue.nonEmpty && !writeStatementsFlag) {
         val firstStatement = statementsJsonQueue.dequeue()
-        print("*************************************************")
         save_json(firstStatement)
       }
       while (commentsJsonQueue.nonEmpty && !writeStatementsFlag) {
@@ -58,11 +57,12 @@ final object SaveJsons {
 
   private def save_json(newJson: JSONObject): Unit = {
     val jsonType: String = newJson.optString("type")
+    println(jsonType)
     matchRightFile(jsonType, newJson)
   }
 
   private def matchRightFile(jsonType: String, newJSON: JSONObject) = jsonType match {
-    case "POLL" =>
+    case "poll" =>
       val pollsString = Source.fromFile(pathToPolls).getLines.mkString
       val pollsJson = new JSONObject(pollsString)
       val polls: JSONArray = pollsJson.getJSONArray("data")
@@ -70,7 +70,7 @@ final object SaveJsons {
       val newPolls = createNewStr(polls)
       finalSave(pathToPolls, newPolls)
 
-    case "POLLANSWER" =>
+    case "pollanswer" =>
       val pollAnswersString = Source.fromFile(pathToPollAnswers).getLines.mkString
       val pollAnswersJson = new JSONObject(pollAnswersString)
       val pollAnswers: JSONArray = pollAnswersJson.getJSONArray("data")
@@ -78,7 +78,7 @@ final object SaveJsons {
       val newPollAnswers = createNewStr(pollAnswers)
       finalSave(pathToPollAnswers, newPollAnswers)
 
-    case "COMMENT" =>
+    case "comment" =>
       val commentsString = Source.fromFile(pathToComments).getLines.mkString
       val commentsJson = new JSONObject(commentsString)
       val comments: JSONArray = commentsJson.getJSONArray("data")
@@ -86,7 +86,7 @@ final object SaveJsons {
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
 
-    case "STATEMENT" =>
+    case "statement"=>
       val statementsString = Source.fromFile(pathToStatements).getLines.mkString
       val statementsJson = new JSONObject(statementsString)
       val statements: JSONArray = statementsJson.getJSONArray("data")

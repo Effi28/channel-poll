@@ -12,7 +12,8 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
-import scala.collection.mutable.{ArrayBuffer, HashMap, ListBuffer}
+import scala.collection.mutable.HashMap
+import scala.collection.mutable.ListBuffer
 import scalafx.beans.property.IntegerProperty
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.control._
@@ -262,7 +263,7 @@ final object ClientView extends JFXApp {
             //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
           }
 
-          val options = new ArrayBuffer[Option]()
+          val options = new HashMap[Int, (String, Int)]()
 
           optionHashMap.foreach(x => {
             val key = x._1
@@ -274,7 +275,7 @@ final object ClientView extends JFXApp {
               //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
             }
 
-            options += new Option(key, optionInputField.getText, 0)
+            options.put(key, (optionInputField.getText, 0))
 
           })
           // todo ids generieren
@@ -341,9 +342,10 @@ final object ClientView extends JFXApp {
 
     poll.options.foreach(option => {
       rowIndex += 1
-      val optionId = option.key
-      val optionInfo = option.name
-      val radioButton = new RadioButton(optionInfo)
+      val optionId = option._1
+      val optionInfo = option._2
+      val optionText = optionInfo._1
+      val radioButton = new RadioButton(optionText)
       radioButton.id = optionId.toString
       radioButton.onAction = e => {
         radioButton.selected = true
@@ -369,7 +371,7 @@ final object ClientView extends JFXApp {
       val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
 
-      Controller.sendPollAnswer(pollAnswer)
+
 
     }
     pollGrid.add(submitButton, columnIndex, rowIndex)
