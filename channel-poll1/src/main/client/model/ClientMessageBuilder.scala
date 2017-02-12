@@ -67,11 +67,11 @@ final object ClientMessageBuilder {
     Jmsg.put("username", poll.userName)
     Jmsg.put("question", poll.question)
     val arr: JSONArray = new JSONArray()
-    for ((k, v) <- poll.options) {
+    for (option <- poll.options) {
       val obj: JSONObject = new JSONObject()
-      obj.put("key", k)
-      obj.put("optionsstr", v._1)
-      obj.put("likes", v._2)
+      obj.put("key", option.key)
+      obj.put("optionsstr", option.name)
+      obj.put("likes", option.likes)
       arr.put(obj)
     }
     Jmsg.put("options", arr)

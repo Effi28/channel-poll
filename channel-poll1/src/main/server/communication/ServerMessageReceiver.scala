@@ -5,11 +5,11 @@ import java.io.BufferedReader
 import main.server.JsonFiles.SaveJsons
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
-import main.shared.data.{Comment, Poll, PollAnswer, Statement}
+import main.shared.data.{Comment, Poll, PollAnswer, Statement, Option}
 import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.collection.mutable.HashMap
+import scala.collection.mutable.{ArrayBuffer, HashMap}
 
 class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) {
   private val logger: Logger = LoggerFactory.getLogger(this.getClass)
@@ -69,13 +69,13 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) {
     val userName: String = json.optString("username")
     val question: String = json.optString("question")
     val options_Array: JSONArray = json.optJSONArray("options")
-    val options: HashMap[Int, (String, Int)] = new HashMap[Int, (String, Int)]
+    val options: ArrayBuffer[Option] = new ArrayBuffer[Option]
     for (i <- 0 until options_Array.length()) {
       val option: JSONObject = options_Array.getJSONObject(i)
       val key: Int = option.optInt("key")
       val optionStr: String = option.optString("optionsstr")
       val likes: Int = option.optInt("likes")
-      options += key -> (optionStr, likes)
+      options += new Option(key, optionStr, likes)
     }
     val timestamp: String = json.optString("timestamp")
     val thisPoll = new Poll(pollID, statementID, userID, userName, question, options, timestamp)
