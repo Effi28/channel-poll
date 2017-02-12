@@ -3,7 +3,6 @@ package main.server.JsonFiles
 import java.io._
 
 import com.google.gson._
-import org.json
 import org.json.{JSONArray, JSONObject}
 
 import scala.collection.mutable.Queue
@@ -13,15 +12,6 @@ import scala.io.Source
   * Created by KathrinNetzer on 29.01.2017.
   */
 final object SaveJsons {
-
-  var statementsJsonQueue = new Queue[JSONObject]
-  var commentsJsonQueue = new Queue[JSONObject]
-  var pollsAnswersQueue = new Queue[JSONObject]
-  var pollsQueue = new Queue[JSONObject]
-  var writeStatementsFlag = false
-  var writeCommentsFlag = false
-  var writePollAnswersFlag = false
-  var writePollsFlag = false
 
   val saveJsonsThread = new Thread(() =>
     while (!Thread.currentThread().isInterrupted) {
@@ -54,6 +44,14 @@ final object SaveJsons {
   private val pathToPollAnswers = "src/main/server/JsonFiles/PollAnswer.json"
   private val gsonFormatter = new GsonBuilder().setPrettyPrinting().create
   private val gsonParser = new JsonParser()
+  var statementsJsonQueue = new Queue[JSONObject]
+  var commentsJsonQueue = new Queue[JSONObject]
+  var pollsAnswersQueue = new Queue[JSONObject]
+  var pollsQueue = new Queue[JSONObject]
+  var writeStatementsFlag = false
+  var writeCommentsFlag = false
+  var writePollAnswersFlag = false
+  var writePollsFlag = false
 
   private def save_json(newJson: JSONObject): Unit = {
     val jsonType: String = newJson.optString("type")
@@ -86,13 +84,29 @@ final object SaveJsons {
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
 
-    case "statement"=>
+    case "statement" =>
       val statementsString = Source.fromFile(pathToStatements).getLines.mkString
       val statementsJson = new JSONObject(statementsString)
-      val statements: JSONArray = statementsJson.getJSONArray("data")
+      var statements: JSONArray = statementsJson.getJSONArray("data")
       statements.put(newJSON)
+      // don't save more than 20 statemets
+      statements = checkStatementsLength(statements)
       val newStatements = createNewStr(statements)
       finalSave(pathToStatements, newStatements)
+  }
+
+  private def checkStatementsLength(statements: JSONArray): JSONArray = {
+    val shortenedStatements: JSONArray = new JSONArray()
+    if(statements.length() > 20){
+      for (i <- -20 until -1){
+        val statement = statements.getJSONObject(i)
+        shortenedStatements.put(statement)
+      }
+      return shortenedStatements
+    }
+    else {
+      return statements
+    }
   }
 
   private def createNewStr(_jsonArray: JSONArray): String = {
