@@ -1,5 +1,6 @@
 package main.server.communication
 
+import main.server.JsonFiles.GetJsons
 import main.shared._
 import main.shared.data.{Comment, Poll, PollAnswer, Statement}
 import main.shared.enums.JsonType
@@ -10,8 +11,10 @@ final object ServerMessageBuilder {
   def loginSucceded(users: Iterable[String]): JSONObject = {
     val Jmsg: JSONObject = new JSONObject()
     val arr: JSONArray = new JSONArray()
+    val sttmnts: JSONArray = GetJsons.getLastStatements()
     for (u <- users) arr.put(u)
     Jmsg.put("users", arr)
+    Jmsg.put("statements", sttmnts)
     Jmsg.put("type", JsonType.LOGINSUCCESS)
   }
 

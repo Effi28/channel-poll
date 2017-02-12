@@ -45,6 +45,11 @@ final object ClientMessageReceiver {
     for (i <- 0 until userNames.length()) {
       ServerHandler.handleLogin(userNames.getString(i))
     }
+    val reloadedStatements: JSONArray = json.optJSONArray("statements")
+
+    for (j <- 0 until reloadedStatements.length()) {
+      handleStatement(reloadedStatements.getJSONObject(j))
+    }
     Controller.exitLoginView()
   }
 
