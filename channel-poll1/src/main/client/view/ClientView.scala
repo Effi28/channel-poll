@@ -102,7 +102,7 @@ final object ClientView extends JFXApp {
 
     activityFeed.onChange({
       Platform.runLater {
-        feed.children.add(0,activityFeed.last)
+        feed.children.add(0, activityFeed.last)
       }
     })
 
@@ -209,56 +209,71 @@ final object ClientView extends JFXApp {
     pollButton.onAction = e => {
       if (!pollTemplateIsVisible) {
         pollTemplateIsVisible = true
+
+        var pollIsValid = true
+
         val questionLabel = new Label("Question")
         val questionInputField = new TextField()
         questionInputField.requestFocus()
 
-        val optionLabel1 = new Label("Option 1")
-        val optionInputField1 = new TextField()
+        val minNumberOfOptions = 2
+        val maxNumberOfOptions = 5
 
-        val optionLabel2 = new Label("Option 2")
-        val optionInputField2 = new TextField()
+        val currentNumberOfOptions = IntegerProperty(0)
+
+        val errorMessageBox = new TextFlow()
+
 
         val optionHashMap = new HashMap[Int, (Label, TextField)]
-        optionHashMap.put(1, (optionLabel1, optionInputField1))
-        optionHashMap.put(2, (optionLabel2, optionInputField2))
-
 
         val pollGridPane = new GridPane()
-        pollGridPane.addRow(0, questionLabel, questionInputField)
-        pollGridPane.addRow(2, optionLabel1, optionInputField1)
-        pollGridPane.addRow(3, optionLabel2, optionInputField2)
+        pollGridPane.addRow(0, new Label("Poll"))
+        pollGridPane.addRow(1, questionLabel, questionInputField)
 
-        var countOptions = 2
-        var currentRowIndex = IntegerProperty(3)
+        var nextFreeIndex = 2
 
-        val addOptionButton = new Button("Add Option")
-        addOptionButton.onAction = e => {
-          countOptions += 1
-          currentRowIndex.value = currentRowIndex.value + 1
-
-          val optionLabel = new Label("Option " + countOptions)
-          val optionInputField = new TextField()
-          optionHashMap.put(countOptions, (optionLabel, optionInputField))
-
-          pollGridPane.addRow(currentRowIndex.value, optionLabel, optionInputField)
+        for (i <- 1 to minNumberOfOptions) {
+          val label = new Label("Option " + i)
+          val inputField = new TextField()
+          optionHashMap.put(i, (label, inputField))
+          pollGridPane.addRow(nextFreeIndex, label, inputField)
+          currentNumberOfOptions.value = currentNumberOfOptions.value + 1
+          nextFreeIndex += 1
         }
 
 
-        var indexForAddOptionButton = currentRowIndex + 1
-        var indexForSubmitButton = currentRowIndex + 2
+        val addOptionButton = new Button("Add Option")
+        addOptionButton.onAction = e => {
+          currentNumberOfOptions.value = currentNumberOfOptions.value + 1
+          val label = new Label("Option " + currentNumberOfOptions.value)
+          val inputField = new TextField()
+          optionHashMap.put(currentNumberOfOptions.value, (label, inputField))
+          pollGridPane.addRow(nextFreeIndex, label, inputField)
+          nextFreeIndex += 1
+        }
 
-        currentRowIndex.onChange({
-          indexForAddOptionButton = currentRowIndex + 1
-          indexForSubmitButton = currentRowIndex + 2
 
+        currentNumberOfOptions.onChange({
+          if (currentNumberOfOptions.value == maxNumberOfOptions) {
+            addOptionButton.disable = true
+            errorMessageBox.children.clear()
+            errorMessageBox.children.add(new Text("The maximum number of options is " + maxNumberOfOptions + "!\n")): Unit
+          }
         })
 
 
-        pollGridPane.addRow(indexForAddOptionButton.intValue(), addOptionButton)
+        val indexForAddOptionButton = maxNumberOfOptions + 2
+        val indexForSubmitButton = maxNumberOfOptions + 3
+        var indexForErrorMessageBox = maxNumberOfOptions + 4
+
+
+        pollGridPane.addRow(indexForAddOptionButton, addOptionButton)
 
         val submitButton = new Button("Submit")
         submitButton.onAction = e => {
+          errorMessageBox.children.clear()
+          //wieder auf 'true' setzen für neuen Versuch
+          pollIsValid = true
 
           val createdAt = Calendar.getInstance().getTime.toString
 
@@ -268,34 +283,45 @@ final object ClientView extends JFXApp {
           val question = questionInputField.getText
 
           if (question.length == 0) {
-            //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
+            errorMessageBox.children.add(new Text("The 'Question' input field cannot be empty!\n"))
+            pollIsValid = false
           }
 
           val options = new ArrayBuffer[Option]
 
-          optionHashMap.foreach(x => {
+          val sortedOptions = optionHashMap.toSeq.sortWith(_._1 < _._1)
+
+          sortedOptions.foreach(x => {
             val key = x._1
             val value = x._2
             val optionInputField = value._2
 
 
             if (optionInputField.getText.length == 0) {
-              //TODO: Fehler anzeigen, dass Feld nicht leer sein darf
+              errorMessageBox.children.add(new Text("The 'Option " + key + "' input field cannot be empty!\n"))
+              pollIsValid = false
             }
+
+
 
             options += new Option(key, optionInputField.getText, 0)
 
           })
-          // todo ids generieren
-          val pollID = 1
 
-          val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
-          Controller.sendPoll(poll)
-          pollTemplate.children.clear()
-          pollTemplateIsVisible = false
+          if (pollIsValid) {
+            // TODO: ids generieren
+            val pollID = 1
+
+            val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
+            Controller.sendPoll(poll)
+            pollTemplate.children.clear()
+            pollTemplateIsVisible = false
+          }
         }
 
-        pollGridPane.addRow(indexForSubmitButton.intValue(), submitButton)
+        pollGridPane.addRow(indexForSubmitButton, submitButton)
+
+        pollGridPane.add(errorMessageBox, 0, indexForErrorMessageBox, 4, 1)
 
         pollTemplate.children.addAll(pollGridPane)
       }
@@ -348,20 +374,28 @@ final object ClientView extends JFXApp {
 
     val toggleGroup = new ToggleGroup()
 
+
+    val submitButton = new Button("Submit Answer")
+    submitButton.disable = true
+
     poll.options.foreach(option => {
       rowIndex += 1
       val optionId = option.key
       val optionText = option.name
       val radioButton = new RadioButton(optionText)
       radioButton.id = optionId.toString
+
       radioButton.onAction = e => {
         radioButton.selected = true
+        submitButton.disable = false
       }
       toggleGroup.toggles.add(radioButton)
       pollGrid.add(radioButton, columnIndex, rowIndex)
     })
+
+
     rowIndex += 1
-    val submitButton = new Button("Submit Answer")
+
     submitButton.onAction = e => {
       val selectedButton = toggleGroup.selectedToggle.value.asInstanceOf[javafx.scene.control.RadioButton]
       val selectedButtonId = selectedButton.getId
@@ -370,10 +404,26 @@ final object ClientView extends JFXApp {
       val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
       Controller.sendPollAnswer(pollAnswer)
+
+
+      toggleGroup.toggles.forEach(toogle => {
+        val radio = toogle.asInstanceOf[javafx.scene.control.RadioButton]
+        radio.setDisable(true)
+      })
+
       submitButton.disable = true
+      submitButton.visible = false
     }
     pollGrid.add(submitButton, columnIndex, rowIndex)
     return pollGrid
+  }
+
+  def renderInactivePoll(): Unit = {
+
+  }
+
+  def renderCompletedPoll(): Unit = {
+
   }
 
 
