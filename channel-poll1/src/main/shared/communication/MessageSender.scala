@@ -14,7 +14,7 @@ abstract class MessageSender {
 
   def writeStComment(comment: Comment): Unit = {
     val commentJson = MessageBuilder.writeComment(comment)
-    //SaveJsons.commentsJsonQueue += commentJson
+    SaveJsons.commentsJsonQueue += commentJson
     writeMessage(commentJson)
   }
 

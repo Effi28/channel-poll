@@ -23,6 +23,7 @@ final object ServerMessageBuilder extends MessageBuilder{
     val Jmsg: JSONObject = new JSONObject()
     val arr: JSONArray = new JSONArray()
     val sttmnts: JSONArray = GetJsons.getLastStatements()
+    val cmnts: JSONArray = GetJsons.getLastCPP("Comment")
     for (u <- users) {
       val jsonUser:JSONObject = new JSONObject()
       jsonUser.put("username", u.userName)
@@ -31,6 +32,7 @@ final object ServerMessageBuilder extends MessageBuilder{
     }
     Jmsg.put("users", arr)
     Jmsg.put("statements", sttmnts)
+    Jmsg.put("comments", cmnts)
     Jmsg.put("type", JsonType.LOGINSUCCESS)
   }
 
