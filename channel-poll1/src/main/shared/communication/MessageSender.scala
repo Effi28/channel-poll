@@ -1,6 +1,7 @@
 package main.shared.communication
 
 import main.client.model.ClientControl
+import main.server.JsonFiles.SaveJsons
 import main.shared.data.{Comment, Poll, PollAnswer, TwitterUser}
 import org.json.JSONObject
 
@@ -12,7 +13,9 @@ abstract class MessageSender {
   }
 
   def writeStComment(comment: Comment): Unit = {
-    writeMessage(MessageBuilder.writeComment(comment))
+    val commentJson = MessageBuilder.writeComment(comment)
+    //SaveJsons.commentsJsonQueue += commentJson
+    writeMessage(commentJson)
   }
 
   def writePoll(poll: Poll): Unit = {

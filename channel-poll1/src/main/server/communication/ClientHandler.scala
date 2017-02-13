@@ -34,6 +34,7 @@ final case  class ClientHandler(socket: Socket) extends Runnable {
   }
 
   def handleComment(comment: Comment): Unit = {
+
     Server.broadcastComment(comment)
   }
 

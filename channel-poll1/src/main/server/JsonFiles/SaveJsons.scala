@@ -55,7 +55,6 @@ final object SaveJsons {
 
   private def save_json(newJson: JSONObject): Unit = {
     val jsonType: String = newJson.optString("type")
-    println(jsonType)
     matchRightFile(jsonType, newJson)
   }
 
@@ -79,8 +78,9 @@ final object SaveJsons {
     case "comment" =>
       val commentsString = Source.fromFile(pathToComments).getLines.mkString
       val commentsJson = new JSONObject(commentsString)
-      val comments: JSONArray = commentsJson.getJSONArray("data")
+      var comments: JSONArray = commentsJson.getJSONArray("data")
       comments.put(newJSON)
+      //comments = checkComments(comments)
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
 
@@ -90,22 +90,46 @@ final object SaveJsons {
       var statements: JSONArray = statementsJson.getJSONArray("data")
       statements.put(newJSON)
       // don't save more than 20 statemets
-      statements = checkStatementsLength(statements)
+      statements = checkLength(statements, 20)
       val newStatements = createNewStr(statements)
       finalSave(pathToStatements, newStatements)
   }
 
-  private def checkStatementsLength(statements: JSONArray): JSONArray = {
-    val shortenedStatements: JSONArray = new JSONArray()
-    if(statements.length() > 20){
-      for (i <- -20 until -1){
-        val statement = statements.getJSONObject(i)
-        shortenedStatements.put(statement)
+  /**
+  private def checkComments(comments: JSONArray): JSONArray = {
+    val statementsString = Source.fromFile(pathToStatements).getLines.mkString
+    val statementsJson = new JSONObject(statementsString)
+    val statements: JSONArray = statementsJson.getJSONArray("data")
+
+    val shortenedComemnts: JSONArray = new JSONArray()
+    for (i <- 0 until comments.length()-1){
+      for (j <- 0 until statements.length()-1){
+        val statement: JSONObject = statements.getJSONObject(j)
+        val statement_id = statement.optLong("id")
+        val comment: JSONObject = comments.getJSONObject(i)
+        val com_statement_id: Long = comment.optLong("statementID")
+
+        if(com_statement_id == statement_id){
+          shortenedComemnts.put(comment)
+        }
       }
-      return shortenedStatements
+    }
+    return shortenedComemnts
+  }
+
+  **/
+  private def checkLength(array: JSONArray, maxlength: Int): JSONArray = {
+    val shortenedArray: JSONArray = new JSONArray()
+    val l = array.length()
+    if (l >= maxlength) {
+
+      for (i <- (0 until maxlength-1).reverse) {
+        shortenedArray.put(array.getJSONObject(l-i-1))
+      }
+      return shortenedArray
     }
     else {
-      return statements
+      return array
     }
   }
 

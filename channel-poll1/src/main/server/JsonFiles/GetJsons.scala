@@ -16,19 +16,17 @@ final object GetJsons {
   def getLastStatements(): JSONArray = {
     SaveJsons.writeStatementsFlag = true
     val statementsString = Source.fromFile(pathToStatements).getLines.mkString
-    SaveJsons.writeCommentsFlag = false
-
+    SaveJsons.writeStatementsFlag = false
     val statementsJson = new JSONObject(statementsString)
     val statements: JSONArray = statementsJson.getJSONArray("data")
-
     val lastStatements: JSONArray = new JSONArray()
-    if (statements.length() >= 10) {
-      for (i <- -10 until -1) {
-        lastStatements.put(statements.getJSONObject(i))
+    if (statements.length() > 10) {
+      for (i <- (0 until 10).reverse) {
+        lastStatements.put(statements.getJSONObject(statements.length()-i-1))
       }
       return lastStatements
     } else {
-      return statements
+       return statements
     }
 
   }
