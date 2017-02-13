@@ -1,7 +1,6 @@
 package main.client.model
 
 import java.io.{BufferedReader, InputStreamReader}
-
 import main.client.controller.Controller
 import main.shared.data._
 import main.shared.communication.MessageReceiver
@@ -28,12 +27,12 @@ final object ClientMessageReceiver extends MessageReceiver{
   private def matchTest(x: JsonType.JsonType, jSONObject: JSONObject): Unit = x match {
     case JsonType.LOGINSUCCESS => handleLoginSuccessful(jSONObject)
     case JsonType.LOGINFAILED => handleLoginFailed(jSONObject)
-    case JsonType.LOGIN => ServerHandler.handleLogin(login(jSONObject))
-    case JsonType.DISCONNECT => ServerHandler.handleLogin(logout(jSONObject))
-    case JsonType.STATEMENT => ServerHandler.handleStatement(statement(jSONObject))
-    case JsonType.POLL => ServerHandler.handlePoll(poll(jSONObject))
-    case JsonType.POLLANSWER => ServerHandler.handlePollAnswer(pollAnswer(jSONObject))
-    case JsonType.COMMENT => ServerHandler.handleComment(comment(jSONObject))
+    case JsonType.LOGIN => ClientControl.users += login(jSONObject)
+    case JsonType.DISCONNECT => ClientControl.users -= logout(jSONObject)
+    case JsonType.STATEMENT => ClientControl.statements += statement(jSONObject)
+    case JsonType.POLL => ClientControl += poll(jSONObject)
+    case JsonType.POLLANSWER => ClientControl += pollAnswer(jSONObject)
+    case JsonType.COMMENT => ClientControl += comment(jSONObject)
     case _ => invalid(jSONObject)
   }
 
@@ -42,12 +41,11 @@ final object ClientMessageReceiver extends MessageReceiver{
     for (i <- 0 until userNames.length()) {
       val userID:Long =  userNames.getJSONObject(i).optLong("userid")
       val userName:String = userNames.getJSONObject(i).optString("username")
-      ServerHandler.handleLogin(new TwitterUser(userID, userName))
+      ClientControl.users += new TwitterUser(userID, userName)
     }
     val reloadedStatements: JSONArray = json.optJSONArray("statements")
-
     for (j <- 0 until reloadedStatements.length()) {
-      statement(reloadedStatements.getJSONObject(j))
+      ClientControl.statements += statement(reloadedStatements.getJSONObject(j))
     }
     Controller.exitLoginView()
   }

@@ -1,7 +1,6 @@
 package main.server.communication
 
 import java.io.BufferedReader
-
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
@@ -27,7 +26,6 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends M
   private def matchTest(x: JsonType, jSONObject: JSONObject): Unit = x match {
     case JsonType.LOGIN => client.handleLogin(login(jSONObject))
     case JsonType.DISCONNECT => client.handleLogout(logout(jSONObject))
-    case JsonType.INVALIDMESSAGE => invalid(jSONObject)
     case JsonType.STATEMENT => client.handleStatement(statement(jSONObject))
     case JsonType.COMMENT => client.handleComment(comment(jSONObject))
     case JsonType.POLL => client.handlePoll(poll(jSONObject))

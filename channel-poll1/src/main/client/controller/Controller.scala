@@ -2,13 +2,10 @@ package main.client.controller
 
 import main.client.model.ClientControl
 import main.client.view.LoginView
-import main.shared._
 import main.shared.data._
-
 import scala.collection.mutable.HashMap
 import scalafx.application.Platform
 import scalafx.collections.ObservableBuffer
-import scalafx.scene.layout.VBox
 
 final object Controller {
   def setupClient(user: TwitterUser): Unit = {
@@ -50,10 +47,6 @@ final object Controller {
     ClientControl.chatRooms
   }
 
-  def getActivityFeedback(): ObservableBuffer[VBox] = {
-    ClientControl.activityFeed
-  }
-
   def getComments(): HashMap[Long, ObservableBuffer[Comment]] = {
     ClientControl.comments
   }
@@ -93,11 +86,7 @@ final object Controller {
     ClientControl.user
   }
 
-  def subscribe(statement: Statement): Unit = {
-    ClientControl.subscribe(statement)
-  }
-
-  def unsubscribe(statement: Statement): Unit = {
-    ClientControl.unsubscribe(statement)
+  def subscribe(statement: Statement, subscribe:Boolean): Unit = {
+    ClientControl.subscribe(statement, subscribe)
   }
 }

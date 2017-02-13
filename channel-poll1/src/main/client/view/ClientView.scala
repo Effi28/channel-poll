@@ -2,11 +2,8 @@ package main.client.view
 
 
 import java.util.Calendar
-
 import main.client.controller.Controller
-import main.shared._
 import main.shared.data._
-
 import scalafx.application.{JFXApp, Platform}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
@@ -14,12 +11,14 @@ import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.{ArrayBuffer, HashMap, ListBuffer}
 import scalafx.beans.property.IntegerProperty
+import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.control._
 
 
 final object ClientView extends JFXApp {
   var pollTemplateIsVisible = false
+  var activityFeed: ObservableBuffer[VBox] = null
 
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
@@ -27,7 +26,7 @@ final object ClientView extends JFXApp {
       height = 900
       width = 700
       scene = new Scene {
-
+        activityFeed = new ObservableBuffer[VBox]()
         val tabPane = new TabPane()
         val generalTab = new Tab()
         generalTab.text = "General"
@@ -40,10 +39,9 @@ final object ClientView extends JFXApp {
           val statementTab = new Tab()
           statementTab.text = Controller.getChatRooms().last.userName
           statementTab.content = statementTabContent(Controller.getChatRooms().last)
-
           //TODO brenda please move that where it belongs
           statementTab.onClosed = e => {
-            Controller.unsubscribe(Controller.getChatRooms().last)
+            Controller.subscribe(Controller.getChatRooms().last, false)
           }
           tabList += statementTab
           tabPane.tabs = tabList
@@ -85,15 +83,14 @@ final object ClientView extends JFXApp {
 
     val feed = new VBox()
 
-    feed.children = Controller.getActivityFeedback
     val scroll = new ScrollPane()
     scroll.content = feed
     scroll.hbarPolicy = ScrollBarPolicy.Never
     border.center = scroll
 
-    Controller.getActivityFeedback.onChange({
+    activityFeed.onChange({
       Platform.runLater {
-        feed.children.add(Controller.getActivityFeedback.last): Unit
+        feed.children.add(activityFeed.last): Unit
       }
     })
 
@@ -361,6 +358,7 @@ final object ClientView extends JFXApp {
       val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
       Controller.sendPollAnswer(pollAnswer)
+      submitButton.disable = true
     }
     pollGrid.add(submitButton, columnIndex, rowIndex)
     return pollGrid
@@ -373,7 +371,7 @@ final object ClientView extends JFXApp {
   }
 
   def addActivity(activity: VBox): Unit = {
-    Controller.getActivityFeedback += activity
+    activityFeed += activity
   }
 
 
@@ -382,7 +380,7 @@ final object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
 
       Controller.getChatRooms().add(statement)
-      Controller.subscribe(statement)
+      Controller.subscribe(statement, true)
 
     }
     return enterChatRoomButton

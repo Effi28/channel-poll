@@ -12,12 +12,8 @@ final object ClientMessageSender extends MessageSender{
   private val out: BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
   private val logger: Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
 
-  def writeSubscribe(statement: Statement): Unit = {
-    writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user, statement))
-  }
-
-  def writeUnsubscribe(statement: Statement): Unit = {
-    writeMessage(ClientMessageBuilder.writeUnsubscribe(ClientControl.user, statement))
+  def writeSubscribe(statement: Statement, subscribe: Boolean): Unit = {
+    writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user, statement, subscribe))
   }
 
   def writeMessage(json: JSONObject): Unit = {
