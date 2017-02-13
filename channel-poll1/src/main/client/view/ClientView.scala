@@ -74,8 +74,6 @@ final object ClientView extends JFXApp {
     val feed = new VBox()
 
 
-
-
     if (Controller.getStatements().size > 0) {
       Controller.getStatements().foreach(st => {
         val activity = createActivity(st)
@@ -83,9 +81,9 @@ final object ClientView extends JFXApp {
       })
     }
 
-    if (activityFeed.size > 0){
+    if (activityFeed.size > 0) {
       activityFeed.foreach(item => {
-        feed.children.add(item)
+        feed.children.add(0, item)
       })
 
     }
@@ -97,7 +95,6 @@ final object ClientView extends JFXApp {
     })
 
 
-
     val scroll = new ScrollPane()
     scroll.content = feed
     scroll.hbarPolicy = ScrollBarPolicy.Never
@@ -105,7 +102,7 @@ final object ClientView extends JFXApp {
 
     activityFeed.onChange({
       Platform.runLater {
-        feed.children.add(activityFeed.last)
+        feed.children.add(0,activityFeed.last)
       }
     })
 
