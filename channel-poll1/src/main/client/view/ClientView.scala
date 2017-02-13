@@ -71,17 +71,32 @@ final object ClientView extends JFXApp {
 
     //Center: Content
 
+    val feed = new VBox()
 
-    val statementList = new ListView[Statement]()
+
+
+
+    if (Controller.getStatements().size > 0) {
+      Controller.getStatements().foreach(st => {
+        val activity = createActivity(st)
+        addActivity(activity)
+      })
+    }
+
+    if (activityFeed.size > 0){
+      activityFeed.foreach(item => {
+        feed.children.add(item)
+      })
+
+    }
 
 
     Controller.getStatements().onChange({
-      statementList.items = Controller.getStatements()
       val activity = createActivity(Controller.getStatements().last)
       addActivity(activity)
     })
 
-    val feed = new VBox()
+
 
     val scroll = new ScrollPane()
     scroll.content = feed
@@ -90,7 +105,7 @@ final object ClientView extends JFXApp {
 
     activityFeed.onChange({
       Platform.runLater {
-        feed.children.add(activityFeed.last): Unit
+        feed.children.add(activityFeed.last)
       }
     })
 
