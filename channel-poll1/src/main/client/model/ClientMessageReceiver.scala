@@ -1,6 +1,8 @@
 package main.client.model
 
 import java.io.{BufferedReader, InputStreamReader}
+import javax.xml.stream.events.Comment
+
 import main.client.controller.Controller
 import main.shared.data._
 import main.shared.communication.MessageReceiver
@@ -46,6 +48,10 @@ final object ClientMessageReceiver extends MessageReceiver{
     val reloadedStatements: JSONArray = json.optJSONArray("statements")
     for (j <- 0 until reloadedStatements.length()) {
       ClientControl.statements += statement(reloadedStatements.getJSONObject(j))
+    }
+    val reloadedComments: JSONArray = json.optJSONArray("comments")
+    for (j <- 0 until reloadedComments.length()) {
+      ClientControl.+=(comment(reloadedComments.getJSONObject(j)))
     }
     Controller.exitLoginView()
   }

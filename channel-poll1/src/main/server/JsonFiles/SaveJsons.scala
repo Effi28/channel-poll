@@ -95,36 +95,13 @@ final object SaveJsons {
       finalSave(pathToStatements, newStatements)
   }
 
-  /**
-  private def checkComments(comments: JSONArray): JSONArray = {
-    val statementsString = Source.fromFile(pathToStatements).getLines.mkString
-    val statementsJson = new JSONObject(statementsString)
-    val statements: JSONArray = statementsJson.getJSONArray("data")
-
-    val shortenedComemnts: JSONArray = new JSONArray()
-    for (i <- 0 until comments.length()-1){
-      for (j <- 0 until statements.length()-1){
-        val statement: JSONObject = statements.getJSONObject(j)
-        val statement_id = statement.optLong("id")
-        val comment: JSONObject = comments.getJSONObject(i)
-        val com_statement_id: Long = comment.optLong("statementID")
-
-        if(com_statement_id == statement_id){
-          shortenedComemnts.put(comment)
-        }
-      }
-    }
-    return shortenedComemnts
-  }
-
-  **/
   private def checkLength(array: JSONArray, maxlength: Int): JSONArray = {
     val shortenedArray: JSONArray = new JSONArray()
     val l = array.length()
     if (l >= maxlength) {
 
-      for (i <- (0 until maxlength-1).reverse) {
-        shortenedArray.put(array.getJSONObject(l-i-1))
+      for (i <- (0 until maxlength - 1).reverse) {
+        shortenedArray.put(array.getJSONObject(l - i - 1))
       }
       return shortenedArray
     }
@@ -143,6 +120,27 @@ final object SaveJsons {
     val bufferedJsonWriter = new BufferedWriter(new FileWriter(jsonFile))
     bufferedJsonWriter.write(gString)
     bufferedJsonWriter.close()
+  }
+
+  private def checkComments(comments: JSONArray): JSONArray = {
+    val statementsString = Source.fromFile(pathToStatements).getLines.mkString
+    val statementsJson = new JSONObject(statementsString)
+    val statements: JSONArray = statementsJson.getJSONArray("data")
+
+    val shortenedComemnts: JSONArray = new JSONArray()
+    for (i <- 0 until comments.length() - 1) {
+      for (j <- 0 until statements.length() - 1) {
+        val statement: JSONObject = statements.getJSONObject(j)
+        val statement_id = statement.optLong("id")
+        val comment: JSONObject = comments.getJSONObject(i)
+        val com_statement_id: Long = comment.optLong("statementID")
+
+        if (com_statement_id == statement_id) {
+          shortenedComemnts.put(comment)
+        }
+      }
+    }
+    return shortenedComemnts
   }
 }
 

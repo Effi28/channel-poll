@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "id": 1,
       "type": "comment",
       "message": "example comment",
       "screenname": "Jana",
@@ -8,8 +9,43 @@
         "Brenda",
         "Kathrin",
         "Michael"
-      ],
-      "id": 1
+      ]
+    },
+    {
+      "statementid": 831251183603945473,
+      "id": 0,
+      "type": "comment",
+      "message": "bla bla test 1",
+      "userid": 4874134271,
+      "username": "KathWiesel",
+      "timestamp": "Mon Feb 13 23:32:35 CET 2017"
+    },
+    {
+      "statementid": 831269621646888961,
+      "id": 0,
+      "type": "comment",
+      "message": "HAHAHAHAHAHAHAHA",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Mon Feb 13 23:35:16 CET 2017"
+    },
+    {
+      "statementid": 831269632103301120,
+      "id": 0,
+      "type": "comment",
+      "message": "TRALALA\n",
+      "userid": 4874134271,
+      "username": "KathWiesel",
+      "timestamp": "Mon Feb 13 23:38:13 CET 2017"
+    },
+    {
+      "statementid": 831269632103301120,
+      "id": 0,
+      "type": "comment",
+      "message": "BUH\n",
+      "userid": 4874134271,
+      "username": "KathWiesel",
+      "timestamp": "Mon Feb 13 23:39:24 CET 2017"
     }
   ]
 }
