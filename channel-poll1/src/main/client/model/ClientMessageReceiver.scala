@@ -53,6 +53,15 @@ final object ClientMessageReceiver extends MessageReceiver{
     for (j <- 0 until reloadedComments.length()) {
       ClientControl.+=(comment(reloadedComments.getJSONObject(j)))
     }
+
+    val reloadedPolls: JSONArray = json.optJSONArray("polls")
+    for (j <- 0 until reloadedPolls.length()) {
+      ClientControl.+=(poll(reloadedPolls.getJSONObject(j)))
+    }
+    val reloadedPollAnswers: JSONArray = json.optJSONArray("pollanswers")
+    for (j <- 0 until reloadedPollAnswers.length()) {
+      ClientControl.+=(pollAnswer(reloadedPollAnswers.getJSONObject(j)))
+    }
     Controller.exitLoginView()
   }
 

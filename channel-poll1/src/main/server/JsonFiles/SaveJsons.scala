@@ -62,16 +62,18 @@ final object SaveJsons {
     case "poll" =>
       val pollsString = Source.fromFile(pathToPolls).getLines.mkString
       val pollsJson = new JSONObject(pollsString)
-      val polls: JSONArray = pollsJson.getJSONArray("data")
+      var polls: JSONArray = pollsJson.getJSONArray("data")
       polls.put(newJSON)
+      polls = checkCommPollPollAnw(polls)
       val newPolls = createNewStr(polls)
       finalSave(pathToPolls, newPolls)
 
     case "pollanswer" =>
       val pollAnswersString = Source.fromFile(pathToPollAnswers).getLines.mkString
       val pollAnswersJson = new JSONObject(pollAnswersString)
-      val pollAnswers: JSONArray = pollAnswersJson.getJSONArray("data")
+      var pollAnswers: JSONArray = pollAnswersJson.getJSONArray("data")
       pollAnswers.put(newJSON)
+      pollAnswers = checkCommPollPollAnw(pollAnswers)
       val newPollAnswers = createNewStr(pollAnswers)
       finalSave(pathToPollAnswers, newPollAnswers)
 
@@ -80,14 +82,12 @@ final object SaveJsons {
       val commentsJson = new JSONObject(commentsString)
       var comments: JSONArray = commentsJson.getJSONArray("data")
       comments.put(newJSON)
-      //comments = checkComments(comments)
+      comments = checkCommPollPollAnw(comments)
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
 
     case "statement" =>
-      val statementsString = Source.fromFile(pathToStatements).getLines.mkString
-      val statementsJson = new JSONObject(statementsString)
-      var statements: JSONArray = statementsJson.getJSONArray("data")
+      var statements = loadStatements()
       statements.put(newJSON)
       // don't save more than 20 statemets
       statements = checkLength(statements, 20)
@@ -122,25 +122,28 @@ final object SaveJsons {
     bufferedJsonWriter.close()
   }
 
-  private def checkComments(comments: JSONArray): JSONArray = {
-    val statementsString = Source.fromFile(pathToStatements).getLines.mkString
-    val statementsJson = new JSONObject(statementsString)
-    val statements: JSONArray = statementsJson.getJSONArray("data")
-
-    val shortenedComemnts: JSONArray = new JSONArray()
-    for (i <- 0 until comments.length() - 1) {
-      for (j <- 0 until statements.length() - 1) {
+  private def checkCommPollPollAnw(jSONArray: JSONArray): JSONArray = {
+    val statements = loadStatements()
+    val shortenedArray: JSONArray = new JSONArray()
+    for (i <- 0 until jSONArray.length()) {
+      for (j <- 0 until statements.length()) {
         val statement: JSONObject = statements.getJSONObject(j)
         val statement_id = statement.optLong("id")
-        val comment: JSONObject = comments.getJSONObject(i)
-        val com_statement_id: Long = comment.optLong("statementID")
+        val jsonObj: JSONObject = jSONArray.getJSONObject(i)
 
-        if (com_statement_id == statement_id) {
-          shortenedComemnts.put(comment)
+        val ref_statement_id: Long = jsonObj.optLong("statementid")
+        if (ref_statement_id == statement_id) {
+          shortenedArray.put(jsonObj)
         }
       }
     }
-    return shortenedComemnts
+    return shortenedArray
+  }
+
+  private def loadStatements(): JSONArray = {
+    val statementsString = Source.fromFile(pathToStatements).getLines.mkString
+    val statementsJson = new JSONObject(statementsString)
+    val statements: JSONArray = statementsJson.getJSONArray("data")
+    return statements
   }
 }
-

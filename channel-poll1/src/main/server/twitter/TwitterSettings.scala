@@ -40,8 +40,8 @@ final object TwitterSettings {
     * 17752770, 1425265488)
     **/
   val hashtags = "cdu, csu, merkel, spdbpt, CSUListe, aft, grüne, fdp, linke, gabriel," +
-    "steinmaier, zypries, bundestagswahl, merkel, angelamerkel, katjakipping"
-  //"spitzenkandidat, spitzenkandidatin, linke_sachsen, wahlrecht, btw17, schulz," +
+    "steinmaier, zypries, bundestagswahl, merkel, angelamerkel, katjakipping" +
+    "spitzenkandidat, spitzenkandidatin, linke_sachsen, wahlrecht, btw17, schulz,"
   //"martinschulz, bundestag, deutschland, mega, kanzlerkandidatur, politik, germany," +
   //"eu, osthessen, grünen, wahlumfrage, höcke, keinealternative, agenda, kraft," +
   //"flüchtlinge, spdde, wahlbetrug, kanzleramt, mandate, kandidaten"

@@ -35,7 +35,7 @@ object TwitterAccess {
   //  140821364, 293066780, 856641566, 113754382, 94363834, 18933321, 15943222, 299650387,
   //  17752770, 1425265488)
   //politicalFilter.filterLevel(TwitterSettings.filterLevel)
-  //politicalFilter.language(TwitterSettings.filterLanguage)
+  politicalFilter.language(TwitterSettings.filterLanguage)
   politicalFilter.track(TwitterSettings.hashtags)
   streamFactory.filter(politicalFilter)
 

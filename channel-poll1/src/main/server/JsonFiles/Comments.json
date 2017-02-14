@@ -1,51 +1,58 @@
 {
   "data": [
     {
-      "id": 1,
-      "type": "comment",
-      "message": "example comment",
-      "screenname": "Jana",
-      "likes": [
-        "Brenda",
-        "Kathrin",
-        "Michael"
-      ]
-    },
-    {
-      "statementid": 831251183603945473,
+      "statementid": 831287688351342592,
       "id": 0,
       "type": "comment",
-      "message": "bla bla test 1",
+      "message": "blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "userid": 4874134271,
       "username": "KathWiesel",
-      "timestamp": "Mon Feb 13 23:32:35 CET 2017"
+      "timestamp": "Tue Feb 14 22:48:44 CET 2017"
     },
     {
-      "statementid": 831269621646888961,
+      "statementid": 831287683704053761,
       "id": 0,
       "type": "comment",
-      "message": "HAHAHAHAHAHAHAHA",
+      "message": "Hallo",
       "userid": 2548035848,
       "username": "Kath_Wiesel",
-      "timestamp": "Mon Feb 13 23:35:16 CET 2017"
+      "timestamp": "Tue Feb 14 23:20:18 CET 2017"
     },
     {
-      "statementid": 831269632103301120,
+      "statementid": 831287683704053761,
       "id": 0,
       "type": "comment",
-      "message": "TRALALA\n",
-      "userid": 4874134271,
-      "username": "KathWiesel",
-      "timestamp": "Mon Feb 13 23:38:13 CET 2017"
+      "message": "Hallo",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Tue Feb 14 23:20:18 CET 2017"
     },
     {
-      "statementid": 831269632103301120,
+      "statementid": 831287685637611520,
       "id": 0,
       "type": "comment",
-      "message": "BUH\n",
+      "message": "Hallo",
       "userid": 4874134271,
       "username": "KathWiesel",
-      "timestamp": "Mon Feb 13 23:39:24 CET 2017"
+      "timestamp": "Tue Feb 14 23:20:34 CET 2017"
+    },
+    {
+      "statementid": 831287685637611520,
+      "id": 0,
+      "type": "comment",
+      "message": "Haaaa",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Tue Feb 14 23:20:48 CET 2017"
+    },
+    {
+      "statementid": 831287685637611520,
+      "id": 0,
+      "type": "comment",
+      "message": "Haaaa",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Tue Feb 14 23:20:48 CET 2017"
     }
   ]
 }

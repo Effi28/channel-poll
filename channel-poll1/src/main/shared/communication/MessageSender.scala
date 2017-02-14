@@ -8,7 +8,7 @@ import org.json.JSONObject
 abstract class MessageSender {
   val MessageBuilder = new MessageBuilder
 
-  def writeLoginMessage(user:TwitterUser): Unit = {
+  def writeLoginMessage(user: TwitterUser): Unit = {
     writeMessage(MessageBuilder.writeLogin(user))
   }
 
@@ -19,17 +19,21 @@ abstract class MessageSender {
   }
 
   def writePoll(poll: Poll): Unit = {
-    writeMessage(MessageBuilder.writePoll(poll))
+    val pollJson = MessageBuilder.writePoll(poll)
+    SaveJsons.pollsQueue += pollJson
+    writeMessage(pollJson)
   }
 
-  def writePollAnswer(pollAnswer: PollAnswer):Unit={
-    writeMessage(MessageBuilder.writePollAnswer(pollAnswer))
+  def writePollAnswer(pollAnswer: PollAnswer): Unit = {
+    val pollAnswerJson = MessageBuilder.writePollAnswer(pollAnswer)
+    SaveJsons.pollsAnswersQueue += pollAnswerJson
+    writeMessage(pollAnswerJson)
   }
 
-  def writeLogout(user:TwitterUser): Unit = {
+  def writeLogout(user: TwitterUser): Unit = {
     writeMessage(MessageBuilder.writeLogout(user))
     ClientControl.close()
   }
 
-  def writeMessage(json:JSONObject):Unit
+  def writeMessage(json: JSONObject): Unit
 }

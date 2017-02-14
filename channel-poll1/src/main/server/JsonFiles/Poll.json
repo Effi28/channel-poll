@@ -1,20 +1,30 @@
 {
   "data": [
     {
-      "type": "poll",
-      "statementid": 23343,
-      "stamp": "10.02.2017",
-      "userid": 12345678,
-      "username": "TestUserScreenName",
-      "question": "Test Questiom",
-      "pollid": 123,
+      "question": "Bla ",
+      "statementid": 831287683704053761,
       "options": [
         {
           "key": 1,
-          "optionsstr": "BLA BLA OPTION",
-          "likes": 1
+          "optionsstr": "1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "2",
+          "likes": 0
+        },
+        {
+          "key": 3,
+          "optionsstr": "3",
+          "likes": 0
         }
-      ]
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 4874134271,
+      "username": "KathWiesel",
+      "timestamp": "Tue Feb 14 23:19:30 CET 2017"
     }
   ]
 }
