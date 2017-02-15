@@ -148,6 +148,13 @@ final object ClientView extends JFXApp {
     scrollPane.hbarPolicy = ScrollBarPolicy.Never
 
 
+    if (Controller.getCommentsForStatement(statement).size > 0) {
+      Controller.getCommentsForStatement(statement).foreach(comment => {
+        chatFeed.children.add(renderComment(comment))
+      })
+    }
+
+
     Controller.getCommentsForStatement(statement).onChange({
       Platform.runLater {
         val latestComment = Controller.getCommentsForStatement(statement).last
@@ -155,10 +162,14 @@ final object ClientView extends JFXApp {
 
         chatFeed.children.add(comment)
       }
-
-
     })
 
+
+    if (Controller.getPollsForStatement(statement).size > 0) {
+      Controller.getPollsForStatement(statement).foreach(poll => {
+        chatFeed.children.add(renderActivePoll(poll))
+      })
+    }
 
     Controller.getPollsForStatement(statement).onChange({
       Platform.runLater {
@@ -301,7 +312,6 @@ final object ClientView extends JFXApp {
               errorMessageBox.children.add(new Text("The 'Option " + key + "' input field cannot be empty!\n"))
               pollIsValid = false
             }
-
 
 
             options += new Option(key, optionInputField.getText, 0)
