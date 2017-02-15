@@ -33,8 +33,34 @@ final object ClientView extends JFXApp {
         generalTab.content = generalTabContent()
 
         val tabList = ListBuffer(generalTab)
+
+        val twitterUser = Controller.getTwitterUser()
+        if (Controller.getUserChatRooms(twitterUser).size > 0){
+          Controller.getUserChatRooms(twitterUser).foreach(statement => {
+            val statementTab = new Tab()
+            statementTab.text = statement.userName
+            statementTab.content = statementTabContent(statement)
+            statementTab.onClosed = e => {
+              Controller.subscribe(statement, false)
+            }
+            tabList += statementTab
+          })
+        }
+
         tabPane.tabs = tabList
 
+        Controller.getUserChatRooms(twitterUser).onChange({
+          val statementTab = new Tab()
+          statementTab.text = Controller.getUserChatRooms(twitterUser).last.userName
+          statementTab.content = statementTabContent(Controller.getUserChatRooms(twitterUser).last)
+          statementTab.onClosed = e => {
+            Controller.subscribe(Controller.getUserChatRooms(twitterUser).last, false)
+          }
+          tabList += statementTab
+          tabPane.tabs = tabList
+        })
+
+        /*
         Controller.getChatRooms().onChange({
           val statementTab = new Tab()
           statementTab.text = Controller.getChatRooms().last.userName
@@ -46,6 +72,7 @@ final object ClientView extends JFXApp {
           tabList += statementTab
           tabPane.tabs = tabList
         })
+        */
 
 
         //Root
@@ -354,9 +381,9 @@ final object ClientView extends JFXApp {
 
     //Right: User
     val userList = new ListView[TwitterUser]
-    userList.items = Controller.getUsers()
-    Controller.getUsers().onChange({
-      userList.items = Controller.getUsers()
+    userList.items = Controller.getChatMembers(statement)
+    Controller.getChatMembers(statement).onChange({
+      userList.items = Controller.getChatMembers(statement)
     })
     border.right = userList
 
@@ -451,7 +478,10 @@ final object ClientView extends JFXApp {
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
 
-      Controller.getChatRooms().add(statement)
+      //Controller.getChatRooms().add(statement)
+      if (!Controller.chatRoomsContainStatement(statement)){
+        Controller.addStatementToChatRooms(statement)
+      }
       Controller.subscribe(statement, true)
 
     }

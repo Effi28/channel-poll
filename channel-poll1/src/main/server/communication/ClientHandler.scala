@@ -6,7 +6,7 @@ import java.net.{Socket, SocketException}
 import main.server.Server
 import main.shared.data._
 
-final case  class ClientHandler(socket: Socket) extends Runnable {
+final case class ClientHandler(socket: Socket) extends Runnable {
   private val rec: ServerMessageReceiver = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
   var sender: ServerMessageSender = new ServerMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"))
 
@@ -34,7 +34,6 @@ final case  class ClientHandler(socket: Socket) extends Runnable {
   }
 
   def handleComment(comment: Comment): Unit = {
-
     Server.broadcastComment(comment)
   }
 
@@ -46,7 +45,7 @@ final case  class ClientHandler(socket: Socket) extends Runnable {
     Server.broadcastPollAnswers(pollAnswer)
   }
 
-  def handleSubscribe(statementID: Long, user: TwitterUser):Unit = {
+  def handleSubscribe(statementID: Long, user: TwitterUser): Unit = {
     Server.handleSubscribe(statementID, user)
   }
 

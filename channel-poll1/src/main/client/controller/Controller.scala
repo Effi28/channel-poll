@@ -43,8 +43,26 @@ final object Controller {
     ClientControl.polls.put(statement.ID, new ObservableBuffer[Poll]())
   }
 
+  /*
   def getChatRooms(): ObservableBuffer[Statement] = {
     ClientControl.chatRooms
+  }
+  */
+
+  def chatRoomsContainStatement(statement: Statement):Boolean={
+    ClientControl.chatRooms.contains(statement)
+  }
+
+  def addStatementToChatRooms(statement: Statement):Unit={
+    ClientControl.chatRooms.put(statement, new ObservableBuffer[TwitterUser]())
+  }
+
+  def getChatRooms(): HashMap[Statement, ObservableBuffer[TwitterUser]] = {
+    ClientControl.chatRooms
+  }
+
+  def getChatMembers(statement: Statement): ObservableBuffer[TwitterUser] = {
+    ClientControl.chatRooms.get(statement).get
   }
 
   def getComments(): HashMap[Long, ObservableBuffer[Comment]] = {
@@ -78,7 +96,7 @@ final object Controller {
     ClientControl.sendPoll(poll)
   }
 
-  def sendPollAnswer(pollAnswer: PollAnswer):Unit={
+  def sendPollAnswer(pollAnswer: PollAnswer): Unit = {
     ClientControl.sendPollAnswer(pollAnswer);
   }
 
@@ -86,7 +104,12 @@ final object Controller {
     ClientControl.user
   }
 
-  def subscribe(statement: Statement, subscribe:Boolean): Unit = {
+  def getUserChatRooms(user: TwitterUser): ObservableBuffer[Statement] = {
+    ClientControl.userChatRooms.get(user).get
+  }
+
+
+  def subscribe(statement: Statement, subscribe: Boolean): Unit = {
     ClientControl.subscribe(statement, subscribe)
   }
 }
