@@ -62,7 +62,7 @@ final object ClientMessageReceiver extends MessageReceiver{
     for (j <- 0 until reloadedPollAnswers.length()) {
       ClientControl.+=(pollAnswer(reloadedPollAnswers.getJSONObject(j)))
     }
-    Controller.exitLoginView()
+    Controller.exitLoginView
   }
 
   private def handleLoginFailed(json: JSONObject): Unit = {

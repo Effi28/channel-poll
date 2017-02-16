@@ -17,7 +17,7 @@ final object ClientControl {
   val userChatRooms = HashMap[TwitterUser, ObservableBuffer[Statement]]()
 
   def setupClient(user1: TwitterUser) = {
-    listen().start()
+    listen.start()
     user = user1
     if (!userChatRooms.contains(user1)) {
       userChatRooms.put(user1, new ObservableBuffer[Statement]())
@@ -25,7 +25,7 @@ final object ClientControl {
     ClientMessageSender.writeLoginMessage(user)
   }
 
-  def listen() = new Thread(() => {
+  def listen = new Thread(() => {
     while (true) {
       ClientMessageReceiver.readMessage()
     }
@@ -61,8 +61,8 @@ final object ClientControl {
   def sendComment(comment: Comment) = ClientMessageSender.writeStComment(comment)
   def sendPoll(poll: Poll) = ClientMessageSender.writePoll(poll)
   def sendPollAnswer(pollAnswer: PollAnswer) = ClientMessageSender.writePollAnswer(pollAnswer)
-  def logout() = ClientMessageSender.writeLogout(user)
-  def close()=System.exit(0)
+  def logout = ClientMessageSender.writeLogout(user)
+  def close = System.exit(0)
 
   def subscribe(statement: Statement, subscribe: Boolean): Unit = {
     if (subscribe) {

@@ -10,7 +10,7 @@ abstract class MessageReceiver {
   def readMessage()
   def login(json: JSONObject) = TwitterUser(json.optLong("userid"), json.optString("username"))
   def logout(json: JSONObject) = TwitterUser(json.optLong("userid"), json.optString("username"))
-  def invalid(json: JSONObject) //TODO
+  def invalid(json: JSONObject) {}//TODO
 
   def poll(json: JSONObject): Poll = {
     val pollID = json.optInt("id")

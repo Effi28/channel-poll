@@ -34,7 +34,7 @@ final object ClientView extends JFXApp {
 
         val tabList = ListBuffer(generalTab)
 
-        val twitterUser = Controller.getTwitterUser()
+        val twitterUser = Controller.getTwitterUser
         if (Controller.getUserChatRooms(twitterUser).size > 0){
           Controller.getUserChatRooms(twitterUser).foreach(statement => {
             val statementTab = new Tab()
@@ -101,8 +101,8 @@ final object ClientView extends JFXApp {
     val feed = new VBox()
 
 
-    if (Controller.getStatements().size > 0) {
-      Controller.getStatements().foreach(st => {
+    if (Controller.getStatements.size > 0) {
+      Controller.getStatements.foreach(st => {
         val activity = createActivity(st)
         addActivity(activity)
       })
@@ -116,8 +116,8 @@ final object ClientView extends JFXApp {
     }
 
 
-    Controller.getStatements().onChange({
-      val activity = createActivity(Controller.getStatements().last)
+    Controller.getStatements.onChange({
+      val activity = createActivity(Controller.getStatements.last)
       addActivity(activity)
     })
 
@@ -136,9 +136,9 @@ final object ClientView extends JFXApp {
 
     //Right: User
     val userList = new ListView[TwitterUser]
-    userList.items = Controller.getUsers()
-    Controller.getUsers().onChange({
-      userList.items = Controller.getUsers()
+    userList.items = Controller.getUsers
+    Controller.getUsers.onChange({
+      userList.items = Controller.getUsers
     })
     border.right = userList
 
@@ -226,10 +226,8 @@ final object ClientView extends JFXApp {
         //TODO: receiver => ?
         //val sender = Controller.getTwitterUser().screenname
 
-        val userID = Controller.getTwitterUser().ID
-
-
-        val userName = Controller.getTwitterUser().userName
+        val userID = Controller.getTwitterUser.ID
+        val userName = Controller.getTwitterUser.userName
 
 
         val id = 0
@@ -315,9 +313,7 @@ final object ClientView extends JFXApp {
 
           val createdAt = Calendar.getInstance().getTime.toString
 
-          val user: TwitterUser = Controller.getTwitterUser()
-
-
+          val user: TwitterUser = Controller.getTwitterUser
           val question = questionInputField.getText
 
           if (question.length == 0) {
@@ -492,13 +488,8 @@ final object ClientView extends JFXApp {
   def logoutButton(): Button = {
     val logoutButton = new Button("Logout")
     logoutButton.onAction = e => {
-      logout()
+      Controller.logout
     }
     return logoutButton
-  }
-
-
-  def logout(): Unit = {
-    Controller.logout()
   }
 }

@@ -30,6 +30,6 @@ abstract class MessageSender {
 
   def writeLogout(user: TwitterUser): Unit = {
     writeMessage(MessageBuilder.writeLogout(user))
-    ClientControl.close()
+    ClientControl.close
   }
 }
