@@ -13,11 +13,11 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
 final object Server {
-  private val connectedHandler: HashMap[TwitterUser, ClientHandler] = new HashMap[TwitterUser, ClientHandler]
-  private val chatRooms: HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
-  private val statements: HashMap[Long, Statement] = new HashMap[Long, Statement]
-  private val comments: HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
-  private val polls: HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
+  private val connectedHandler= new HashMap[TwitterUser, ClientHandler]
+  private val chatRooms = new HashMap[ClientHandler, ArrayBuffer[Long]];
+  private val statements = new HashMap[Long, Statement]
+  private val comments = new HashMap[Long, ArrayBuffer[Comment]]
+  private val polls = new HashMap[Long, ArrayBuffer[Poll]]
   private var chatID = 0
 
   def main(args: Array[String]): Unit = {

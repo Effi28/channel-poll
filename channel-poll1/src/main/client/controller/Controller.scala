@@ -3,30 +3,32 @@ package main.client.controller
 import main.client.model.ClientControl
 import main.client.view.LoginView
 import main.shared.data._
-import scala.collection.mutable.HashMap
 import scalafx.application.Platform
 import scalafx.collections.ObservableBuffer
 
 final object Controller {
-  def setupClient(user: TwitterUser): Unit = {
-    ClientControl.setupClient(user)
-  }
-
-  def exitLoginView(): Unit = {
-    Platform.runLater(new Thread -> LoginView.exit())
-  }
-
-  def getStatements(): ObservableBuffer[Statement] = {
-    ClientControl.statements
-  }
-
-  def getUsers(): ObservableBuffer[TwitterUser] = {
-    ClientControl.users
-  }
-
-  def getPolls(): HashMap[Long, ObservableBuffer[Poll]] = {
-    ClientControl.polls
-  }
+  def setupClient(user: TwitterUser) = ClientControl.setupClient(user)
+  def exitLoginView() =  Platform.runLater(new Thread -> LoginView.exit())
+  def getStatements() = ClientControl.statements
+  def getUsers()= ClientControl.users
+  def getPolls()= ClientControl.polls
+  def pollsContainStatement(statement: Statement) = ClientControl.polls.contains(statement.ID)
+  def setStatementInPolls(statement: Statement) = ClientControl.polls.put(statement.ID, new ObservableBuffer[Poll]())
+  //def getChatRooms(): ObservableBuffer[Statement] = ClientControl.chatRooms
+  def chatRoomsContainStatement(statement: Statement)= ClientControl.chatRooms.contains(statement)
+  def logout() = ClientControl.logout()
+  def sendComment(comment: Comment) = ClientControl.sendComment(comment)
+  def sendPoll(poll: Poll) = ClientControl.sendPoll(poll)
+  def subscribe(statement: Statement, subscribe: Boolean)= ClientControl.subscribe(statement, subscribe)
+  def sendPollAnswer(pollAnswer: PollAnswer) = ClientControl.sendPollAnswer(pollAnswer);
+  def getTwitterUser() = ClientControl.user
+  def getUserChatRooms(user: TwitterUser) = ClientControl.userChatRooms.get(user).get
+  def commentsContainStatement(statement: Statement) = ClientControl.comments.contains(statement.ID)
+  def setStatementInComments(statement: Statement) = ClientControl.comments += statement.ID -> new ObservableBuffer[Comment]
+  def addStatementToChatRooms(statement: Statement) = ClientControl.chatRooms += statement -> new ObservableBuffer[TwitterUser]()
+  def getChatRooms() = ClientControl.chatRooms
+  def getChatMembers(statement: Statement) = ClientControl.chatRooms.get(statement).get
+  def getComments() = ClientControl.comments
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
     if (!ClientControl.polls.contains(statement.ID)) {
@@ -35,81 +37,10 @@ final object Controller {
     ClientControl.polls.get(statement.ID).get
   }
 
-  def pollsContainStatement(statement: Statement): Boolean = {
-    ClientControl.polls.contains(statement.ID)
-  }
-
-  def setStatementInPolls(statement: Statement): Unit = {
-    ClientControl.polls.put(statement.ID, new ObservableBuffer[Poll]())
-  }
-
-  /*
-  def getChatRooms(): ObservableBuffer[Statement] = {
-    ClientControl.chatRooms
-  }
-  */
-
-  def chatRoomsContainStatement(statement: Statement):Boolean={
-    ClientControl.chatRooms.contains(statement)
-  }
-
-  def addStatementToChatRooms(statement: Statement):Unit={
-    ClientControl.chatRooms.put(statement, new ObservableBuffer[TwitterUser]())
-  }
-
-  def getChatRooms(): HashMap[Statement, ObservableBuffer[TwitterUser]] = {
-    ClientControl.chatRooms
-  }
-
-  def getChatMembers(statement: Statement): ObservableBuffer[TwitterUser] = {
-    ClientControl.chatRooms.get(statement).get
-  }
-
-  def getComments(): HashMap[Long, ObservableBuffer[Comment]] = {
-    ClientControl.comments
-  }
-
   def getCommentsForStatement(statement: Statement): ObservableBuffer[Comment] = {
     if (!ClientControl.comments.contains(statement.ID)) {
       ClientControl.comments += statement.ID -> new ObservableBuffer[Comment]()
     }
     ClientControl.comments.get(statement.ID).get
-  }
-
-  def commentsContainStatement(statement: Statement): Boolean = {
-    ClientControl.comments.contains(statement.ID)
-  }
-
-  def setStatementInComments(statement: Statement): Unit = {
-    ClientControl.comments.put(statement.ID, new ObservableBuffer[Comment]())
-  }
-
-  def logout() {
-    ClientControl.logout()
-  }
-
-  def sendComment(comment: Comment): Unit = {
-    ClientControl.sendComment(comment)
-  }
-
-  def sendPoll(poll: Poll): Unit = {
-    ClientControl.sendPoll(poll)
-  }
-
-  def sendPollAnswer(pollAnswer: PollAnswer): Unit = {
-    ClientControl.sendPollAnswer(pollAnswer);
-  }
-
-  def getTwitterUser(): TwitterUser = {
-    ClientControl.user
-  }
-
-  def getUserChatRooms(user: TwitterUser): ObservableBuffer[Statement] = {
-    ClientControl.userChatRooms.get(user).get
-  }
-
-
-  def subscribe(statement: Statement, subscribe: Boolean): Unit = {
-    ClientControl.subscribe(statement, subscribe)
   }
 }

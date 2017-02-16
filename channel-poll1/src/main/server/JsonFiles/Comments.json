@@ -71,6 +71,24 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Wed Feb 15 11:46:38 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 0,
+      "type": "comment",
+      "message": "hi",
+      "userid": 830012488183840768,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:02 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 0,
+      "type": "comment",
+      "message": "hi",
+      "userid": 830012488183840768,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:02 CET 2017"
     }
   ]
 }

@@ -9,7 +9,7 @@ import main.shared.communication.MessageReceiver
 import main.shared.data.TwitterUser
 
 class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends MessageReceiver{
-  private val logger: Logger = LoggerFactory.getLogger(this.getClass)
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
   def readMessage(): Unit = {
     var jsonText: String = null
@@ -34,12 +34,7 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends M
     case JsonType.POLLANSWER => client.handlePollAnswer(pollAnswer(jSONObject))
     case _ => invalid(jSONObject)
   }
+  private def handleSubscribe(json: JSONObject) = client.handleSubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"),json.optString("username")))
+  private def handleUnsubscribe(json: JSONObject) = client.handleUnsubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"), json.optString("username")))
 
-  private def handleSubscribe(json: JSONObject): Unit = {
-    client.handleSubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"),json.optString("username")))
-  }
-
-  private def handleUnsubscribe(json: JSONObject): Unit = {
-    client.handleUnsubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"), json.optString("username")))
-  }
 }

@@ -10,6 +10,50 @@
       "selectedoptionkey": 1,
       "username": "KathWiesel",
       "timestamp": "Tue Feb 14 23:19:33 CET 2017"
+    },
+    {
+      "selectedoptionstr": "n",
+      "question": "hi?",
+      "pollid": 1,
+      "statementid": 831287691987787777,
+      "type": "pollanswer",
+      "userid": 830012488183840768,
+      "selectedoptionkey": 2,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:18 CET 2017"
+    },
+    {
+      "selectedoptionstr": "n",
+      "question": "hi?",
+      "pollid": 1,
+      "statementid": 831287691987787777,
+      "type": "pollanswer",
+      "userid": 830012488183840768,
+      "selectedoptionkey": 2,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:18 CET 2017"
+    },
+    {
+      "selectedoptionstr": "y",
+      "question": "hi?",
+      "pollid": 1,
+      "statementid": 831287691987787777,
+      "type": "pollanswer",
+      "userid": 830012488183840768,
+      "selectedoptionkey": 1,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:20 CET 2017"
+    },
+    {
+      "selectedoptionstr": "y",
+      "question": "hi?",
+      "pollid": 1,
+      "statementid": 831287691987787777,
+      "type": "pollanswer",
+      "userid": 830012488183840768,
+      "selectedoptionkey": 1,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:20 CET 2017"
     }
   ]
 }

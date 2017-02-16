@@ -11,8 +11,8 @@ import org.json.{JSONArray, JSONObject}
 import org.slf4j.{Logger, LoggerFactory}
 
 final object ClientMessageReceiver extends MessageReceiver{
-  private val in: BufferedReader = new BufferedReader(new InputStreamReader(ClientControl.socket.getInputStream, "UTF-8"))
-  private val logger: Logger = LoggerFactory.getLogger(ClientMessageReceiver.getClass)
+  private val in = new BufferedReader(new InputStreamReader(ClientControl.socket.getInputStream, "UTF-8"))
+  private val logger  = LoggerFactory.getLogger(ClientMessageReceiver.getClass)
 
   def readMessage(): Unit = {
     var jsonText: String = null
