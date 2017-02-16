@@ -9,11 +9,9 @@ final case class ClientHandler(socket: Socket) extends Runnable {
   private val rec = new ServerMessageReceiver(new BufferedReader(new InputStreamReader(socket.getInputStream, "UTF-8")), this)
   var sender = new ServerMessageSender(new OutputStreamWriter(socket.getOutputStream, "UTF-8"))
 
-  def run(): Unit = {
+  def run {
     try {
-      while (!socket.isClosed) {
-        rec.readMessage()
-      }
+      while (!socket.isClosed) {rec.readMessage}
     }
     catch {
       case se: SocketException => Server.removeClient(this)

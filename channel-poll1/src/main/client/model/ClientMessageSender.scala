@@ -17,6 +17,6 @@ final object ClientMessageSender extends MessageSender{
   def writeMessage(json: JSONObject) = {
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
-    out.flush()
+    out.flush
   }
 }

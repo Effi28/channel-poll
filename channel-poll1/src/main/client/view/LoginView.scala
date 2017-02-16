@@ -51,11 +51,7 @@ final object LoginView extends JFXApp {
       root = border
     }
   }
-
-  def exit(): Unit = {
-    stage = ClientView.getStage()
-  }
-
+  def exit = ClientView.getStage()
 }
 
 

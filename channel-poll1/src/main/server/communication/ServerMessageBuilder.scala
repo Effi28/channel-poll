@@ -9,7 +9,7 @@ import org.json.{JSONArray, JSONObject}
 final object ServerMessageBuilder extends MessageBuilder{
 
   def writeStatement(statement: Statement): JSONObject = {
-    val Jmsg = new JSONObject()
+    val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.STATEMENT)
     Jmsg.put("id", statement.ID)
     Jmsg.put("userid", statement.userID)
@@ -20,14 +20,14 @@ final object ServerMessageBuilder extends MessageBuilder{
   }
 
   def loginSucceded(users: Iterable[TwitterUser]): JSONObject = {
-    val Jmsg = new JSONObject()
-    val arr = new JSONArray()
-    val sttmnts = GetJsons.getLastStatements()
+    val Jmsg = new JSONObject
+    val arr = new JSONArray
+    val sttmnts = GetJsons.getLastStatements
     val cmnts = GetJsons.getLastCPP("Comment")
     val plls = GetJsons.getLastCPP("Poll")
     val pllnswrs = GetJsons.getLastCPP("PollAnswer")
     for (u <- users) {
-      val jsonUser:JSONObject = new JSONObject()
+      val jsonUser = new JSONObject
       jsonUser.put("username", u.userName)
       jsonUser.put("userid", u.ID)
       arr.put(jsonUser)
@@ -41,7 +41,7 @@ final object ServerMessageBuilder extends MessageBuilder{
   }
 
   def loginFailed(user: TwitterUser): JSONObject = {
-    val Jmsg = new JSONObject()
+    val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.LOGINFAILED.toString)
     Jmsg.put("username", user.userName)
     Jmsg.put("userid", user.ID)

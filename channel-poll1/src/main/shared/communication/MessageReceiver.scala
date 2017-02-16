@@ -7,7 +7,7 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class MessageReceiver {
 
-  def readMessage()
+  def readMessage
   def login(json: JSONObject) = TwitterUser(json.optLong("userid"), json.optString("username"))
   def logout(json: JSONObject) = TwitterUser(json.optLong("userid"), json.optString("username"))
   def invalid(json: JSONObject) {}//TODO

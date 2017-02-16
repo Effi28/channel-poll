@@ -17,19 +17,15 @@ final object ClientControl {
   val userChatRooms = HashMap[TwitterUser, ObservableBuffer[Statement]]()
 
   def setupClient(user1: TwitterUser) = {
-    listen.start()
+    listen.start
     user = user1
     if (!userChatRooms.contains(user1)) {
-      userChatRooms.put(user1, new ObservableBuffer[Statement]())
+      userChatRooms.put(user1, new ObservableBuffer[Statement])
     }
     ClientMessageSender.writeLoginMessage(user)
   }
 
-  def listen = new Thread(() => {
-    while (true) {
-      ClientMessageReceiver.readMessage()
-    }
-  })
+  def listen = new Thread(() => { while (!socket.isClosed) ClientMessageReceiver.readMessage})
 
   def +=(poll: Poll) = {
     if (!ClientControl.polls.contains (poll.statementID)) {
@@ -53,7 +49,7 @@ final object ClientControl {
 
   def +=(comment: Comment): Unit = {
     if (!ClientControl.comments.contains(comment.statementID)) {
-      ClientControl.comments += comment.statementID -> new ObservableBuffer[Comment]()
+      ClientControl.comments += comment.statementID -> ObservableBuffer[Comment]()
     }
     ClientControl.comments.get(comment.statementID).get += comment
   }

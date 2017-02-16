@@ -476,7 +476,7 @@ final object ClientView extends JFXApp {
 
       //Controller.getChatRooms().add(statement)
       if (!Controller.chatRoomsContainStatement(statement)){
-        Controller.addStatementToChatRooms(statement)
+        Controller.setStatementInChatRooms(statement)
       }
       Controller.subscribe(statement, true)
 
