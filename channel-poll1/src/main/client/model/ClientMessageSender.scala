@@ -9,16 +9,14 @@ import org.slf4j.{Logger, LoggerFactory}
 
 
 final object ClientMessageSender extends MessageSender{
-  private val out: BufferedWriter = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
-  private val logger: Logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
+  private val out = new BufferedWriter(new OutputStreamWriter(ClientControl.socket.getOutputStream, "UTF-8"))
+  private val logger = LoggerFactory.getLogger(ClientMessageSender.getClass)
 
-  def writeSubscribe(statement: Statement, subscribe: Boolean): Unit = {
-    writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user, statement, subscribe))
-  }
+  def writeSubscribe(statement: Statement, subscribe: Boolean) = writeMessage(ClientMessageBuilder.writeSubscribe(ClientControl.user, statement, subscribe))
 
-  def writeMessage(json: JSONObject): Unit = {
+  def writeMessage(json: JSONObject) = {
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
-    out.flush()
+    out.flush
   }
 }

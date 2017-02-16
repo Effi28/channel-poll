@@ -4,20 +4,19 @@ import java.io.BufferedReader
 import main.shared.enums.JsonType
 import main.shared.enums.JsonType.JsonType
 import org.json.JSONObject
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{LoggerFactory}
 import main.shared.communication.MessageReceiver
 import main.shared.data.TwitterUser
 
 class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends MessageReceiver{
-  private val logger: Logger = LoggerFactory.getLogger(this.getClass)
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
-  def readMessage(): Unit = {
-    var jsonText: String = null
-    while (true) {
-      jsonText = in.readLine()
+  def readMessage = {
+    while (!client.socket.isClosed) {
+      val jsonText = in.readLine
       if (jsonText != null) {
-        val jsonObject: JSONObject = new JSONObject(jsonText)
-        logger.info(jsonObject.toString())
+        val jsonObject = new JSONObject(jsonText)
+        logger.info(jsonObject.toString)
         matchTest(JsonType.withName(jsonObject.optString("type")), jsonObject)
       }
     }
@@ -34,12 +33,7 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends M
     case JsonType.POLLANSWER => client.handlePollAnswer(pollAnswer(jSONObject))
     case _ => invalid(jSONObject)
   }
+  private def handleSubscribe(json: JSONObject) = client.handleSubscribe(json.optLong("statementid"), TwitterUser(json.optLong("userid"),json.optString("username")))
+  private def handleUnsubscribe(json: JSONObject) = client.handleUnsubscribe(json.optLong("statementid"), TwitterUser(json.optLong("userid"), json.optString("username")))
 
-  private def handleSubscribe(json: JSONObject): Unit = {
-    client.handleSubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"),json.optString("username")))
-  }
-
-  private def handleUnsubscribe(json: JSONObject): Unit = {
-    client.handleUnsubscribe(json.optLong("statementid"), new TwitterUser(json.optLong("userid"), json.optString("username")))
-  }
 }

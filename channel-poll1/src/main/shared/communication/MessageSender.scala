@@ -7,10 +7,8 @@ import org.json.JSONObject
 
 abstract class MessageSender {
   val MessageBuilder = new MessageBuilder
-
-  def writeLoginMessage(user: TwitterUser): Unit = {
-    writeMessage(MessageBuilder.writeLogin(user))
-  }
+  def writeLoginMessage(user: TwitterUser) = writeMessage(MessageBuilder.writeLogin(user))
+  def writeMessage(json: JSONObject): Unit
 
   def writeStComment(comment: Comment): Unit = {
     val commentJson = MessageBuilder.writeComment(comment)
@@ -32,8 +30,6 @@ abstract class MessageSender {
 
   def writeLogout(user: TwitterUser): Unit = {
     writeMessage(MessageBuilder.writeLogout(user))
-    ClientControl.close()
+    ClientControl.close
   }
-
-  def writeMessage(json: JSONObject): Unit
 }

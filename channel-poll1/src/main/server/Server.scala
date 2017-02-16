@@ -13,27 +13,22 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
 final object Server {
-  private val connectedHandler: HashMap[TwitterUser, ClientHandler] = new HashMap[TwitterUser, ClientHandler]
-  private val chatRooms: HashMap[ClientHandler, ArrayBuffer[Long]] = new HashMap[ClientHandler, ArrayBuffer[Long]];
-  private val statements: HashMap[Long, Statement] = new HashMap[Long, Statement]
-  private val comments: HashMap[Long, ArrayBuffer[Comment]] = new HashMap[Long, ArrayBuffer[Comment]]
-  private val polls: HashMap[Long, ArrayBuffer[Poll]] = new HashMap[Long, ArrayBuffer[Poll]]
+  private val connectedHandler= new HashMap[TwitterUser, ClientHandler]
+  private val chatRooms = new HashMap[ClientHandler, ArrayBuffer[Long]];
+  private val statements = new HashMap[Long, Statement]
+  private val comments = new HashMap[Long, ArrayBuffer[Comment]]
+  private val polls = new HashMap[Long, ArrayBuffer[Poll]]
   private var chatID = 0
 
-  def main(args: Array[String]): Unit = {
-    startTwitterStream()
-    startSaveJson()
-    val pool: ExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+  def main(args: Array[String]) = {
+    startTwitterStream
+    startSaveJson
+    val pool = Executors.newFixedThreadPool(Runtime.getRuntime.availableProcessors)
     val serverSocket = new ServerSocket(8008)
-    try {
-      while (true) {
-        val socket: Socket = serverSocket.accept()
-        pool.execute(new ClientHandler(socket))
-      }
+    while (!serverSocket.isClosed) {
+      pool.execute(ClientHandler(serverSocket.accept))
     }
-    finally {
-      pool.shutdown()
-    }
+    pool.shutdown
   }
 
   def handleSubscribe(statementID: Long, user: TwitterUser): Unit = {
@@ -44,7 +39,7 @@ final object Server {
       }
     }
     if (!Server.chatRooms.contains(tempClient)) {
-      Server.chatRooms += tempClient -> new ArrayBuffer[Long]
+      Server.chatRooms += tempClient -> ArrayBuffer[Long]()
     }
     Server.chatRooms.get(tempClient).get += statementID
   }
@@ -62,15 +57,13 @@ final object Server {
     }
   }
 
-  private def startTwitterStream(): Unit = {
-    TwitterAccess.streamingThread.start()
+  private def startTwitterStream = {
+    TwitterAccess.streamingThread.start
     // start dequeue thread for getting statements from queue
-    QueueGetter.dequeueThread.start()
+    QueueGetter.dequeueThread.start
   }
 
-  private def startSaveJson(): Unit = {
-    SaveJsons.saveJsonsThread.start()
-  }
+  private def startSaveJson = SaveJsons.saveJsonsThread.start
 
   def checkLogin(user: TwitterUser, client: ClientHandler): Unit = {
     if (connectedHandler.keySet.contains(user)) {
@@ -115,7 +108,7 @@ final object Server {
 
   def broadcastComment(comment: Comment): Unit = {
     if (!comments.contains(comment.statementID)) {
-      comments += comment.statementID -> new ArrayBuffer[Comment]()
+      comments += comment.statementID -> ArrayBuffer[Comment]()
     }
     comments.get(comment.statementID).get += comment
     for ((k: TwitterUser, v: ClientHandler) <- connectedHandler) {
@@ -127,7 +120,7 @@ final object Server {
 
   def broadcastPoll(poll: Poll): Unit = {
     if (!polls.contains(poll.statementID)) {
-      polls += poll.statementID -> new ArrayBuffer[Poll]()
+      polls += poll.statementID -> ArrayBuffer[Poll]()
     }
     polls.get(poll.statementID).get += poll
     for ((k, v) <- connectedHandler) {

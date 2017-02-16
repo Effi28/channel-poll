@@ -1,33 +1,27 @@
 package main.server.communication
 
 import java.io.OutputStreamWriter
-
 import main.server.JsonFiles.SaveJsons
 import main.shared.communication.MessageSender
 import main.shared.data.{Statement, TwitterUser}
 import org.json._
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{LoggerFactory}
 
 final class ServerMessageSender(out: OutputStreamWriter) extends MessageSender{
-  private val logger: Logger = LoggerFactory.getLogger(this.getClass)
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
-  def writeLoginSuccess(users: Iterable[TwitterUser]): Unit = {
-    writeMessage(ServerMessageBuilder.loginSucceded(users))
-  }
+  def writeLoginSuccess(users: Iterable[TwitterUser]) = writeMessage(ServerMessageBuilder.loginSucceded(users))
+  def writeLoginFailed(user: TwitterUser) = writeMessage(ServerMessageBuilder.loginFailed(user))
 
-  def writeStatement(statement: Statement): Unit = {
-    val state:JSONObject= ServerMessageBuilder.writeStatement(statement)
+  def writeStatement(statement: Statement) = {
+    val state= ServerMessageBuilder.writeStatement(statement)
     SaveJsons.statementsJsonQueue += state
     writeMessage(state)
   }
 
-  def writeLoginFailed(user: TwitterUser): Unit = {
-    writeMessage(ServerMessageBuilder.loginFailed(user))
-  }
-
-  def writeMessage(json: JSONObject): Unit = {
+  def writeMessage(json: JSONObject) = {
     logger.info(json.toString + "\n")
     out.write(json.toString + "\n")
-    out.flush()
+    out.flush
   }
 }

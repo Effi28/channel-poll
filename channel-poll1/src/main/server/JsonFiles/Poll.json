@@ -48,25 +48,60 @@
       "timestamp": "Wed Feb 15 09:57:12 CET 2017"
     },
     {
-      "question": "frage",
+
+      "question": "hi?",
       "statementid": 831287691987787777,
       "options": [
         {
           "key": 1,
-          "optionsstr": "opt 1",
+
+          "optionsstr": "y",
           "likes": 0
         },
         {
           "key": 2,
-          "optionsstr": "opt 2",
+
+          "optionsstr": "n",
+          "likes": 0
+        },
+        {
+          "key": 3,
+          "optionsstr": "k",
           "likes": 0
         }
       ],
       "id": 1,
       "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Thu Feb 16 19:38:29 CET 2017"
+      "userid": 830012488183840768,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:13 CET 2017"
+    },
+    {
+      "question": "hi?",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "y",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "n",
+          "likes": 0
+        },
+        {
+          "key": 3,
+          "optionsstr": "k",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+
+      "userid": 830012488183840768,
+      "username": "effi288",
+      "timestamp": "Thu Feb 16 10:37:13 CET 2017"
     }
   ]
 }
