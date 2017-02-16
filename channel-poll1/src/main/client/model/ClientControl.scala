@@ -103,6 +103,7 @@ final object ClientControl {
     ClientMessageSender.writeSubscribe(statement, subscribe)
   }
 
+
   def close() = {
     System.exit(0)
   }

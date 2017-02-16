@@ -465,7 +465,31 @@ final object ClientView extends JFXApp {
 
 
   def createActivity(statement: Statement): VBox = {
-    val activity = new VBox(new Label(statement.userName), new Text(statement.message), enterChatRoomButton(statement))
+
+    val chatRoomInformation = new GridPane()
+    chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
+
+
+    if(Controller.statementContainsComments(statement)){
+      import scalafx.geometry.Insets
+      val numberOfComments = Controller.getNumberOfComments(statement)
+      val commentInfo = new Text("Comments: " + numberOfComments)
+      commentInfo.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
+      chatRoomInformation.addColumn(1, commentInfo)
+    }
+
+    if (Controller.statementContainsPolls(statement)){
+      import scalafx.geometry.Insets
+      val numberOfPolls = Controller.getNumberOfPolls(statement)
+      val pollInfo = new Text("Polls: " + numberOfPolls)
+      pollInfo.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
+      chatRoomInformation.addColumn(2, pollInfo)
+    }
+
+
+
+
+    val activity = new VBox(new Label(statement.userName), new Text(statement.message), chatRoomInformation)
     return activity
   }
 
@@ -475,6 +499,7 @@ final object ClientView extends JFXApp {
 
 
   def enterChatRoomButton(statement: Statement): Button = {
+    import scalafx.geometry.Insets
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
 
@@ -485,6 +510,7 @@ final object ClientView extends JFXApp {
       Controller.subscribe(statement, true)
 
     }
+    enterChatRoomButton.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
     return enterChatRoomButton
   }
 

@@ -35,7 +35,12 @@ final object Controller {
     ClientControl.polls.get(statement.ID).get
   }
 
-  def pollsContainStatement(statement: Statement): Boolean = {
+  def getNumberOfPolls(statement: Statement):Int={
+    ClientControl.polls.get(statement.ID).size
+  }
+
+
+  def statementContainsPolls(statement: Statement): Boolean = {
     ClientControl.polls.contains(statement.ID)
   }
 
@@ -76,7 +81,13 @@ final object Controller {
     ClientControl.comments.get(statement.ID).get
   }
 
-  def commentsContainStatement(statement: Statement): Boolean = {
+
+  def getNumberOfComments(statement: Statement):Int={
+    ClientControl.comments.get(statement.ID).size
+  }
+
+
+  def statementContainsComments(statement: Statement): Boolean = {
     ClientControl.comments.contains(statement.ID)
   }
 
