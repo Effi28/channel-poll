@@ -34,13 +34,12 @@ final object Controller {
   def getChatMembers(statement: Statement) = ClientControl.chatRooms.get(statement).get
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
-    if (ClientControl.polls.contains(statement.ID)) {
+    if (!ClientControl.polls.contains(statement.ID)) {
       ClientControl.polls += statement.ID -> new ObservableBuffer[Poll]
     }
     ClientControl.polls.get(statement.ID).get
   }
 
-<<<<<<< HEAD
   def getNumberOfPolls(statement: Statement):Int={
     ClientControl.polls.get(statement.ID).size
   }

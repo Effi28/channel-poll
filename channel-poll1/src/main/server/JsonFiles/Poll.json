@@ -48,19 +48,16 @@
       "timestamp": "Wed Feb 15 09:57:12 CET 2017"
     },
     {
-
       "question": "hi?",
       "statementid": 831287691987787777,
       "options": [
         {
           "key": 1,
-
           "optionsstr": "y",
           "likes": 0
         },
         {
           "key": 2,
-
           "optionsstr": "n",
           "likes": 0
         },
@@ -98,10 +95,72 @@
       ],
       "id": 1,
       "type": "poll",
-
       "userid": 830012488183840768,
       "username": "effi288",
       "timestamp": "Thu Feb 16 10:37:13 CET 2017"
+    },
+    {
+      "question": "y or n?",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "y",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "n",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Thu Feb 16 22:31:00 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 831287683704053761,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "2",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Thu Feb 16 22:33:07 CET 2017"
+    },
+    {
+      "question": "y or n",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "n",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "y",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Thu Feb 16 22:35:45 CET 2017"
     }
   ]
 }

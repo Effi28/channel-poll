@@ -12,7 +12,6 @@ final object ClientControl {
   val statements = ObservableBuffer[Statement]()
   val comments = HashMap[Long, ObservableBuffer[Comment]]()
   val polls = HashMap[Long, ObservableBuffer[Poll]]()
-  //val chatRooms = new ObservableBuffer[Statement]()
   val chatRooms = HashMap[Statement, ObservableBuffer[TwitterUser]]()
   val userChatRooms = HashMap[TwitterUser, ObservableBuffer[Statement]]()
 

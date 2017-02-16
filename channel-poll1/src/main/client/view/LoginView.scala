@@ -21,6 +21,7 @@ final object LoginView extends JFXApp {
     height = 300
     width = 300
     scene = new Scene {
+      //stylesheets = List(getClass.getResource("material-fx-v0_3.css").toExternalForm)
       val border = new BorderPane()
       val loginButton = new Button("Login")
       loginButton.onAction = e => {
