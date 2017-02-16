@@ -46,6 +46,27 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Wed Feb 15 09:57:12 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "opt 1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "opt 2",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Thu Feb 16 19:38:29 CET 2017"
     }
   ]
 }
