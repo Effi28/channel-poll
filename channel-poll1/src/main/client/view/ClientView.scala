@@ -348,6 +348,11 @@ final object ClientView extends JFXApp {
             }
             val pollID = (statement.ID.toString + pollCounter.toString).toLong
 
+
+            println("statement id: " + statement.ID)
+            println("poll counter: " + pollCounter)
+            println("poll id: " + pollID)
+
             val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
             Controller.sendPoll(poll)
             pollTemplate.children.clear()
