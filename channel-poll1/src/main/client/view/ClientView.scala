@@ -337,7 +337,7 @@ final object ClientView extends JFXApp {
             }
 
 
-            options += new Option(key, optionInputField.getText, 0)
+            options += new Option(key, optionInputField.getText, 0, new ArrayBuffer[String]())
 
           })
 
