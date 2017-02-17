@@ -31,6 +31,10 @@ final object LoginView extends JFXApp {
         } else {
           println(loginURL)
         }
+
+
+
+
       }
       val codeTextField = new TextField()
       codeTextField.promptText = "Enter your code"

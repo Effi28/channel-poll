@@ -39,7 +39,7 @@ final object ClientControl {
         for (option <- poll.options) {
           if (option.key == pollAnswer.selectedOption._1) {
             option.likes += 1
-            println(option.name + " has: " + option.likes + " likes.")
+            //println(option.name + " has: " + option.likes + " likes.")
           }
         }
       }

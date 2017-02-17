@@ -196,14 +196,14 @@ final object ClientView extends JFXApp {
 
     if (Controller.getPollsForStatement(statement).size > 0) {
       Controller.getPollsForStatement(statement).foreach(poll => {
-        chatFeed.children.add(renderActivePoll(poll))
+        chatFeed.children.add(renderActivePoll(statement, poll))
       })
     }
 
     Controller.getPollsForStatement(statement).onChange({
       Platform.runLater {
         val latestPoll = Controller.getPollsForStatement(statement).last
-        val poll = renderActivePoll(latestPoll)
+        val poll = renderActivePoll(statement, latestPoll)
         chatFeed.children.add(poll)
       }
     })
@@ -400,7 +400,7 @@ final object ClientView extends JFXApp {
     return commentGrid
   }
 
-  def renderActivePoll(poll: Poll): GridPane = {
+  def renderActivePoll(statement: Statement, poll: Poll): GridPane = {
     val pollGrid = new GridPane()
     var rowIndex = 0
     val columnIndex = 2
@@ -413,8 +413,18 @@ final object ClientView extends JFXApp {
     val submitButton = new Button("Submit Answer")
     submitButton.disable = true
 
+    val resultButton = new Button("Show Results")
+    resultButton.disable = true
+
+
+
+
+    val optGrid = new GridPane()
+
+    var optRow = 0
+
     poll.options.foreach(option => {
-      rowIndex += 1
+      //rowIndex += 1
       val optionId = option.key
       val optionText = option.name
       val radioButton = new RadioButton(optionText)
@@ -425,11 +435,42 @@ final object ClientView extends JFXApp {
         submitButton.disable = false
       }
       toggleGroup.toggles.add(radioButton)
-      pollGrid.add(radioButton, columnIndex, rowIndex)
-    })
 
+      optGrid.add(radioButton, 0, optRow)
+      optRow+= 1
+
+
+
+
+      //pollGrid.add(radioButton, columnIndex, rowIndex)
+    })
+    pollGrid.add(optGrid, 1, 2)
 
     rowIndex += 1
+
+    val votesColumnIndex =
+
+    resultButton.onAction = e => {
+
+      val updatedPolls = Controller.getPollsForStatement(statement)
+      var updatedPoll:Poll = null
+
+      updatedPolls.foreach(p => {
+        if (p.ID == poll.ID){
+          updatedPoll = p
+        }
+      })
+      var voteRow = 0
+      updatedPoll.options.foreach(opt => {
+        var votes = opt.likes
+        optGrid.add(new Text(votes.toString), 1, voteRow)
+          voteRow+=1
+
+      })
+
+      pollGrid.add(optGrid, 1, 2)
+    }
+
 
     submitButton.onAction = e => {
       val selectedButton = toggleGroup.selectedToggle.value.asInstanceOf[javafx.scene.control.RadioButton]
@@ -438,24 +479,31 @@ final object ClientView extends JFXApp {
       val stamp = Calendar.getInstance().getTime.toString
       val pollAnswer = new PollAnswer(poll.ID, poll.statementID, poll.userID, poll.userName, poll.question, (selectedButtonId.toString.toInt, selectedButtonText.toString),
         stamp)
-      Controller.sendPollAnswer(pollAnswer)
 
-
-      toggleGroup.toggles.forEach(toogle => {
-        val radio = toogle.asInstanceOf[javafx.scene.control.RadioButton]
+      toggleGroup.toggles.forEach(toggle => {
+        val radio = toggle.asInstanceOf[javafx.scene.control.RadioButton]
         radio.setDisable(true)
       })
 
+      Controller.sendPollAnswer(pollAnswer)
+
       submitButton.disable = true
-      submitButton.visible = false
+      //submitButton.visible = false
+    resultButton.disable = false
+
+
+
     }
     pollGrid.add(submitButton, columnIndex, rowIndex)
+    pollGrid.add(resultButton, columnIndex + 1, rowIndex)
+
+
+
+
+
     return pollGrid
   }
 
-  def renderInactivePoll(): Unit = {
-
-  }
 
   def renderCompletedPoll(): Unit = {
 
@@ -520,4 +568,8 @@ final object ClientView extends JFXApp {
     }
     return logoutButton
   }
+
+
+
+
 }
