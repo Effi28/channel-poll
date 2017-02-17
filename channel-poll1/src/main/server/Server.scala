@@ -12,13 +12,12 @@ import main.shared.data._
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
-final object Server {
+final private object Server {
   private val connectedHandler= new HashMap[TwitterUser, ClientHandler]
   private val chatRooms = new HashMap[ClientHandler, ArrayBuffer[Long]];
   private val statements = new HashMap[Long, Statement]
   private val comments = new HashMap[Long, ArrayBuffer[Comment]]
   private val polls = new HashMap[Long, ArrayBuffer[Poll]]
-  private var chatID = 0
 
   def main(args: Array[String]) = {
     startTwitterStream
@@ -137,6 +136,9 @@ final object Server {
   }
 
   def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
+    if(!polls.contains(pollAnswer.statementID)){
+      polls += pollAnswer.statementID -> new ArrayBuffer[Poll]
+    }
     for(poll <- polls.get(pollAnswer.statementID).get){
       if(poll.ID == pollAnswer.pollID){
         for(option <- poll.options){
