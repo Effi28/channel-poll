@@ -2,7 +2,7 @@ package main.server.communication
 
 import main.server.JsonFiles.GetJsons
 import main.shared.communication.MessageBuilder
-import main.shared.data.{Statement, TwitterUser}
+import main.shared.data.{Statement, TwitterUser, PollAnswer}
 import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
 

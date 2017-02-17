@@ -25,7 +25,7 @@ abstract class MessageReceiver {
       val key = option.optInt("key")
       val optionStr = option.optString("optionsstr")
       val likes = option.optInt("likes")
-      options += new Option(key, optionStr, likes)
+      options += new Option(key, optionStr, likes, ArrayBuffer[String]())
     }
     val timestamp = json.optString("timestamp")
     new Poll(pollID, statementID, userID, userName, question, options, timestamp)

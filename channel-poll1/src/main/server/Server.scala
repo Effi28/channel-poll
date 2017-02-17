@@ -143,8 +143,8 @@ final private object Server {
       if(poll.ID == pollAnswer.pollID){
         for(option <- poll.options){
           if(option.key == pollAnswer.selectedOption._1){
+            if(!option.likeUser.contains(pollAnswer.userID)) {option.likeUser += pollAnswer.userName}
             option.likes += 1
-            println (option.name +" has: "  + option.likes + " likes.")
           }
         }
       }

@@ -1,11 +1,12 @@
 package main.server.communication
 
 import java.io.OutputStreamWriter
+
 import main.server.JsonFiles.SaveJsons
 import main.shared.communication.MessageSender
-import main.shared.data.{Statement, TwitterUser}
+import main.shared.data.{PollAnswer, Statement, TwitterUser}
 import org.json._
-import org.slf4j.{LoggerFactory}
+import org.slf4j.LoggerFactory
 
 final class ServerMessageSender(out: OutputStreamWriter) extends MessageSender{
   private val logger = LoggerFactory.getLogger(this.getClass)
