@@ -161,6 +161,48 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Thu Feb 16 22:35:45 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 831287688351342592,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "aw 1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "aw 2",
+          "likes": 0
+        }
+      ],
+      "id": 1,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Fri Feb 17 16:13:43 CET 2017"
+    },
+    {
+      "question": "question",
+      "statementid": 831287688351342592,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "opt 1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "opt 2",
+          "likes": 0
+        }
+      ],
+      "id": 1734328322,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Fri Feb 17 16:22:32 CET 2017"
     }
   ]
 }

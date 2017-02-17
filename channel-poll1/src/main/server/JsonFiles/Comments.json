@@ -98,6 +98,33 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Thu Feb 16 22:33:00 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 831287691987787778,
+      "type": "comment",
+      "message": "hallo kathrin",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Fri Feb 17 15:56:08 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 8312876919877877773,
+      "type": "comment",
+      "message": "hallo michael",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Fri Feb 17 16:13:08 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 8312876919877877774,
+      "type": "comment",
+      "message": "hey",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Fri Feb 17 16:13:22 CET 2017"
     }
   ]
 }

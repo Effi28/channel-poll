@@ -220,21 +220,19 @@ final object ClientView extends JFXApp {
 
       val message = commentInputField.getText
 
-
       if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
 
 
-        //TODO: receiver => ?
-        //val sender = Controller.getTwitterUser().screenname
-
         val userID = Controller.getTwitterUser.ID
         val userName = Controller.getTwitterUser.userName
 
-
-        val id = 0
-        //TODO: id setzen
-        val comment = new Comment(id, statement.ID, userID, userName, message, createdAt)
+        var commentCounter = 0
+        if (Controller.statementContainsComments(statement)){
+          commentCounter = Controller.getNumberOfComments(statement)
+        }
+        val commentID = (statement.ID.toString + commentCounter.toString).toLong
+        val comment = new Comment(commentID, statement.ID, userID, userName, message, createdAt)
         Controller.sendComment(comment)
         commentInputField.clear()
       }
@@ -344,9 +342,12 @@ final object ClientView extends JFXApp {
           })
 
           if (pollIsValid) {
-            // TODO: ids generieren
-            val pollID = 1
-
+            var pollCounter = 0
+            if (Controller.statementContainsPolls(statement)){
+              pollCounter = Controller.getNumberOfPolls(statement)
+            }
+            val pollID = (statement.ID.toString + pollCounter.toString).toLong
+            
             val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
             Controller.sendPoll(poll)
             pollTemplate.children.clear()
