@@ -13,7 +13,7 @@ abstract class MessageReceiver {
   def invalid(json: JSONObject) {}//TODO
 
   def poll(json: JSONObject): Poll = {
-    val pollID = json.optInt("id")
+    val pollID = json.optLong("id")
     val statementID = json.optLong("statementid")
     val userID = json.optLong("userid")
     val userName = json.optString("username")
@@ -42,7 +42,7 @@ abstract class MessageReceiver {
   }
 
   def pollAnswer(json: JSONObject): PollAnswer = {
-    val pollID = json.optInt("pollid")
+    val pollID = json.optLong("pollid")
     val statementID = json.optLong("statementid")
     val userID = json.optLong("userid")
     val userName = json.optString("username")
