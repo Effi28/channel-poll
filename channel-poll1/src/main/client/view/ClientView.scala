@@ -37,7 +37,7 @@ final object ClientView extends JFXApp {
         val tabList = ListBuffer(generalTab)
 
         val twitterUser = Controller.getTwitterUser
-        if (Controller.getUserChatRooms(twitterUser).size > 0){
+        if (Controller.getUserChatRooms(twitterUser).size > 0) {
           Controller.getUserChatRooms(twitterUser).foreach(statement => {
             val statementTab = new Tab()
             statementTab.text = statement.userName
@@ -196,7 +196,23 @@ final object ClientView extends JFXApp {
 
     if (Controller.getPollsForStatement(statement).size > 0) {
       Controller.getPollsForStatement(statement).foreach(poll => {
-        chatFeed.children.add(renderActivePoll(statement, poll))
+        var userHasAlreadyAnswered = false
+        poll.options.foreach(option => {
+          option.likeUser.foreach(user => {
+            if (user == Controller.getTwitterUser.userName) {
+              userHasAlreadyAnswered = true
+            }
+          })
+
+        })
+
+
+        if (userHasAlreadyAnswered) {
+          chatFeed.children.add(renderCompletedPoll(statement, poll))
+        }
+        else {
+          chatFeed.children.add(renderActivePoll(statement, poll))
+        }
       })
     }
 
@@ -228,7 +244,7 @@ final object ClientView extends JFXApp {
         val userName = Controller.getTwitterUser.userName
 
         var commentCounter = 0
-        if (Controller.statementContainsComments(statement)){
+        if (Controller.statementContainsComments(statement)) {
           commentCounter = Controller.getNumberOfComments(statement)
         }
         val commentID = (statement.ID.toString + commentCounter.toString).toLong
@@ -343,16 +359,10 @@ final object ClientView extends JFXApp {
 
           if (pollIsValid) {
             var pollCounter = 0
-            if (Controller.statementContainsPolls(statement)){
+            if (Controller.statementContainsPolls(statement)) {
               pollCounter = Controller.getNumberOfPolls(statement)
             }
             val pollID = (statement.ID.toString + pollCounter.toString).toLong
-
-
-            println("statement id: " + statement.ID)
-            println("poll counter: " + pollCounter)
-            println("poll id: " + pollID)
-
             val poll = new Poll(pollID, statement.ID, user.ID, user.userName, question, options, createdAt)
             Controller.sendPoll(poll)
             pollTemplate.children.clear()
@@ -402,79 +412,54 @@ final object ClientView extends JFXApp {
 
   def renderComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
-    commentGrid.addRow(0, new Label(comment.userName), new Label(" : "), new Text(comment.message))
+    val user = new Text(comment.userName)
+    val message = new Text(comment.message)
+    commentGrid.addRow(0, user)
+    commentGrid.addRow(1, message)
     return commentGrid
   }
 
   def renderActivePoll(statement: Statement, poll: Poll): GridPane = {
-    val pollGrid = new GridPane()
-    var rowIndex = 0
-    val columnIndex = 2
-    pollGrid.addRow(rowIndex, new Label(poll.userName), new Label(" : "), new Text(poll.question))
 
+
+    var pollGrid = new GridPane()
+    val user = new Text(Controller.getTwitterUser.userName)
+    val header = new Label("Poll")
+    val question = new Text(poll.question)
+    val options = new GridPane()
 
     val toggleGroup = new ToggleGroup()
 
-
     val submitButton = new Button("Submit Answer")
     submitButton.disable = true
+
 
     val resultButton = new Button("Show Results")
     resultButton.disable = true
 
 
-
-
-    val optGrid = new GridPane()
-
-    var optRow = 0
-
-    poll.options.foreach(option => {
-      //rowIndex += 1
-      val optionId = option.key
-      val optionText = option.name
-      val radioButton = new RadioButton(optionText)
-      radioButton.id = optionId.toString
-
-      radioButton.onAction = e => {
-        radioButton.selected = true
-        submitButton.disable = false
-      }
-      toggleGroup.toggles.add(radioButton)
-
-      optGrid.add(radioButton, 0, optRow)
-      optRow+= 1
-
-
-
-
-      //pollGrid.add(radioButton, columnIndex, rowIndex)
-    })
-    pollGrid.add(optGrid, 1, 2)
-
-    rowIndex += 1
-
-    val votesColumnIndex =
-
     resultButton.onAction = e => {
 
-      val updatedPolls = Controller.getPollsForStatement(statement)
-      var updatedPoll:Poll = null
+      val updatedPoll = getUpdatedPoll(statement, poll.ID)
 
-      updatedPolls.foreach(p => {
-        if (p.ID == poll.ID){
-          updatedPoll = p
-        }
-      })
-      var voteRow = 0
-      updatedPoll.options.foreach(opt => {
-        var votes = opt.likes
-        optGrid.add(new Text(votes.toString), 1, voteRow)
-          voteRow+=1
 
-      })
+      pollGrid.children.remove(5)
+      pollGrid.children.remove(4)
+      pollGrid.children.remove(3)
 
-      pollGrid.add(optGrid, 1, 2)
+      var results = getPollResults(updatedPoll)
+      pollGrid.addRow(3, results)
+
+
+      val updateButton = updateResultsButton()
+
+      updateButton.onAction = e => {
+        val updatedPoll = getUpdatedPoll(statement, poll.ID)
+        results = getPollResults(updatedPoll)
+      }
+
+      pollGrid.addRow(4, updateButton)
+
     }
 
 
@@ -494,25 +479,100 @@ final object ClientView extends JFXApp {
       Controller.sendPollAnswer(pollAnswer)
 
       submitButton.disable = true
-      //submitButton.visible = false
-    resultButton.disable = false
-
+      resultButton.disable = false
 
 
     }
-    pollGrid.add(submitButton, columnIndex, rowIndex)
-    pollGrid.add(resultButton, columnIndex + 1, rowIndex)
 
 
+    var rowIndex = 0
+
+    poll.options.foreach(option => {
+
+      val key = option.key
+      val answer = option.name
+      val radioButton = new RadioButton(answer)
+      radioButton.id = key.toString
+
+      radioButton.onAction = e => {
+        radioButton.selected = true
+        submitButton.disable = false
+      }
+      toggleGroup.toggles.add(radioButton)
+
+      options.addRow(rowIndex, radioButton)
+      rowIndex += 1
+
+    })
 
 
+    pollGrid.addRow(0, user)
+    pollGrid.addRow(1, header)
+    pollGrid.addRow(2, question)
+    pollGrid.addRow(3, options)
+    pollGrid.addRow(4, submitButton, resultButton)
 
     return pollGrid
   }
 
 
-  def renderCompletedPoll(): Unit = {
+  def renderCompletedPoll(statement: Statement, poll: Poll): GridPane = {
 
+    val pollGrid = new GridPane()
+    val user = new Text(Controller.getTwitterUser.userName)
+    val header = new Label("Poll")
+    val question = new Text(poll.question)
+    var results = getPollResults(poll)
+
+
+    val updateButton = updateResultsButton()
+
+    updateButton.onAction = e => {
+      val updatedPoll = getUpdatedPoll(statement, poll.ID)
+      results = getPollResults(updatedPoll)
+    }
+
+    pollGrid.addRow(0, user)
+    pollGrid.addRow(1, header)
+    pollGrid.addRow(2, question)
+    pollGrid.addRow(3, results)
+    pollGrid.addRow(4, updateButton)
+
+    return pollGrid
+  }
+
+
+  def updateResultsButton(): Button = {
+    new Button("Update Results")
+  }
+
+  def getPollResults(poll: Poll): GridPane = {
+    val results = new GridPane()
+
+    var rowIndex = 0
+    poll.options.foreach(option => {
+      val key = option.key
+      val answer = new Label(option.name)
+      val votes = new Text(option.likes.toString)
+      val voter = option.likeUser
+
+      results.add(answer, 1, rowIndex)
+      results.add(votes, 2, rowIndex)
+      rowIndex += 1
+
+    })
+    return results
+  }
+
+  def getUpdatedPoll(statement: Statement, pollID: Long): Poll = {
+    var updatedPoll: Poll = null
+    Controller.getPollsForStatement(statement).foreach(p => {
+      if (p.ID == pollID) {
+        updatedPoll = p
+
+      }
+    })
+    return updatedPoll
   }
 
 
@@ -522,23 +582,21 @@ final object ClientView extends JFXApp {
     chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
 
 
-    if(Controller.statementContainsComments(statement)){
+    if (Controller.statementContainsComments(statement)) {
       import scalafx.geometry.Insets
       val numberOfComments = Controller.getNumberOfComments(statement)
       val commentInfo = new Text("Comments: " + numberOfComments)
-      commentInfo.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
+      commentInfo.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
       chatRoomInformation.addColumn(1, commentInfo)
     }
 
-    if (Controller.statementContainsPolls(statement)){
+    if (Controller.statementContainsPolls(statement)) {
       import scalafx.geometry.Insets
       val numberOfPolls = Controller.getNumberOfPolls(statement)
       val pollInfo = new Text("Polls: " + numberOfPolls)
-      pollInfo.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
+      pollInfo.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
       chatRoomInformation.addColumn(2, pollInfo)
     }
-
-
 
 
     val activity = new VBox(new Label(statement.userName), new Text(statement.message), chatRoomInformation)
@@ -556,13 +614,13 @@ final object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
 
       //Controller.getChatRooms().add(statement)
-      if (!Controller.chatRoomsContainStatement(statement)){
+      if (!Controller.chatRoomsContainStatement(statement)) {
         Controller.setStatementInChatRooms(statement)
       }
       Controller.subscribe(statement, true)
 
     }
-    enterChatRoomButton.margin = new Insets(new javafx.geometry.Insets(5,5,5,5))
+    enterChatRoomButton.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
     return enterChatRoomButton
   }
 
@@ -574,8 +632,6 @@ final object ClientView extends JFXApp {
     }
     return logoutButton
   }
-
-
 
 
 }
