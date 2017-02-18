@@ -15,6 +15,7 @@ import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Label
 import scalafx.scene.layout.GridPane
 import scalafx.scene.text.Text
+
 /**
   * Created by Brenda on 30.01.17.
   */
@@ -24,7 +25,6 @@ final object LoginView extends JFXApp {
     title = "Login"
 
     scene = new Scene {
-
 
 
       val border = new BorderPane()

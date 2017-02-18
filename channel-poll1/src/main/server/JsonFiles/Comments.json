@@ -17,6 +17,24 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Fri Feb 17 23:00:24 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 8312876919877877772,
+      "type": "comment",
+      "message": "hi",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sat Feb 18 20:41:30 CET 2017"
+    },
+    {
+      "statementid": 831287691987787777,
+      "id": 8312876919877877773,
+      "type": "comment",
+      "message": "hello",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sat Feb 18 20:51:28 CET 2017"
     }
   ]
 }

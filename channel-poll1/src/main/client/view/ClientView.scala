@@ -11,31 +11,36 @@ import scalafx.scene.layout.{BorderPane, GridPane, VBox}
 import scalafx.scene.text.{Text, TextFlow}
 import scala.collection.mutable.{ArrayBuffer, HashMap, ListBuffer}
 import scalafx.beans.property.IntegerProperty
-import scalafx.collections.ObservableBuffer
+import scalafx.geometry.Insets
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.control._
 
 
 final object ClientView extends JFXApp {
   var pollTemplateIsVisible = false
-  var activityFeed: ObservableBuffer[VBox] = null
 
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
-      title = "Channel Poll"
-      height = 900
-      width = 700
+      title = "ChannelPoll"
+      maxHeight = Double.MaxValue
+      maxWidth = Double.MaxValue
       scene = new Scene {
 
-        activityFeed = new ObservableBuffer[VBox]()
+        //TabPane
         val tabPane = new TabPane()
+
+        //general tab: wird immer angezeigt
         val generalTab = new Tab()
         generalTab.text = "General"
         generalTab.content = generalTabContent()
 
+        //liste aller tabs
         val tabList = ListBuffer(generalTab)
 
+        //eigener user
         val twitterUser = Controller.getTwitterUser
+
+        //future work: zukünftig sollen alle chats, zu denen der user angemeldet ist, in form von tabs bereits geöffnet sein (tbd)
         if (Controller.getUserChatRooms(twitterUser).size > 0) {
           Controller.getUserChatRooms(twitterUser).foreach(statement => {
             val statementTab = new Tab()
@@ -50,6 +55,7 @@ final object ClientView extends JFXApp {
 
         tabPane.tabs = tabList
 
+        //wenn der user einen chatroom betritt, soll dieser in form eines tabs geöffnet werden
         Controller.getUserChatRooms(twitterUser).onChange({
           val statementTab = new Tab()
           statementTab.text = Controller.getUserChatRooms(twitterUser).last.userName
@@ -61,21 +67,6 @@ final object ClientView extends JFXApp {
           tabPane.tabs = tabList
         })
 
-        /*
-        Controller.getChatRooms().onChange({
-          val statementTab = new Tab()
-          statementTab.text = Controller.getChatRooms().last.userName
-          statementTab.content = statementTabContent(Controller.getChatRooms().last)
-          //TODO brenda please move that where it belongs
-          statementTab.onClosed = e => {
-            Controller.subscribe(Controller.getChatRooms().last, false)
-          }
-          tabList += statementTab
-          tabPane.tabs = tabList
-        })
-        */
-
-
         //Root
         root = tabPane
       }
@@ -85,57 +76,38 @@ final object ClientView extends JFXApp {
   }
 
 
+  //erzeugt den inhalt des general tabs und gibt diesen zurück
   def generalTabContent(): BorderPane = {
+
     val border = new BorderPane()
 
-
-    //Top
-    border.top = new Label("Political Statements")
-
-
-    //Left
-    //border.left
-
-
     //Center: Content
+    val entries = new VBox()
+    entries.spacing = 10
 
-    val feed = new VBox()
-
-
+    //falls statements bereits vorhanden sind, sollen einträge dafür erzeugt werden
     if (Controller.getStatements.size > 0) {
       Controller.getStatements.foreach(st => {
-        val activity = createActivity(st)
-        addActivity(activity)
+        val entry = createEntry(st)
+        entries.children.add(0, entry)
       })
     }
 
-    if (activityFeed.size > 0) {
-      activityFeed.foreach(item => {
-        feed.children.add(0, item)
-      })
-
-    }
-
-
+    //falls neue statements hinzukommen, sollen einträge dafür erzeugt werden
     Controller.getStatements.onChange({
-      val activity = createActivity(Controller.getStatements.last)
-      addActivity(activity)
+      val entry = createEntry(Controller.getStatements.last)
+      entries.children.add(0, entry): Unit
     })
 
 
+    //ScrollPane mit vertikaler ScrollBar
     val scroll = new ScrollPane()
-    scroll.content = feed
+    scroll.content = entries
     scroll.hbarPolicy = ScrollBarPolicy.Never
     border.center = scroll
 
-    activityFeed.onChange({
-      Platform.runLater {
-        feed.children.add(0, activityFeed.last)
-      }
-    })
 
-
-    //Right: User
+    //Right: User (online)
     val userList = new ListView[TwitterUser]
     userList.items = Controller.getUsers
     Controller.getUsers.onChange({
@@ -575,36 +547,47 @@ final object ClientView extends JFXApp {
   }
 
 
-  def createActivity(statement: Statement): VBox = {
+  //erzeugt einen eintrag für ein statement und gibt diesen zurück
+  def createEntry(statement: Statement): GridPane = {
 
+    //grid welches einen button zum betreten des chatrooms sowie informationen über die anzahl der bestehenden kommentare und umfragen enthält
     val chatRoomInformation = new GridPane()
+    chatRoomInformation.hgap = 10
+    chatRoomInformation.vgap = 10
     chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
 
 
+    //falls chatroom bereits kommentare enthält, soll deren anzahl angezeigt werden
     if (Controller.statementContainsComments(statement)) {
-      import scalafx.geometry.Insets
-      val numberOfComments = Controller.getNumberOfComments(statement)
+      var numberOfComments = Controller.getNumberOfComments(statement)
       val commentInfo = new Text("Comments: " + numberOfComments)
-      commentInfo.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
       chatRoomInformation.addColumn(1, commentInfo)
     }
 
+
+    //falls chatroom bereits umfragen enthält, soll deren anzahl angezeigt werden
     if (Controller.statementContainsPolls(statement)) {
-      import scalafx.geometry.Insets
       val numberOfPolls = Controller.getNumberOfPolls(statement)
       val pollInfo = new Text("Polls: " + numberOfPolls)
-      pollInfo.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
       chatRoomInformation.addColumn(2, pollInfo)
     }
 
 
-    val activity = new VBox(new Label(statement.userName), new Text(statement.message), chatRoomInformation)
-    return activity
+    //eintrag soll statement verfasser, statement text und die oben erzeugten infos enthalten
+    val entry = new GridPane()
+    entry.addRow(0, new Label(statement.userName))
+    entry.addRow(1, new Text(statement.message))
+    entry.addRow(2, chatRoomInformation)
+
+    entry.margin = Insets(10)
+
+    return entry
   }
 
-  def addActivity(activity: VBox): Unit = {
+  /*
+  def addEntry(activity: GridPane): Unit = {
     activityFeed += activity
-  }
+  }*/
 
 
   def enterChatRoomButton(statement: Statement): Button = {
@@ -619,7 +602,6 @@ final object ClientView extends JFXApp {
       Controller.subscribe(statement, true)
 
     }
-    enterChatRoomButton.margin = new Insets(new javafx.geometry.Insets(5, 5, 5, 5))
     return enterChatRoomButton
   }
 
