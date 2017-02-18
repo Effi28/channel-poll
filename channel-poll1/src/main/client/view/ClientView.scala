@@ -2,6 +2,7 @@ package main.client.view
 
 
 import java.util.Calendar
+import java.util.Date
 import main.client.controller.Controller
 import main.shared.data._
 import scalafx.application.{JFXApp, Platform}
@@ -14,6 +15,8 @@ import scalafx.beans.property.IntegerProperty
 import scalafx.geometry.Insets
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.control._
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 final object ClientView extends JFXApp {
@@ -29,18 +32,18 @@ final object ClientView extends JFXApp {
         //TabPane
         val tabPane = new TabPane()
 
-        //general tab: wird immer angezeigt
+        //General-Tab: wird immer angezeigt
         val generalTab = new Tab()
         generalTab.text = "General"
         generalTab.content = generalTabContent()
 
-        //liste aller tabs
+        //Liste aller Tabs
         val tabList = ListBuffer(generalTab)
 
-        //eigener user
+        //Eigener User
         val twitterUser = Controller.getTwitterUser
 
-        //future work: zukünftig sollen alle chats, zu denen der user angemeldet ist, in form von tabs bereits geöffnet sein (tbd)
+        //Future Work: zukünftig sollen alle Chats, zu denen der User angemeldet ist, in Form von Tabs bereits geöffnet sein (tbd)
         if (Controller.getUserChatRooms(twitterUser).size > 0) {
           Controller.getUserChatRooms(twitterUser).foreach(statement => {
             val statementTab = new Tab()
@@ -55,7 +58,7 @@ final object ClientView extends JFXApp {
 
         tabPane.tabs = tabList
 
-        //wenn der user einen chatroom betritt, soll dieser in form eines tabs geöffnet werden
+        //Wenn der User einen Chatroom betritt, soll dieser in Form eines Tabs geöffnet werden
         Controller.getUserChatRooms(twitterUser).onChange({
           val statementTab = new Tab()
           statementTab.text = Controller.getUserChatRooms(twitterUser).last.userName
@@ -76,7 +79,7 @@ final object ClientView extends JFXApp {
   }
 
 
-  //erzeugt den inhalt des general tabs und gibt diesen zurück
+  //Erzeugt den Inhalt des General-Tabs und gibt diesen zurück
   def generalTabContent(): BorderPane = {
 
     val border = new BorderPane()
@@ -85,7 +88,7 @@ final object ClientView extends JFXApp {
     val entries = new VBox()
     entries.spacing = 10
 
-    //falls statements bereits vorhanden sind, sollen einträge dafür erzeugt werden
+    //Falls Statements bereits vorhanden sind, sollen Einträge dafür erzeugt werden
     if (Controller.getStatements.size > 0) {
       Controller.getStatements.foreach(st => {
         val entry = createEntry(st)
@@ -93,7 +96,7 @@ final object ClientView extends JFXApp {
       })
     }
 
-    //falls neue statements hinzukommen, sollen einträge dafür erzeugt werden
+    //Falls neue Statements hinzukommen, sollen Einträge dafür erzeugt werden
     Controller.getStatements.onChange({
       val entry = createEntry(Controller.getStatements.last)
       entries.children.add(0, entry): Unit
@@ -124,74 +127,89 @@ final object ClientView extends JFXApp {
   }
 
 
+  //Erzeugt den Inhalt eines Statement-Tabs (Chats) und gibt diesen zurück
   def statementTabContent(statement: Statement): BorderPane = {
     val border = new BorderPane()
 
 
-    //Top
-    border.top = new Label("Chat")
-
-
-    //Left
-
-
     //Center: Content
 
+    //Statementverfasser und -text
+    val user = new Label(statement.userName)
+    val message = new Text(statement.message)
 
-    val user = new Text(statement.userName)
-    val message = new TextFlow(new Text(statement.message))
+    //Einträge
+    val chatEntries = new VBox()
+    chatEntries.spacing = 10
 
 
-    val chatFeed = new VBox()
+    //ScrollPane mit vertikaler ScrollBar
     val scrollPane = new ScrollPane()
-    scrollPane.content = chatFeed
+    scrollPane.content = chatEntries
     scrollPane.hbarPolicy = ScrollBarPolicy.Never
 
+    //Liste für vorhandene Einträge (unsortiert)
+    var allEntries = List[Object]()
 
+    //Prüft, ob bereits Comments für dieses Statement vorhanden sind und fügt diese der Liste hinzu
     if (Controller.getCommentsForStatement(statement).size > 0) {
       Controller.getCommentsForStatement(statement).foreach(comment => {
-        chatFeed.children.add(renderComment(comment))
+        allEntries = comment :: allEntries
       })
     }
 
-
-    Controller.getCommentsForStatement(statement).onChange({
-      Platform.runLater {
-        val latestComment = Controller.getCommentsForStatement(statement).last
-        val comment = renderComment(latestComment)
-
-        chatFeed.children.add(comment)
-      }
-    })
-
-
+    //Prüft, ob berits Polls für dieses Statement vorhanden sind und fügt diese der Liste hinzu
     if (Controller.getPollsForStatement(statement).size > 0) {
       Controller.getPollsForStatement(statement).foreach(poll => {
+        allEntries = poll :: allEntries
+      })
+    }
+
+    //Listeneinträge werden in chronologischer Reihenfolge sortiert
+    val sortedEntries = allEntries.sortBy(entry => getDate(entry))
+
+    //Einträge werden in chronologischer Reihenfolge angezeigt
+    sortedEntries.foreach(entry => {
+      if (entry.isInstanceOf[Comment]) {
+        val commentObj = entry.asInstanceOf[Comment]
+        chatEntries.children.add(renderComment(commentObj))
+      }
+      else if (entry.isInstanceOf[Poll]) {
+        val pollObj = entry.asInstanceOf[Poll]
         var userHasAlreadyAnswered = false
-        poll.options.foreach(option => {
+        //Prüft, ob dieser User diese Umfrage bereits beantwortet hat und zeigt die Umfrage abhängig davon unterschiedlich an
+        pollObj.options.foreach(option => {
           option.likeUser.foreach(user => {
             if (user == Controller.getTwitterUser.userName) {
               userHasAlreadyAnswered = true
             }
           })
-
         })
-
-
         if (userHasAlreadyAnswered) {
-          chatFeed.children.add(renderCompletedPoll(statement, poll))
+          chatEntries.children.add(renderCompletedPoll(statement, pollObj))
         }
         else {
-          chatFeed.children.add(renderActivePoll(statement, poll))
+          chatEntries.children.add(renderActivePoll(statement, pollObj))
         }
-      })
-    }
+      }
+    })
 
+
+    //Falls neue Comments hinzukommen, werden diese in der View angezeigt
+    Controller.getCommentsForStatement(statement).onChange({
+      Platform.runLater {
+        val latestComment = Controller.getCommentsForStatement(statement).last
+        val comment = renderComment(latestComment)
+        chatEntries.children.add(comment)
+      }
+    })
+
+    //Falls neue Polls hinzukommen, werden diese in der View angezeigt
     Controller.getPollsForStatement(statement).onChange({
       Platform.runLater {
         val latestPoll = Controller.getPollsForStatement(statement).last
         val poll = renderActivePoll(statement, latestPoll)
-        chatFeed.children.add(poll)
+        chatEntries.children.add(poll)
       }
     })
 
@@ -547,17 +565,17 @@ final object ClientView extends JFXApp {
   }
 
 
-  //erzeugt einen eintrag für ein statement und gibt diesen zurück
+  //Erzeugt einen Eintrag für ein Statement und gibt diesen zurück
   def createEntry(statement: Statement): GridPane = {
 
-    //grid welches einen button zum betreten des chatrooms sowie informationen über die anzahl der bestehenden kommentare und umfragen enthält
+    //Grid, welches einen Button zum Betreten des Chatrooms, sowie Informationen über die Anzahl der bestehenden Kommentare und Umfragen enthält
     val chatRoomInformation = new GridPane()
     chatRoomInformation.hgap = 10
     chatRoomInformation.vgap = 10
     chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
 
 
-    //falls chatroom bereits kommentare enthält, soll deren anzahl angezeigt werden
+    //Falls Chatroom bereits Kommentare enthält, soll deren Anzahl angezeigt werden
     if (Controller.statementContainsComments(statement)) {
       var numberOfComments = Controller.getNumberOfComments(statement)
       val commentInfo = new Text("Comments: " + numberOfComments)
@@ -565,7 +583,7 @@ final object ClientView extends JFXApp {
     }
 
 
-    //falls chatroom bereits umfragen enthält, soll deren anzahl angezeigt werden
+    //Falls Chatroom bereits Umfragen enthält, soll deren Anzahl angezeigt werden
     if (Controller.statementContainsPolls(statement)) {
       val numberOfPolls = Controller.getNumberOfPolls(statement)
       val pollInfo = new Text("Polls: " + numberOfPolls)
@@ -573,45 +591,56 @@ final object ClientView extends JFXApp {
     }
 
 
-    //eintrag soll statement verfasser, statement text und die oben erzeugten infos enthalten
+    //Eintrag soll Statementverfasser, -text und die oben erzeugten Infos enthalten
     val entry = new GridPane()
     entry.addRow(0, new Label(statement.userName))
     entry.addRow(1, new Text(statement.message))
     entry.addRow(2, chatRoomInformation)
 
-    entry.margin = Insets(10)
+    entry.margin = Insets(15)
+    entry.vgap = 10
 
     return entry
   }
 
-  /*
-  def addEntry(activity: GridPane): Unit = {
-    activityFeed += activity
-  }*/
 
-
+  //Button zum Betreten eines Chatroom (Öffnen eines Tabs)
   def enterChatRoomButton(statement: Statement): Button = {
-    import scalafx.geometry.Insets
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
-
-      //Controller.getChatRooms().add(statement)
       if (!Controller.chatRoomsContainStatement(statement)) {
         Controller.setStatementInChatRooms(statement)
       }
       Controller.subscribe(statement, true)
-
     }
     return enterChatRoomButton
   }
 
 
+  //Logout-Button
   def logoutButton(): Button = {
     val logoutButton = new Button("Logout")
     logoutButton.onAction = e => {
       Controller.logout
     }
     return logoutButton
+  }
+
+
+  def getDate(obj: Object): Date = {
+    var stamp: String = null
+    if (obj.isInstanceOf[Comment]) {
+      val comment = obj.asInstanceOf[Comment]
+      stamp = comment.timestamp
+    }
+    else if (obj.isInstanceOf[Poll]) {
+      val poll = obj.asInstanceOf[Poll]
+      stamp = poll.timestamp
+    }
+    val sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
+      Locale.ENGLISH)
+    val date = sdf.parse(stamp)
+    return date
   }
 
 

@@ -1,5 +1,46 @@
 {
   "data": [
-
+    {
+      "question": "y or n?",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "y",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "n",
+          "likes": 0
+        }
+      ],
+      "id": 8312876919877877770,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 00:06:04 CET 2017"
+    },
+    {
+      "question": "true or false?",
+      "statementid": 831287691987787777,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "true",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "false",
+          "likes": 0
+        }
+      ],
+      "id": 8312876919877877771,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 00:11:43 CET 2017"
+    }
   ]
 }

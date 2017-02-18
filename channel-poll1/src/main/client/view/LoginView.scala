@@ -25,8 +25,6 @@ final object LoginView extends JFXApp {
     title = "Login"
 
     scene = new Scene {
-
-
       val border = new BorderPane()
 
       val grid = new GridPane()
@@ -34,7 +32,7 @@ final object LoginView extends JFXApp {
       grid.vgap = 10
       grid.hgap = 10
 
-      grid.margin = Insets(10)
+      grid.margin = Insets(15)
 
       val welcomeMessage = new Label("Welcome to ChannelPoll")
       welcomeMessage.maxWidth = Double.MaxValue

@@ -19,9 +19,6 @@ final object ClientControl {
   val chatRooms = HashMap[Statement, ObservableBuffer[TwitterUser]]()
   val userChatRooms = HashMap[TwitterUser, ObservableBuffer[Statement]]()
 
-  val commentCounter = HashMap[Long, IntegerProperty]()
-  val pollCounter = HashMap[Long, IntegerProperty]()
-
 
 
   def setupClient(user1: TwitterUser) = {
@@ -38,10 +35,8 @@ final object ClientControl {
   def +=(poll: Poll) = {
     if (!ClientControl.polls.contains (poll.statementID)) {
       ClientControl.polls += poll.statementID -> new ObservableBuffer[Poll]
-      ClientControl.pollCounter += poll.statementID -> IntegerProperty(0)
     }
     ClientControl.polls.get(poll.statementID).get += poll
-    ClientControl.pollCounter.get(poll.statementID).get.value = ClientControl.pollCounter.get(poll.statementID).get.value + 1
   }
 
   def +=(pollAnswer: PollAnswer) = {
@@ -60,10 +55,8 @@ final object ClientControl {
   def +=(comment: Comment): Unit = {
     if (!ClientControl.comments.contains(comment.statementID)) {
       ClientControl.comments += comment.statementID -> ObservableBuffer[Comment]()
-      ClientControl.commentCounter += comment.statementID -> IntegerProperty(0)
     }
     ClientControl.comments.get(comment.statementID).get += comment
-    ClientControl.commentCounter.get(comment.statementID).get.value = ClientControl.commentCounter.get(comment.statementID).get.value + 1
   }
 
   def sendComment(comment: Comment) = ClientMessageSender.writeStComment(comment)
