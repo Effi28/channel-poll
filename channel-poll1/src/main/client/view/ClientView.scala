@@ -98,8 +98,10 @@ final object ClientView extends JFXApp {
 
     //Falls neue Statements hinzukommen, sollen Einträge dafür erzeugt werden
     Controller.getStatements.onChange({
-      val entry = createEntry(Controller.getStatements.last)
-      entries.children.add(0, entry): Unit
+      Platform.runLater({
+        val entry = createEntry(Controller.getStatements.last)
+        entries.children.add(0, entry): Unit
+      })
     })
 
 
