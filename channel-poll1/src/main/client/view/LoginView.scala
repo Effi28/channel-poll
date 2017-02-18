@@ -26,7 +26,7 @@ final object LoginView extends JFXApp {
     scene = new Scene {
 
 
-      //stylesheets = List(getClass.getResource("flatterfx.css").toExternalForm)
+
       val border = new BorderPane()
 
       val grid = new GridPane()
@@ -52,9 +52,9 @@ final object LoginView extends JFXApp {
         } else {
           println(loginURL)
         }
-        loginButton.visible = false
-        codeField.visible = true
-        submitButton.visible = true
+        loginButton.disable = true
+        codeField.disable = false
+        submitButton.disable = false
       }
 
       grid.addRow(1, loginButton)
@@ -64,14 +64,14 @@ final object LoginView extends JFXApp {
       codeField.promptText = "Enter your code..."
       codeField.maxWidth = Double.MaxValue
       codeField.alignment = Pos.Center
-      codeField.visible = false
+      codeField.disable = true
       grid.addRow(2, codeField)
 
 
       val submitButton = new Button("Submit")
       submitButton.maxWidth = Double.MaxValue
       submitButton.alignment = Pos.Center
-      submitButton.visible = false
+      submitButton.disable = true
       submitButton.onAction = e => {
         if (codeField.getText.size == 0) {
           warningMessage.visible = true

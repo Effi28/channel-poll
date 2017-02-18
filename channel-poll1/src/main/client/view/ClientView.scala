@@ -27,7 +27,6 @@ final object ClientView extends JFXApp {
       width = 700
       scene = new Scene {
 
-        //stylesheets = List(getClass.getResource("material-fx-v0_3.css").toExternalForm)
         activityFeed = new ObservableBuffer[VBox]()
         val tabPane = new TabPane()
         val generalTab = new Tab()
