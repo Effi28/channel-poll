@@ -2,6 +2,7 @@ package main.shared.communication
 
 import main.shared.data._
 import main.shared.enums.JsonType
+import main.shared.data.Serializable
 import org.json.{JSONArray, JSONObject}
 
 class MessageBuilder {
@@ -17,9 +18,17 @@ class MessageBuilder {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.DISCONNECT)
     Jmsg.put("username", user.userName)
-    Jmsg.put("userid", user.ID)  }
+    Jmsg.put("userid", user.ID)
+  }
 
-  def writeComment(comment: Comment): JSONObject = {
+   def writeData(serializable: Serializable): JSONObject = serializable match {
+    case poll:Poll =>  writePoll(poll)
+    case pollAnswer:PollAnswer =>  writePollAnswer(pollAnswer)
+    case comment:Comment => writeComment(comment)
+    case statement:Statement => writeStatement(statement)
+  }
+
+  private def writeComment(comment: Comment): JSONObject = {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.COMMENT)
     Jmsg.put("id", comment.ID)
@@ -30,7 +39,7 @@ class MessageBuilder {
     Jmsg.put("timestamp", comment.timestamp)
   }
 
-  def writePoll(poll: Poll): JSONObject = {
+  private def writePoll(poll: Poll): JSONObject = {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.POLL)
     Jmsg.put("id", poll.ID)
@@ -48,9 +57,10 @@ class MessageBuilder {
     }
     Jmsg.put("options", arr)
     Jmsg.put("timestamp", poll.timestamp)
+
   }
 
-  def writePollAnswer(pollAnswer: PollAnswer): JSONObject = {
+  private def writePollAnswer(pollAnswer: PollAnswer): JSONObject = {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.POLLANSWER)
     Jmsg.put("pollid", pollAnswer.pollID)
@@ -61,5 +71,16 @@ class MessageBuilder {
     Jmsg.put("selectedoptionkey", pollAnswer.selectedOption._1)
     Jmsg.put("selectedoptionstr", pollAnswer.selectedOption._2)
     Jmsg.put("timestamp", pollAnswer.timestamp)
+  }
+
+  private def writeStatement(statement: Statement): JSONObject = {
+    val Jmsg = new JSONObject
+    Jmsg.put("type", JsonType.STATEMENT)
+    Jmsg.put("id", statement.ID)
+    Jmsg.put("userid", statement.userID)
+    Jmsg.put("username", statement.userName)
+    Jmsg.put("pictureurl", statement.pictureURL)
+    Jmsg.put("message", statement.message)
+    Jmsg.put("timestamp", statement.timestamp)
   }
 }

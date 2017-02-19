@@ -8,17 +8,6 @@ import org.json.{JSONArray, JSONObject}
 
 final object ServerMessageBuilder extends MessageBuilder{
 
-  def writeStatement(statement: Statement): JSONObject = {
-    val Jmsg = new JSONObject
-    Jmsg.put("type", JsonType.STATEMENT)
-    Jmsg.put("id", statement.ID)
-    Jmsg.put("userid", statement.userID)
-    Jmsg.put("username", statement.userName)
-    Jmsg.put("pictureurl", statement.pictureURL)
-    Jmsg.put("message", statement.message)
-    Jmsg.put("timestamp", statement.timestamp)
-  }
-
   def loginSucceded(users: Iterable[TwitterUser]): JSONObject = {
     val Jmsg = new JSONObject
     val arr = new JSONArray

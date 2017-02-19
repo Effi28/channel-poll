@@ -5,10 +5,7 @@ import main.shared.data._
 import scala.collection.mutable.HashMap
 import scalafx.collections.ObservableBuffer
 
-
 final object ClientControl {
-
-
   val socket =  new Socket("localhost", 8008)
   var user: TwitterUser = null
   val users = ObservableBuffer[TwitterUser]()
@@ -17,12 +14,9 @@ final object ClientControl {
   val polls = HashMap[Long, ObservableBuffer[Poll]]()
   val chatRooms: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
 
-
-
   def setupClient(user1: TwitterUser) = {
     listen.start
     user = user1
-
     ClientMessageSender.writeLoginMessage(user)
   }
 
@@ -55,16 +49,16 @@ final object ClientControl {
     ClientControl.comments.get(comment.statementID).get += comment
   }
 
-  def sendComment(comment: Comment) = ClientMessageSender.writeStComment(comment)
-  def sendPoll(poll: Poll) = ClientMessageSender.writePoll(poll)
-  def sendPollAnswer(pollAnswer: PollAnswer) = ClientMessageSender.writePollAnswer(pollAnswer)
-  def logout = ClientMessageSender.writeLogout(user)
-  def close = System.exit(0)
+ def sendData(serializable: Serializable): Unit ={
+   ClientMessageSender.writeData(serializable)
+ }
 
-  def subscribe(statement: Statement, subscribe: Boolean): Unit = {
-
-    ClientMessageSender.writeSubscribe(statement, subscribe)
+  def logout = {
+    ClientMessageSender.writeLogout(user)
+    System.exit(0)
   }
 
-
+  def subscribe(statement: Statement, subscribe: Boolean): Unit = {
+    ClientMessageSender.writeSubscribe(statement, subscribe)
+  }
 }

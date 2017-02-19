@@ -13,13 +13,13 @@ final object Controller {
 
   def logout = ClientControl.logout
 
-  def sendComment(comment: Comment) = ClientControl.sendComment(comment)
+  def sendComment(comment: Comment) = ClientControl.sendData(comment)
 
-  def sendPoll(poll: Poll) = ClientControl.sendPoll(poll)
+  def sendPoll(poll: Poll) = ClientControl.sendData(poll)
 
   def subscribe(statement: Statement, subscribe: Boolean) = ClientControl.subscribe(statement, subscribe)
 
-  def sendPollAnswer(pollAnswer: PollAnswer) = ClientControl.sendPollAnswer(pollAnswer)
+  def sendPollAnswer(pollAnswer: PollAnswer) = ClientControl.sendData(pollAnswer)
 
   def statementContainsComments(statement: Statement) = ClientControl.comments contains statement.ID
 
