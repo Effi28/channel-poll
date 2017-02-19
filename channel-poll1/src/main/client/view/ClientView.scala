@@ -403,7 +403,10 @@ final object ClientView extends JFXApp {
     chatGrid.hgap = 15
     chatGrid.maxWidth = Double.MaxValue
     chatGrid.margin = Insets(15)
-    chatGrid.addColumn(0, statementGrid, scrollPane, inputGrid)
+    chatGrid.addRow(0, statementGrid)
+    chatGrid.addRow(1, scrollPane)
+    chatGrid.addRow(2, inputGrid)
+    //chatGrid.addColumn(0, statementGrid, scrollPane, inputGrid)
 
     border.center = chatGrid
 
