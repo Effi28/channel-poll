@@ -40,16 +40,21 @@ final object TwitterSettings {
     * 17752770, 1425265488)
     **/
 
-  val hashtags = "cdu,csu,merkel,spdbpt,CSUListe,aft,grüne,fdp,linke,gabriel," +
+  val tracks = "cdu,csu,merkel,spdbpt,CSUListe,aft,die grünen,fdp,linke,gabriel," +
     "steinmaier,zypries,bundestagswahl,merkel,angelamerkel,katjakipping" +
     "spitzenkandidat,spitzenkandidatin,linke_sachsen,wahlrecht,btw17,schulz,"
-    "martinschulz,bundestag,deutschland,mega,kanzlerkandidatur,politik,germany," +
-    "eu,osthessen,grünen,wahlumfrage,höcke,keinealternative,agenda,kraft," +
+    "martinschulz,bundestag,deutschland,mega politik,kanzlerkandidatur,politik,germany," +
+    "eu,osthessen,wahlumfrage,höcke,keinealternative,agenda,politik kraft," +
     "flüchtlinge,spdde,wahlbetrug,kanzleramt,mandate,kandidaten," +
       "wahl,bundestagsfraktion,bundestagswahl,duisburger,duisburg,tormentaelectrica," +
-      "peruanerin,germany,gewittersturm,crowdfunding, politik,journalism, " +
-      "volkerpispers,wahreworte, erstdenkendannwählen,wahl,1933,partei,2016 " +
-      "wahlkampf,campaign,jobs,igersberlin,berlin,travel,guardiancities "
+      "germany,gewittersturm, politik,journalism, " +
+      "volkerpispers,erstdenkendannwählen,wahl,1933,partei,2016 " +
+      "wahlkampf,campaign,neue jobs,igersberlin,berlin,travel,guardiancities," +
+      "grüne partei,deutsche jobs,angela merkel,wahl berlin,erst denken dann wählen," +
+      "diepartei,partei,die partei,seehofer,schröder,Sigmar Gabriel," +
+      "Brigitte Zypries,Thomas de Maiziere,Heiko Maas,Andrea Nahles," +
+      "Christian Schmidt,Ursula von der Leyen,Manuela Schwesig," +
+      "Hermann Gröhe,Barbara Hendricks,Johanna Wanka,Gerd Müller,Peter Altmeier"
 
   val filterLanguage = "de"
 }
