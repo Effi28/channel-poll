@@ -272,6 +272,48 @@
       "userid": 2548035848,
       "username": "Kath_Wiesel",
       "timestamp": "Sun Feb 19 13:55:52 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 833294869510623232,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "opt 1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "opt 2",
+          "likes": 0
+        }
+      ],
+      "id": 8332948695106232320,
+      "type": "poll",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 14:19:39 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 833294869510623232,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "opt 1",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "opt 2",
+          "likes": 0
+        }
+      ],
+      "id": 8332948695106232320,
+      "type": "poll",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 14:19:39 CET 2017"
     }
   ]
 }
