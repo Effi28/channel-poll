@@ -2,11 +2,14 @@ package main.server
 
 import java.net.ServerSocket
 import java.util.concurrent.Executors
+
 import main.server.JsonFiles.SaveJsons
 import main.server.communication.ClientHandler
 import main.server.twitter.{QueueGetter, TwitterAccess}
 import main.shared.data._
 import main.shared.data.Serializable
+import org.json.JSONObject
+
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
@@ -107,8 +110,17 @@ final private object Server {
   }
 
   def broadcast(serializable: Serializable): Unit ={
+    var jSONObject = new JSONObject()
     for ((k, v) <- connectedHandler) {
-      v.sender.writeData(serializable)
+      jSONObject = v.sender.writeData(serializable)
     }
+    queueIt(serializable, jSONObject)
+  }
+
+  private def queueIt(serializable: Serializable, json: JSONObject) = serializable match {
+    case poll:Poll =>   SaveJsons.pollsQueue += json
+    case pollAnswer:PollAnswer =>  SaveJsons.pollsAnswersQueue += json
+    case comment:Comment => SaveJsons.commentsJsonQueue += json
+    case statement:Statement => SaveJsons.statementsJsonQueue += json
   }
 }
