@@ -1,319 +1,88 @@
 {
   "data": [
     {
-      "question": "frage",
-      "statementid": 833284952691245056,
+      "question": "444",
+      "statementid": 833328828525211648,
       "options": [
         {
           "key": 1,
-          "optionsstr": "ja",
+          "optionsstr": "444",
           "likes": 0
         },
         {
           "key": 2,
-          "optionsstr": "nein",
+          "optionsstr": "44",
           "likes": 0
         }
       ],
-      "id": 8332849526912450560,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:06:47 CET 2017"
-    },
-    {
-      "question": "frage",
-      "statementid": 833284952691245056,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "ja",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "nein",
-          "likes": 0
-        }
-      ],
-      "id": 8332849526912450560,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:06:47 CET 2017"
-    },
-    {
-      "question": "fff",
-      "statementid": 833286318377533440,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "111",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "222",
-          "likes": 0
-        }
-      ],
-      "id": 8332863183775334400,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:24:39 CET 2017"
-    },
-    {
-      "question": "fff",
-      "statementid": 833286318377533440,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "111",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "222",
-          "likes": 0
-        }
-      ],
-      "id": 8332863183775334400,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:24:39 CET 2017"
-    },
-    {
-      "question": "frage",
-      "statementid": 833290802474385410,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "antwort 1",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "antwort 2",
-          "likes": 0
-        }
-      ],
-      "id": 8332908024743854100,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:30:03 CET 2017"
-    },
-    {
-      "question": "frage",
-      "statementid": 833292646303019008,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "antwort 1",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "antowrt 2",
-          "likes": 0
-        }
-      ],
-      "id": 8332926463030190080,
+      "id": 8333288285252116480,
       "type": "poll",
       "userid": 2548035848,
       "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:40:33 CET 2017"
+      "timestamp": "Sun Feb 19 16:08:12 CET 2017"
     },
     {
-      "question": "frage",
-      "statementid": 833292646303019008,
+      "question": "444",
+      "statementid": 833328828525211648,
       "options": [
         {
           "key": 1,
-          "optionsstr": "antwort 1",
+          "optionsstr": "444",
           "likes": 0
         },
         {
           "key": 2,
-          "optionsstr": "antowrt 2",
+          "optionsstr": "44",
           "likes": 0
         }
       ],
-      "id": 8332926463030190080,
+      "id": 8333288285252116480,
       "type": "poll",
       "userid": 2548035848,
       "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:40:33 CET 2017"
+      "timestamp": "Sun Feb 19 16:08:12 CET 2017"
     },
     {
-      "question": "ja od nein",
-      "statementid": 833295633389862913,
+      "question": "33",
+      "statementid": 833328828525211648,
       "options": [
         {
           "key": 1,
-          "optionsstr": "ja ",
+          "optionsstr": "3",
           "likes": 0
         },
         {
           "key": 2,
-          "optionsstr": "nein",
+          "optionsstr": "333",
           "likes": 0
         }
       ],
-      "id": 8332956333898629130,
+      "id": 8333288285252116481,
       "type": "poll",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:42:42 CET 2017"
+      "timestamp": "Sun Feb 19 16:08:32 CET 2017"
     },
     {
-      "question": "jjj nnn",
-      "statementid": 833296269279887361,
+      "question": "33",
+      "statementid": 833328828525211648,
       "options": [
         {
           "key": 1,
-          "optionsstr": "jj",
+          "optionsstr": "3",
           "likes": 0
         },
         {
           "key": 2,
-          "optionsstr": "nn",
+          "optionsstr": "333",
           "likes": 0
         }
       ],
-      "id": 8332962692798873610,
-      "type": "poll",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:45:50 CET 2017"
-    },
-    {
-      "question": "fff",
-      "statementid": 833296269279887361,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "g",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "h",
-          "likes": 0
-        }
-      ],
-      "id": 8332962692798873610,
+      "id": 8333288285252116481,
       "type": "poll",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:46:42 CET 2017"
-    },
-    {
-      "question": "fff",
-      "statementid": 833296269279887361,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "g",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "h",
-          "likes": 0
-        }
-      ],
-      "id": 8332962692798873610,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:46:42 CET 2017"
-    },
-    {
-      "question": "jjjjjjjjj",
-      "statementid": 833296269279887361,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "0000",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "9999",
-          "likes": 0
-        }
-      ],
-      "id": 8332962692798873613,
-      "type": "poll",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:48:21 CET 2017"
-    },
-    {
-      "question": "poll",
-      "statementid": 833292644163997696,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "opt 1",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "opt 2",
-          "likes": 0
-        }
-      ],
-      "id": 8332926441639976960,
-      "type": "poll",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:55:52 CET 2017"
-    },
-    {
-      "question": "frage",
-      "statementid": 833294869510623232,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "opt 1",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "opt 2",
-          "likes": 0
-        }
-      ],
-      "id": 8332948695106232320,
-      "type": "poll",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:19:39 CET 2017"
-    },
-    {
-      "question": "frage",
-      "statementid": 833294869510623232,
-      "options": [
-        {
-          "key": 1,
-          "optionsstr": "opt 1",
-          "likes": 0
-        },
-        {
-          "key": 2,
-          "optionsstr": "opt 2",
-          "likes": 0
-        }
-      ],
-      "id": 8332948695106232320,
-      "type": "poll",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:19:39 CET 2017"
+      "timestamp": "Sun Feb 19 16:08:32 CET 2017"
     }
   ]
 }

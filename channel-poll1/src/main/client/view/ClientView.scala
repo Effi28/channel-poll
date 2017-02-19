@@ -21,14 +21,10 @@ import scalafx.scene.paint.Color._
 import scalafx.collections.ObservableMap
 
 
-
-
 final object ClientView extends JFXApp {
 
-
-
-  var tabList :ListBuffer[Tab] = null
-  var currentChats : ObservableMap[Long, Statement] = null
+  var tabList: ListBuffer[Tab] = null
+  var currentChats: ObservableMap[Long, Statement] = null
   var tabPane: TabPane = null
 
   def getStage(): PrimaryStage = {
@@ -607,35 +603,52 @@ final object ClientView extends JFXApp {
     chatRoomInformation.vgap = 10
     chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
 
+    var numberOfComments: Int = 0
+    var commentInfo: Text = null
+
+    var numberOfPolls: Int = 0
+    var pollInfo: Text = null
 
 
     //Falls Chatroom bereits Kommentare enthält, soll deren Anzahl angezeigt werden
     if (Controller.statementContainsComments(statement)) {
       Platform.runLater {
-        var numberOfComments = Controller.getNumberOfComments(statement)
-        val commentInfo = new Text("Comments: " + numberOfComments)
+        numberOfComments = Controller.getNumberOfComments(statement)
+        commentInfo = new Text("Comments: " + numberOfComments)
         chatRoomInformation.addColumn(1, commentInfo)
       }
     }
 
-    //TODO
-    /*
-    Controller.getCommentsForStatement(statement).onChange({
-      println("hhhhhh")
-      var numberOfComments = Controller.getNumberOfComments(statement)
-      val commentInfo = new Text("Comments: " + numberOfComments)
-      chatRoomInformation.addColumn(1, commentInfo)
-    })
-    */
 
+    Controller.getCommentsForStatement(statement).onChange({
+      Platform.runLater {
+        numberOfComments = Controller.getNumberOfComments(statement)
+        commentInfo = new Text("Comments: " + numberOfComments)
+        chatRoomInformation.children.clear()
+        chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
+        chatRoomInformation.addColumn(1, commentInfo)
+        chatRoomInformation.addColumn(2, pollInfo)
+      }
+    })
 
 
     //Falls Chatroom bereits Umfragen enthält, soll deren Anzahl angezeigt werden
     if (Controller.statementContainsPolls(statement)) {
-      val numberOfPolls = Controller.getNumberOfPolls(statement)
-      val pollInfo = new Text("Polls: " + numberOfPolls)
+      numberOfPolls = Controller.getNumberOfPolls(statement)
+      pollInfo = new Text("Polls: " + numberOfPolls)
       chatRoomInformation.addColumn(2, pollInfo)
     }
+
+    Controller.getPollsForStatement(statement).onChange({
+      Platform.runLater {
+        numberOfPolls = Controller.getNumberOfPolls(statement)
+        pollInfo = new Text("Polls: " + numberOfPolls)
+        chatRoomInformation.children.clear()
+        chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
+        chatRoomInformation.addColumn(1, commentInfo)
+        chatRoomInformation.addColumn(2, pollInfo)
+      }
+    })
 
 
     //Eintrag soll Statementverfasser, -text und die oben erzeugten Infos enthalten
@@ -658,7 +671,7 @@ final object ClientView extends JFXApp {
     enterChatRoomButton.onAction = e => {
       Controller.getChatRooms.add(statement)
 
-      if (!currentChats.contains(statement.ID)){
+      if (!currentChats.contains(statement.ID)) {
         currentChats.put(statement.ID, statement)
 
         val statementTab = new Tab()
@@ -672,7 +685,6 @@ final object ClientView extends JFXApp {
         }
         tabList += statementTab
         tabPane.tabs = tabList
-
 
       }
 
@@ -690,10 +702,6 @@ final object ClientView extends JFXApp {
     }
     return logoutButton
   }
-
-
-
-
 
 
   //Gibt das Datum eines Objektes (Comment oder Poll) zurück

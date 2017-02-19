@@ -1,202 +1,76 @@
 {
   "data": [
     {
-      "statementid": 833284952691245056,
-      "id": 8332849526912450560,
+      "statementid": 833328828525211648,
+      "id": 8333288285252116480,
+      "type": "comment",
+      "message": "4444",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 16:08:05 CET 2017"
+    },
+    {
+      "statementid": 833328828525211648,
+      "id": 8333288285252116480,
+      "type": "comment",
+      "message": "4444",
+      "userid": 2548035848,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 16:08:05 CET 2017"
+    },
+    {
+      "statementid": 833328828525211648,
+      "id": 8333288285252116481,
+      "type": "comment",
+      "message": "333",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 16:08:27 CET 2017"
+    },
+    {
+      "statementid": 833328828525211648,
+      "id": 8333288285252116481,
+      "type": "comment",
+      "message": "333",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 16:08:27 CET 2017"
+    },
+    {
+      "statementid": 833328829284438016,
+      "id": 8333288292844380160,
       "type": "comment",
       "message": "hallo",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:05:34 CET 2017"
+      "timestamp": "Sun Feb 19 16:15:50 CET 2017"
     },
     {
-      "statementid": 833284952691245056,
-      "id": 8332849526912450561,
-      "type": "comment",
-      "message": "hey",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:06:19 CET 2017"
-    },
-    {
-      "statementid": 833284952691245056,
-      "id": 8332849526912450561,
-      "type": "comment",
-      "message": "hey",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:06:19 CET 2017"
-    },
-    {
-      "statementid": 833286341333024772,
-      "id": 8332863413330247720,
+      "statementid": 833328829284438016,
+      "id": 8333288292844380160,
       "type": "comment",
       "message": "hallo",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:21:04 CET 2017"
+      "timestamp": "Sun Feb 19 16:15:50 CET 2017"
     },
     {
-      "statementid": 833286318377533440,
-      "id": 8332863183775334400,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:24:27 CET 2017"
-    },
-    {
-      "statementid": 833286318377533440,
-      "id": 8332863183775334400,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:24:27 CET 2017"
-    },
-    {
-      "statementid": 833292646303019008,
-      "id": 8332926463030190080,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:39:35 CET 2017"
-    },
-    {
-      "statementid": 833292646303019008,
-      "id": 8332926463030190081,
+      "statementid": 833328829284438016,
+      "id": 8333288292844380161,
       "type": "comment",
       "message": "hey",
       "userid": 2548035848,
       "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:40:21 CET 2017"
+      "timestamp": "Sun Feb 19 16:15:58 CET 2017"
     },
     {
-      "statementid": 833292646303019008,
-      "id": 8332926463030190081,
+      "statementid": 833328829284438016,
+      "id": 8333288292844380161,
       "type": "comment",
       "message": "hey",
       "userid": 2548035848,
       "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:40:21 CET 2017"
-    },
-    {
-      "statementid": 833296269279887361,
-      "id": 8332962692798873610,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:46:21 CET 2017"
-    },
-    {
-      "statementid": 833296269279887361,
-      "id": 8332962692798873610,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:46:21 CET 2017"
-    },
-    {
-      "statementid": 833296269279887361,
-      "id": 8332962692798873611,
-      "type": "comment",
-      "message": "hey",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:46:38 CET 2017"
-    },
-    {
-      "statementid": 833296269279887361,
-      "id": 8332962692798873611,
-      "type": "comment",
-      "message": "hey",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 13:46:38 CET 2017"
-    },
-    {
-      "statementid": 833292644163997696,
-      "id": 8332926441639976960,
-      "type": "comment",
-      "message": "hey",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:56:14 CET 2017"
-    },
-    {
-      "statementid": 833292644163997696,
-      "id": 8332926441639976960,
-      "type": "comment",
-      "message": "hey",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:56:14 CET 2017"
-    },
-    {
-      "statementid": 833292410822197248,
-      "id": 8332924108221972480,
-      "type": "comment",
-      "message": "haaaloooooo",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 13:56:34 CET 2017"
-    },
-    {
-      "statementid": 833304415914299392,
-      "id": 8333044159142993920,
-      "type": "comment",
-      "message": "heys",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:19:03 CET 2017"
-    },
-    {
-      "statementid": 833304415914299392,
-      "id": 8333044159142993920,
-      "type": "comment",
-      "message": "heys",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:19:03 CET 2017"
-    },
-    {
-      "statementid": 833297055149912064,
-      "id": 8332970551499120640,
-      "type": "comment",
-      "message": "china town",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:23:37 CET 2017"
-    },
-    {
-      "statementid": 833297055149912064,
-      "id": 8332970551499120640,
-      "type": "comment",
-      "message": "china town",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:23:37 CET 2017"
-    },
-    {
-      "statementid": 833292416182525952,
-      "id": 8332924161825259520,
-      "type": "comment",
-      "message": "lmu",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:27:09 CET 2017"
-    },
-    {
-      "statementid": 833292416182525952,
-      "id": 8332924161825259520,
-      "type": "comment",
-      "message": "lmu",
-      "userid": 2548035848,
-      "username": "Kath_Wiesel",
-      "timestamp": "Sun Feb 19 14:27:09 CET 2017"
+      "timestamp": "Sun Feb 19 16:15:58 CET 2017"
     }
   ]
 }
