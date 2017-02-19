@@ -40,12 +40,16 @@ final object TwitterSettings {
     * 17752770, 1425265488)
     **/
 
-  val hashtags = "cdu, csu, merkel, spdbpt, CSUListe, aft, grüne, fdp, linke, gabriel," +
-    "steinmaier, zypries, bundestagswahl, merkel, angelamerkel, katjakipping" +
-    "spitzenkandidat, spitzenkandidatin, linke_sachsen, wahlrecht, btw17, schulz,"
-    "martinschulz, bundestag, deutschland, mega, kanzlerkandidatur, politik, germany," +
-    "eu, osthessen, grünen, wahlumfrage, höcke, keinealternative, agenda, kraft," +
-    "flüchtlinge, spdde, wahlbetrug, kanzleramt, mandate, kandidaten"
+  val hashtags = "cdu,csu,merkel,spdbpt,CSUListe,aft,grüne,fdp,linke,gabriel," +
+    "steinmaier,zypries,bundestagswahl,merkel,angelamerkel,katjakipping" +
+    "spitzenkandidat,spitzenkandidatin,linke_sachsen,wahlrecht,btw17,schulz,"
+    "martinschulz,bundestag,deutschland,mega,kanzlerkandidatur,politik,germany," +
+    "eu,osthessen,grünen,wahlumfrage,höcke,keinealternative,agenda,kraft," +
+    "flüchtlinge,spdde,wahlbetrug,kanzleramt,mandate,kandidaten," +
+      "wahl,bundestagsfraktion,bundestagswahl,duisburger,duisburg,tormentaelectrica," +
+      "peruanerin,germany,gewittersturm,crowdfunding, politik,journalism, " +
+      "volkerpispers,wahreworte, erstdenkendannwählen,wahl,1933,partei,2016 " +
+      "wahlkampf,campaign,jobs,igersberlin,berlin,travel,guardiancities "
 
   val filterLanguage = "de"
 }
