@@ -17,8 +17,6 @@ final object Controller {
 
   def sendPoll(poll: Poll) = ClientControl.sendData(poll)
 
-  def subscribe(statement: Statement, subscribe: Boolean) = ClientControl.subscribe(statement, subscribe)
-
   def sendPollAnswer(pollAnswer: PollAnswer) = ClientControl.sendData(pollAnswer)
 
   def statementContainsComments(statement: Statement) = ClientControl.comments contains statement.ID
@@ -79,6 +77,4 @@ final object Controller {
   def getNumberOfComments(statement: Statement): Int = {
     ClientControl.comments.get(statement.ID).get.size
   }
-
-
 }

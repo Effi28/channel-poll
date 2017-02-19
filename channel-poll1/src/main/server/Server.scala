@@ -2,15 +2,11 @@ package main.server
 
 import java.net.ServerSocket
 import java.util.concurrent.Executors
-
 import main.server.JsonFiles.SaveJsons
 import main.server.communication.ClientHandler
 import main.server.twitter.{QueueGetter, TwitterAccess}
 import main.shared.data._
 import main.shared.data.Serializable
-import main.shared.enums.JsonType.JsonType
-import main.shared.enums.JsonType
-
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
 
@@ -30,32 +26,6 @@ final private object Server {
       pool.execute(ClientHandler(serverSocket.accept))
     }
     pool.shutdown
-  }
-
-  def handleSubscribe(statementID: Long, user: TwitterUser): Unit = {
-    var tempClient:ClientHandler = null
-    for ((k, v) <- connectedHandler) {
-      if(k.ID == user.ID){
-        tempClient = v
-      }
-    }
-    if (!Server.chatRooms.contains(tempClient)) {
-      Server.chatRooms += tempClient -> ArrayBuffer[Long]()
-    }
-    Server.chatRooms.get(tempClient).get += statementID
-  }
-
-  def handleUnSubscribe(statementID: Long, user: TwitterUser): Unit = {
-    var tempClient:ClientHandler = null
-    for ((k, v) <- connectedHandler) {
-      if(k.ID == user.ID){
-        tempClient = v
-      }
-    }
-    Server.chatRooms.get(tempClient).get -= statementID
-    if (Server.chatRooms.get(tempClient).size == 0) {
-      Server.chatRooms -= tempClient
-    }
   }
 
   private def startTwitterStream = {
