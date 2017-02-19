@@ -666,7 +666,6 @@ final object ClientView extends JFXApp {
         statementTab.text = statement.userName
         statementTab.content = statementTabContent(statement)
         statementTab.onClosed = e => {
-          Controller.subscribe(statement, false)
           currentChats.remove(statementTab.id.value.toLong)
           tabList -= statementTab
           tabPane.tabs = tabList
@@ -677,7 +676,6 @@ final object ClientView extends JFXApp {
 
       }
 
-      Controller.subscribe(statement, true)
     }
     return enterChatRoomButton
   }
