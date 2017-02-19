@@ -1,15 +1,6 @@
 {
   "data": [
     {
-      "pictureurl": "http://pbs.twimg.com/profile_images/814876024043433985/lncYNHOT_normal.jpg",
-      "id": 833277239496212480,
-      "type": "statement",
-      "message": "RT @Medienluegen: Für sehr blöd - und das sind wir auch. Schließlich haben wir sie bereits 12 Jahre an der Macht gelassen. https://t.co/dgN…",
-      "userid": 3161107329,
-      "username": "Mike Klengenburg",
-      "timestamp": "Sun Feb 19 12:29:10 CET 2017"
-    },
-    {
       "pictureurl": "http://pbs.twimg.com/profile_images/831101193527160832/IAN3gbdx_normal.jpg",
       "id": 833277241228406784,
       "type": "statement",
@@ -170,6 +161,15 @@
       "userid": 1730038693,
       "username": "Gertrud Boußeljot",
       "timestamp": "Sun Feb 19 13:05:20 CET 2017"
+    },
+    {
+      "pictureurl": "http://pbs.twimg.com/profile_images/615823413857398784/PPwtODQp_normal.jpg",
+      "id": 833290802474385410,
+      "type": "statement",
+      "message": "RT @HolgerEwald1: \u0026#8222;Deutschland ist ein Einwanderungsland\u0026#8220;: Friedrich-Ebert-Stiftung fordert Wahlrecht für alle Einwohner https:…",
+      "userid": 408084708,
+      "username": "gothp1",
+      "timestamp": "Sun Feb 19 13:23:03 CET 2017"
     }
   ]
 }

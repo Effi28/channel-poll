@@ -18,7 +18,6 @@ import scalafx.scene.control._
 import java.text.SimpleDateFormat
 import java.util.Locale
 import scalafx.scene.paint.Color._
-import scalafx.collections.ObservableBuffer
 import scalafx.collections.ObservableMap
 
 
@@ -30,6 +29,7 @@ final object ClientView extends JFXApp {
 
   var tabList :ListBuffer[Tab] = null
   var currentChats : ObservableMap[Long, Statement] = null
+  var tabPane: TabPane = null
 
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
@@ -39,7 +39,7 @@ final object ClientView extends JFXApp {
       scene = new Scene {
 
         //TabPane
-        val tabPane = new TabPane()
+        tabPane = new TabPane()
 
         //General-Tab: wird immer angezeigt
         val generalTab = new Tab()
@@ -56,26 +56,6 @@ final object ClientView extends JFXApp {
 
 
         tabPane.tabs = tabList
-
-
-
-
-        currentChats.onChange({
-
-          val latestStatementId = currentChats.last._1
-          val latestStatement = currentChats.last._2
-
-          val statementTab = new Tab()
-
-          statementTab.text = latestStatement.userName
-          statementTab.content = statementTabContent(latestStatement)
-          statementTab.onClosed = e => {
-            Controller.subscribe(latestStatement, false)
-            currentChats.remove(latestStatementId)
-          }
-          tabList += statementTab
-          tabPane.tabs = tabList
-        })
 
 
         //Root
@@ -664,6 +644,21 @@ final object ClientView extends JFXApp {
 
       if (!currentChats.contains(statement.ID)){
         currentChats.put(statement.ID, statement)
+
+        val statementTab = new Tab()
+        statementTab.id = statement.ID.toString
+        statementTab.text = statement.userName
+        statementTab.content = statementTabContent(statement)
+        statementTab.onClosed = e => {
+          Controller.subscribe(statement, false)
+          currentChats.remove(statementTab.id.value.toLong)
+          tabList -= statementTab
+          tabPane.tabs = tabList
+        }
+        tabList += statementTab
+        tabPane.tabs = tabList
+
+
       }
 
       Controller.subscribe(statement, true)
