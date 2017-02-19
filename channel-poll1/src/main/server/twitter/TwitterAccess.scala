@@ -47,7 +47,7 @@ object TwitterAccess {
 
   //politicalFilter.follow(2548035848L)
   politicalFilter.language(TwitterSettings.filterLanguage)
-  politicalFilter.track(TwitterSettings.hashtags)
+  politicalFilter.track(TwitterSettings.tracks)
   liveStats.filter(politicalFilter)
 
   def getPosts() = new StatusListener() {
