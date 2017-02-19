@@ -1,6 +1,5 @@
 package main.shared.communication
 
-import main.server.JsonFiles.SaveJsons
 import main.shared.data._
 import org.json.JSONObject
 import main.server.JsonFiles.SaveJsons
@@ -20,7 +19,7 @@ abstract class MessageSender {
     queueIt(serializable, json)
   }
 
-  def queueIt(serializable: Serializable, json: JSONObject) = serializable match {
+  private def queueIt(serializable: Serializable, json: JSONObject) = serializable match {
     case poll:Poll =>   SaveJsons.pollsQueue += json
     case pollAnswer:PollAnswer =>  SaveJsons.pollsAnswersQueue += json
     case comment:Comment => SaveJsons.commentsJsonQueue += json
