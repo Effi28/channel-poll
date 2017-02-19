@@ -28,7 +28,7 @@ abstract class MessageReceiver {
       options += new Option(key, optionStr, likes, ArrayBuffer[String]())
     }
     val timestamp = json.optString("timestamp")
-    new Poll(pollID, statementID, userID, userName, question, options, timestamp)
+    Poll(pollID, statementID, userID, userName, question, options, timestamp)
   }
 
   def statement(json: JSONObject): Statement = {
@@ -38,7 +38,7 @@ abstract class MessageReceiver {
     val pictureURL = json.optString("pictureurl")
     val message = json.optString("message")
     val timestamp = json.optString("timestamp")
-    new Statement(id, userID, userName, pictureURL, message, timestamp)
+    Statement(id, userID, userName, pictureURL, message, timestamp)
   }
 
   def pollAnswer(json: JSONObject): PollAnswer = {
@@ -50,7 +50,7 @@ abstract class MessageReceiver {
     val selectedOptionKey = json.optInt("selectedoptionkey")
     val selectedOptionStr = json.optString("selectedoptionstr")
     val timestamp = json.optString("timestamp")
-    new PollAnswer(pollID, statementID, userID, userName, question, (selectedOptionKey, selectedOptionStr), timestamp)
+    PollAnswer(pollID, statementID, userID, userName, question, (selectedOptionKey, selectedOptionStr), timestamp)
   }
 
   def comment(json: JSONObject): Comment = {
@@ -60,6 +60,6 @@ abstract class MessageReceiver {
     val userName = json.optString("username")
     val message = json.optString("message")
     val timestamp = json.optString("timestamp")
-    new Comment(id, statementID, userID, userName, message, timestamp)
+    Comment(id, statementID, userID, userName, message, timestamp)
   }
 }

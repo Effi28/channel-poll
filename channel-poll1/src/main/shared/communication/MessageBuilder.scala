@@ -7,6 +7,13 @@ import org.json.{JSONArray, JSONObject}
 
 class MessageBuilder {
 
+  def writeData(serializable: Serializable): JSONObject = serializable match {
+    case poll:Poll =>  writePoll(poll)
+    case pollAnswer:PollAnswer =>  writePollAnswer(pollAnswer)
+    case comment:Comment => writeComment(comment)
+    case statement:Statement => writeStatement(statement)
+  }
+
   def writeLogin(user: TwitterUser): JSONObject = {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.LOGIN)
@@ -19,13 +26,6 @@ class MessageBuilder {
     Jmsg.put("type", JsonType.DISCONNECT)
     Jmsg.put("username", user.userName)
     Jmsg.put("userid", user.ID)
-  }
-
-   def writeData(serializable: Serializable): JSONObject = serializable match {
-    case poll:Poll =>  writePoll(poll)
-    case pollAnswer:PollAnswer =>  writePollAnswer(pollAnswer)
-    case comment:Comment => writeComment(comment)
-    case statement:Statement => writeStatement(statement)
   }
 
   private def writeComment(comment: Comment): JSONObject = {

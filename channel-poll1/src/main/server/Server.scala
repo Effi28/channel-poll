@@ -12,7 +12,6 @@ import scala.collection.mutable.ArrayBuffer
 
 final private object Server {
   private val connectedHandler= new HashMap[TwitterUser, ClientHandler]
-  private val chatRooms = new HashMap[ClientHandler, ArrayBuffer[Long]];
   private val statements = new HashMap[Long, Statement]
   private val comments = new HashMap[Long, ArrayBuffer[Comment]]
   private val polls = new HashMap[Long, ArrayBuffer[Poll]]
@@ -40,7 +39,7 @@ final private object Server {
       client.sender.writeLoginFailed(user)
     }
     else {
-      connectedHandler += (user -> client)
+      connectedHandler += user -> client
       broadcastLogin(client, user)
     }
   }
@@ -92,7 +91,7 @@ final private object Server {
 
   def +=(pollAnswer: PollAnswer): Unit = {
     if(!polls.contains(pollAnswer.statementID)){
-      polls += pollAnswer.statementID -> new ArrayBuffer[Poll]
+      polls += pollAnswer.statementID -> ArrayBuffer[Poll]()
     }
     for(poll <- polls.get(pollAnswer.statementID).get){
       if(poll.ID == pollAnswer.pollID){
