@@ -1,0 +1,6 @@
+1. Import Project into your favorite IDE via SBT.
+
+2. Users need a Twitter account for the Backchannel APP
+
+3. Start the Server which is located in main.server.Server
+4. Start a/multiple Clients which are located in main.client.view.LoginView
