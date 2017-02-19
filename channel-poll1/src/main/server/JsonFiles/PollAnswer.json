@@ -1,15 +1,5 @@
 {
   "data": [
-    {
-      "selectedoptionstr": "no",
-      "question": "yes or no?",
-      "pollid": 8331239124980244480,
-      "statementid": 833123912498024448,
-      "type": "pollanswer",
-      "userid": 826426233999196164,
-      "selectedoptionkey": 2,
-      "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 02:22:06 CET 2017"
-    }
+
   ]
 }
