@@ -48,7 +48,6 @@ object TwitterAccess {
 
   def getPosts() = new StatusListener() {
     def onStatus(nextStatus: Status) {
-      println(nextStatus.getText)
       // Create Json from tweetJson
       val message = nextStatus.getText
       val userid = nextStatus.getUser.getId
