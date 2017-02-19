@@ -16,7 +16,6 @@ class MessageBuilder {
   def writeLogout(user: TwitterUser): JSONObject = {
     val Jmsg = new JSONObject
     Jmsg.put("type", JsonType.DISCONNECT)
-    Jmsg.put("type", JsonType.LOGIN)
     Jmsg.put("username", user.userName)
     Jmsg.put("userid", user.ID)  }
 
