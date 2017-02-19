@@ -17,6 +17,7 @@ import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.control._
 import java.text.SimpleDateFormat
 import java.util.Locale
+import scalafx.scene.paint.Color._
 
 
 final object ClientView extends JFXApp {
@@ -140,6 +141,14 @@ final object ClientView extends JFXApp {
     val user = new Label(statement.userName)
     val message = new Text(statement.message)
 
+    val statementGrid = new GridPane()
+    statementGrid.hgap = 5
+    statementGrid.vgap = 5
+    statementGrid.maxWidth = Double.MaxValue
+    statementGrid.addRow(0, user)
+    statementGrid.addRow(1, message)
+
+
     //Einträge
     val chatEntries = new VBox()
     chatEntries.spacing = 10
@@ -216,24 +225,19 @@ final object ClientView extends JFXApp {
     })
 
 
-    val chatGridPane = new GridPane()
-
+    //Textfeld für Kommentare
     val commentInputField = new TextArea()
 
+    //Button zum Abschicken von Kommentaren
     val sendButton = new Button("Send")
     sendButton.autosize()
     sendButton.onAction = e => {
-
-
       val message = commentInputField.getText
 
       if (message.size != 0) {
         val createdAt = Calendar.getInstance().getTime.toString
-
-
         val userID = Controller.getTwitterUser.ID
         val userName = Controller.getTwitterUser.userName
-
         var commentCounter = 0
         if (Controller.statementContainsComments(statement)) {
           commentCounter = Controller.getNumberOfComments(statement)
@@ -245,9 +249,12 @@ final object ClientView extends JFXApp {
       }
     }
 
+    //Vorlage für neue Umfrage
+    val pollTemplate = new GridPane()
+    pollTemplate.hgap = 5
+    pollTemplate.vgap = 5
 
-    val pollTemplate = new VBox()
-
+    //Button zum Erstellen von Umfragen
     val pollButton = new Button("Poll")
     pollButton.onAction = e => {
       if (!pollTemplateIsVisible) {
@@ -255,66 +262,67 @@ final object ClientView extends JFXApp {
 
         var pollIsValid = true
 
+        //Frage
         val questionLabel = new Label("Question")
         val questionInputField = new TextField()
         questionInputField.requestFocus()
 
+        //Minimale Anzahl an Antwortmöglichkeiten
         val minNumberOfOptions = 2
+        //Maximale Anzahl an Antwortmöglichkeiten
         val maxNumberOfOptions = 5
-
+        //Aktuelle Anzahl an Antwortmöglichkeiten
         val currentNumberOfOptions = IntegerProperty(0)
 
-        val errorMessageBox = new TextFlow()
-
+        //Anzeigefeld für Fehlermeldungen
+        val warning = new Text()
+        warning.fill = Red
 
         val optionHashMap = new HashMap[Int, (Label, TextField)]
 
-        val pollGridPane = new GridPane()
-        pollGridPane.addRow(0, new Label("Poll"))
-        pollGridPane.addRow(1, questionLabel, questionInputField)
+        pollTemplate.addRow(0, questionLabel, questionInputField)
 
-        var nextFreeIndex = 2
+        var nextFreeIndex = 1
 
+        //Textfelder für obligatorische Antwortmöglichkeiten
         for (i <- 1 to minNumberOfOptions) {
           val label = new Label("Option " + i)
           val inputField = new TextField()
           optionHashMap.put(i, (label, inputField))
-          pollGridPane.addRow(nextFreeIndex, label, inputField)
+          pollTemplate.addRow(nextFreeIndex, label, inputField)
           currentNumberOfOptions.value = currentNumberOfOptions.value + 1
           nextFreeIndex += 1
         }
 
 
+        //Button für zusätzliche Antwortmöglichkeiten
         val addOptionButton = new Button("Add Option")
         addOptionButton.onAction = e => {
           currentNumberOfOptions.value = currentNumberOfOptions.value + 1
           val label = new Label("Option " + currentNumberOfOptions.value)
           val inputField = new TextField()
           optionHashMap.put(currentNumberOfOptions.value, (label, inputField))
-          pollGridPane.addRow(nextFreeIndex, label, inputField)
+          pollTemplate.addRow(nextFreeIndex, label, inputField)
           nextFreeIndex += 1
         }
 
 
+        //Prüft, ob die maximale Anzahl and Antwortmöglichkeiren erreicht wurde
         currentNumberOfOptions.onChange({
           if (currentNumberOfOptions.value == maxNumberOfOptions) {
             addOptionButton.disable = true
-            errorMessageBox.children.clear()
-            errorMessageBox.children.add(new Text("The maximum number of options is " + maxNumberOfOptions + "!\n")): Unit
+            warning.text = "The maximum number of options is " + maxNumberOfOptions + "!\n"
           }
         })
 
 
-        val indexForAddOptionButton = maxNumberOfOptions + 2
-        val indexForSubmitButton = maxNumberOfOptions + 3
-        var indexForErrorMessageBox = maxNumberOfOptions + 4
+        val indexForButtons = maxNumberOfOptions + 2
+        val indexForWarningMessages = maxNumberOfOptions + 3
 
-
-        pollGridPane.addRow(indexForAddOptionButton, addOptionButton)
 
         val submitButton = new Button("Submit")
         submitButton.onAction = e => {
-          errorMessageBox.children.clear()
+          warning.text = ""
           //wieder auf 'true' setzen für neuen Versuch
           pollIsValid = true
 
@@ -324,7 +332,7 @@ final object ClientView extends JFXApp {
           val question = questionInputField.getText
 
           if (question.length == 0) {
-            errorMessageBox.children.add(new Text("The 'Question' input field cannot be empty!\n"))
+            warning.text = "The 'Question' input field cannot be empty!\n"
             pollIsValid = false
           }
 
@@ -339,7 +347,7 @@ final object ClientView extends JFXApp {
 
 
             if (optionInputField.getText.length == 0) {
-              errorMessageBox.children.add(new Text("The 'Option " + key + "' input field cannot be empty!\n"))
+              warning.text = "The 'Option " + key + "' input field cannot be empty!\n"
               pollIsValid = false
             }
 
@@ -361,27 +369,41 @@ final object ClientView extends JFXApp {
           }
         }
 
-        pollGridPane.addRow(indexForSubmitButton, submitButton)
+        pollTemplate.addRow(indexForButtons, addOptionButton, submitButton)
+        pollTemplate.add(warning, 0, indexForWarningMessages, 2, 1)
 
-        pollGridPane.add(errorMessageBox, 0, indexForErrorMessageBox, 4, 1)
-
-        pollTemplate.children.addAll(pollGridPane)
       }
     }
 
 
-    commentInputField.setMaxHeight(Double.MaxValue)
-    val commentField = new VBox()
-    commentField.children.add(commentInputField)
-    chatGridPane.add(commentField, 0, 0, 2, 1)
+    commentInputField.maxWidth = Double.MaxValue
+
+    val inputGrid = new GridPane()
+    inputGrid.vgap = 5
+    inputGrid.hgap = 5
+
+    inputGrid.add(commentInputField, 0, 0, 2, 2)
+
+    sendButton.maxWidth = Double.MaxValue
+    pollButton.maxWidth = Double.MaxValue
+    inputGrid.add(sendButton, 2, 0, 1, 1)
+    inputGrid.add(pollButton, 2, 1, 1, 1)
+    inputGrid.add(pollTemplate, 0, 2, 3, 1)
+    inputGrid.maxHeight = Double.MinValue
+    inputGrid.maxWidth = Double.MaxValue
+
+    scrollPane.maxHeight = Double.MaxValue
+    scrollPane.maxWidth = Double.MaxValue
 
 
-    sendButton.setMaxWidth(Double.MaxValue)
-    pollButton.setMaxWidth(Double.MaxValue)
-    val buttons = new VBox(sendButton, pollButton)
-    chatGridPane.add(buttons, 2, 0, 1, 2)
+    val chatGrid = new GridPane()
+    chatGrid.vgap = 15
+    chatGrid.hgap = 15
+    chatGrid.maxWidth = Double.MaxValue
+    chatGrid.margin = Insets(15)
+    chatGrid.addColumn(0, statementGrid, scrollPane, inputGrid)
 
-    border.center = new VBox(new VBox(user, message), scrollPane, chatGridPane, pollTemplate)
+    border.center = chatGrid
 
 
     //Right: User
@@ -401,8 +423,10 @@ final object ClientView extends JFXApp {
   }
 
 
+  //Erstellt einen Eintrag für einen Kommentar und gibt diesen zurück
   def renderComment(comment: Comment): GridPane = {
     val commentGrid = new GridPane()
+    commentGrid.margin = Insets(10)
     val user = new Text(comment.userName)
     val message = new Text(comment.message)
     commentGrid.addRow(0, user)
@@ -410,14 +434,17 @@ final object ClientView extends JFXApp {
     return commentGrid
   }
 
+  //Erstellt einen Eintrag für eine aktive Umfrage (die noch nicht beantwortet wurde)
   def renderActivePoll(statement: Statement, poll: Poll): GridPane = {
 
 
-    var pollGrid = new GridPane()
-    val user = new Text(Controller.getTwitterUser.userName)
-    val header = new Label("Poll")
+    val pollGrid = new GridPane()
+    pollGrid.margin = Insets(10)
+    val user = new Label(Controller.getTwitterUser.userName)
     val question = new Text(poll.question)
     val options = new GridPane()
+    options.vgap = 5
+    options.hgap = 5
 
     val toggleGroup = new ToggleGroup()
 
@@ -434,9 +461,9 @@ final object ClientView extends JFXApp {
       val updatedPoll = getUpdatedPoll(statement, poll.ID)
 
 
-      pollGrid.children.remove(5)
       pollGrid.children.remove(4)
       pollGrid.children.remove(3)
+      pollGrid.children.remove(2)
 
       var results = getPollResults(updatedPoll)
       pollGrid.addRow(3, results)
@@ -498,45 +525,51 @@ final object ClientView extends JFXApp {
 
 
     pollGrid.addRow(0, user)
-    pollGrid.addRow(1, header)
-    pollGrid.addRow(2, question)
-    pollGrid.addRow(3, options)
-    pollGrid.addRow(4, submitButton, resultButton)
+    pollGrid.addRow(1, question)
+    pollGrid.addRow(2, options)
+    pollGrid.addRow(3, submitButton, resultButton)
+
+    pollGrid.vgap = 5
+    pollGrid.hgap = 5
 
     return pollGrid
   }
 
 
+  //Erstellt einen Eintrag für eine Umfrage, die bereits beantwortet wurde
   def renderCompletedPoll(statement: Statement, poll: Poll): GridPane = {
 
     val pollGrid = new GridPane()
-    val user = new Text(Controller.getTwitterUser.userName)
-    val header = new Label("Poll")
+    pollGrid.margin = Insets(10)
+    val user = new Label(Controller.getTwitterUser.userName)
     val question = new Text(poll.question)
     var results = getPollResults(poll)
 
 
     val updateButton = updateResultsButton()
-
     updateButton.onAction = e => {
       val updatedPoll = getUpdatedPoll(statement, poll.ID)
       results = getPollResults(updatedPoll)
     }
 
     pollGrid.addRow(0, user)
-    pollGrid.addRow(1, header)
-    pollGrid.addRow(2, question)
-    pollGrid.addRow(3, results)
-    pollGrid.addRow(4, updateButton)
+    pollGrid.addRow(1, question)
+    pollGrid.addRow(2, results)
+    pollGrid.addRow(3, updateButton)
+
+    pollGrid.vgap = 5
+    pollGrid.hgap = 5
 
     return pollGrid
   }
 
 
+  //Button zum Updaten von Umfrageergebnissen
   def updateResultsButton(): Button = {
     new Button("Update Results")
   }
 
+  //Gibt Umfrageergebnisse zurück
   def getPollResults(poll: Poll): GridPane = {
     val results = new GridPane()
 
@@ -550,11 +583,15 @@ final object ClientView extends JFXApp {
       results.add(answer, 1, rowIndex)
       results.add(votes, 2, rowIndex)
       rowIndex += 1
-
     })
+
+    results.vgap = 10
+    results.hgap = 10
+
     return results
   }
 
+  //Gibt den aktuellen Zustand einer Umfrage zurück (mit aktuellen Ergebnissen)
   def getUpdatedPoll(statement: Statement, pollID: Long): Poll = {
     var updatedPoll: Poll = null
     Controller.getPollsForStatement(statement).foreach(p => {
@@ -601,6 +638,7 @@ final object ClientView extends JFXApp {
 
     entry.margin = Insets(15)
     entry.vgap = 10
+    entry.hgap = 10
 
     return entry
   }
@@ -629,6 +667,7 @@ final object ClientView extends JFXApp {
   }
 
 
+  //Gibt das Datum eines Objektes (Comment oder Poll) zurück
   def getDate(obj: Object): Date = {
     var stamp: String = null
     if (obj.isInstanceOf[Comment]) {

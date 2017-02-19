@@ -1,58 +1,49 @@
 {
   "data": [
     {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877770,
-      "type": "comment",
-      "message": "hallo",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Fri Feb 17 23:00:18 CET 2017"
-    },
-    {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877771,
-      "type": "comment",
-      "message": "hey",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Fri Feb 17 23:00:24 CET 2017"
-    },
-    {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877772,
-      "type": "comment",
-      "message": "hi",
-      "userid": 826426233999196164,
-      "username": "brendaavdijaj",
-      "timestamp": "Sat Feb 18 20:41:30 CET 2017"
-    },
-    {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877773,
+      "statementid": 833123940969115648,
+      "id": 8331239409691156480,
       "type": "comment",
       "message": "hello",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sat Feb 18 20:51:28 CET 2017"
+      "timestamp": "Sun Feb 19 02:33:56 CET 2017"
     },
     {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877774,
+      "statementid": 833123940969115648,
+      "id": 8331239409691156481,
       "type": "comment",
-      "message": "+++++++++++++++++++",
+      "message": "hi",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 00:07:26 CET 2017"
+      "timestamp": "Sun Feb 19 02:34:00 CET 2017"
     },
     {
-      "statementid": 831287691987787777,
-      "id": 8312876919877877775,
+      "statementid": 833126963153891328,
+      "id": 8331269631538913280,
       "type": "comment",
-      "message": "***",
+      "message": "hey",
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
-      "timestamp": "Sun Feb 19 00:11:52 CET 2017"
+      "timestamp": "Sun Feb 19 02:46:03 CET 2017"
+    },
+    {
+      "statementid": 833126963153891328,
+      "id": 8331269631538913281,
+      "type": "comment",
+      "message": "hallo",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 02:46:11 CET 2017"
+    },
+    {
+      "statementid": 833130242021720064,
+      "id": 8331302420217200640,
+      "type": "comment",
+      "message": "hello",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 02:46:37 CET 2017"
     }
   ]
 }
