@@ -28,12 +28,7 @@ class ServerMessageReceiver(in: BufferedReader, client: ClientHandler) extends M
     case JsonType.STATEMENT => client.handleStatement(statement(jSONObject))
     case JsonType.COMMENT => client.handleComment(comment(jSONObject))
     case JsonType.POLL => client.handlePoll(poll(jSONObject))
-    case JsonType.SUBSCRIBE => handleSubscribe(jSONObject)
-    case JsonType.UNSUBSCRIBE => handleUnsubscribe(jSONObject)
     case JsonType.POLLANSWER => client.handlePollAnswer(pollAnswer(jSONObject))
     case _ => invalid(jSONObject)
   }
-  private def handleSubscribe(json: JSONObject) = client.handleSubscribe(json.optLong("statementid"), TwitterUser(json.optLong("userid"),json.optString("username")))
-  private def handleUnsubscribe(json: JSONObject) = client.handleUnsubscribe(json.optLong("statementid"), TwitterUser(json.optLong("userid"), json.optString("username")))
-
 }

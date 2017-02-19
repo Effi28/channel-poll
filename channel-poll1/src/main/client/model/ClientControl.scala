@@ -57,8 +57,4 @@ final object ClientControl {
     ClientMessageSender.writeLogout(user)
     System.exit(0)
   }
-
-  def subscribe(statement: Statement, subscribe: Boolean): Unit = {
-    ClientMessageSender.writeSubscribe(statement, subscribe)
-  }
 }
