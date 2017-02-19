@@ -1,8 +1,7 @@
 package main.shared.communication
 
-import main.shared.data.{Comment, Option, Poll, PollAnswer, Statement, TwitterUser}
-import org.json.{JSONArray, JSONObject}
-
+import main.shared.data._
+import org.json.JSONObject
 import scala.collection.mutable.ArrayBuffer
 
 abstract class MessageReceiver {

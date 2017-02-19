@@ -1,6 +1,6 @@
 package main.shared.data
 
-import scala.collection.mutable.{ArrayBuffer, HashMap}
+import scala.collection.mutable.ArrayBuffer
 
 /**
   * Created by Brenda on 05.02.17.
