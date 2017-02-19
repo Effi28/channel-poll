@@ -1,35 +1,29 @@
 package main.shared.communication
 
-import main.client.model.ClientControl
 import main.server.JsonFiles.SaveJsons
-import main.shared.data.{Comment, Poll, PollAnswer, TwitterUser}
+import main.shared.data._
 import org.json.JSONObject
+import main.server.JsonFiles.SaveJsons
 
 abstract class MessageSender {
   val MessageBuilder = new MessageBuilder
   def writeLoginMessage(user: TwitterUser) = writeMessage(MessageBuilder.writeLogin(user))
   def writeMessage(json: JSONObject): Unit
 
-  def writeStComment(comment: Comment): Unit = {
-    val commentJson = MessageBuilder.writeComment(comment)
-    SaveJsons.commentsJsonQueue += commentJson
-    writeMessage(commentJson)
-  }
-
-  def writePoll(poll: Poll): Unit = {
-    val pollJson = MessageBuilder.writePoll(poll)
-    SaveJsons.pollsQueue += pollJson
-    writeMessage(pollJson)
-  }
-
-  def writePollAnswer(pollAnswer: PollAnswer): Unit = {
-    val pollAnswerJson = MessageBuilder.writePollAnswer(pollAnswer)
-    SaveJsons.pollsAnswersQueue += pollAnswerJson
-    writeMessage(pollAnswerJson)
-  }
-
   def writeLogout(user: TwitterUser): Unit = {
     writeMessage(MessageBuilder.writeLogout(user))
-    ClientControl.close
+  }
+
+  def writeData(serializable: Serializable): Unit ={
+    val json:JSONObject = MessageBuilder.writeData(serializable)
+    writeMessage(json)
+    queueIt(serializable, json)
+  }
+
+  def queueIt(serializable: Serializable, json: JSONObject) = serializable match {
+    case poll:Poll =>   SaveJsons.pollsQueue += json
+    case pollAnswer:PollAnswer =>  SaveJsons.pollsAnswersQueue += json
+    case comment:Comment => SaveJsons.commentsJsonQueue += json
+    case statement:Statement => SaveJsons.statementsJsonQueue += json
   }
 }

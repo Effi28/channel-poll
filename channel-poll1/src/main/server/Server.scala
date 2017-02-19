@@ -1,13 +1,15 @@
 package main.server
 
 import java.net.ServerSocket
-import java.net.Socket
-import java.util.concurrent.{ExecutorService, Executors}
+import java.util.concurrent.Executors
 
 import main.server.JsonFiles.SaveJsons
 import main.server.communication.ClientHandler
 import main.server.twitter.{QueueGetter, TwitterAccess}
 import main.shared.data._
+import main.shared.data.Serializable
+import main.shared.enums.JsonType.JsonType
+import main.shared.enums.JsonType
 
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
@@ -58,7 +60,6 @@ final private object Server {
 
   private def startTwitterStream = {
     TwitterAccess.streamingThread.start
-    // start dequeue thread for getting statements from queue
     QueueGetter.dequeueThread.start
   }
 
@@ -98,44 +99,28 @@ final private object Server {
     }
   }
 
-  def broadcastStatement(statement: Statement): Unit = {
+  def +=(statement: Statement): Unit = {
     statements += statement.ID -> statement
-    for ((k, v) <- connectedHandler) {
-      v.sender.writeStatement(statement)
-    }
+   broadcast(statement)
   }
 
-  def broadcastComment(comment: Comment): Unit = {
+  def +=(comment: Comment): Unit = {
     if (!comments.contains(comment.statementID)) {
       comments += comment.statementID -> ArrayBuffer[Comment]()
     }
     comments.get(comment.statementID).get += comment
-    for ((k: TwitterUser, v: ClientHandler) <- connectedHandler) {
-      if (chatRooms.contains(v) && chatRooms.get(v).get.contains(comment.statementID)) {
-        v.sender.writeStComment(comment)
-      }
-    }
+    broadcast(comment)
   }
 
-  def broadcastPoll(poll: Poll): Unit = {
+  def +=(poll: Poll): Unit = {
     if (!polls.contains(poll.statementID)) {
       polls += poll.statementID -> ArrayBuffer[Poll]()
     }
     polls.get(poll.statementID).get += poll
-    for ((k, v) <- connectedHandler) {
-      if (chatRooms.contains(v) && chatRooms.get(v).get.contains(poll.statementID)) {
-        v.sender.writePoll(poll)
-      }
-    }
+    broadcast(poll)
   }
 
-  def broadcastPollUpdate(poll: Poll): Unit = {
-    for ((k, v) <- connectedHandler) {
-      v.sender.writePoll(poll)
-    }
-  }
-
-  def broadcastPollAnswers(pollAnswer: PollAnswer): Unit = {
+  def +=(pollAnswer: PollAnswer): Unit = {
     if(!polls.contains(pollAnswer.statementID)){
       polls += pollAnswer.statementID -> new ArrayBuffer[Poll]
     }
@@ -149,11 +134,12 @@ final private object Server {
         }
       }
     }
+    broadcast(pollAnswer)
+  }
 
+  def broadcast(serializable: Serializable): Unit ={
     for ((k, v) <- connectedHandler) {
-      if (chatRooms.contains(v) && chatRooms.get(v).get.contains(pollAnswer.statementID)) {
-        v.sender.writePollAnswer(pollAnswer)
-      }
+      v.sender.writeData(serializable)
     }
   }
 }

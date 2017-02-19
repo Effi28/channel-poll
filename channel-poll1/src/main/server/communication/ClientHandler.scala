@@ -20,10 +20,11 @@ final case class ClientHandler(socket: Socket) extends Runnable {
 
   def handleLogin(user: TwitterUser)=Server.checkLogin(user, this)
   def handleLogout(user: TwitterUser)=Server.removeClient(this)
-  def handleStatement(statement: Statement)=Server.broadcastStatement(statement)
-  def handleComment(comment: Comment)=Server.broadcastComment(comment)
-  def handlePoll(poll: Poll)=Server.broadcastPoll(poll)
-  def handlePollAnswer(pollAnswer: PollAnswer)=Server.broadcastPollAnswers(pollAnswer)
   def handleSubscribe(statementID: Long, user: TwitterUser) = Server.handleSubscribe(statementID, user)
   def handleUnsubscribe(statementID: Long, user: TwitterUser)=Server.handleUnSubscribe(statementID, user)
+
+  def handleStatement(statement: Statement)=Server += statement
+  def handleComment(comment: Comment)=Server += comment
+  def handlePoll(poll: Poll)=Server += poll
+  def handlePollAnswer(pollAnswer: PollAnswer)=Server += pollAnswer
 }
