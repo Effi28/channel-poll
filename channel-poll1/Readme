@@ -4,3 +4,7 @@
 
 3. Start the Server which is located in main.server.Server
 4. Start a/multiple Clients which are located in main.client.view.LoginView
+
+Make sure you always have the current Version from:
+
+https://github.com/Effi28/channel-poll/tree/master/channel-poll1
