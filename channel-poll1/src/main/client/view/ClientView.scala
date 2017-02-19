@@ -465,11 +465,13 @@ final object ClientView extends JFXApp {
 
       updateButton.onAction = e => {
         val updatedPoll = getUpdatedPoll(statement, poll.ID)
+        pollGrid.children.remove(3)
+        pollGrid.children.remove(2)
         results = getPollResults(updatedPoll)
+        pollGrid.addRow(3, results)
+        pollGrid.addRow(4, updateButton)
       }
-
       pollGrid.addRow(4, updateButton)
-
     }
 
 

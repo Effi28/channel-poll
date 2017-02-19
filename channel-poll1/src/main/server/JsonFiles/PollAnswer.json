@@ -87,6 +87,237 @@
       "selectedoptionkey": 1,
       "username": "brendaavdijaj",
       "timestamp": "Sun Feb 19 13:24:45 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332908024743854100,
+      "statementid": 833290802474385410,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:32:04 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332908024743854100,
+      "statementid": 833290802474385410,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:32:04 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 2",
+      "question": "frage",
+      "pollid": 8332908024743854100,
+      "statementid": 833290802474385410,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 2,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:32:12 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 2",
+      "question": "frage",
+      "pollid": 8332908024743854100,
+      "statementid": 833290802474385410,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 2,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:32:12 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332926463030190080,
+      "statementid": 833292646303019008,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:40:41 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332926463030190080,
+      "statementid": 833292646303019008,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:40:41 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332926463030190080,
+      "statementid": 833292646303019008,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:40:49 CET 2017"
+    },
+    {
+      "selectedoptionstr": "antwort 1",
+      "question": "frage",
+      "pollid": 8332926463030190080,
+      "statementid": 833292646303019008,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:40:49 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja ",
+      "question": "ja od nein",
+      "pollid": 8332956333898629130,
+      "statementid": 833295633389862913,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:42:45 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja ",
+      "question": "ja od nein",
+      "pollid": 8332956333898629130,
+      "statementid": 833295633389862913,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:43:41 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja ",
+      "question": "ja od nein",
+      "pollid": 8332956333898629130,
+      "statementid": 833295633389862913,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:43:41 CET 2017"
+    },
+    {
+      "selectedoptionstr": "jj",
+      "question": "jjj nnn",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:46:46 CET 2017"
+    },
+    {
+      "selectedoptionstr": "jj",
+      "question": "jjj nnn",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 2548035848,
+      "selectedoptionkey": 1,
+      "username": "Kath_Wiesel",
+      "timestamp": "Sun Feb 19 13:46:46 CET 2017"
+    },
+    {
+      "selectedoptionstr": "g",
+      "question": "fff",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:46:50 CET 2017"
+    },
+    {
+      "selectedoptionstr": "g",
+      "question": "fff",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:46:50 CET 2017"
+    },
+    {
+      "selectedoptionstr": "g",
+      "question": "fff",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:47:00 CET 2017"
+    },
+    {
+      "selectedoptionstr": "g",
+      "question": "fff",
+      "pollid": 8332962692798873610,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:47:00 CET 2017"
+    },
+    {
+      "selectedoptionstr": "0000",
+      "question": "jjjjjjjjj",
+      "pollid": 8332962692798873613,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:49:16 CET 2017"
+    },
+    {
+      "selectedoptionstr": "0000",
+      "question": "jjjjjjjjj",
+      "pollid": 8332962692798873613,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:49:16 CET 2017"
+    },
+    {
+      "selectedoptionstr": "0000",
+      "question": "jjjjjjjjj",
+      "pollid": 8332962692798873613,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:49:39 CET 2017"
+    },
+    {
+      "selectedoptionstr": "0000",
+      "question": "jjjjjjjjj",
+      "pollid": 8332962692798873613,
+      "statementid": 833296269279887361,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:49:39 CET 2017"
     }
   ]
 }
