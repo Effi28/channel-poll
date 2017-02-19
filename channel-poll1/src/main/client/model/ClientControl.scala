@@ -4,7 +4,6 @@ import java.net.Socket
 import main.shared.data._
 import scala.collection.mutable.HashMap
 import scalafx.collections.ObservableBuffer
-import scalafx.beans.property.IntegerProperty
 
 
 final object ClientControl {
@@ -16,17 +15,14 @@ final object ClientControl {
   val statements = ObservableBuffer[Statement]()
   val comments = HashMap[Long, ObservableBuffer[Comment]]()
   val polls = HashMap[Long, ObservableBuffer[Poll]]()
-  val chatRooms = HashMap[Statement, ObservableBuffer[TwitterUser]]()
-  val userChatRooms = HashMap[TwitterUser, ObservableBuffer[Statement]]()
+  val chatRooms: ObservableBuffer[Statement] = new ObservableBuffer[Statement]()
 
 
 
   def setupClient(user1: TwitterUser) = {
     listen.start
     user = user1
-    if (!userChatRooms.contains(user1)) {
-      userChatRooms.put(user1, new ObservableBuffer[Statement])
-    }
+
     ClientMessageSender.writeLoginMessage(user)
   }
 
@@ -66,26 +62,9 @@ final object ClientControl {
   def close = System.exit(0)
 
   def subscribe(statement: Statement, subscribe: Boolean): Unit = {
-    if (subscribe) {
-      if (!ClientControl.userChatRooms.get(user).contains(statement)) {
-        ClientControl.userChatRooms.get(user).get += statement
-      }
-      if (!ClientControl.chatRooms.get(statement).contains(user)) {
-        ClientControl.chatRooms.get(statement).get += user
-      }
-    }
-    else {
-      if (ClientControl.userChatRooms.get(user).contains(statement)) {
-        ClientControl.userChatRooms.get(user).get -= statement
-      }
-      if (ClientControl.chatRooms.get(statement).contains(user)) {
-        ClientControl.chatRooms.get(statement).get -= user
-      }
 
-    }
     ClientMessageSender.writeSubscribe(statement, subscribe)
   }
-
 
 
 }

@@ -18,10 +18,18 @@ import scalafx.scene.control._
 import java.text.SimpleDateFormat
 import java.util.Locale
 import scalafx.scene.paint.Color._
+import scalafx.collections.ObservableBuffer
+import scalafx.collections.ObservableMap
+
+
 
 
 final object ClientView extends JFXApp {
 
+
+
+  var tabList :ListBuffer[Tab] = null
+  var currentChats : ObservableMap[Long, Statement] = null
 
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
@@ -39,37 +47,36 @@ final object ClientView extends JFXApp {
         generalTab.content = generalTabContent()
 
         //Liste aller Tabs
-        val tabList = ListBuffer(generalTab)
+        tabList = ListBuffer(generalTab)
+
+        currentChats = ObservableMap[Long, Statement]()
 
         //Eigener User
         val twitterUser = Controller.getTwitterUser
 
-        //Future Work: zukünftig sollen alle Chats, zu denen der User angemeldet ist, in Form von Tabs bereits geöffnet sein (tbd)
-        if (Controller.getUserChatRooms(twitterUser).size > 0) {
-          Controller.getUserChatRooms(twitterUser).foreach(statement => {
-            val statementTab = new Tab()
-            statementTab.text = statement.userName
-            statementTab.content = statementTabContent(statement)
-            statementTab.onClosed = e => {
-              Controller.subscribe(statement, false)
-            }
-            tabList += statementTab
-          })
-        }
 
         tabPane.tabs = tabList
 
-        //Wenn der User einen Chatroom betritt, soll dieser in Form eines Tabs geöffnet werden
-        Controller.getUserChatRooms(twitterUser).onChange({
+
+
+
+        currentChats.onChange({
+
+          val latestStatementId = currentChats.last._1
+          val latestStatement = currentChats.last._2
+
           val statementTab = new Tab()
-          statementTab.text = Controller.getUserChatRooms(twitterUser).last.userName
-          statementTab.content = statementTabContent(Controller.getUserChatRooms(twitterUser).last)
+
+          statementTab.text = latestStatement.userName
+          statementTab.content = statementTabContent(latestStatement)
           statementTab.onClosed = e => {
-            Controller.subscribe(Controller.getUserChatRooms(twitterUser).last, false)
+            Controller.subscribe(latestStatement, false)
+            currentChats.remove(latestStatementId)
           }
           tabList += statementTab
           tabPane.tabs = tabList
         })
+
 
         //Root
         root = tabPane
@@ -406,16 +413,16 @@ final object ClientView extends JFXApp {
     chatGrid.addRow(0, statementGrid)
     chatGrid.addRow(1, scrollPane)
     chatGrid.addRow(2, inputGrid)
-    //chatGrid.addColumn(0, statementGrid, scrollPane, inputGrid)
 
     border.center = chatGrid
 
 
     //Right: User
     val userList = new ListView[TwitterUser]
-    userList.items = Controller.getChatMembers(statement)
-    Controller.getChatMembers(statement).onChange({
-      userList.items = Controller.getChatMembers(statement)
+    userList.items = Controller.getUsers
+    Controller.getUsers.onChange({
+      userList.items = Controller.getUsers
+
     })
     border.right = userList
 
@@ -653,9 +660,12 @@ final object ClientView extends JFXApp {
   def enterChatRoomButton(statement: Statement): Button = {
     val enterChatRoomButton = new Button("Enter Chat Room")
     enterChatRoomButton.onAction = e => {
-      if (!Controller.chatRoomsContainStatement(statement)) {
-        Controller.setStatementInChatRooms(statement)
+      Controller.getChatRooms.add(statement)
+
+      if (!currentChats.contains(statement.ID)){
+        currentChats.put(statement.ID, statement)
       }
+
       Controller.subscribe(statement, true)
     }
     return enterChatRoomButton

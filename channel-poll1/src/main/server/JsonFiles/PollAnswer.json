@@ -1,5 +1,48 @@
 {
   "data": [
-
+    {
+      "selectedoptionstr": "ja",
+      "question": "frage",
+      "pollid": 8332849526912450560,
+      "statementid": 833284952691245056,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:54 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja",
+      "question": "frage",
+      "pollid": 8332849526912450560,
+      "statementid": 833284952691245056,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:54 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja",
+      "question": "frage",
+      "pollid": 8332849526912450560,
+      "statementid": 833284952691245056,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:58 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja",
+      "question": "frage",
+      "pollid": 8332849526912450560,
+      "statementid": 833284952691245056,
+      "type": "pollanswer",
+      "userid": 826426233999196164,
+      "selectedoptionkey": 1,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:58 CET 2017"
+    }
   ]
 }

@@ -31,7 +31,7 @@ final object Controller {
 
   def setStatementInComments(statement: Statement) = ClientControl.comments += statement.ID -> new ObservableBuffer[Comment]
 
-  def setStatementInChatRooms(statement: Statement) = ClientControl.chatRooms += statement -> new ObservableBuffer[TwitterUser]
+  //def setStatementInChatRooms(statement: Statement) = ClientControl.chatRooms += statement -> new ObservableBuffer[TwitterUser]
 
   def getTwitterUser = ClientControl.user
 
@@ -45,9 +45,9 @@ final object Controller {
 
   def getChatRooms = ClientControl.chatRooms
 
-  def getUserChatRooms(user: TwitterUser) = ClientControl.userChatRooms.get(user).get
+  //def getUserChatRooms(user: TwitterUser) = ClientControl.userChatRooms.get(user).get
 
-  def getChatMembers(statement: Statement) = ClientControl.chatRooms.get(statement).get
+  //def getChatMembers(statement: Statement) = ClientControl.chatRooms.get(statement).get
 
   def getPollsForStatement(statement: Statement): ObservableBuffer[Poll] = {
     if (!ClientControl.polls.contains(statement.ID)) {
@@ -61,9 +61,11 @@ final object Controller {
   }
 
 
+  /*
   def addStatementToChatRooms(statement: Statement): Unit = {
     ClientControl.chatRooms.put(statement, new ObservableBuffer[TwitterUser]())
   }
+  */
 
 
   def getCommentsForStatement(statement: Statement): ObservableBuffer[Comment] = {

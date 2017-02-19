@@ -1,5 +1,46 @@
 {
   "data": [
-
+    {
+      "question": "frage",
+      "statementid": 833284952691245056,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "ja",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "nein",
+          "likes": 0
+        }
+      ],
+      "id": 8332849526912450560,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:47 CET 2017"
+    },
+    {
+      "question": "frage",
+      "statementid": 833284952691245056,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "ja",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "nein",
+          "likes": 0
+        }
+      ],
+      "id": 8332849526912450560,
+      "type": "poll",
+      "userid": 826426233999196164,
+      "username": "brendaavdijaj",
+      "timestamp": "Sun Feb 19 13:06:47 CET 2017"
+    }
   ]
 }
