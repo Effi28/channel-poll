@@ -608,12 +608,26 @@ final object ClientView extends JFXApp {
     chatRoomInformation.addColumn(0, enterChatRoomButton(statement))
 
 
+
     //Falls Chatroom bereits Kommentare enthält, soll deren Anzahl angezeigt werden
     if (Controller.statementContainsComments(statement)) {
+      Platform.runLater {
+        var numberOfComments = Controller.getNumberOfComments(statement)
+        val commentInfo = new Text("Comments: " + numberOfComments)
+        chatRoomInformation.addColumn(1, commentInfo)
+      }
+    }
+
+    //TODO
+    /*
+    Controller.getCommentsForStatement(statement).onChange({
+      println("hhhhhh")
       var numberOfComments = Controller.getNumberOfComments(statement)
       val commentInfo = new Text("Comments: " + numberOfComments)
       chatRoomInformation.addColumn(1, commentInfo)
-    }
+    })
+    */
+
 
 
     //Falls Chatroom bereits Umfragen enthält, soll deren Anzahl angezeigt werden
@@ -678,6 +692,10 @@ final object ClientView extends JFXApp {
     }
     return logoutButton
   }
+
+
+
+
 
 
   //Gibt das Datum eines Objektes (Comment oder Poll) zurück
