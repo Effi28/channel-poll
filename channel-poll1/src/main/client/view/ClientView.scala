@@ -21,7 +21,7 @@ import scalafx.scene.paint.Color._
 
 
 final object ClientView extends JFXApp {
-  var pollTemplateIsVisible = false
+
 
   def getStage(): PrimaryStage = {
     stage = new PrimaryStage {
@@ -132,8 +132,9 @@ final object ClientView extends JFXApp {
 
   //Erzeugt den Inhalt eines Statement-Tabs (Chats) und gibt diesen zurück
   def statementTabContent(statement: Statement): BorderPane = {
+    import scalafx.geometry.Pos
     val border = new BorderPane()
-
+    var pollTemplateIsVisible = false
 
     //Center: Content
 
@@ -332,7 +333,7 @@ final object ClientView extends JFXApp {
           val question = questionInputField.getText
 
           if (question.length == 0) {
-            warning.text = "The 'Question' input field cannot be empty!\n"
+            warning.text = "Complete the fields!\n"
             pollIsValid = false
           }
 
@@ -347,7 +348,7 @@ final object ClientView extends JFXApp {
 
 
             if (optionInputField.getText.length == 0) {
-              warning.text = "The 'Option " + key + "' input field cannot be empty!\n"
+              warning.text = "Complete the fields!\n"
               pollIsValid = false
             }
 
@@ -388,9 +389,10 @@ final object ClientView extends JFXApp {
     pollButton.maxWidth = Double.MaxValue
     inputGrid.add(sendButton, 2, 0, 1, 1)
     inputGrid.add(pollButton, 2, 1, 1, 1)
-    inputGrid.add(pollTemplate, 0, 2, 3, 1)
+    inputGrid.add(pollTemplate, 0, 2, 2, 1)
     inputGrid.maxHeight = Double.MinValue
     inputGrid.maxWidth = Double.MaxValue
+    inputGrid.alignment = Pos.BottomLeft
 
     scrollPane.maxHeight = Double.MaxValue
     scrollPane.maxWidth = Double.MaxValue
@@ -660,6 +662,7 @@ final object ClientView extends JFXApp {
   //Logout-Button
   def logoutButton(): Button = {
     val logoutButton = new Button("Logout")
+    logoutButton.margin = Insets(3)
     logoutButton.onAction = e => {
       Controller.logout
     }
