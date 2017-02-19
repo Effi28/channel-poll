@@ -2,8 +2,7 @@
 2. Users need a Twitter account for the Backchannel APP
 3. Maybe you need to add the libraries from lib manually to your Project
 4. Start the Server which is located in src.main.server.Server
-5. Start a/multiple Clients which are located in src.main.client.view.LoginView
+5. Start the Client which is located in src.main.client.view.LoginView
 
-Make sure you always have the current Version from:
-
-https://github.com/Effi28/channel-poll/tree/master/channel-poll1
+Currently the server/client uses port 8008.
+One can adjust the port in main.server.Server and main.client.model.ClientControl

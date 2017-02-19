@@ -87,6 +87,17 @@
       "selectedoptionkey": 1,
       "username": "brendaavdijaj",
       "timestamp": "Sun Feb 19 16:09:37 CET 2017"
+    },
+    {
+      "selectedoptionstr": "ja",
+      "question": "ist das gut?",
+      "pollid": 8333288285252116484,
+      "statementid": 833328828525211648,
+      "type": "pollanswer",
+      "userid": 599530276,
+      "selectedoptionkey": 1,
+      "username": "m_fromm_91",
+      "timestamp": "Sun Feb 19 17:58:19 CET 2017"
     }
   ]
 }
