@@ -1,15 +1,6 @@
 {
   "data": [
     {
-      "pictureurl": "http://pbs.twimg.com/profile_images/378800000579169921/83827302e1e66cb1d305c4b12cb6fac6_normal.jpeg",
-      "id": 833297065610452993,
-      "type": "statement",
-      "message": "RT @PeterMeiwald: Glückwunsch an Katja #Keul zu Platz 5 auf der Landesliste @gruenelvnds f.d. #btw17 #ldknds",
-      "userid": 1953514867,
-      "username": "P. Kuchenbuch-Hanken",
-      "timestamp": "Sun Feb 19 13:47:57 CET 2017"
-    },
-    {
       "pictureurl": "http://pbs.twimg.com/profile_images/788200566493249537/oYOwzwqz_normal.jpg",
       "id": 833304415914299392,
       "type": "statement",
@@ -170,6 +161,15 @@
       "userid": 31696092,
       "username": "DW | Sport",
       "timestamp": "Sun Feb 19 16:01:54 CET 2017"
+    },
+    {
+      "pictureurl": "http://pbs.twimg.com/profile_images/522107428481941504/xUAHaEca_normal.jpeg",
+      "id": 833342976285884416,
+      "type": "statement",
+      "message": "RT @gscheitle: #Merkel: \"Europa braucht mehr Muslim-Migranten\" https://t.co/AhCO19cZvE … Ist die Olle total verrückt geworden? Bald Bürgerk…",
+      "userid": 378726636,
+      "username": "gscheitle",
+      "timestamp": "Sun Feb 19 16:50:22 CET 2017"
     }
   ]
 }
