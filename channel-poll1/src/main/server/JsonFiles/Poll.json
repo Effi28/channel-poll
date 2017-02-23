@@ -83,6 +83,27 @@
       "userid": 826426233999196164,
       "username": "brendaavdijaj",
       "timestamp": "Sun Feb 19 16:08:32 CET 2017"
+    },
+    {
+      "question": "ist das gut?",
+      "statementid": 833328828525211648,
+      "options": [
+        {
+          "key": 1,
+          "optionsstr": "ja",
+          "likes": 0
+        },
+        {
+          "key": 2,
+          "optionsstr": "nein",
+          "likes": 0
+        }
+      ],
+      "id": 8333288285252116484,
+      "type": "poll",
+      "userid": 599530276,
+      "username": "m_fromm_91",
+      "timestamp": "Sun Feb 19 17:57:18 CET 2017"
     }
   ]
 }

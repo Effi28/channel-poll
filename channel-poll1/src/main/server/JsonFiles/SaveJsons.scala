@@ -3,8 +3,9 @@ package main.server.JsonFiles
 import java.io._
 
 import com.google.gson._
+import main.shared.enums.JsonType
 import org.json.{JSONArray, JSONObject}
-
+import main.shared.enums.JsonType
 import scala.collection.mutable.Queue
 import scala.io.Source
 
@@ -54,12 +55,14 @@ final object SaveJsons {
   var writePollsFlag = false
 
   private def save_json(newJson: JSONObject): Unit = {
-    val jsonType: String = newJson.optString("type")
-    matchRightFile(jsonType, newJson)
+    if(newJson.length() != 0){
+      val jsonType: JsonType.JsonType = JsonType.withName(newJson.optString("type"))
+      matchRightFile(jsonType, newJson)
+    }
   }
 
-  private def matchRightFile(jsonType: String, newJSON: JSONObject) = jsonType match {
-    case "poll" =>
+  private def matchRightFile(jsonType: JsonType.JsonType, newJSON: JSONObject) = jsonType match {
+    case JsonType.POLL =>
       val pollsString = Source.fromFile(pathToPolls).getLines.mkString
       val pollsJson = new JSONObject(pollsString)
       var polls: JSONArray = pollsJson.getJSONArray("data")
@@ -68,7 +71,7 @@ final object SaveJsons {
       val newPolls = createNewStr(polls)
       finalSave(pathToPolls, newPolls)
 
-    case "pollanswer" =>
+    case JsonType.POLLANSWER=>
       val pollAnswersString = Source.fromFile(pathToPollAnswers).getLines.mkString
       val pollAnswersJson = new JSONObject(pollAnswersString)
       var pollAnswers: JSONArray = pollAnswersJson.getJSONArray("data")
@@ -77,7 +80,7 @@ final object SaveJsons {
       val newPollAnswers = createNewStr(pollAnswers)
       finalSave(pathToPollAnswers, newPollAnswers)
 
-    case "comment" =>
+    case JsonType.COMMENT =>
       val commentsString = Source.fromFile(pathToComments).getLines.mkString
       val commentsJson = new JSONObject(commentsString)
       var comments: JSONArray = commentsJson.getJSONArray("data")
@@ -86,13 +89,15 @@ final object SaveJsons {
       val newComments = createNewStr(comments)
       finalSave(pathToComments, newComments)
 
-    case "statement" =>
+    case JsonType.STATEMENT =>
       var statements = loadStatements()
       statements.put(newJSON)
       // don't save more than 20 statemets
       statements = checkLength(statements, 20)
       val newStatements = createNewStr(statements)
       finalSave(pathToStatements, newStatements)
+
+    case _ => print ("NOTHING MATCHED" + newJSON.toString())//TODO
   }
 
   private def checkLength(array: JSONArray, maxlength: Int): JSONArray = {

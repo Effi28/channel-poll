@@ -12,18 +12,18 @@ import twitter4j.auth.{AccessToken, RequestToken}
   * Created by KathrinNetzer on 28.01.2017.
   */
 final object TwitterLogin extends HttpServlet {
-  var a: AccessToken = null
-  var r: RequestToken = null
-  var m: Twitter = null
+  var accssTkn: AccessToken = null
+  var rqstTkn: RequestToken = null
+  var twtr: Twitter = null
 
   def startLogin(): URL = {
     try {
-      val TwttrFctry: TwitterFactory = new TwitterFactory(TwitterSettings.settings.build())
-      m = TwttrFctry.getInstance()
-      r = m.getOAuthRequestToken()
-      while (null == a) {
-        val authUrl = new URL(r.getAuthorizationURL())
-        return authUrl
+      val TwttrFctry: TwitterFactory = new TwitterFactory(TwitterSettings.usersettings.build())
+      twtr = TwttrFctry.getInstance()
+      rqstTkn = twtr.getOAuthRequestToken()
+      while (null == accssTkn) {
+        val userAuthUrl = new URL(rqstTkn.getAuthorizationURL())
+        return userAuthUrl
       }
     }
     catch {
@@ -38,16 +38,16 @@ final object TwitterLogin extends HttpServlet {
     val defUser: TwitterUser = new TwitterUser(userid, username)
 
     if (loginCode.length > 0) {
-      a = m.getOAuthAccessToken(r, loginCode)
-      username = m.getScreenName
-      userid = m.getId
+      accssTkn = twtr.getOAuthAccessToken(rqstTkn, loginCode)
+      username = twtr.getScreenName
+      userid = twtr.getId
       val fullUser: TwitterUser = new TwitterUser(userid, username)
-      val hasAccess = checkIfAccess(a)
+      val hasAccess = checkIfAccess(accssTkn)
       return (hasAccess, fullUser)
     } else {
-      a = m.getOAuthAccessToken(r)
+      accssTkn = twtr.getOAuthAccessToken(rqstTkn)
     }
-    val hasAccess = checkIfAccess(a)
+    val hasAccess = checkIfAccess(accssTkn)
     return (hasAccess, defUser)
   }
 

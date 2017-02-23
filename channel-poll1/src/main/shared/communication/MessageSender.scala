@@ -13,16 +13,9 @@ abstract class MessageSender {
     writeMessage(MessageBuilder.writeLogout(user))
   }
 
-  def writeData(serializable: Serializable): Unit ={
+  def writeData(serializable: Serializable): JSONObject ={
     val json:JSONObject = MessageBuilder.writeData(serializable)
     writeMessage(json)
-    queueIt(serializable, json)
-  }
-
-  private def queueIt(serializable: Serializable, json: JSONObject) = serializable match {
-    case poll:Poll =>   SaveJsons.pollsQueue += json
-    case pollAnswer:PollAnswer =>  SaveJsons.pollsAnswersQueue += json
-    case comment:Comment => SaveJsons.commentsJsonQueue += json
-    case statement:Statement => SaveJsons.statementsJsonQueue += json
+    json
   }
 }
